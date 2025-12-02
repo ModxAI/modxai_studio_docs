@@ -93,9 +93,21 @@ RAG data processing includes 6 steps. The first 4 steps are shared with SFT text
 
 | Parameter | Description | Default | Suggestion |
 | :--- | :--- | :--- | :--- |
-| **Min Paragraph Length** | Paragraphs below this character count will be filtered. | 3 | Adjust according to content type; technical documents can be set larger. |
-| **Sample Scope** | Scope of cleaning rules application. | Structure | `Structure` - Only clean structural areas like headers/footers.<br>`Full Text` - Apply cleaning rules to full text. |
-| **Cleaning Samples** | Custom content to be removed. | Empty | Separate multiple samples with `\|`, e.g., `All Rights Reserved\|Copyright\|Contact Us`.<br>Suggest each sample not exceed 20 characters. |
+| **Min Paragraph Length** | Paragraphs below this character count will be filtered | 3 | Technical documents can be set to 5-10 |
+| **Sample Scope** | Scope of cleaning rules application | Structure | `Structure` - Only clean structural areas<br>`Full Text` - Apply to full text |
+| **Noise Phrases Mode** | Matching mode for cleaning samples | plain | plain=prefix match; wildcard=supports *; regex=regex match |
+| **Noise Samples** | Custom content to be removed | Empty | Separate multiple samples with `\|` |
+| **Link Line Removal Level** | Deletion level for lines containing links | 2 | 0=keep all; 1=remove local/private paths; 2=remove all links |
+
+**Advanced Parameters (Collapsible)**:
+
+| Parameter | Description | Default | Suggestion |
+| :--- | :--- | :--- | :--- |
+| **Strip Private IP URLs** | Whether to strip lines containing private IP URLs | Enabled | Recommended to enable to avoid internal address leakage |
+| **Preserve Rich Link Lines** | Whether to preserve lines with links but rich content | Disabled | Enable to preserve valuable reference descriptions |
+| **Strip URLs in Code Blocks** | Whether to replace URLs in code blocks with [REDACTED_URL] | Disabled | Decide based on security requirements |
+| **Rich Words Threshold** | Words threshold to determine rich text | 12 | Used to judge whether to preserve link lines |
+| **Rich Length Threshold** | Character length threshold for rich text | 80 | Works with words threshold for comprehensive judgment |
 
 **Usage Suggestions**:
 - If the document source is single (e.g., company internal documents), you can add unified footer information as cleaning samples.
@@ -241,11 +253,7 @@ After completing RAG data processing, you can enable knowledge base retrieval in
 - **View List**: You can see all available knowledge base collections in the parameter drawer.
 - **Delete Collection**: Click the delete button next to the collection to remove the knowledge base.
 - **Delete Note**: Delete operation only removes collection configuration, **does not delete stored vector data files**.
-
-### Current Limitations
-
-- Re-importing existing vector databases is currently not supported.
-- If you need to update knowledge base content, it is recommended to use a new collection name or re-process after cleaning.
+- **Re-import**: Supports re-importing deleted collections, provided the vector data files still exist.
 
 ---
 

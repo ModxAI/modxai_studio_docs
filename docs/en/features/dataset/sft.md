@@ -174,7 +174,19 @@ Use dedicated parsers to analyze code structure:
 | :--- | :--- | :--- | :--- |
 | **Min Paragraph Length** | Paragraphs below this character count will be filtered | 3 | Technical documents can be set to 5-10 |
 | **Sample Scope** | Scope of cleaning rules application | Structure | `Structure` - Only clean structural areas<br>`Full Text` - Apply to full text |
-| **Cleaning Samples** | Custom content to be removed | Empty | Separate multiple samples with `\|` |
+| **Noise Phrases Mode** | Matching mode for cleaning samples | plain | plain=prefix match; wildcard=supports *; regex=regex match |
+| **Noise Samples** | Custom content to be removed | Empty | Separate multiple samples with `\|` |
+| **Link Line Removal Level** | Deletion level for lines containing links | 2 | 0=keep all; 1=remove local/private paths; 2=remove all links |
+
+**Advanced Parameters (Collapsible)**:
+
+| Parameter | Description | Default | Suggestion |
+| :--- | :--- | :--- | :--- |
+| **Strip Private IP URLs** | Whether to strip lines containing private IP URLs | Enabled | Recommended to enable to avoid internal address leakage |
+| **Preserve Rich Link Lines** | Whether to preserve lines with links but rich content | Disabled | Enable to preserve valuable reference descriptions |
+| **Strip URLs in Code Blocks** | Whether to replace URLs in code blocks with [REDACTED_URL] | Disabled | Decide based on security requirements |
+| **Rich Words Threshold** | Words threshold to determine rich text | 12 | Used to judge whether to preserve link lines |
+| **Rich Length Threshold** | Character length threshold for rich text | 80 | Works with words threshold for comprehensive judgment |
 
 ---
 
