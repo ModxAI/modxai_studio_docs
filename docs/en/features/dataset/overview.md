@@ -231,6 +231,13 @@ Using AI nodes (Step 4, 8) requires ensuring:
 1. **Available Chat Model in Model Library**: AI nodes use chat models for data synthesis and filtering.
 2. **Select Model in Step Parameters**: Click the settings button of the step to select the AI model to use.
 
+### Processing Features
+1. Stable and efficient processing of **large-scale data**
+2. **Progress tracking and recovery**
+3. **Automatic repair of abnormal data blocks**, attempting to automatically repair abnormal data blocks first after restarting
+4. **Incremental processing** to avoid reprocessing completed data
+5. **Model status monitoring**, automatic model restart upon detecting anomalies, and timeout retry mechanisms
+
 ### Model Reuse Mechanism
 
 AI nodes in SFT data processing support reusing loaded chat models:
@@ -281,6 +288,7 @@ Step 4 (Generate Vector) of RAG data processing requires:
 | SFT Text Processing | No **Settings** environment needed (Basic steps) |
 | SFT Code Processing | Environment needed in **Settings** (Parsing step depends on libclang) |
 | SFT AI Node | Chat model must be imported |
+| RAG AI Node | Chat model must be imported |
 | RAG Vector Generation | Embedding model must be imported, Environment needed in **Settings** + Embedding model |
 | Audio to Text | Environment needed in **Settings** (GPU environment recommended) |
 ### FAQ

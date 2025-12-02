@@ -238,7 +238,7 @@ Use dedicated parsers to analyze code structure:
 
 **Function**: Use AI models to analyze data chunks and generate Q&A pairs or analysis content for training.
 
-This is the core step of SFT data processing, automatically converting raw text/code into structured data through AI capabilities.
+Automatically convert raw text/code into structured data such as analysis, Q&A pairs, or even custom-styled structured data through AI capabilities.
 
 **Task Types**:
 
@@ -262,11 +262,11 @@ See [AI Node Configuration](#ai-node-configuration) chapter for detailed AI para
 
 ---
 
-### Step 5: AI Synthesis Parse (Automatic)
+### Step 5: AI Synthesis Parse (Optional)
 
-**Function**: Parse AI output from Step 4 and extract structured data.
+**Function**: Parse AI output from Step 4 and extract structured data. Exclude invalid content.
 
-This step executes automatically after Step 4 completes, parsing AI's free text output into standardized format.
+This step is recommended to be executed after Step 4 completes, cleaning the AI output to ensure high-quality data for subsequent steps.
 
 ---
 
@@ -317,7 +317,7 @@ This step is used when you select the "Pretrain" template. The output format is 
 
 > ⚠️ **Important Warning**:
 > 
-> AI filtering requires using a **model with strong analysis capabilities** (e.g., models with 14B+ parameters). Using a model with insufficient capabilities may:
+> AI filtering requires using a **model with strong analysis capabilities** (e.g., models with 4B+ parameters). Using a model with insufficient capabilities may:
 > - Incorrectly mark high-quality data as low quality.
 > - Retain actually problematic data.
 > - Lead to a decline in final dataset quality.
@@ -493,9 +493,8 @@ NumPy binary format, suitable for direct loading by training frameworks:
 
 ### AI Model Selection
 
-1. **Synthesis Step**: Recommend using models with 7B+ parameters.
-2. **Filter Step**: Recommend using models with 14B+ parameters.
-3. **Local Model**: Ensure llama.cpp service is started.
+1. **Synthesis Step**: Recommend using models with 4B+ parameters.
+2. **Filter Step**: Recommend using models with 4B+ parameters.
 
 ---
 
