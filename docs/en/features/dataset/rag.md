@@ -146,7 +146,7 @@ Cleans invalid content from documents to improve data quality.
 | **Minimum paragraph length** | Paragraphs with fewer characters will be removed | 3 | Adjust based on content type; set higher for technical docs |
 | **Sample scope** | Scope where cleaning rules are applied | Structure | `Structure` – only structural areas such as headers/footers<br>`Full` – apply rules to the entire document |
 | **Noise phrase match mode** | Matching mode for cleaning samples | plain | plain = prefix match; wildcard = `*` wildcard; regex = regular expressions |
-| **Noise samples** | Custom content to be removed | Empty | Separate multiple samples with `\|`, e.g.: `\|Copyright\`<br>Each sample is recommended to be under 20 characters |
+| **Noise samples** | Custom content to be removed | Empty | Separate multiple samples with `\|`, e.g.: `\about us\`<br>Each sample is recommended to be under 20 characters |
 | **Link-line removal level** | Removal level for lines containing links | 2 | 0 = do not remove; 1 = remove local/private paths; 2 = remove all links |
 
 **Advanced Parameters (collapsed):**
