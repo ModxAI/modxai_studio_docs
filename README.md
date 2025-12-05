@@ -1,10 +1,11 @@
 <div align="right">
 
-[English](#modxaistudio) | [简体中文](#modxaistudio-中文)
+[English](#modxai-studio) | [简体中文](#modxai-studio-zh)
 
 </div>
 
 # ModxAI Studio
+<a id="modxai-studio"></a>
 
 > Local-first AI studio for chat, models, data, training and SD — with one-click environments.
 
@@ -123,6 +124,7 @@ This documentation repository is not a license grant for those projects; please 
 
 ---
 
+<a id="modxai-studio-zh"></a>
 ## ModxAI Studio（中文）
 
 > 一款面向个人与小团队的本地 AI 工作站，将对话、模型管理、数据处理、训练和 SD 图像 / 视频生成整合在同一个桌面应用中。
