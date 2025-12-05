@@ -38,6 +38,15 @@ SD Chat uses Stable Diffusion models for image and video generation. Before usin
 1. Successfully loaded a **Stable Diffusion (Image Generation)** type model in **Model Library**
 2. The model's supported generation modes (text-to-image/image-to-image/video) will affect available features
 
+> **GPU Acceleration Libraries (Important)**
+>
+> - **NVIDIA (Recommended; Required for SD)**:
+>   - If an NVIDIA discrete GPU is detected, it is recommended to install the corresponding CUDA acceleration libraries via "Model Library → ⚡ button → Install GPU Acceleration Libraries". Chat/multimodal models perform best on NVIDIA+CUDA; Stable Diffusion (SD, image generation) currently only supports CUDA, so to use SD features, CUDA acceleration libraries must be installed first.
+>   - After installing or updating the acceleration libraries, there is no need to restart the application. The changes will take effect the next time a model is loaded.
+> - **AMD (Limited)**:
+>   - AMD GPUs can use built-in Vulkan acceleration to run chat/multimodal models (no additional installation required), but SD inference currently does not support AMD/Vulkan, so SD features cannot be used on AMD GPUs.
+> - **No Discrete GPU / Integrated GPU**:
+>   - If no discrete NVIDIA GPU is detected, the "Install GPU Acceleration Libraries" button will not be shown. Chat models can run on CPU or platform Vulkan (in supported scenarios), but performance will be limited.
 ---
 
 ## Feature Introduction

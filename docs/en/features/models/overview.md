@@ -42,6 +42,17 @@ The following model types **do not** require environment and can be used directl
 
 If you need to use features dependent on Python, please go to the **Settings** page to install the CPU or GPU environment.
 
+
+> **GPU Acceleration libraries (Important)**
+>
+> - NVIDIA (recommended):
+>   - If you have an NVIDIA GPU, install the CUDA acceleration libraries using the “Install GPU Acceleration Libraries” option in the Model Library ⚡ button. Chat/multimodal models run fastest on NVIDIA+CUDA; Stable Diffusion (SD, image generation) currently requires CUDA and will only run after the CUDA libraries are installed.
+>   - After installing or updating the acceleration libraries, there is no need to restart the application. The changes will take effect the next time a model is loaded.
+> - AMD (limitations):
+>   - AMD GPUs can use the built-in Vulkan acceleration for chat/multimodal models (no extra library needed), but SD inference is not supported on AMD/Vulkan at this time.
+> - No discrete GPU / integrated GPUs:
+>   - If no NVIDIA discrete GPU is detected, the “Install GPU Acceleration Libraries” control will not appear. You can still use CPU or platform Vulkan (where supported) for chat models, but performance will be limited.
+
 ---
 
 ## Interface Layout

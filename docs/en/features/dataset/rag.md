@@ -41,7 +41,7 @@ Unlike traditional full-text search, a RAG system understands the **semantic mea
 
 **Typical use cases:**
 
-- Enterprise internal knowledge base Q&A  
+- internal knowledge base Q&A  
 - Product documentation intelligent support  
 - Retrieval of professional domain materials  
 - Personal knowledge management assistant  
