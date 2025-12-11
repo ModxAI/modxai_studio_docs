@@ -37,6 +37,10 @@
 
 - [图像与视频生成](./features/sdchat/overview.md)
 
+### TTS 语音合成
+
+- [语音合成概览](./features/tts/overview.md)
+
 ### 设置
 
 - [设置概览](./features/settings/overview.md)

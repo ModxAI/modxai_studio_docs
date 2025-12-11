@@ -37,6 +37,10 @@
 
 - [Image & Video Generation](./features/sdchat/overview.md)
 
+### TTS Speech Synthesis
+
+- [Speech Synthesis Overview](./features/tts/overview.md)
+
 ### Settings
 
 - [Settings Overview](./features/settings/overview.md)

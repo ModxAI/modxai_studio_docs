@@ -232,16 +232,35 @@ GPU environment installation will **asynchronously attempt** to install the foll
 |--------------|---------|-------------|
 | bitsandbytes | 4/8-bit quantization | Reduce VRAM usage, accelerate training |
 
+### TTS Optional Dependencies
+
+TTS (Text-to-Speech) feature requires the following optional dependencies, **installed asynchronously** after main environment installation:
+
+| Library Name | Purpose | Description |
+|--------------|---------|-------------|
+| misaki[en,zh] | G2P conversion | Grapheme-to-Phoneme conversion, supports Chinese and English |
+
+> ⚠️ **TTS Dependency Installation Notes**:
+> - misaki library is forcibly installed from **PyPI official source**, as domestic mirror sources have incomplete extras dependency resolution
+> - Users in mainland China may experience slow downloads or failures, please maintain stable network connection
+> - Installation failure does not affect main environment, can retry via **Reinstall** or **Repair Environment**
+> - After successful installation, refresh environment status to confirm if TTS capability is available
+
 ### Optional Model Resources
 
 After installation completion, the following model resources will be downloaded asynchronously:
 
 | Resource | Size | Purpose |
 |----------|------|---------|
-| en_core_web_sm | ~12 MB | spaCy English model |
-| zh_core_web_sm | ~40 MB | spaCy Chinese model |
+| en_core_web_sm | ~14 MB | spaCy English model (NLP processing, TTS English G2P) |
+| zh_core_web_sm | ~75 MB | spaCy Chinese model (Chinese segmentation, TTS Chinese G2P) |
 
-> 💡 **Note**: Model resource download failure does not affect environment installation status, will automatically retry download when using related features later.
+> 💡 **Note**:
+> - Model resource download failure does not affect environment installation status, you can try downloading again when using related features later. 
+> - **TTS Feature Dependency**: TTS speech synthesis feature requires spaCy models for G2P conversion
+> - **Asynchronous Download Delay**: These models are **downloaded asynchronously** after main environment installation completes, download time depends on network conditions and may be delayed by tens of seconds to several minutes
+> - **Capability Status**: After main environment installation completes, please **refresh environment status** to confirm if various capabilities (including TTS) are available
+> - If TTS capability shows as unavailable, can try **restart application** or **repair installation** to download related dependencies again
 
 ---
 

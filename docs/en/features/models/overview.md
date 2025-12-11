@@ -75,6 +75,7 @@ The Model Library page is divided into the following areas:
 - **Rerank Model**: Used for reordering retrieval results.
 - **Multimodal Model**: Supports image-text understanding.
 - **SD Model**: Stable Diffusion image generation model.
+- **TTS Model**: Text-to-Speech model.
 
 ### Model List Table
 
@@ -214,6 +215,34 @@ Rerank models use a cross-encoder architecture with high computational complexit
 - Supports LoRA adapters (all lora files in the directory, multiple can be used simultaneously).
 - Supports separate VAE, CLIP, T5XXL components.
 - Supports capability tag management.
+
+### TTS Model (Speech Synthesis)
+
+**Usage**: Text-to-Speech, supports multiple voice synthesis.
+
+**Format Support**:
+- `.pth`: Kokoro series model weight file.
+- Requires `config.json` configuration file and `.pt` voice files.
+
+**Environment Requirements**: Requires CPU or GPU environment.
+
+**Quota Consumption**: Quota deducted per generation.
+
+**Supported Languages**:
+- **American English (a)**: American English
+- **British English (b)**: British English
+- **Mandarin (z)**: Mandarin Chinese
+
+**Features**:
+- Supports automatic language detection.
+- Supports multiple preset voices (af_heart, am_adam, etc.).
+- Supports speed adjustment (0.5x - 2.0x).
+- Supports CUDA acceleration and CPU inference.
+
+> ⚠️ **Usage Limitations**:
+> - Current version only supports Chinese and English
+> - Some AMD CPUs may have compatibility issues
+> - NVIDIA GPU environment recommended for best performance
 
 ---
 

@@ -30,6 +30,15 @@ Creative generation using Stable Diffusion models:
 - **Image-to-Image**: Perform style transfer or content modification based on existing images.
 - **Video Generation**: Supports video generation models like the Wan series.
 
+### 🎤 TTS Speech Synthesis
+
+Text-to-speech using local TTS models:
+
+- **Bilingual Support**: Supports speech synthesis for Chinese and English text.
+- **Multiple Voice Selection**: Provides multiple preset voices to choose from.
+- **Speed Adjustment**: Can adjust speech playback speed.
+- **Automatic Language Detection**: Automatically identifies language based on input text.
+
 ### 📚 Model Library Management
 
 Unified management of various AI models:

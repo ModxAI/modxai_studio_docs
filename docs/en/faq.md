@@ -23,6 +23,7 @@ This document summarizes common questions and solutions when using ModxAI Studio
 | Multimodal Chat | **No** (Uses llama.cpp) |
 | Embedding/Rerank Models | **Yes** (CPU or GPU environment) |
 | SD Image Generation | **Yes** (CPU or GPU environment) |
+| TTS Speech Synthesis | **Yes** (CPU or GPU environment, GPU recommended) |
 | Model Training | **Yes** (GPU environment recommended) |
 | Audio to Text | **Yes** (GPU environment recommended) |
 
@@ -189,6 +190,47 @@ Lower the **Denoising Strength** parameter, recommended 0.3-0.6.
 | 4GB | 512x512, Steps 20-30 |
 | 8GB | 768x768, Steps 30-50 |
 | 12GB+ | 1024x1024, Steps 50+ |
+
+---
+
+## TTS Speech Synthesis
+
+### TTS feature unavailable?
+
+Check the following:
+1. Has environment been installed in Settings
+2. Has status been refreshed after environment installation
+3. Is TTS capability shown as available
+4. Has TTS model been loaded
+
+### TTS dependency installation is slow?
+
+- misaki library is installed from PyPI official source, may be slow on domestic networks
+- Keep network stable during installation
+- If timeout fails, retry by reinstalling environment
+
+### TTS capability shows as unavailable?
+
+- spaCy models that TTS depends on are downloaded asynchronously, may be delayed by tens of seconds to several minutes
+- After main environment installation completes, please wait and refresh environment status
+- If still unavailable, try restarting application or repair installation
+
+### Generated speech sounds unnatural?
+
+- Check if input text has grammatical errors
+- Try different voice presets
+- Adjust speed parameter
+- Ensure language setting matches text content
+
+### TTS only supports Chinese and English?
+
+Yes, current version only supports Chinese and English. Other languages like Japanese require additional dependencies, not built-in yet.
+
+### TTS inference failed?
+
+- Some AMD CPUs may have compatibility issues
+- Recommend using NVIDIA GPU environment
+- Check if model is correctly loaded
 
 ---
 
