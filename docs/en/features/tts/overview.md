@@ -215,7 +215,7 @@ System includes multiple voice presets:
 
 1. **TTS Dependencies**
    - TTS feature depends on misaki library for G2P (Grapheme-to-Phoneme) conversion
-   - This library is installed from PyPI official source, which may be slow in mainland China
+   - This library is installed from PyPI official source, which may be slow in Chinese mainland
    - Installation failure does not affect main environment, can be fixed by reinstalling
 
 2. **spaCy Models**
@@ -283,7 +283,7 @@ A: Try the following adjustments:
 3. Adjust speed parameter
 4. Ensure language setting matches text content
 
-**Q: TTS dependency installation is slow in mainland China, what to do?**
+**Q: TTS dependency installation is slow in Chinese mainland, what to do?**
 
 A:
 1. misaki library is installed from PyPI official source, may be slow on domestic networks

@@ -242,7 +242,7 @@ TTS (Text-to-Speech) feature requires the following optional dependencies, **ins
 
 > ⚠️ **TTS Dependency Installation Notes**:
 > - misaki library is forcibly installed from **PyPI official source**, as domestic mirror sources have incomplete extras dependency resolution
-> - Users in mainland China may experience slow downloads or failures, please maintain stable network connection
+> - Users in Chinese mainland may experience slow downloads or failures, please maintain stable network connection
 > - Installation failure does not affect main environment, can retry via **Reinstall** or **Repair Environment**
 > - After successful installation, refresh environment status to confirm if TTS capability is available
 
@@ -342,7 +342,7 @@ Start → Prepare Portable Python → Pre-clean Check → Install Training Envir
 | verify | Verify environment integrity | 1-2 minutes |
 | finalize | Refresh status and complete | < 1 minute |
 
-> 💡 **Time Note**: Actual installation time depends on network speed and selected mirror source. Users in mainland China are recommended to select (Alibaba Cloud/Tencent Cloud) mirror sources which are usually faster.
+> 💡 **Time Note**: Actual installation time depends on network speed and selected mirror source. Users in Chinese mainland are recommended to select (Alibaba Cloud/Tencent Cloud) mirror sources which are usually faster.
 
 ---
 

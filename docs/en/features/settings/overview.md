@@ -99,7 +99,7 @@ The system checks whether the following requirements are met:
 ### Installation Process
 
 1. Select environment type (CPU or GPU)
-2. Select mirror source (users in mainland China are recommended to choose Alibaba Cloud or Tencent Cloud)
+2. Select mirror source (users in Chinese mainland are recommended to choose Alibaba Cloud or Tencent Cloud)
 3. Click the "Install" button
 4. Wait for installation to complete (progress bar and logs displayed)
 5. After successful installation, related feature modules become available without restarting the application

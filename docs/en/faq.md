@@ -33,7 +33,7 @@ This document summarizes common questions and solutions when using ModxAI Studio
 
 ### Why is model download very slow?
 
-- **Switch Download Source**: Users in mainland China are recommended to use ModelScope, while overseas users should use Hugging Face.
+- **Switch Download Source**: Users in Chinese mainland are recommended to use ModelScope, while overseas users should use Hugging Face.
 - **Check Network**: Ensure your network connection is stable.
 - **Download in Parts**: For large models, you can choose to download specific quantized versions first.
 
@@ -239,7 +239,7 @@ Yes, current version only supports Chinese and English. Other languages like Jap
 ### Why did environment installation fail?
 
 Common solutions:
-- **Switch Mirror Source**: Users in mainland China should choose Aliyun or Tencent Cloud.
+- **Switch Mirror Source**: Users in Chinese mainland should choose Aliyun or Tencent Cloud.
 - **Check Disk Space**: Environment installation requires about 5-10GB of space.
 - **Check Network**: Ensure access to the download source.
 - **Retry Installation**: Click the "Reinstall" button.

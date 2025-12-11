@@ -326,7 +326,7 @@ Click the "Download" button on the top toolbar to open the model downloader wind
 
 Supports two download sources:
 
-- **ModelScope**: Faster access for users in mainland China.
+- **ModelScope**: Faster access for users in Chinese mainland.
 - **Hugging Face**: Rich global model resources.
 
 ### Download Process

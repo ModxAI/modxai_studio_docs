@@ -23,7 +23,7 @@ For the first use, you need to import or download a chat model.
 
 1. Click **"Model Library"** in the left navigation bar.
 2. Click the **"Download"** button in the top toolbar.
-3. Select a download source (Users in mainland China are recommended to select **ModelScope**).
+3. Select a download source (Users in Chinese mainland are recommended to select **ModelScope**).
 4. Select a model in the Chat Model category (e.g., Qwen3-0.6B-GGUF).
 5. Select a quantized version (Recommended Q4_K_M, balancing effect and resource usage).
 6. Click **"Start Download"** and wait for the download to complete.
