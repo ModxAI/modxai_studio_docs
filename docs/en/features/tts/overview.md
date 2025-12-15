@@ -237,7 +237,6 @@ System includes multiple voice presets:
 
 2. **CPU Mode Limitations**
    - Pure CPU inference is slower, long text generation may take considerable time
-   - Some AMD CPUs may have compatibility issues
    - If inference fails, switching to NVIDIA GPU environment is recommended
 
 ### Generation Limitations

@@ -108,7 +108,7 @@ Say goodbye to complex environment configurations:
 | Item | Requirement |
 |------|-------------|
 | OS | Windows 10/11 (64-bit) |
-| Memory | 8GB RAM |
+| Memory | 16GB RAM |
 | Storage | 20GB available space |
 | Processor | Supports AVX2 instruction set |
 
@@ -116,7 +116,7 @@ Say goodbye to complex environment configurations:
 
 | Item | Requirement |
 |------|-------------|
-| Memory | 16GB+ RAM |
+| Memory | 32GB+ RAM |
 | Graphics Card | NVIDIA RTX Series (8GB+ VRAM) |
 | Storage | SSD Solid State Drive |
 
