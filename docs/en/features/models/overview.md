@@ -189,6 +189,10 @@ Rerank models use a cross-encoder architecture with high computational complexit
 - Supports custom context size (n_ctx).
 - Requires multimodal projection component (mmproj).
 
+**Special Reminder**:
+
+⚠️ **Default Vulkan acceleration** may cause errors when loading with the current version of llamacpp if the "Unlimited Context" option is set. This issue does not occur under CUDA acceleration. NVIDIA GPU users are recommended to download the CUDA acceleration library for the best experience.
+
 ### SD Model (Stable Diffusion)
 
 **Usage**: Text-to-Image, Image-to-Image, Video Generation.

@@ -330,8 +330,14 @@ AI Answer<|im_end|>
 
 ```
 Output Directory/
-└── opt3_dataset_rag_myexport_20231130120000.json
+└── favorite_data_yyyymmdd_hhmmss/
+    └── mid_complexity/
+        └── opt3_dataset.json
 ```
+
+**⚠️ Critical Note**:
+- The file must be placed in the `/mid_complexity/` subdirectory and named `opt3_dataset.json` to ensure correct recognition by the RAG vector processing workflow.
+- When executing RAG data generation, the input directory must point to the `favorite_data_yyyymmdd_hhmmss` directory. It cannot be the deeper `mid_complexity` directory or a parent directory.
 
 #### File Content Structure
 

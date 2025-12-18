@@ -80,7 +80,7 @@ The system checks whether the following requirements are met:
 |------------|-------------|
 | Platform | Operating system compatibility |
 | Python | Built-in portable Python environment |
-| Memory | 8GB or more recommended |
+| Memory | 16GB or more recommended |
 | Disk | Sufficient installation space required |
 | GPU | Optional; NVIDIA GPU enables GPU acceleration |
 | NVIDIA Driver | Required for GPU environment |

@@ -330,8 +330,14 @@ AI回答<|im_end|>
 
 ```
 输出目录/
-└── opt3_dataset_rag_myexport_20231130120000.json
+└── favorite_data_yyyymmdd_hhmmss/
+    └── mid_complexity/
+        └── opt3_dataset.json
 ```
+
+**⚠️ 关键注意**:
+- 文件必须放在`/mid_complexity/`子目录下并且名称必须为`opt3_dataset.json`,以便RAG向量处理流程正确识别。
+- 执行RAG数据生成时的输入目录必须指向`favorite_data_yyyymmdd_hhmmss`目录。不能是更深的`mid_complexity`或上级目录。
 
 #### 文件内容结构
 
@@ -363,7 +369,7 @@ AI回答<|im_end|>
 
 ```
 1. 将导出的JSON文件放入RAG处理流程
-2. 仅勾选(**生成向量**)节点
+2. 仅勾选(**生成向量**)节点和后续节点
 3. 生成向量并存入向量数据库
 4. 在对话中启用RAG检索即可使用
 ```
