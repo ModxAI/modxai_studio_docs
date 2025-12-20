@@ -218,13 +218,18 @@ Analyzes processed data quality, identifies duplicate/anomalous content, and gro
 - **Outlier detection**: Identifies content that significantly deviates from the main topics  
 - **Complexity grouping**: Classifies content into high/medium/low complexity groups  
 
+#### Configurable Parameters
+
+| Parameter | Description | Default | Recommendation |
+|----------|-------------|---------|----------------|
+| **Enable quality filtering** | Whether to use an embedding model for quality filtering | On | Recommended to enable for better data quality. Can be disabled if false positives occur. |
+
 #### Embedding Model Dependency
 
-Near-duplicate detection in this step can use an embedding model to improve accuracy. By default, the system uses the `all-MiniLM-L6-v2` model:
+Near-duplicate detection in this step can use an embedding model to improve accuracy. By default, the system uses the `all-MiniLM-L6-v2` model, if it cannot be installed, an alternative algorithm is used for near-duplicate detection:
 
 - **Local first**: Tries to load a locally downloaded model first  
 - **Automatic fallback**: Falls back to TF-IDF if an embedding model is unavailable  
-- **Optional configuration**: You can download this embedding model or use other compatible Sentence Transformer models in the model hub  
 
 **Notes:** This step is automatic and has no configurable parameters. The embedding model is optional and does not affect basic functionality.
 
@@ -253,10 +258,11 @@ Uses an AI model to generate concise summaries for each text block to enhance su
 | Parameter | Description | Default | Recommendation |
 |----------|-------------|---------|----------------|
 | **System prompt** | Instruction used when AI generates summaries | Built-in template | Customize based on your document domain |
+| **Enable quality filtering** | Whether to use an embedding model for quality filtering | On | Recommended to enable for better data quality. Can be disabled if false positives occur. |
 
 **Notes:**
 
-- Requires a chat model to be loaded  
+- Requires a chat model to be imported 
 - Processing time is proportional to the number of text blocks  
 - Skipping this step does not affect basic retrieval
 

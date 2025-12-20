@@ -230,6 +230,19 @@ Use dedicated parsers to analyze code structure:
 - `mid`: Medium complexity, suitable for regular Q&A.
 - `low`: Low complexity, suitable for simple Q&A or skipping.
 
+#### Configurable Parameters
+
+| Parameter | Description | Default | Recommendation |
+|----------|-------------|---------|----------------|
+| **Enable quality filtering** | Whether to use an embedding model for quality filtering | On | Recommended to enable for better data quality. Can be disabled if false positives occur. |
+
+#### Embedding Model Dependency
+
+Near-duplicate detection in this step can use an embedding model to improve accuracy. By default, the system uses the `all-MiniLM-L6-v2` model, if it cannot be installed, an alternative algorithm is used for near-duplicate detection:
+
+- **Local first**: Tries to load a locally downloaded model first  
+- **Automatic fallback**: Falls back to TF-IDF if an embedding model is unavailable  
+
 > **Resource Tip**: This step is multi-threaded parallel processing, which will consume significant CPU and memory resources. Please pay attention to system load when processing large amounts of data.
 
 ---
@@ -267,6 +280,19 @@ See [AI Node Configuration](#ai-node-configuration) chapter for detailed AI para
 **Function**: Parse AI output from Step 4 and extract structured data. Exclude invalid content.
 
 This step is recommended to be executed after Step 4 completes, cleaning the AI output to ensure high-quality data for subsequent steps.
+
+#### Configurable Parameters
+
+| Parameter | Description | Default | Recommendation |
+|----------|-------------|---------|----------------|
+| **Enable quality filtering** | Whether to use an embedding model for quality filtering | On | Recommended to enable for better data quality. Can be disabled if false positives occur. |
+
+#### Embedding Model Dependency
+
+Near-duplicate detection in this step can use an embedding model to improve accuracy. By default, the system uses the `all-MiniLM-L6-v2` model, if it cannot be installed, an alternative algorithm is used for near-duplicate detection:
+
+- **Local first**: Tries to load a locally downloaded model first  
+- **Automatic fallback**: Falls back to TF-IDF if an embedding model is unavailable  
 
 ---
 
