@@ -389,7 +389,10 @@ For hybrid or rerank modes, import and load a rerank-type model (e.g., `qwen3-re
 - **View list**: All available collections are shown in the parameter drawer  
 - **Delete collection**: Click the delete button next to a collection to remove it from chat  
 - **Delete note**: Deleting a collection here only removes its configuration and **does not delete stored vector files**  
-- **Re-import**: You can re-import a deleted collection as long as the vector data files still exist  
+- **Re-import**: You can re-import a deleted collection as long as the vector data files still exist. You need to select the corresponding import file (rag_dataset_***_meta.json) to import.
+
+> The program directory contains a sample knowledge base generated from the official manual. You can use **Re-import** to import this knowledge base and try the RAG features.  
+> Import file path: `<InstallationDrive>/ModxAI Studio/ModxAI-Backend/_internal/server/resources/example/rag_manual/rag_dataset_reimport_meta.json`
 
 ---
 

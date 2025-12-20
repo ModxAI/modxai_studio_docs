@@ -154,6 +154,18 @@ Before use, you need to create a RAG dataset (knowledge base) in the **Data Modu
 6. **Turn on the "Retrieval" switch** above the input box.
 7. Send messages normally.
 
+### Managing Knowledge Bases
+
+- **View list**: All available collections are shown in the parameter drawer  
+- **Delete collection**: Click the delete button next to a collection to remove it from chat  
+- **Delete note**: Deleting a collection here only removes its configuration and **does not delete stored vector files**  
+
+### Re-import
+You can re-import a deleted collection as long as the vector data files still exist. You need to select the corresponding import file (rag_dataset_***_meta.json) to import.
+
+> The program directory contains a sample knowledge base generated from the official manual. You can use **Re-import** to import this knowledge base and try the RAG features.  
+> Import file path: `<InstallationDrive>/ModxAI Studio/ModxAI-Backend/_internal/server/resources/example/rag_manual/rag_dataset_reimport_meta.json`
+
 ### Delete Knowledge Base
 
 In the knowledge base dropdown of the inference parameter drawer, there is a delete button on the right side of each knowledge base.
