@@ -13,6 +13,8 @@ After installation, double-click the desktop icon to launch ModxAI Studio.
 
 On the first launch, the application will automatically complete the initialization configuration without manual operation.
 
+> 💡 If you installed the application in a directory that requires administrator privileges (e.g., C:\Program Files), you need to "Run as administrator" when launching the application. Otherwise, it will not start.
+
 ---
 
 ## Step 2: Get a Model
