@@ -129,7 +129,7 @@ SD Chat automatically supports the following modes based on loaded model capabil
 
 ### Send Prompt
 
-1. Enter prompt in input box (maximum 4000 characters)
+1. Enter prompt in input box
 2. Click **Generate** button (or press `Ctrl+Enter`)
 3. System will immediately show user message and start generation
 4. After generation completes, AI message will display generated images/videos
@@ -137,6 +137,7 @@ SD Chat automatically supports the following modes based on loaded model capabil
 > **Tips**:
 > - Prompts support both English and Chinese, but English prompts usually work better
 > - More specific and detailed prompts produce results closer to expectations
+> - Overly long prompts may lead to generation failure; it is recommended to keep prompts within 500 characters
 
 ### Attachment Upload
 
