@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'docs/**'  # 只有 docs 目录变化才触发
+      - 'docs/**'
 
 jobs:
   trigger-sync:
