@@ -244,12 +244,12 @@ AI nodes in SFT data processing support reusing loaded chat models:
 
 - If a model is already loaded in the chat interface and the configuration (Base Model + LoRA) matches what the AI node needs.
 - The system automatically detects and reuses the model, and requests enter the queue for processing.
-- Multiple requests are processed serially through the queue mechanism without interference.
+- Multiple requests are processed serially through the queue mechanism without interference. Supports processing while chatting.
 - **Model is not unloaded after SFT task completion**, and your chat session is unaffected.
 
 ### RAG Embedding Model
 
-Step 4 (Generate Vector) of RAG data processing requires:
+Step 11 (Generate Vector) of RAG data processing requires:
 
 1. **Embedding Model in Model Library**.
 2. **Install Environment in Settings**: Embedding models require CPU or GPU environment support.

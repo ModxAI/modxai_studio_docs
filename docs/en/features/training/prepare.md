@@ -896,7 +896,7 @@ checkpoint-500/
 |------|-----|
 | Type | Multi-select Box |
 | Required | ❌ No |
-| Default | ["q_proj", "v_proj"] |
+| Default | ["q_proj", "k_proj", "v_proj","o_proj","gate_proj","up_proj","down_proj"] |
 | Fold Group | Advanced Params |
 
 **Description**: Select model modules to apply LoRA.
@@ -905,9 +905,9 @@ checkpoint-500/
 
 | Module | Description |
 |------|------|
-| `q_proj` | Query Projection Layer (Recommended) |
+| `q_proj` | Query Projection Layer|
 | `k_proj` | Key Projection Layer |
-| `v_proj` | Value Projection Layer (Recommended) |
+| `v_proj` | Value Projection Layer|
 | `o_proj` | Output Projection Layer |
 | `gate_proj` | Gate Projection Layer |
 | `up_proj` | Up Projection Layer |
@@ -916,8 +916,7 @@ checkpoint-500/
 | `lm_head` | Language Model Head |
 
 **Tuning Suggestions**:
-- Basic Config: `q_proj`, `v_proj`
-- Enhanced Config: Add `k_proj`, `o_proj`
+- Basic Config: `q_proj`, `k_proj`, `v_proj`, `o_proj`
 - Full Config: Add `gate_proj`, `up_proj`, `down_proj`
 
 ---
@@ -960,6 +959,47 @@ checkpoint-500/
 ---
 
 ## Optimization Configuration Parameters
+
+### Use QLoRA
+
+| Attribute | Value |
+|------|-----|
+| Type | Boolean |
+| Required | ❌ No |
+| Default | false |
+
+**Description**: Enable 4-bit QLoRA quantization fine-tuning technology. The quantization process is dynamically performed when loading the model to the GPU. The base model weights can be in original precision.
+
+**Requirements**:
+- NVIDIA Ampere and above architecture GPU (RTX 30 series, A100, etc.)
+- Depends on bitsandbytes library installed in the environment, may have compatibility issues
+- Suitable for VRAM-constrained scenarios
+
+**Advantages**:
+- Significantly reduces VRAM usage by about 50% - 75%
+- Allows training large models on GPUs with smaller VRAM
+
+---
+
+### Use 8-bit optimizers
+
+| Attribute | Value |
+|------|-----|
+| Type | Boolean |
+| Required | ❌ No |
+| Default | false |
+
+**Description**: Use 8-bit version of optimizers (e.g., 8-bit AdamW) to reduce VRAM usage.
+
+**Requirements**:
+- NVIDIA Ampere and above architecture GPU (RTX 30 series, A100, etc.)
+- Depends on bitsandbytes library installed in the environment, may have compatibility issues
+
+**Advantages**:
+- Reduce VRAM usage of optimizer states by about 75%
+- Suitable for VRAM-constrained training scenarios
+
+---
 
 ### Use FP16 mixed precision
 

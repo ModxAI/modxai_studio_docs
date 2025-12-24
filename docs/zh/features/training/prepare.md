@@ -895,7 +895,7 @@ checkpoint-500/
 |------|-----|
 | 类型 | 多选框 |
 | 必填 | ❌ 否 |
-| 默认值 | ["q_proj", "v_proj"] |
+| 默认值 | ["q_proj", "k_proj", "v_proj","o_proj","gate_proj","up_proj","down_proj"] |
 | 折叠组 | 高级参数 |
 
 **说明**：选择应用 LoRA 的模型模块。
@@ -904,9 +904,9 @@ checkpoint-500/
 
 | 模块 | 说明 |
 |------|------|
-| `q_proj` | Query 投影层（推荐） |
+| `q_proj` | Query 投影层|
 | `k_proj` | Key 投影层 |
-| `v_proj` | Value 投影层（推荐） |
+| `v_proj` | Value 投影层|
 | `o_proj` | Output 投影层 |
 | `gate_proj` | 门控投影层 |
 | `up_proj` | 上投影层 |
@@ -915,8 +915,7 @@ checkpoint-500/
 | `lm_head` | 语言模型头 |
 
 **调优建议**：
-- 基础配置：`q_proj`, `v_proj`
-- 增强配置：添加 `k_proj`, `o_proj`
+- 基础配置：`q_proj`, `k_proj`, `v_proj`, `o_proj`
 - 完整配置：再添加 `gate_proj`, `up_proj`, `down_proj`
 
 ---
@@ -959,6 +958,47 @@ checkpoint-500/
 ---
 
 ## 优化配置参数
+
+### 使用 QLoRA / Use QLoRA
+
+| 属性 | 值 |
+|------|-----|
+| 类型 | 布尔值 |
+| 必填 | ❌ 否 |
+| 默认值 | false |
+
+**说明**：启用 4-bit QLoRA 量化微调技术.量化过程是在加载模型到 GPU 动态完成.基础模型权重可以是原始精度
+
+**要求**：
+- NVIDIA Ampere 及以上架构 GPU（RTX 30 系列、A100 等）
+- 依赖通过环境安装的 bitsandbytes 库支持, 可能存在兼容性问题
+- 适用于显存受限场景
+
+**优势**：
+- 显著减少显存占用约50% - 75%
+- 允许在较小显存 GPU 上训练大模型
+
+---
+
+### 使用8-bit优化器 / Use 8-bit optimizers
+
+| 属性 | 值 |
+|------|-----|
+| 类型 | 布尔值 |
+| 必填 | ❌ 否 |
+| 默认值 | false |
+
+**说明**：使用 8-bit 版本的优化器（如 8-bit AdamW）以减少显存占用。
+
+**要求**：
+- NVIDIA Ampere 及以上架构 GPU（RTX 30 系列、A100 等）
+- 依赖通过环境安装的 bitsandbytes 库支持, 可能存在兼容性问题
+
+**优势**：
+- 减少优化器状态的显存占用约 75%
+- 适合显存受限的训练场景
+
+---
 
 ### 使用FP16混合精度 / Use FP16 mixed precision
 
