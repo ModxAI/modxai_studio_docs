@@ -48,6 +48,8 @@ The Package module is responsible for converting trained models (including base 
 
 > 💡 **Suggestion**: Due to complex dependencies between packaging options, it is strongly recommended to use preset templates.
 
+> ⚠️ **Note**: The paths for LoRA weights and base models must not contain Chinese or other special characters to avoid packaging failures.
+
 ### Template Overview
 
 | Template | Description | Applicable Scenario |
