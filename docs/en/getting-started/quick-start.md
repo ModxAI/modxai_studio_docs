@@ -13,6 +13,8 @@ After installation, double-click the desktop icon to launch ModxAI Studio.
 
 On the first launch, the application will automatically complete the initialization configuration without manual operation.
 
+> 💡 The first launch requires an internet connection to fetch initialization data (only the first time, not needed afterward). Depending on your network environment, initialization may take some time. Please be patient. If the launch fails, check your network connection and try again.
+
 > 💡 If you installed the application in a directory that requires administrator privileges (e.g., C:\Program Files), you need to "Run as administrator" when launching the application. Otherwise, it will not start.
 
 ---
