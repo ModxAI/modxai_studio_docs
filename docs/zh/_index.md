@@ -45,7 +45,6 @@
 
 - [设置概览](./features/settings/overview.md)
 - [环境配置](./features/settings/environment.md)
-- [许可证](./features/settings/license.md)
 
 ## 帮助
 

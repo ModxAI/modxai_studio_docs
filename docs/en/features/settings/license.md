@@ -27,7 +27,7 @@ ModxAI Studio offers two tiers of access:
 
 ### Free User
 - ✅ Access to all modules (Models, Datasets, Training, etc.).
-- ⚠️ **Monthly Quota**: Fixed limits on usage (see [Pricing](https://www.modxai.net/pricing)).
+- ⚠️ **Monthly Quota**: Fixed limits on usage (see [Download](https://www.modxai.net/download)).
 - ⚠️ **Quota Reset**: Quotas refresh at the beginning of each month.
 - ⚠️ **Online Only**: Must be connected to the internet to use the software.
 
@@ -42,7 +42,7 @@ ModxAI Studio offers two tiers of access:
 ## Activation Process
 
 ### 1. Get a License Key
-1. Visit the [ModxAI Website](https://www.modxai.net/pricing) or the in-app store.
+1. Visit the [ModxAI Website](https://www.modxai.net/download) or the in-app store.
 2. Choose a plan that suits your needs.
 3. After payment, a license key will be sent to your email.
 
@@ -176,4 +176,4 @@ If you cannot resolve an issue:
 ## Related Docs
 - [Settings Overview](./overview.md)
 - [Environment Setup](./environment.md)
-- [Pricing](https://www.modxai.net/pricing)
+- [Download & Activation](https://www.modxai.net/download)
