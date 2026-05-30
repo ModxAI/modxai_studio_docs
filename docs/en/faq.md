@@ -1,104 +1,152 @@
-# FAQ
+# Frequently Asked Questions
 
-> v1.0.0
-> 2025-12
+> v1.1.0
+> 2026-05
 
-This document summarizes common questions and solutions when using ModxAI Studio.
+This page summarizes common issues and solutions encountered while using ModxAI Studio.
 
 ---
 
 ## Quick Start
 
-### What should I do after the first launch?
+### What should I do after first launch?
 
 1. Go to the **Model Library**, download or import a chat model.
-2. After loading the model, go to the **Chat** page to start using it.
-3. If you need to use advanced features (Training, Data Processing, etc.), please install environment in **Settings** first.
+2. Load the model, then navigate to the **Chat** page to start using it.
+3. To use advanced features (training, data processing, etc.), install the environment in **Settings** first.
 
 ### Which features require environment installation in Settings?
 
 | Feature | Environment Requirement |
-|---------|-------------------------|
-| Text Chat | **No** (Uses llama.cpp) |
-| Multimodal Chat | **No** (Uses llama.cpp) |
-| Embedding/Rerank Models | **Yes** (CPU or GPU environment) |
-| SD Image Generation | **Yes** (CPU or GPU environment) |
-| TTS Speech Synthesis | **Yes** (CPU or GPU environment, GPU recommended) |
-| Model Training | **Yes** (GPU environment recommended) |
-| Audio to Text | **Yes** (GPU environment recommended) |
+|---------|------------------------|
+| Text Chat (llama.cpp) | **Not required** |
+| Text Chat (HF Transformers) | **Requires** CPU or GPU environment |
+| Multimodal Chat | **Not required** (uses llama.cpp) |
+| Embedding / Rerank Models | **Requires** CPU or GPU environment |
+| SD Image Generation | **Requires** CPU or GPU environment |
+| TTS Speech Synthesis | **Requires** CPU or GPU environment (GPU recommended) |
+| STT Speech to Text | **Requires** CPU or GPU environment (GPU recommended) |
+| Model Training | **Requires** GPU environment (recommended) |
+| Agent (Browser/Web Tools) | **Requires** "Full" or "Agent" capability installation |
+| Audio to Text | **Requires** GPU environment (recommended) |
 
 ---
 
 ## Model Management
 
-### Why is model download very slow?
+### Model downloads are very slow. What can I do?
 
-- **Switch Download Source**: Users in Chinese mainland are recommended to use ModelScope, while overseas users should use Hugging Face.
-- **Check Network**: Ensure your network connection is stable.
-- **Download in Parts**: For large models, you can choose to download specific quantized versions first.
+- **Switch download source**: Use ModelScope for users in China, and Hugging Face for overseas users.
+- **Check network**: Ensure a stable internet connection.
+- **Batch download**: For large models, download quantized versions in parts first.
 
-### Why doesn't the model show up after importing?
+### Imported model is not showing up?
 
-- Click the **Refresh Button** to update the model list.
-- Check if the file format is correct:
-  - Chat/Multimodal Models: `.gguf` or `.bin`
-  - Embedding/Rerank Models: `.safetensors` (requires importing the directory)
+- Click the **Refresh button** to update the model list.
+- Check the file format:
+  - Chat/Multimodal models: `.gguf` or `.bin`
+  - Embedding/Rerank models: `.safetensors` (import the directory)
 
-### Why did model loading fail?
+### Model failed to load?
 
 Common causes and solutions:
 
 | Cause | Solution |
 |-------|----------|
-| Insufficient Memory | Close other applications, or choose a smaller quantized version (Q2_K, Q3_K_S). |
-| Environment Not Installed | Embedding/Rerank/SD models require environment installation in **Settings** first. |
-| File Corrupted | Re-download the model file. |
-| Unsupported Format | Confirm the file format meets requirements. |
+| Insufficient memory | Close other applications, or choose a smaller quantized version (Q2_K, Q3_K_S). |
+| Environment not installed | Embedding/Rerank/SD models require environment installation in **Settings** first. |
+| Corrupted file | Re-download the model file. |
+| Unsupported format | Ensure the file format meets requirements. |
 
-### What if LoRA is incompatible?
+### LoRA is incompatible?
 
-LoRA must match the base model architecture. Please ensure:
+LoRA must match the base model architecture. Ensure:
 - The LoRA was trained for that specific base model.
-- The LoRA format is correct (Chat models use `.gguf` format LoRA).
+- The LoRA format is correct (chat models use `.gguf` format LoRA).
 
 ### How many models can be loaded at the same time?
 
-- **Same Category**: Only one base model can be loaded per category.
-- **Different Categories**: Chat, Embedding, Rerank, and SD models can be loaded simultaneously.
-- **Special Restriction**: Chat and Multimodal models cannot be loaded at the same time.
+- **Same category**: Only one base model can be loaded per category.
+- **Different categories**: Chat, Embedding, Rerank, SD, TTS, and STT models can be loaded simultaneously.
+- **Special restriction**: Chat and Multimodal models cannot be loaded at the same time.
+
+### What is the difference between HF Transformers and GGUF models?
+
+| Aspect | GGUF (llama.cpp) | HF Transformers |
+|--------|-------------------|-----------------|
+| Environment | No installation needed | Environment must be installed |
+| Inference Speed | Fast | Depends on hardware |
+| Precision Control | Fixed quantization levels | Flexible float16/32 selection |
+| Multimodal | Supported | Not supported (text only) |
+| Quota Consumption | Free | Quota deducted on load |
+
+### How can other applications call my loaded model?
+
+Once a model is loaded, ModxAI Studio automatically provides an OpenAI-compatible HTTP API (`/v1/chat/completions`). Other devices or applications on the same local network can call it directly. See [Model Library - LAN Inference Service](../features/models/overview.md#lan-inference-service).
+
+### Can a multimodal model use a knowledge base (RAG)?
+
+No. RAG retrieval is unavailable in multimodal dialogue mode. For knowledge base Q&A, switch to a text-only chat model.
+
+---
+
+## Agent
+
+### What are the prerequisites for the agent?
+
+1. Load a chat model for the main role.
+2. Install "Full" or "Agent" environment capabilities in **Settings** (required for browser and web tools).
+3. Switch to agent mode in the chat interface.
+
+### What model size is suitable for the agent?
+
+The ModxAI Studio agent framework is optimized for local small models. Models with 1B-3B parameters can handle simple multi-step tasks within a 32K context. Larger models (7B+) can handle more complex tasks. Multimodal models like Qwen3.5 are recommended.
+
+### What can the agent do?
+
+- Search the internet automatically for information.
+- Browse and extract web page content.
+- Read and write local files.
+- Execute terminal commands.
+- Manage task lists and track progress.
+- Remember preferences.
+
+### Is agent data secure?
+
+Yes. All agent operations are executed in a local sandbox. File operations are restricted to authorized directories, and the browser runs in an isolated environment. Your data is never uploaded to any cloud service. However, when using online models, please assess based on the respective service provider's terms.
 
 ---
 
 ## AI Chat
 
-### Why is there no response in chat?
+### Chat is not responding?
 
-1. Confirm the model has been successfully loaded (Status shows "Loaded").
-2. Check the system resource monitor at the bottom of the page (Is Memory/CPU overloaded?).
-3. Try creating a new chat and retry.
+1. Confirm the model is loaded successfully (status shows "Loaded").
+2. Check the system resource monitor at the bottom of the page (excessive memory/CPU usage).
+3. Try starting a new conversation.
 
-### Why is the AI reply empty or showing "Model returned no valid reply"?
+### AI reply is empty or shows "Model did not return a valid response"?
 
 Suggestions:
-- Rephrase your question to make the description clearer.
-- Check if inference parameters are reasonable (Temperature should not be too high).
+- Rephrase your question for clarity.
+- Check if inference parameters are reasonable (temperature should not be too high).
 - Confirm the model file is intact.
 
-### Why is the attachment button not showing in Multimodal Chat?
+### Multimodal chat attachment button is not showing?
 
-You must load a **Multimodal Model** to use the image-text chat feature. Ordinary chat models do not support image input.
+You must load a **multimodal model** to use image-text chat. Standard chat models do not support image input.
 
-### Why can't I use the RAG switch?
+### RAG inference prompt says it's unavailable?
 
-Before using the RAG feature, you need to:
-1. Create a RAG Knowledge Base in the **Data Processing** module first.
-2. Select the Knowledge Base in the inference parameters.
-3. It is recommended to load an Embedding Model (and optionally a Rerank Model), but be mindful of resource usage.
+Before using RAG:
+1. First create a RAG knowledge base in the **Data Processing** module.
+2. Select the knowledge base in inference parameters.
+3. It is recommended to load both embedding and reranking models, but be mindful of resource usage.
 
-### What are the image format restrictions?
+### Image format limitations?
 
 - **Supported**: JPG, PNG
-- **Not Supported**: GIF, BMP, WebP, etc.
+- **Not supported**: GIF, BMP, WebP, etc.
 
 ---
 
@@ -106,26 +154,44 @@ Before using the RAG feature, you need to:
 
 ### Can I switch pages during processing?
 
-Yes. Processing tasks run in the background, and switching pages does not affect progress. You can check the status in "Progress Monitor" when you return.
+Yes. Processing tasks run in the background; switching pages does not affect progress. Check status under "Progress Monitor" when you return.
 
-### Why is AI Node processing very slow?
+### AI node processing is very slow. What can I do?
 
-AI Nodes need to call models for inference, and speed depends on hardware configuration:
-- Use smaller models for processing.
-- Ensure GPU is available to accelerate inference.
+AI nodes require model inference; speed depends on hardware:
+- Use a smaller model for processing.
+- Ensure GPU is available for acceleration.
 - Test with a small amount of data first.
 
-### How to save quota consumption?
+### How can I save quota consumption?
 
-- Set data splitting parameters reasonably to avoid generating too many fragmented data pieces.
-- Turn off unnecessary AI steps (such as AI Filtering).
-- Test the flow with a small dataset first.
+- Set reasonable data splitting parameters to avoid excessive fragmented data.
+- Disable unnecessary AI steps (e.g., AI filtering).
+- Test the workflow with a small dataset first.
 
-### How to resume from a breakpoint?
+### How do I resume from a checkpoint?
 
-1. Uncheck the steps that have been completed.
-2. Keep the steps that need to be re-executed checked.
-3. Ensure the output data from the previous steps exists.
+1. Uncheck completed steps.
+2. Keep the steps that need re-execution checked.
+3. Ensure the output data of preceding steps exists.
+
+### What is structured data input?
+
+In SFT or RAG data processing, selecting "JSON" as the file type enters structured data mode. Ideal for JSON/JSONL data with fixed fields (e.g., news, business records), allowing direct field mapping to standard formats without going through the unstructured cleaning pipeline.
+
+### What is the difference between sft_chatml / pretrain / dpo export formats?
+
+| Format | Output | Use Case |
+|--------|--------|----------|
+| sft_chatml | system/user/assistant dialogue format | SFT fine-tuning |
+| pretrain | Plain text corpus | Pre-training / Continued pre-training |
+| dpo | prompt/chosen/rejected preference pairs | DPO preference alignment training |
+
+Switch the export format parameter in the AI synthesis step. Pre-training no longer has a separate step.
+
+### What is Chain of Thought (CoT) mode?
+
+When enabled, the system automatically injects reasoning prompts to guide the model to output its thought process. Suitable for data that requires reasoning steps to be preserved.
 
 ---
 
@@ -133,148 +199,141 @@ AI Nodes need to call models for inference, and speed depends on hardware config
 
 ### What configuration is needed for training?
 
-| Model Scale | VRAM Requirement (LoRA) | VRAM Requirement (Full) |
-|-------------|-------------------------|-------------------------|
-| Under 1B | 4GB | 16GB |
+| Model Size | VRAM Requirement (LoRA) | VRAM Requirement (Full) |
+|------------|------------------------|-------------------------|
+| < 1B | 4GB | 16GB |
 | 1-3B | 6GB | 24GB |
 | 3-7B | 8GB | 40GB |
 | 7-14B | 12GB | 80GB |
 
-### What to fill in "Training Model Directory"?
+### What should I fill in "Training Model Directory"?
 
-This parameter requires specifying a **HuggingFace format model directory** (containing `.safetensors` and `config.json`), **NOT** a GGUF inference model.
+This parameter requires a **HuggingFace format model directory** (containing `.safetensors` and `config.json`), **not** a GGUF inference model.
 
-### Does saving checkpoints consume quota?
+### Do checkpoints consume quota?
 
-Yes, saving each checkpoint consumes 1 training quota. Suggestions:
+Yes. Each saved checkpoint consumes 1 training quota. Recommendations:
 - Set a reasonable save interval (e.g., every 100 steps).
 - Set a maximum number of saved checkpoints.
 
-### How to resume after training interruption?
+### How to resume training after interruption?
 
-In the Training Preparation page, set "Resume Training Checkpoint Path" to the directory of the last saved checkpoint.
+On the training preparation page, set "Resume Training Checkpoint Path" to the last saved checkpoint directory.
 
 ---
 
 ## SD Image Generation
 
-### Why is there no reaction when clicking the Generate button?
+### The generate button does nothing?
 
 Check:
-1. Is an SD model loaded?
-2. Is the prompt empty?
-3. Is there an ongoing generation task?
+1. Whether an SD model is loaded.
+2. Whether the prompt is empty.
+3. Whether there is an ongoing generation task.
 
-### Why is the generation quality not ideal?
+### Unsatisfactory generation quality?
 
 Try the following adjustments:
-- Increase sampling steps (Recommended 30-50).
-- Adjust CFG scale (Recommended 7-12).
+- Increase sampling steps (recommended 30-50).
+- Adjust CFG scale (recommended 7-12).
 - Use more detailed prompts.
 - Add negative prompts to exclude unwanted elements.
 
-### Why is the Image-to-Image effect too different from the original image?
+### Image-to-image result differs too much from the original?
 
-Lower the **Denoising Strength** parameter, recommended 0.3-0.6.
+Lower the **Denoising Strength** parameter, recommended range 0.3-0.6.
 
-### Why does video generation fail or get stuck?
+### Video generation fails or freezes?
 
-- Reduce video frames (Recommended 20-40 frames).
-- Reduce resolution (Recommended 512x512).
-- Check if VRAM is sufficient.
+- Reduce the number of frames (recommended 20-40 frames).
+- Lower the resolution (recommended 512x512).
+- Check available VRAM.
 
-### Resource Usage Suggestions
+### Resource Usage Recommendations
 
 | VRAM | Recommended Settings |
-|------|----------------------|
-| 4GB | 512x512, Steps 20-30 |
-| 8GB | 768x768, Steps 30-50 |
-| 12GB+ | 1024x1024, Steps 50+ |
+|------|---------------------|
+| 4GB | 512x512, steps 20-30 |
+| 8GB | 768x768, steps 30-50 |
+| 12GB+ | 1024x1024, steps 50+ |
 
 ---
 
 ## TTS Speech Synthesis
 
-### TTS feature unavailable?
+### TTS function is unavailable?
 
 Check the following:
-1. Has environment been installed in Settings
-2. Has status been refreshed after environment installation
-3. Is TTS capability shown as available
-4. Has TTS model been loaded
+1. Whether the environment has been installed in Settings.
+2. Whether the status was refreshed after installation.
+3. Whether TTS capability shows as available.
+4. Whether a TTS model is loaded.
 
-### TTS dependency installation is slow?
+### TTS dependency installation is very slow?
 
-- misaki library is installed from PyPI official source, may be slow on domestic networks
-- Keep network stable during installation
-- If timeout fails, retry by reinstalling environment
+- The misaki library installs from PyPI's official source; network speeds in China may be slow.
+- Keep the network stable during installation.
+- If it times out, retry by reinstalling the environment.
 
 ### TTS capability shows as unavailable?
 
-- spaCy models that TTS depends on are downloaded asynchronously, may be delayed by tens of seconds to several minutes
-- After main environment installation completes, please wait and refresh environment status
-- If still unavailable, try restarting application or repair installation
+- The spaCy model required by TTS is downloaded asynchronously and may be delayed by tens of seconds to minutes.
+- After the main environment is installed, wait a moment and refresh the environment status.
+- If still unavailable, try restarting the application or repairing the installation.
 
 ### Generated speech sounds unnatural?
 
-- Check if input text has grammatical errors
-- Try different voice presets
-- Adjust speed parameter
-- Ensure language setting matches text content
+- Check the input text for grammatical errors.
+- Try different voice presets.
+- Adjust the speech speed parameter.
+- Ensure the language setting matches the text content.
 
-### TTS only supports Chinese and English?
+### Does TTS only support Chinese and English?
 
-Yes, current version only supports Chinese and English. Other languages like Japanese require additional dependencies, not built-in yet.
+Yes. The current version only supports Chinese and English. Other languages like Japanese require additional dependency libraries that are not currently bundled.
 
-### TTS inference failed?
+### TTS inference fails?
 
-- Some AMD CPUs may have compatibility issues
-- Recommend using NVIDIA GPU environment
-- Check if model is correctly loaded
+- Some AMD CPUs may have compatibility issues.
+- An NVIDIA GPU environment is recommended.
+- Check if the model is loaded correctly.
 
 ---
 
 ## Environment Configuration
 
-### Why did environment installation fail?
+### Environment installation failed?
 
 Common solutions:
-- **Switch Mirror Source**: Users in Chinese mainland should choose Aliyun or Tencent Cloud.
-- **Check Disk Space**: Environment installation requires about 5-10GB of space.
-- **Check Network**: Ensure access to the download source.
-- **Retry Installation**: Click the "Reinstall" button.
+- **Switch mirror source**: Users in China should select Alibaba Cloud or Tencent Cloud.
+- **Check disk space**: Environment installation requires approximately 5-10 GB of space.
+- **Check network**: Ensure access to the download source.
+- **Retry installation**: Click the "Reinstall" button.
 
-### Which environment to choose: CPU or GPU?
+### Which environment should I choose: CPU or GPU?
 
-- **With NVIDIA Graphics Card**: Choose GPU environment for significantly faster inference and training.
-- **No Dedicated Graphics Card**: Choose CPU environment; most features will still work normally.
+- **With NVIDIA GPU**: Choose GPU environment for significantly faster inference and training.
+- **Without dedicated GPU**: Choose CPU environment; most features will still work.
+
+### What is the difference between Full / Agent / Voice Synthesis installation capabilities?
+
+| Capability | Contents | Use Case |
+|------------|----------|----------|
+| Full | Training + Agent + TTS all dependencies | Users who need all features |
+| Agent | Core libraries + browser environment | Users who only need agent web and web tools |
+| Voice Synthesis | Core libraries + TTS dependencies | Users who only need speech synthesis |
+
+### Agent browser tools don't work?
+
+"Full" or "Agent" installation capability is required. When only "Voice Synthesis" is installed, the agent's browser and web tools are unavailable.
+
+### TTS still unavailable after installation?
+
+In "Full" mode, TTS dependencies are downloaded asynchronously. After completion, wait and refresh the environment status. If the async download fails, switch to "Voice Synthesis" mode for an independent reinstall (synchronous download).
 
 ### Do I need to restart after environment installation?
 
-No. Related features are available immediately after installation completes.
-
----
-
-## License & Quota
-
-### What are the limitations of the Free Version?
-
-The Free Version has monthly quota limits for advanced features, including:
-- Loading Embedding/Rerank/Multimodal/SD models.
-- Number of data generation items.
-- Saving training checkpoints.
-
-Basic chat features (Chat Models) are free and unlimited.
-
-### How to check quota usage?
-
-Quota information is displayed in the application's top toolbar.
-
-### Why did registration code activation fail?
-
-- Check if the registration code was entered correctly.
-- Confirm network connection is normal.
-- Contact support to confirm the status of the registration code.
+No. Features are immediately available after installation. For TTS async installation, based on network conditions, it may take a few minutes before refreshing confirms availability.
 
 ---
 
@@ -282,29 +341,29 @@ Quota information is displayed in the application's top toolbar.
 
 ### Where is data stored?
 
-- **Model Files**: Stored in the directory you specified.
-- **Chat History**: Stored in the application's local database.
-- **Generated Images**: Default is the system temporary directory; you can specify a save location in parameters.
+- **Model files**: Saved in the directory you specified.
+- **Chat history**: Stored in the application's local database.
+- **Generated images**: Default to the system temp directory; save location can be specified in parameters.
 
-> Uninstalling the application will not delete the local database and model files.
+> Uninstalling the application does not delete the local database or model files.
 
 ### How to completely clear data?
 
-You need to manually delete:
+Manual deletion is required:
 - Model file directory.
-- Application data directory (`C:\Users\<Username>\AppData\Local\ModxAI` on Windows, or corresponding path on macOS).
+- Application data directory (`C:\Users\<username>\AppData\Local\ModxAI`).
 
-### How to report issues?
+### How to provide feedback?
 
-- **In-App Feedback**: Settings -> Help & Feedback -> Submit Feedback.
+- **In-app feedback**: Settings -> Help & Feedback -> Submit Feedback
 - **Email**: support@modyu.tech
 
 ---
 
 ## Contact Support
 
-If the above content does not solve your problem:
+If the above did not resolve your issue:
 
 - **Email**: support@modyu.tech
-- **Documentation**: This Help Center.
-- **In-App**: Settings -> Submit Feedback.
+- **Docs**: This help center
+- **In-app**: Settings -> Submit Feedback

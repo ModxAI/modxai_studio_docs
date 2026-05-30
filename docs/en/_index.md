@@ -1,17 +1,40 @@
 # Documentation Center
 
-## Quick Start
+## Getting Started
 
 - [Introduction](./getting-started/introduction.md)
 - [Quick Start](./getting-started/quick-start.md)
 
-## Features
+## Feature Overview
+
+### Agent Workbench
+
+- [Agent Overview](./features/agent/overview.md)
+- [Role Configuration](./features/agent/roles.md)
+- [Advanced Settings](./features/agent/advanced-settings.md)
+- [Attachments & Knowledge Bases](./features/agent/attachments.md)
+- [Voice Input](./features/agent/voice-input.md)
+- [Auto Approval & Security](./features/agent/auto-approval.md)
+- [Instruction Settings](./features/agent/profile-settings.md)
+- [Preset Management](./features/agent/presets.md)
 
 ### AI Chat
 
 - [Chat Overview](./features/chat/overview.md)
 - [Prompt Generation](./features/chat/prompt-generation.md)
-- [Favorite Data](./features/chat/personalized-training.md)
+- [Bookmarked Data](./features/chat/personalized-training.md)
+
+### Memory Management
+
+- [Memory Management Overview](./features/memory/overview.md)
+
+### Scheduled Tasks
+
+- [Scheduled Tasks Overview](./features/scheduler/overview.md)
+
+### Channel Connection
+
+- [Channel Connection Overview](./features/gateway/overview.md)
 
 ### Model Library
 
@@ -28,10 +51,10 @@
 
 - [Training Overview](./features/training/overview.md)
 - [Training Preparation](./features/training/prepare.md)
-- [Training Monitor](./features/training/monitor.md)
+- [Training Monitoring](./features/training/monitor.md)
 - [Model Evaluation](./features/training/evaluate.md)
 - [Model Testing](./features/training/test.md)
-- [Model Packaging](./features/training/package.md)
+- [Model Quantize](./features/training/package.md)
 
 ### SD Chat
 
@@ -45,7 +68,6 @@
 
 - [Settings Overview](./features/settings/overview.md)
 - [Environment Configuration](./features/settings/environment.md)
-- [License](./features/settings/license.md)
 
 ## Help
 

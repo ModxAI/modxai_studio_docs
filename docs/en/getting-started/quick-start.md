@@ -1,7 +1,7 @@
 # Quick Start
 
-> v1.0.0
-> 2025-12
+> v1.1.0
+> 2026-5
 
 This guide helps you complete your first AI chat in **5 minutes**.
 
@@ -28,7 +28,7 @@ For the first use, you need to import or download a chat model.
 1. Click **"Model Library"** in the left navigation bar.
 2. Click the **"Download"** button in the top toolbar.
 3. Select a download source (Users in Chinese mainland are recommended to select **ModelScope**).
-4. Select a model in the Chat Model category (e.g., Qwen3-0.6B-GGUF).
+4. Select a model in the Chat Model category (e.g., Qwen3.5-9B-GGUF).
 5. Select a quantized version (Recommended Q4_K_M, balancing effect and resource usage).
 6. Click **"Start Download"** and wait for the download to complete.
 
@@ -70,10 +70,12 @@ After completing the basic chat, you can explore more features:
 
 | Feature | Description | Documentation |
 |---------|-------------|---------------|
+| **Agent** | Let AI autonomously execute tasks: web search, file operations, terminal commands | [Agent](../features/agent/overview.md) |
 | **RAG Retrieval** | Let AI answer questions based on your knowledge base | [AI Chat](../features/chat/overview.md) |
 | **Image Generation** | Generate images using SD models | [SD Chat](../features/sdchat/overview.md) |
 | **Data Processing** | Convert documents into training data | [Data Processing](../features/dataset/overview.md) |
 | **Model Training** | Fine-tune your exclusive model | [Model Training](../features/training/overview.md) |
+| **LAN API** | Automatically provides OpenAI-compatible interface after loading model | [Model Library](../features/models/overview.md#lan-inference-service) |
 
 ---
 

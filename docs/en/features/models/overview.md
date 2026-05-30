@@ -1,7 +1,7 @@
 # Model Library
 
-> v1.0.0
-> 2025-12
+> v1.1.0
+> 2026-5
 
 This article introduces how to use the **Model Library** feature in ModxAI Studio, helping you complete tasks such as model import, download, load, management, and custom export.
 
@@ -14,6 +14,7 @@ This article introduces how to use the **Model Library** feature in ModxAI Studi
 - [Model Download](#model-download)
 - [Model Load and Unload](#model-load-and-unload)
 - [Model Management](#model-management)
+- [LAN Inference Service](#lan-inference-service)
 - [Custom Model Export](#custom-model-export)
 - [System Resource Monitoring](#system-resource-monitoring)
 - [Notes](#notes)
@@ -76,6 +77,7 @@ The Model Library page is divided into the following areas:
 - **Multimodal Model**: Supports image-text understanding.
 - **SD Model**: Stable Diffusion image generation model.
 - **TTS Model**: Text-to-Speech model.
+- **STT Model**: Speech-to-Text model (based on faster-whisper).
 
 ### Model List Table
 
@@ -103,19 +105,35 @@ The bottom of the page displays real-time resource usage:
 
 **Usage**: Text conversation, code generation, AI-related nodes required when generating SFT datasets.
 
+**Inference Backend**:
+- **llama.cpp** (GGUF format): No environment installation needed, ready to use out of the box. Recommended for most users.
+- **HF Transformers** (HuggingFace format): Requires CPU or GPU environment installation. Supports more flexible precision control and device selection.
+
 **Format Support**:
 - `.gguf`: llama.cpp quantization format (Recommended).
 - `.bin`: GGML format.
+- `.safetensors`: HF Transformers format.
 
-**Environment Requirements**: No environment installation required in **Settings**.
+**Environment Requirements**: llama.cpp backend requires no environment installation; HF backend requires environment installation in **Settings**.
 
-**Quota Consumption**: Free.
+**Quota Consumption**: Free for llama.cpp backend; quota deducted on load for HF backend.
 
 **Features**:
 - Supports LoRA adapters.
 - Supports custom context size (n_ctx).
 - Supports request queue processing (up to 50 requests queued).
 - SFT data generation can reuse loaded chat models without reloading.
+
+**HF Model Specific Settings**:
+
+After importing an HF Transformers format chat model, the following configurations are available in the model operations column:
+
+| Parameter | Description | Default | Options |
+|-----------|-------------|---------|---------|
+| Inference Device | Select device for inference | auto | auto / cpu / cuda |
+| Weight Precision | Numerical precision for model loading | Empty (auto) | float16 / float32 / bfloat16 |
+
+> HF models currently only support text inference; multimodal (image input) is not supported.
 
 **Model Reuse Mechanism**:
 
@@ -248,6 +266,30 @@ Rerank models use a cross-encoder architecture with high computational complexit
 > - Some AMD CPUs may have compatibility issues
 > - NVIDIA GPU environment recommended for best performance
 
+### STT Model (Speech to Text)
+
+**Usage**: Transcribe audio files or real-time recordings to text.
+
+**Format Support**:
+- Based on faster-whisper engine, model files are obtained via the downloader.
+
+**Environment Requirements**: Requires CPU or GPU environment (GPU recommended).
+
+**Features**:
+- Supports multiple computation precisions (float32 / float16 / int8).
+- Supports automatic language detection and language specification.
+- Supports VAD (Voice Activity Detection) to filter silence.
+- Supports CUDA acceleration and CPU inference.
+
+**Configuration Parameters**:
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| Computation Precision | Inference computation precision | float16 |
+| Inference Device | Device used for inference | auto |
+| CPU Threads | Parallel threads for CPU inference | 4 |
+| Worker Processes | Number of parallel worker processes | 1 |
+
 ---
 
 ## Model Import
@@ -354,6 +396,27 @@ Supports two download sources:
 ### Post-Download Processing
 
 After download is complete, the model will automatically appear in the corresponding category's model list, no manual import required.
+
+---
+
+## LAN Inference Service
+
+After loading a model, ModxAI Studio automatically exposes an OpenAI-compatible HTTP API for other applications or devices on the local network to call.
+
+### Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/v1/chat/completions` | POST | OpenAI-compatible chat inference endpoint |
+| `/v1/models` | GET | List currently available models |
+
+### Use Cases
+
+- **LAN Collaboration**: Other devices on the same network can directly call the local model inference service.
+- **Third-Party Integration**: Supports any OpenAI API-compatible client (e.g., other agent applications, automation scripts) for direct integration.
+- **Development & Debugging**: Use curl, Postman, or similar tools to test the inference interface directly.
+
+> No API Key authentication required. The service port and address can be viewed within the application.
 
 ---
 
@@ -585,7 +648,7 @@ Environment is automatically checked when loading the following models:
 - **LoRA Limit**:
   - Chat/Multimodal: Max 1 LoRA.
   - SD Model: Multiple LoRA (Unlimited quantity, but limited by VRAM).
-- **Concurrency Limit**: Chat and Multimodal cannot be loaded simultaneously. Chat, Embedding, Rerank, SD can be loaded simultaneously.
+- **Concurrency Limit**: Chat and Multimodal cannot be loaded simultaneously. Chat, Embedding, Rerank, SD, TTS, STT can be loaded simultaneously.
 
 ### Deletion Protection
 

@@ -7,11 +7,34 @@
 
 ## 功能介绍
 
+### 智能体工作台
+
+- [智能体概览](./features/agent/overview.md)
+- [角色配置](./features/agent/roles.md)
+- [高级参数](./features/agent/advanced-settings.md)
+- [附件与知识库](./features/agent/attachments.md)
+- [语音输入](./features/agent/voice-input.md)
+- [自动审批与安全](./features/agent/auto-approval.md)
+- [指令设置](./features/agent/profile-settings.md)
+- [预设管理](./features/agent/presets.md)
+
 ### AI 对话
 
 - [对话概览](./features/chat/overview.md)
 - [提示词生成](./features/chat/prompt-generation.md)
 - [收藏数据](./features/chat/personalized-training.md)
+
+### 记忆管理
+
+- [记忆管理概览](./features/memory/overview.md)
+
+### 定时任务
+
+- [定时任务概览](./features/scheduler/overview.md)
+
+### 频道连接
+
+- [频道连接概览](./features/gateway/overview.md)
 
 ### 模型库
 
@@ -31,7 +54,7 @@
 - [训练监控](./features/training/monitor.md)
 - [模型评估](./features/training/evaluate.md)
 - [模型测试](./features/training/test.md)
-- [模型打包](./features/training/package.md)
+- [模型量化](./features/training/package.md)
 
 ### SD 聊天
 

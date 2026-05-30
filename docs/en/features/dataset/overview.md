@@ -1,7 +1,7 @@
 # Data Processing
 
-> v1.0.0
-> 2025-12
+> v1.1.0
+> 2026-5
 
 This article introduces how to use the **Data Processing** feature in ModxAI Studio, helping you convert raw data into standardized datasets for SFT fine-tuning, RAG retrieval, and audio transcription.
 
@@ -76,7 +76,7 @@ Each outer category contains different sub-functions:
 
 ### SFT Dataset
 
-Used to generate supervised fine-tuning training data, supporting two source data types:
+Used to generate supervised fine-tuning training data, supporting three source data types:
 
 **Text Dataset**:
 - Supported formats: PDF, Word (.doc/.docx), PowerPoint (.ppt/.pptx), Excel (.xls/.xlsx), HTML, Text files (.txt/.md/.csv/.json/.xml), ZIP archives.
@@ -85,6 +85,11 @@ Used to generate supervised fine-tuning training data, supporting two source dat
 **Code Dataset**:
 - Supported formats: C/C++ (.c/.cpp/.cc/.h/.hpp), Shader (.hlsl/.glsl/.cg/.ush/.usf).
 - Output format: Structured code training data.
+
+**Structured Dataset** (file type "JSON"):
+- Supported formats: JSON, JSONL
+- Use cases: News, tables, business records, and other data with existing structured fields. Fields can be directly mapped to avoid the unstructured cleaning pipeline.
+- Output format: Standardized JSONL training data.
 
 ### RAG Dataset
 
@@ -114,7 +119,6 @@ Transcribe audio files into structured text:
 | 3 | Analyze | Quality analysis and complexity assessment. | ✓ |
 | 4 | AI Synthesis | Use AI models to synthesize enhanced data. | Optional |
 | 5 | AI Synthesis Parse | Parse AI-generated data. | Optional |
-| 6 | Convert to Pretrain | Convert to pre-training data format. | Optional |
 | 7 | Integrate | Integrate all processed data. | ✓ |
 | 8 | AI Filter | Use AI for quality assessment filtering. | Optional |
 | 9 | AI Filter Parse | Parse filtering results. | Optional |
@@ -143,10 +147,11 @@ Transcribe audio files into structured text:
 
 The system presets multiple workflow templates for quick selection of common step combinations:
 
-- **AI Enhancement Mode**: Includes AI synthesis steps, suitable for scenarios needing data expansion.
-- **AI Quality Mode**: Includes AI synthesis and AI filtering steps, suitable for pursuing high-quality data.
-- **Pretrain Mode**: Generate pre-training format data.
-- **Custom Mode**: Manually select steps to execute.
+- **AI Synthesis**: Includes AI synthesis steps, suitable for scenarios needing data expansion.
+- **AI Quality**: Includes AI synthesis and AI filtering steps, suitable for pursuing high-quality data.
+- **Custom**: Manually select steps to execute.
+
+> Pre-training no longer has a separate step. Set the **Export Format** to `pretrain` in Step 4 (AI Synthesis), and the output will follow the pre-training format.
 
 ---
 
@@ -188,7 +193,6 @@ Output Directory/
 ├── opt3/         # Step 3: Analyzed data
 ├── opt4/         # Step 4: AI synthesized data
 ├── opt5/         # Step 5: AI synthesis parsed data
-├── opt6/         # Step 6: Pre-training data
 ├── opt7/         # Step 7: Integrated data
 ├── opt8/         # Step 8: AI filtered data
 ├── opt9/         # Step 9: AI filter parsed data
@@ -291,6 +295,7 @@ Step 11 (Generate Vector) of RAG data processing requires:
 | RAG AI Node | Chat model must be imported |
 | RAG Vector Generation | Embedding model must be imported, Environment needed in **Settings** + Embedding model |
 | Audio to Text | Environment needed in **Settings** (GPU environment recommended) |
+
 ### FAQ
 
 **Q: Can I switch to other pages during processing?**

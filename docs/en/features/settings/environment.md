@@ -182,6 +182,18 @@ If the command fails or reports "command not found", it means the driver or CUDA
 - If another environment is detected, the install button will be disabled
 - Interface will prompt "Environment conflict detected", guiding users to clean first
 
+### Installation Capability
+
+In addition to the environment type (CPU/GPU), you also need to select the **installation capability** to determine which dependency components are installed:
+
+| Capability | Contents | Use Case |
+|------------|----------|----------|
+| **Full** | Training + Agent + TTS all dependencies | Users who need all features |
+| **Agent** | Core libraries + Playwright browser environment + Bun runtime | Users who only need agent web browsing and web tools |
+| **Voice Synthesis** | Core libraries + misaki G2P + spaCy models | Users who only need TTS speech synthesis |
+
+> The installation capability can be switched in the installation confirmation dialog. Different capabilities install different dependency packages; choosing the appropriate one saves disk space and installation time.
+
 ---
 
 ## Installation Content Details
@@ -224,6 +236,17 @@ The following base libraries will be installed regardless of CPU or GPU environm
 | markitdown | 0.1+ | Markdown parsing |
 | mistral_common | 1.8+ | Mistral model support |
 
+### Agent Environment Dependencies
+
+When selecting "Full" or "Agent" installation capability, the following agent-specific dependencies are additionally installed:
+
+| Component | Purpose | Description |
+|-----------|---------|-------------|
+| Playwright | Browser automation | Runtime for the agent's web browsing tool |
+| Bun | JS/TypeScript runtime | Execution engine for the agent's web tools |
+
+> ⚠️ **Prerequisite for Agent Browser and Web Tools**: "Full" or "Agent" installation capability must be installed. If only "Voice Synthesis" capability is installed, the agent's browser-related tools will be unavailable.
+
 ### Optional Acceleration Libraries (GPU Environment)
 
 GPU environment installation will **asynchronously attempt** to install the following optional libraries, failure does not affect main process:
@@ -232,18 +255,28 @@ GPU environment installation will **asynchronously attempt** to install the foll
 |--------------|---------|-------------|
 | bitsandbytes | 4/8-bit quantization | Reduce VRAM usage, accelerate training |
 
-### TTS Optional Dependencies
+### TTS Dependencies
 
-TTS (Text-to-Speech) feature requires the following optional dependencies, **installed asynchronously** after main environment installation:
+TTS (Text-to-Speech) feature requires the following dependencies. The installation method varies depending on the selected capability:
 
 | Library Name | Purpose | Description |
 |--------------|---------|-------------|
 | misaki[en,zh] | G2P conversion | Grapheme-to-Phoneme conversion, supports Chinese and English |
 
+**Full Mode (Async Installation)**:
+- misaki and spaCy models are **downloaded in the background** after the main environment completes.
+- After installation, **wait a moment** and refresh the environment status to confirm TTS capability availability.
+- Async download failure does not affect the main environment installation success status.
+
+**Voice Synthesis Mode (Sync Installation)**:
+- misaki and spaCy models are **installed synchronously** during the main process, until completion or failure.
+- Suitable for fixing TTS dependencies independently after async download failure.
+- After installation, refresh immediately to confirm status.
+
 > ⚠️ **TTS Dependency Installation Notes**:
 > - misaki library is forcibly installed from **PyPI official source**, as domestic mirror sources have incomplete extras dependency resolution
 > - Users in Chinese mainland may experience slow downloads or failures, please maintain stable network connection
-> - Installation failure does not affect main environment, can retry via **Reinstall** or **Repair Environment**
+> - Async installation failure does not affect main environment; can fix by switching to "Voice Synthesis" mode for independent reinstall
 > - After successful installation, refresh environment status to confirm if TTS capability is available
 
 ### Optional Model Resources

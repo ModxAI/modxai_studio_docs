@@ -1,7 +1,7 @@
 # RAG Knowledge Base Data Processing
 
-> v1.0.0  
-> 2025-12
+> v1.1.0
+> 2026-5
 
 This article explains in detail how to use the RAG (Retrieval-Augmented Generation) data processing feature in ModxAI Studio to convert documents into an intelligent knowledge base for AI conversational retrieval.
 
@@ -53,6 +53,8 @@ Unlike traditional full-text search, a RAG system understands the **semantic mea
 - Web: HTML (.html/.htm)  
 - Text: TXT, Markdown, CSV, JSON, XML  
 - Archives: ZIP (automatically unzipped and internal files processed recursively)
+
+**Structured data input**: Select "JSON" from the file type dropdown to directly import JSON/JSONL data with fixed fields. The conversion step displays field mapping parameters (title field, content field, keyword field, etc.) to map source fields to the standard format, bypassing the unstructured parsing pipeline. See [SFT Data Processing - Structured Data](./sft.md#text-data-text).
 
 ---
 

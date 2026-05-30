@@ -1,4 +1,4 @@
-# Training Package Module Details
+# Training Quantize Module Details
 
 > v1.0.0
 > 2025-12
@@ -23,7 +23,7 @@
 
 ## Overview
 
-The Package module is responsible for converting trained models (including base model and LoRA weights) into GGUF format suitable for inference deployment. Due to many parameters and mutual exclusion/dependency relationships, **it is strongly recommended to use preset templates** for operation.
+The Quantize module is responsible for converting trained models (including base model and LoRA weights) into GGUF format suitable for inference deployment. Due to many parameters and mutual exclusion/dependency relationships, **it is strongly recommended to use preset templates** for operation.
 
 ### Core Functions
 
@@ -176,7 +176,7 @@ LoRA Weights → Convert LoRA GGUF → Output
 | Type | Dropdown Select |
 | Required | ✅ Yes |
 
-**Description**: Select the training task to package.
+**Description**: Select the training task to Quantize.
 
 **Optional Tasks**:
 - Tasks with status "Completed"
@@ -218,7 +218,7 @@ LoRA Weights → Convert LoRA GGUF → Output
 | Required | LoRA Task Only |
 | Condition | Display only when task type is SFT and uses LoRA |
 
-**Description**: Select the LoRA checkpoint to package.
+**Description**: Select the LoRA checkpoint to Quantize.
 
 **Checkpoint Source**: `checkpoint-*` subdirectories under task output directory.
 
@@ -451,7 +451,7 @@ LoRA Weights → Convert LoRA GGUF → Output
    - Confirm configuration summary displayed on the right.
 
 3. **Select Checkpoint** (LoRA Task)
-   - Select version to package from checkpoint list.
+   - Select version to quantize from checkpoint list.
    - Refer to evaluation score to select best checkpoint.
 
 4. **Confirm Output Directory**

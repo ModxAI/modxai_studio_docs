@@ -1,7 +1,7 @@
 # SFT Data Processing (Text/Code)
 
-> v1.0.0
-> 2025-12
+> v1.1.0
+> 2026-5
 
 This article details how to use the SFT (Supervised Fine-Tuning) data processing function of ModxAI Studio to convert raw text or code files into high-quality datasets that meet training format requirements.
 
@@ -62,6 +62,25 @@ Suitable for processing various documents, articles, technical materials, and ot
 - Text: TXT, Markdown, CSV, JSON, XML
 - Archives: ZIP (automatically decompresses and processes)
 
+**Structured Data (JSON)**:
+
+Select "JSON" from the file type dropdown to switch to structured data input mode. Suitable for JSON/JSONL data with fixed fields (e.g., news, business records), allowing direct field mapping to standard formats without going through the unstructured cleaning pipeline.
+
+When structured data is selected, the conversion step displays the following parameters:
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| Limit Count | Process only the first N files or records; 0 means no limit | 0 |
+| Record ID Field | Unique identifier field name for each record | id |
+| Title Field | Source field mapped to document title | title |
+| Content Field | Source field mapped to document content (required) | content |
+| Summary Field | Source field mapped to document summary | description |
+| Keyword Fields | Source fields mapped to keywords, comma-separated | keywords,tag_key |
+| Category Fields | Source fields mapped to category, comma-separated | catname,areaname |
+| Author Field | Source field mapped to author | author_key |
+| Source Field | Source field mapped to source | copyfrom |
+| Published Time Field | Source field mapped to publish time | inputtime |
+
 ### Code Data (Code)
 
 Suitable for processing source code files. Currently supports two code types:
@@ -101,10 +120,9 @@ To simplify operations, the system presets several common workflow templates. Yo
 | :--- | :--- | :--- | :--- |
 | **AI Synthesis** | 0→1→2→3→4→5→7→10 | Need AI to generate Q&A pairs | Most common complete flow |
 | **AI Quality** | 0→1→2→3→4→5→7→8→9→10 | Need AI to filter low-quality data | Includes quality assessment filtering |
-| **Pretrain** | 0→1→2→3→6→7→10 | Generate pre-training corpus | Skip AI processing, retain original format |
 | **Custom** | Select as needed | Special needs | Manually select steps to execute |
 
-> **About Pretrain Template**: The processing flow for pre-training data is highly similar to SFT (only output format differs). It is integrated into the same processing interface, distinguished by template selection for final output format.
+> Pre-training no longer has a separate step. Set the **Export Format** to `pretrain` in the AI synthesis step node, and subsequent steps will output plain text corpus in pre-training format.
 
 ---
 
@@ -120,14 +138,12 @@ SFT data processing includes 11 steps (0-10), some of which are optional:
 | 3 | Analyze/Organize | Quality assessment and complexity analysis | ✓ | - |
 | 4 | AI Synthesis | Use AI to generate Q&A pairs | Optional | ✓ |
 | 5 | AI Synthesis Parse | Parse AI generation results | Optional | - |
-| 6 | Convert to Pretrain | Convert to pre-training format | Optional | - |
 | 7 | Integrate Data | Aggregate all data and format | ✓ | - |
 | 8 | AI Filter | AI quality assessment filtering | Optional | ✓ |
 | 9 | AI Filter Parse | Parse filtering results | Optional | - |
 | 10 | Output | Generate final training data | ✓ | ✓ |
 
 **Step Relationship Explanation**:
-- Steps 4-5 and Step 6 are mutually exclusive: Selecting AI synthesis flow skips pre-training conversion, and vice versa.
 - Steps 5/9 are automatically triggered after executing 4/8, no manual selection needed.
 - Steps 8-9 require the output of Step 7 as input.
 
@@ -296,13 +312,15 @@ Near-duplicate detection in this step can use an embedding model to improve accu
 
 ---
 
-### Step 6: Convert to Pretrain (Optional)
+### Export Format & Pre-training
 
-**Function**: Convert data to pre-training format, skipping AI Q&A generation.
+Pre-training is no longer a standalone step. Set the **Export Format** parameter in Step 4 (AI Synthesis) to control the final output:
 
-This step is used when you select the "Pretrain" template. The output format is plain text corpus, suitable for model pre-training or continued pre-training.
-
-> **Mutually Exclusive with AI Synthesis**: Step 6 is mutually exclusive with Steps 4-5. The system automatically handles this based on the selected template.
+| Export Format | Output Content | Use Case |
+|---------------|----------------|----------|
+| sft_chatml | ChatML dialogue format (system/user/assistant) | SFT fine-tuning |
+| pretrain | Plain text corpus (single assistant message) | Pre-training / Continued pre-training |
+| dpo | Preference pair format (prompt/chosen/rejected) | DPO preference alignment training |
 
 ---
 
@@ -390,6 +408,12 @@ Step 4 (AI Synthesis) and Step 8 (AI Filter) both require configuring AI model p
 | **AI Model** | Select model to use | Required |
 | **Task Type** | Analysis / QA / All | Analysis |
 | **Complexity Match** | Which complexity levels of data to process | All |
+| **Export Format** | Output format for final training data | sft_chatml |
+| **Chain of Thought Mode** | Inject CoT reasoning prompt to guide model thinking process | Off |
+
+**Export Format Options**: `sft_chatml` (SFT ChatML dialogue format), `pretrain` (pre-training plain text), `dpo` (DPO preference pair format).
+
+**Chain of Thought Mode**: When enabled, automatically injects content reasoning CoT prompts and disables the model's native thinking function to avoid dual thinking tag pollution. Suitable for analysis tasks where the model needs to show reasoning steps.
 
 ### Advanced Parameters (Collapsible Area)
 
@@ -401,7 +425,8 @@ Step 4 (AI Synthesis) and Step 8 (AI Filter) both require configuring AI model p
 | **Top P** | Nucleus sampling threshold | 0.95 | 0-1 |
 | **Repeat Penalty** | Avoid repetition | 1.1 | 0-2 |
 | **Min P** | Minimum probability threshold | 0.0 | 0-1 |
-| **Enable Thinking** | Use Chain of Thought reasoning | No | - |
+| **Enable Thinking** | Use model native thinking | No | - |
+| **Server Address** | Remote inference service URL, format `http://ip:port/v1/chat/completions` | Empty | - |
 
 ### Custom System Prompt
 
@@ -544,7 +569,7 @@ A: The processing flow for pre-training data is highly similar to SFT. Main diff
 - No AI Q&A generation (Steps 4-5).
 - Output format is plain text instead of conversation format.
 
-Therefore, it is integrated into the same interface, simplified by selecting the "Pretrain" template.
+Therefore, it is integrated into the same interface. Set the **Export Format** to `pretrain` in Step 4 (AI Synthesis) to output in pre-training format.
 
 ### Q: AI filtering causes significant data reduction?
 
