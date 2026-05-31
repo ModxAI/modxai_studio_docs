@@ -74,7 +74,7 @@ Key sections include:
 - **Features · Dataset**: SFT data, RAG knowledge bases, audio-to-text
 - **Features · Models**: Model library, downloads, LoRA, SD models
 - **Features · Training**: Prepare, monitor, evaluate, test, package
-- **Features · Settings**: Environment setup, license, global options
+- **Features · Settings**: Environment setup, global options
 - **FAQ**: Common problems and troubleshooting
 
 ---

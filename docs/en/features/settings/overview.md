@@ -3,7 +3,7 @@
 > v1.0.0
 > 2025-12
 
-This guide introduces how to use the **Settings** feature in ModxAI Studio, helping you complete application configuration, environment installation, theme switching, and license activation.
+This guide introduces how to use the **Settings** feature in ModxAI Studio, helping you complete application configuration, environment installation, theme switching.
 
 ## Table of Contents
 
@@ -14,7 +14,6 @@ This guide introduces how to use the **Settings** feature in ModxAI Studio, help
 - [Global Parameters](#global-parameters)
 - [Theme Settings](#theme-settings)
 - [Version Updates](#version-updates)
-- [License](#license)
 - [Help & Feedback](#help--feedback)
 - [Related Documentation](#related-documentation)
 
@@ -29,7 +28,6 @@ The Settings module is the core configuration center of ModxAI Studio, providing
 - **Sandboxed Dynamic Loading**: Isolated environments, loaded only when needed to avoid conflicts
 - **Multi-Language Support**: Supports Chinese and English interface switching
 - **Theme Switching**: Multiple preset themes with light/dark mode support
-- **License Management**: Supports lifetime and subscription license activation
 
 ---
 
@@ -44,7 +42,6 @@ The Settings page uses a card-based vertical layout, organized by functional sec
 | **Global Parameters** | Inference device, max tokens, content filtering, and other runtime parameters |
 | **Theme Settings** | Application appearance theme selection |
 | **Version Updates** | Current version info, update checking, download and installation |
-| **License** | License status viewing and registration code activation |
 | **Help & Feedback** | Documentation links, feedback submission, privacy policy, etc. |
 
 ---
@@ -233,36 +230,6 @@ The Version Updates section displays current version information and supports on
 
 ---
 
-## License
-
-The License section is used to view authorization status and activate registration codes.
-
-### License Types
-
-| Type | Description |
-|------|-------------|
-| **Free Version** | Advanced features consume monthly free quota |
-| **Subscription** | Monthly/yearly subscription with unlimited access to all features |
-| **Lifetime** | One-time purchase, permanent use |
-
-### Activation Method
-
-1. Enter registration code in the input box
-2. Click the "Activate" button
-3. Authorization status displayed after successful activation
-
-### Status Description
-
-| Status | Description |
-|--------|-------------|
-| Activation Successful | Valid authorization; unlimited access to all features |
-| Expired | Subscription has expired; renewal required |
-| Authorization Invalid | Registration code has been revoked; please contact support |
-
-> For detailed authorization guide, please refer to [License Activation Guide](./license.md)
-
----
-
 ## Help & Feedback
 
 The Help & Feedback section provides support entry points:
@@ -289,5 +256,4 @@ The Help & Feedback section provides support entry points:
 ## Related Documentation
 
 - [Environment Installation Guide](./environment.md) - Detailed environment installation guide and troubleshooting
-- [License Activation Guide](./license.md) - License type descriptions and activation process
 

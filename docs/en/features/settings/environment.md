@@ -456,5 +456,4 @@ Installation logs are displayed in real-time in the progress card:
 ## Related Documentation
 
 - [Global Settings Overview](./overview.md) - Return to settings feature overview
-- [License Activation Guide](./license.md) - License type description and activation process
 
