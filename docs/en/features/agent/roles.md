@@ -197,3 +197,37 @@ Each role supports the following configuration items:
 | Online Provider | Online model service provider |
 | API Credentials | Bound API Key |
 | LAN Address | Service URL for LAN mode |
+
+### Prompt
+
+| Item | Description |
+|------|-------------|
+| Role Prompt Template | Preset role behavior template |
+| System Prompt | Custom role behavior instructions |
+
+### Core Parameters
+
+| Parameter | Description | Default |
+|-----------|---------|-------------|
+| Enable Tools | Whether to allow the role to call tools | Enabled |
+| Temperature | Controls response randomness | 0.6 |
+| Max Generation Length | Single task maximum token count (0=auto) | 0 |
+| Max Context Length | Single task maximum context length (0=no limit) | Empty |
+
+> Note: When the context length is empty, it means not to override the context length set in the model library. Recommended minimum 32K
+
+### Advanced Inference Parameters
+
+| Parameter | Description | Default |
+|-----------|---------|-------------|
+| Max Tool Rounds | Maximum tool call rounds per single task | 100 |
+| Inference Timeout | Maximum wait time per inference | 600 s |
+| Fast Mode | Skip feedback process before tool call | Disabled |
+| Thinking Mode | Supports model-native thinking blocks | Enabled |
+
+### Toolset Configuration
+
+Each role can independently select allowed tools. Supports two modes:
+
+- **Automatic Selection** (default): Dynamically select the most suitable tool within the selected tool range at runtime
+- **Fixed Loading**: Always load all selected tools

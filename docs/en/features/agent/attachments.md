@@ -10,6 +10,7 @@ The agent supports attaching files, images, audio, and other resources when send
 - [Attachment Types](#attachment-types)
 - [Local Attachments](#local-attachments)
 - [Knowledge Base Connection](#knowledge-base-connection)
+- [Workspace Reference](#workspace-reference)
 
 ---
 
@@ -25,7 +26,7 @@ The attachment menu on the left side of the input box supports the following typ
 | Video | Attachment Menu → Video | Upload video files |
 | Local Attachment | Attachment Menu → Local Attachment | Comprehensive entry, supports multiple formats |
 | Knowledge Base Connection | Attachment Menu → Knowledge Base | Link a RAG knowledge base |
-
+| Workspace Reference | Attachment Menu → Workspace Reference (Read-only) | Reference other workspace directories |
 ---
 
 ## Local Attachments
@@ -85,3 +86,24 @@ The following parameters are available when connecting a knowledge base:
 | Score Threshold | Similarity filter (0~1) |
 | Max Context Length | Maximum character count per single retrieval |
 | Retrieval Prompt | Custom retrieval behavior instructions |
+
+---
+
+## Workspace Reference
+
+Reference other workspace directories, the agent can only read the file content of the referenced directory, and cannot perform editing operations.
+
+### Prerequisites
+
+- Existing other workspace directories
+- Maximum of 10 workspace directories can be referenced at the same time
+
+### Referencing a Workspace
+
+1. Select **Workspace Reference** from the attachment menu.
+2. In the dialog, select an existing workspace directory from the dropdown list.
+3. After confirmation, the referenced workspace directory is displayed next to the input box.
+
+### Disreferencing a Workspace
+
+Click the close button next to the referenced workspace directory to disconnect.
