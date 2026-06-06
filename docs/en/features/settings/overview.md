@@ -228,6 +228,8 @@ The Version Updates section displays current version information and supports on
 | **Download Update** | Download new version installer (displayed when new version available) |
 | **Install and Restart** | Install downloaded update and restart application (displayed after download complete) |
 
+> Downloads may be slow or fail for users in mainland China. A network proxy is recommended.
+
 ---
 
 ## Help & Feedback

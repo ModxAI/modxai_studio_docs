@@ -12,7 +12,6 @@ This article introduces how to use the **Model Training** function in ModxAI Stu
 - [Interface Layout](#interface-layout)
 - [Functional Modules](#functional-modules)
 - [Training Task Mechanism](#training-task-mechanism)
-- [Quota Consumption Rules](#quota-consumption-rules)
 - [Training Parameter System](#training-parameter-system)
 - [Parameter Template Mechanism](#parameter-template-mechanism)
 - [Next Steps](#next-steps)
@@ -181,35 +180,6 @@ The training module involves the following core data:
 | Task Parameters | Specific training parameter values for the task |
 | Training Log | Metrics such as loss, lr, progress for each step |
 | Checkpoint Record | Save time, steps, and loss value for each checkpoint |
-
----
-
-## Quota Consumption Rules
-
-Quota consumption during training is related to checkpoint saving:
-
-### Consumption Rules
-
-- **Saving one checkpoint consumes 1 training quota**
-
-### Influencing Factors
-
-The number of saved checkpoints is affected by the following parameters:
-
-| Interface Display Name | Description |
-|-------------|------|
-| Save Strategy | By steps (`steps`), by epoch (`epoch`), or no save (`no`) |
-| Save Steps | Save every X steps when strategy is `steps` |
-| Max Saved Checkpoints | Automatically delete old checkpoints after exceeding this number |
-| Save Interval Minutes | Save by time interval (minutes) |
-
-### Quota Estimation
-
-**Example**: Total training steps 1000, save steps set to 100, then approximately 10 checkpoints will be saved, consuming 10 quotas.
-
-### View Quota
-
-Quota usage can be viewed in the application top status bar, and the system will issue a warning notification when the quota is insufficient.
 
 ---
 

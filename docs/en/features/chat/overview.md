@@ -15,7 +15,6 @@ This article introduces how to use the **Text Chat** and **Multimodal Chat** fea
 - [RAG Retrieval Augmented Generation](#rag-retrieval-augmented-generation)
 - [Inference Parameter Settings](#inference-parameter-settings)
 - [Message Operations](#message-operations)
-- [Data Collection](#data-collection)
 - [Notes](#notes)
 
 ---
@@ -233,35 +232,6 @@ There is a floating button group to the right of each AI reply:
 - If the "Thinking" switch is enabled.
 - A collapsible panel "💭 AI Thinking Process" will be displayed above the AI reply.
 - Click to expand and view the reasoning steps.
-
----
-
-## Data Collection
-
-### Collection Method
-
-Click the **Collect Button** (Thumbs up icon) on a satisfactory AI reply. The system will:
-1. Mark the reply as "Collected".
-2. Automatically add it to the collection dataset.
-3. The floating button in the bottom left corner displays the number of collections.
-
-### Manage Collections
-
-Click the **Collection Icon Floating Button** in the bottom left corner to open the Data Manager:
-
-- **View List**: All collected Q&A pairs.
-- **Edit**: Modify the question or answer content.
-- **Delete**: Remove unwanted data.
-- **Export**: Export as a trainable dataset.
-  - Set export name.
-  - Configure quality filtering conditions.
-  - Select export location.
-  - One-click export to standard format.
-
-**Export Usage**:
-- Used for model fine-tuning training.
-- Building new RAG knowledge bases.
-- Backing up important conversation records.
 
 ---
 

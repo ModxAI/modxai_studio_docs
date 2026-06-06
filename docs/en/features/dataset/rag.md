@@ -17,7 +17,6 @@ This article explains in detail how to use the RAG (Retrieval-Augmented Generati
 - [Parameter Configuration](#parameter-configuration)
 - [Output and Storage](#output-and-storage)
 - [Using in Chat](#using-in-chat)
-- [Exporting from Favorites](#exporting-from-favorites)
 - [Notes](#notes)
 - [FAQ](#faq)
 
@@ -404,26 +403,6 @@ For hybrid or rerank modes, import and load a rerank-type model (e.g., `qwen3-re
 
 ---
 
-## Exporting from Favorites
-
-Besides processing documents directly, you can export accumulated favorites from chat into RAG format:
-
-### Steps
-
-1. **Open Favorites management**: Click the "Favorites" button in the chat interface  
-2. **Select data to export**: Check the conversations or liked content to export  
-3. **Choose export format**: Select "RAG knowledge base format"  
-4. **Configure export options**: Set name and other parameters  
-5. **Run export**: After export, start from the **Vector Generation (Step 11)** step to complete subsequent processing  
-
-### Use cases
-
-- Turn high-quality AI answers into a knowledge base  
-- Build a dedicated Q&A KB based on historical conversations  
-- Convert liked content into searchable knowledge  
-
----
-
 ## Notes
 
 ### Environment Requirements
@@ -435,14 +414,6 @@ Besides processing documents directly, you can export accumulated favorites from
 | **Rerank model** (optional) | Recommended to import a rerank model to improve retrieval quality |
 | **Chat model** (optional) | Required for AI analysis steps |
 | **Disk space** | Vector databases consume disk space; ensure the output directory has enough free space |
-
-### Quota Consumption
-
-RAG data processing consumes free quotas:
-
-- Step 0 (Conversion): free  
-- Steps 1–3, 11–12: 1 quota unit per processed/generated record  
-- Steps 4–5 (AI analysis): per-record cost according to AI generation quota  
 
 ### Performance Tips
 
@@ -477,8 +448,7 @@ A: Common causes:
 
 1. Environment not installed in **Settings** – configure it first  
 2. No embedding model imported – import an embedding-type model in the model hub  
-3. Insufficient quota – check remaining quota or wait for reset  
-4. AI analysis failure – check whether a chat model is loaded  
+3. AI analysis failure – check whether a chat model is loaded  
 
 **Q: Can I modify existing knowledge-base content?**
 

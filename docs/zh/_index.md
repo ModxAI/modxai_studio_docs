@@ -22,7 +22,6 @@
 
 - [对话概览](./features/chat/overview.md)
 - [提示词生成](./features/chat/prompt-generation.md)
-- [收藏数据](./features/chat/personalized-training.md)
 
 ### 记忆管理
 

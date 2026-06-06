@@ -24,7 +24,6 @@
     - [Video Generation Specific Parameters](#video-generation-specific-parameters)
 - [Message Operations](#message-operations)
 - [Progress Monitoring](#progress-monitoring)
-- [Favorite Data](#Favorite-data)
 - [Important Notes](#important-notes)
 
 ---
@@ -100,8 +99,6 @@ SD Chat interface uses a left-right dual-column layout:
 ---
 
 ## Generation Modes
-
-**Quota Consumption**: Each successful generation consumes 1 "data" quota (counted from first generation after loading model).
 
 SD Chat automatically supports the following modes based on loaded model capabilities:
 
@@ -340,14 +337,6 @@ During generation, progress bar shown below message list:
 ---
 
 ## Favorite Data
-
-### Like & Favorite (Reserved Feature)
-
-**Book icon** floating button in bottom right corner for viewing Favorite data favorites. Current version does not yet support liking in SD Chat, future versions will support favoriting generation results for training image-text models.
-
----
-
-## Important Notes
 
 ### Model Requirements
 

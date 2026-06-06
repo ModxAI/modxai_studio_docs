@@ -249,9 +249,6 @@ System includes multiple voice presets:
    - Supports automatic paragraph splitting for long texts
    - Recommended single input not exceeding 2000 characters for best experience
 
-3. **Quota Consumption**
-   - Each successful generation consumes 1 data quota
-
 ### Data Management
 
 1. **History Records**

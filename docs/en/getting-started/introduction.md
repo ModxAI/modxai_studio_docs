@@ -28,7 +28,7 @@ Intelligent conversation with local large language models:
 - **Text Chat**: Daily Q&A, code generation, creative writing, etc.
 - **Multimodal Chat**: Supports image-text understanding; upload images for AI analysis.
 - **RAG Enhancement**: Answer questions based on your knowledge base; AI understands your domain better.
-- **Data Collection**: Collect high-quality conversations for subsequent training.
+- **Data Collection**: Collect high-quality conversations for generating training or RAG data.
 
 ### 🖼️ Image & Video Generation
 

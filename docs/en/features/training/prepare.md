@@ -682,8 +682,6 @@ checkpoint-500/
 | `epoch` | Save at the end of each training epoch |
 | `no` | Do not save intermediate checkpoints |
 
-> ⚠️ **Quota Consumption**: Saving each checkpoint consumes 1 training quota.
-
 ---
 
 ### Save steps
@@ -697,8 +695,6 @@ checkpoint-500/
 | Fold Group | Save Params |
 
 **Description**: Save checkpoint every X steps when save strategy is `steps`.
-
-**Quota Estimation**: Total Steps ÷ Save Steps = Estimated Checkpoints = Consumed Quotas
 
 ---
 

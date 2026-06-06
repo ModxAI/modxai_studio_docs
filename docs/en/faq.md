@@ -78,7 +78,7 @@ LoRA must match the base model architecture. Ensure:
 | Inference Speed | Fast | Depends on hardware |
 | Precision Control | Fixed quantization levels | Flexible float16/32 selection |
 | Multimodal | Supported | Not supported (text only) |
-| Quota Consumption | Free | Quota deducted on load |
+
 
 ### How can other applications call my loaded model?
 
@@ -163,12 +163,6 @@ AI nodes require model inference; speed depends on hardware:
 - Ensure GPU is available for acceleration.
 - Test with a small amount of data first.
 
-### How can I save quota consumption?
-
-- Set reasonable data splitting parameters to avoid excessive fragmented data.
-- Disable unnecessary AI steps (e.g., AI filtering).
-- Test the workflow with a small dataset first.
-
 ### How do I resume from a checkpoint?
 
 1. Uncheck completed steps.
@@ -209,12 +203,6 @@ When enabled, the system automatically injects reasoning prompts to guide the mo
 ### What should I fill in "Training Model Directory"?
 
 This parameter requires a **HuggingFace format model directory** (containing `.safetensors` and `config.json`), **not** a GGUF inference model.
-
-### Do checkpoints consume quota?
-
-Yes. Each saved checkpoint consumes 1 training quota. Recommendations:
-- Set a reasonable save interval (e.g., every 100 steps).
-- Set a maximum number of saved checkpoints.
 
 ### How to resume training after interruption?
 

@@ -152,8 +152,6 @@ When you are generating SFT data, if a chat model is already running:
 
 **Environment Requirements**: Requires CPU or GPU environment.
 
-**Quota Consumption**: Quota deducted after successful load.
-
 **Features**:
 - Automatically detects model dimensions.
 - Supports batch encoding.
@@ -175,8 +173,6 @@ The embedding model is responsible for preliminary recall of relevant documents,
 - `.safetensors`: HuggingFace SafeTensors format.
 
 **Environment Requirements**: Requires CPU or GPU environment.
-
-**Quota Consumption**: Quota deducted after successful load.
 
 **Features**:
 - Supports Cross-Encoder architecture.
@@ -247,8 +243,6 @@ Rerank models use a cross-encoder architecture with high computational complexit
 - Requires `config.json` configuration file and `.pt` voice files.
 
 **Environment Requirements**: Requires CPU or GPU environment.
-
-**Quota Consumption**: Quota deducted per generation.
 
 **Supported Languages**:
 - **American English (a)**: American English
@@ -631,16 +625,6 @@ Environment is automatically checked when loading the following models:
 - **Rerank Model**: Popup guide if not installed.
 - **SD Model**: Popup guide if not installed.
 - **Custom Export**: Popup guide if not installed.
-
-### Quota Consumption Rules
-
-- **Chat Model**: Free, unlimited loading.
-- **Multimodal Model**: Quota deducted after successful load.
-- **Embedding Model**: Quota deducted after successful load.
-- **Rerank Model**: Quota deducted after successful load.
-- **SD Model**: Quota deducted after successful load.
-
-**Deduction Timing**: When model status becomes "Loaded".
 
 ### Model Load Restrictions
 

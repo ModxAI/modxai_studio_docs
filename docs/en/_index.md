@@ -22,7 +22,6 @@
 
 - [Chat Overview](./features/chat/overview.md)
 - [Prompt Generation](./features/chat/prompt-generation.md)
-- [Bookmarked Data](./features/chat/personalized-training.md)
 
 ### Memory Management
 

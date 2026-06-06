@@ -229,5 +229,7 @@ Each role supports the following configuration items:
 
 Each role can independently select allowed tools. Supports two modes:
 
-- **Automatic Selection** (default): Dynamically select the most suitable tool within the selected tool range at runtime
+- **Automatic Selection**: Dynamically select the most suitable tool within the selected tool range at runtime
 - **Fixed Loading**: Always load all selected tools
+
+> Note, the tools available during task execution strictly follow the selected range. Neither automatic selection nor tool discovery will call unselected tool groups.
