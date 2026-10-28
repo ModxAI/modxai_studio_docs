@@ -1,7 +1,7 @@
 # Training Quantize Module Details
 
-> v1.0.0
-> 2025-12
+> v1.1.11
+> 2026-10
 
 > 📌 **Module Positioning**: Convert training artifacts into deployable GGUF format, supporting weight merging, format conversion, and quantization compression.
 
@@ -156,6 +156,8 @@ Base Model → Convert GGUF → Quantize → Output
 ```
 LoRA Weights → Convert LoRA GGUF → Output
 ```
+
+Exporting LoRA alone needs the training environment already installed. If this step fails, open **Settings → Environment** and **Reinstall** the environment that is already installed, then try again.
 
 **Output Files**:
 - `{checkpoint_name}-lora.gguf`

@@ -1,7 +1,7 @@
 # Memory Management
 
-> v1.1.0
-> 2026-05
+> v1.1.11
+> 2026-10
 
 Memory management provides a unified view for reviewing and managing the **long-term memory** accumulated by the agent during execution, as well as manually **bookmarked** Q&A entries. You can preview, edit, archive, delete, or export memories as data formats suitable for training or knowledge base use.
 
@@ -62,6 +62,8 @@ Filter by the following conditions:
 | **Search Box** | Free text | Search by title, summary, content, or Q&A text |
 | **Category** | All / Agent Memory / Manual Bookmarks | Filter by memory source |
 | **Memory Type** | Dynamic list | Filter by specific memory type (e.g., insight, favorite_qa) |
+
+The list and the detail panel both show **category** and **memory type**. The filters use those two fields.
 | **Archive Status** | Not Archived / All / Archived | Filter active or archived memories |
 
 ---

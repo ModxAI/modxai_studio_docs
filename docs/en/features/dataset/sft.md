@@ -322,6 +322,8 @@ Pre-training is no longer a standalone step. Set the **Export Format** parameter
 | pretrain | Plain text corpus (single assistant message) | Pre-training / Continued pre-training |
 | dpo | Preference pair format (prompt/chosen/rejected) | DPO preference alignment training |
 
+Field mapping for structured JSON/JSONL (see Structured Data above) is written into one of these three outputs. Choosing `sft_chatml`, `pretrain`, or `dpo` selects the sample shape. The mapping does not send that input back through the unstructured cleaning path.
+
 ---
 
 ### Step 7: Integrate Data

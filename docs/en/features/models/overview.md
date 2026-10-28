@@ -50,7 +50,7 @@ If you need to use features dependent on Python, please go to the **Settings** p
 > - NVIDIA (recommended):
 >   - If you have an NVIDIA GPU, install the CUDA acceleration libraries using the “Install GPU Acceleration Libraries” option in the Model Library ⚡ button. Chat/multimodal models run fastest on NVIDIA+CUDA; Stable Diffusion (SD, image generation) currently requires CUDA and will only run after the CUDA libraries are installed.
 >   - After installing or updating the acceleration libraries, there is no need to restart the application. The changes take effect the next time a model is loaded. Inference libraries can also update themselves.
->   - The bundled llama.cpp is **b10809 (v0.4.0)**. That build adds DFlash2 speculative decoding and the model named Qwen3.8-Flash-Next in the release notes. Versions 1.1.6 and 1.1.3 shipped b10075 and b9467.
+>   - The bundled llama.cpp is **b10809 (v0.4.0)**. That build adds DFlash2 speculative decoding and the name Qwen3.8-Flash-Next as written in the release notes. That spelling has not been confirmed as a model id in source. Versions 1.1.6 and 1.1.3 shipped b10075 and b9467.
 >   - The Stable Diffusion library moved to **stable-diffusion.cpp 0.4.7** in 1.1.6.
 > - AMD (limitations):
 >   - AMD GPUs can use the built-in Vulkan acceleration for chat/multimodal models (no extra library needed), but SD inference is not supported on AMD/Vulkan at this time.
@@ -612,13 +612,13 @@ Displayed only when GPU is detected:
 - NVIDIA GPU can monitor VRAM and temperature in real-time.
 - AMD/Intel GPU only displays static info (Total VRAM, Vendor).
 - This card is not displayed if no GPU.
-- On a unified-memory machine, graphics memory and system memory are the same pool. The monitor shows that layout instead of a separate VRAM card.
+- On a unified-memory machine, graphics memory and system memory are the same pool. The monitor shows that layout instead of a separate VRAM card. The macOS environment check recognizes this kind of GPU. See [Environment Configuration](../settings/environment.md).
 
 ---
 
 ## Usage Statistics
 
-The toolbox includes an input/output usage panel for local models. The figures update after a model is loaded or unloaded.
+The toolbox includes a local-model **token and input/output statistics board**. It counts tokens for local inference. The figures update after a model is loaded or unloaded.
 
 ---
 

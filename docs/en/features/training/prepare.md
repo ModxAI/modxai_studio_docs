@@ -1,7 +1,7 @@
 # Prepare Module Details
 
-> v1.0.0
-> 2025-12
+> v1.1.11
+> 2026-10
 
 This article details the functions and parameter configurations of the **Prepare** page in the ModxAI Studio training module, helping you correctly set up training tasks.
 
@@ -116,6 +116,8 @@ Parameters are displayed in layers according to importance:
 **Data Format Requirements**:
 - **SFT Training**: JSONL format, one JSON object per line, containing dialogue data.
 - **Pre-training**: Plain text or JSONL format.
+
+Those files can be produced by the structured field mapping in [Data Processing](../dataset/sft.md), which can export SFT, pretraining, or DPO. Training types on this page are still **SFT or pretraining**. There is no separate DPO training type here.
 
 **SFT Data Example**:
 ```json

@@ -63,7 +63,7 @@ The Environment Configuration section automatically detects and displays current
 
 | Item | Description |
 |------|-------------|
-| System | Operating system type (Windows) |
+| System | Operating system type. Path examples in these docs are written for Windows |
 | CPU | CPU core count |
 | Memory | Total system memory (GB) |
 | GPU | Graphics card type (NVIDIA/AMD) |

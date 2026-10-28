@@ -94,6 +94,12 @@ The system automatically detects graphics card types, with different support for
 > - When selecting GPU environment, will **automatically fall back to CPU version of PyTorch**
 > - AMD GPU users are recommended to directly select CPU environment, but this does not affect inference acceleration
 
+### macOS Unified Memory
+
+The environment check on macOS recognizes a unified-memory GPU. On those machines graphics memory and system memory are the same pool, and the model-library resource monitor shows that shared pool instead of a separate VRAM figure.
+
+This note covers detection and display only. It does not claim that training, SD, or speech on macOS match Windows.
+
 ### No Discrete GPU
 
 If the system does not detect a discrete GPU (only integrated GPU or no GPU):

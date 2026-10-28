@@ -1,7 +1,7 @@
 # Training Monitor Module Details
 
-> v1.0.0
-> 2025-12
+> v1.1.11
+> 2026-10
 
 > 📌 **Module Positioning**: Real-time monitoring of training progress, viewing historical training data, and analyzing training status through visual charts.
 

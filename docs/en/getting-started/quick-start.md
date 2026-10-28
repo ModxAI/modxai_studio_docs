@@ -9,7 +9,7 @@ This guide helps you complete your first AI chat in **5 minutes**.
 
 ## Step 1: Launch the Application
 
-After installation, double-click the desktop icon to launch ModxAI Studio.
+After installation, double-click the desktop icon to launch ModxAI Studio. The steps below follow the Windows layout. macOS and Linux installers are on the [download page](https://www.modxai.net/en/download).
 
 On the first launch, the app finishes initialization, opens a welcome screen, and shows an onboarding guide plus an environment setup guide. You can skip the environment install if you only want local text chat. From the main page you can move backward and forward through pages you have already opened.
 

@@ -103,6 +103,7 @@ The agent can invoke various tools to complete your tasks:
 | Tool Category | Capabilities |
 |---------------|--------------|
 | **File Operations** | Read, write, move, search files |
+| **Image Parsing** | Parse image files. This is its own tool, separate from image attachments in multimodal chat |
 | **Terminal Execution** | Run commands and scripts |
 | **Web Search** | Search engine queries, web page content extraction |
 | **Browser** | Launch browser, navigate pages, take screenshots, interact |

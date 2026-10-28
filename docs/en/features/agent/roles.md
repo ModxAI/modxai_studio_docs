@@ -216,7 +216,7 @@ The online backend calls cloud models with the OpenAI-compatible Chat Completion
 | Max Generation Length | Single task maximum token count (0=auto) | 0 |
 | Max Context Length | Single task maximum context length (0=no limit) | Empty |
 
-> Note: When the context length is empty, it means not to override the context length set in the model library. Recommended minimum 32K
+> Note: This control is the quick adjustment of the local model's context length for that role. You do not have to go back to the model library first. Empty means do not override the library setting. `0` means no limit. Recommended minimum 32K.
 
 ### Advanced Inference Parameters
 
@@ -225,7 +225,7 @@ The online backend calls cloud models with the OpenAI-compatible Chat Completion
 | Max Tool Rounds | Maximum tool call rounds per single task | 100 |
 | Inference Timeout | Maximum wait time per inference | 600 s |
 | Fast Mode | Skip feedback process before tool call | Disabled |
-| Thinking Mode | Allows native thinking blocks. When off, models that support a disable-thinking instruction receive that instruction | Enabled |
+| Thinking Mode | Allows native thinking blocks. When off, newer models that support closing thinking receive that setting through `chat_template_kwargs` | Enabled |
 | Thinking Depth | Depth levels for local models. Deeper levels are usually slower. The levels include `xhigh` | — |
 | KV Cache / MTP | Inference-tuning parameters for local LLMs and multimodal models | — |
 

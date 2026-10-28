@@ -126,7 +126,7 @@ There are two important switches above the input box:
 - **Function**: When enabled, the AI will display its thinking process.
 - **Display**: Collapsible panel "💭 AI Thinking Process".
 - **Usage**: To understand the AI's reasoning logic.
-- **Disable thinking**: Turning it off sends a disable-thinking instruction to models that support one. It does not only hide the thinking block.
+- **Disable thinking**: Turning it off sends a close-thinking setting through `chat_template_kwargs` on newer models that support it. It does not only hide the thinking block.
 
 #### Retrieval Switch
 - **Function**: Enables RAG knowledge base retrieval.

@@ -113,7 +113,7 @@ Say goodbye to complex environment configurations:
 
 | Item | Requirement |
 |------|-------------|
-| OS | Windows 10/11 (64-bit) |
+| OS | Windows 10/11 (64-bit) is the primary documented platform. macOS and Linux installers are also built, with packaging assets updated from 1.1.7 |
 | Memory | 16GB RAM |
 | Storage | 20GB available space |
 | Processor | Supports AVX2 instruction set |
@@ -127,6 +127,8 @@ Say goodbye to complex environment configurations:
 | Storage | SSD Solid State Drive |
 
 > 💡 You can also run in CPU mode without a GPU, suitable for introductory experience.
+
+The steps, paths, and GPU notes below are written for **Windows**. They do not mean Windows is the only build. macOS and Linux packaging assets have been updated since 1.1.7, and the macOS environment check recognizes unified-memory GPUs. These docs do not claim that every feature matches Windows on those systems. Current installers are on the download page: [English](https://www.modxai.net/en/download), [中文](https://www.modxai.net/zh/download).
 
 ---
 

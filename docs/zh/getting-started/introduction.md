@@ -113,7 +113,7 @@ ModxAI Studio 是一款专为**本地化AI部署**打造的一站式桌面端应
 
 | 项目 | 要求 |
 |------|------|
-| 操作系统 | Windows 10/11 (64位) |
+| 操作系统 | Windows 10/11（64 位）是主要说明平台。自 1.1.7 起同时提供 macOS 与 Linux 安装包 |
 | 内存 | 16GB RAM |
 | 存储 | 20GB 可用空间 |
 | 处理器 | 支持 AVX2 指令集 |
@@ -127,6 +127,8 @@ ModxAI Studio 是一款专为**本地化AI部署**打造的一站式桌面端应
 | 存储 | SSD 固态硬盘 |
 
 > 💡 无 GPU 也可使用 CPU 模式运行，适合入门体验。
+
+下面的步骤、路径和显卡说明以 **Windows** 为主，并不表示只有 Windows 安装包。macOS 与 Linux 的打包资源从 1.1.7 起更新；macOS 上的环境检查会识别统一内存 GPU。各功能在这两个系统上是否与 Windows 完全一致，本文没有逐项验证。当前安装包以下载页为准：[中文](https://www.modxai.net/zh/download)、[English](https://www.modxai.net/en/download)。
 
 ---
 
