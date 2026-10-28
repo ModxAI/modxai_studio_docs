@@ -32,9 +32,9 @@
 
 - [定时任务概览](./features/scheduler/overview.md)
 
-### 频道连接
+### 外部访问
 
-- [频道连接概览](./features/gateway/overview.md)
+- [外部访问](./features/gateway/overview.md)
 
 ### 模型库
 

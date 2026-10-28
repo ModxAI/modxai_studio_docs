@@ -32,9 +32,9 @@
 
 - [Scheduled Tasks Overview](./features/scheduler/overview.md)
 
-### Channel Connection
+### External Access
 
-- [Channel Connection Overview](./features/gateway/overview.md)
+- [External Access](./features/gateway/overview.md)
 
 ### Model Library
 

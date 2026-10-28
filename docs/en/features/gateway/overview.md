@@ -1,9 +1,9 @@
-# Channel Connection
+# External Access
 
 > v1.1.11
 > 2026-10
 
-Channel connections allow you to interact with the local agent service through external instant messaging platform bots (Telegram, Discord, DingTalk, Feishu). You can send tasks, switch sessions, and adjust configuration from anywhere via chat messages — just like in ModxAI Studio.
+**External Access** lets bots on Telegram, Discord, DingTalk, and Feishu talk to the local agent service. You can send tasks, switch sessions, and change settings from those chats, the same way you would inside ModxAI Studio. The same gateway also exposes an HTTP API on this machine or the LAN. See [HTTP API](#http-api).
 
 ## Table of Contents
 
@@ -14,7 +14,7 @@ Channel connections allow you to interact with the local agent service through e
 - [Control Commands](#control-commands)
 - [Session Management (Admin)](#session-management-admin)
 - [Advanced Settings](#advanced-settings)
-- [External Gateway](#external-gateway)
+- [HTTP API](#http-api)
 - [Notes](#notes)
 
 ---
@@ -35,7 +35,7 @@ Channel connections allow you to interact with the local agent service through e
 ### Step 1: Configure Platform Credentials
 
 1. Create a bot on the target platform (e.g., Telegram) and obtain the Bot Token.
-2. Open the Channel Connection page and select the corresponding platform in "Chat Bot."
+2. Open the **External Access** page and select the corresponding platform in "Chat Bot."
 3. Enter the credentials (Bot Token or App ID + App Secret).
 4. Click **Save Settings**.
 
@@ -102,7 +102,7 @@ After successful pairing, send messages directly on the platform to trigger agen
 
 ### Pairing Process
 
-1. After starting the service on the Channel Connection page, the system automatically generates a **pairing code**.
+1. After you start the service on the **External Access** page, the system automatically generates a **pairing code**.
 2. The page displays the pairing command `/start <pairing_code>`. Click the **Copy** button to copy it.
 3. Send `/start <pairing_code>` to the bot on the target platform.
 4. On successful pairing, the bot replies with a confirmation message.
@@ -230,15 +230,11 @@ The "More Settings" panel contains:
 
 ---
 
-## External Gateway
+## HTTP API
 
-Bot pairing above is still how channel connections work. External access is a separate boundary:
+Besides the bots above, the external gateway serves an **External Agent HTTP API** for programs on this machine or on the LAN. The listen address decides who can connect: `127.0.0.1` is this computer only, and `0.0.0.0` opens the LAN. Do not publish that port on the public internet.
 
-- HTTPS and preset problems have been fixed
-- Sensitive modules are packaged as binaries
-- A command-line entry from outside the app exists and is marked **待测** (experimental)
-
-That experimental command-line entry is not a finished feature. These docs do not give steps for it.
+The repository includes curl, Python, and Node examples under `devtools/external_gateway/`. There is no separate command-line installer.
 
 ---
 

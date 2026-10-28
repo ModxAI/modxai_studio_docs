@@ -34,8 +34,8 @@ These docs describe product behavior through **v1.1.11** (2026-10-27).
 - **Scheduled Tasks**  
   Run an agent prompt, organize memory, fine-tune on memory, or refresh a knowledge base on an interval, at a fixed time, or after an upstream task finishes.
 
-- **Channel Connection**  
-  Reach the local agent from Telegram, Discord, DingTalk, or Feishu. Pairing is required before a chat can send tasks.
+- **External Access**  
+  Reach the local agent from Telegram, Discord, DingTalk, or Feishu. Pairing is required before a chat can send tasks. The same local gateway exposes an HTTP API for this machine or the LAN, with curl, Python, and Node examples in the repo.
 
 - **Speech**  
   Local TTS for Chinese and English, with voice presets, speed control, and language detection. Open it from the agent submenu, next to SD Chat. STT transcribes microphone input and audio datasets.
@@ -86,7 +86,7 @@ The site index is `docs/<lang>/_index.md`. Pages are plain Markdown.
 | AI Chat | Text, multimodal, RAG, prompt generation, inference options |
 | Memory | Browse, edit, export |
 | Scheduled Tasks | Agent jobs, memory organization, fine-tuning, knowledge-base refresh |
-| Channel Connection | Telegram, Discord, DingTalk, Feishu |
+| External Access | Bots on Telegram, Discord, DingTalk, and Feishu, plus the local gateway HTTP API |
 | Model Library | Import, download, load, LAN API, resource monitor |
 | Data Processing | SFT, RAG, audio to text |
 | Training | Prepare, monitor, evaluate, test, quantize |
@@ -136,8 +136,8 @@ ModxAI Studio is built on open-source projects, including [PyTorch](https://gith
 - **定时任务**  
   按间隔、固定时间，或在上游任务完成后，自动执行智能体提示词、整理记忆、按记忆微调，或更新知识库。
 
-- **频道连接**  
-  从 Telegram、Discord、钉钉或飞书访问本地智能体。聊天来源需要先配对。
+- **外部访问**  
+  从 Telegram、Discord、钉钉或飞书访问本地智能体。聊天来源需要先配对。同一条本机网关还提供 HTTP API，仓库里有 curl、Python 和 Node 示例。
 
 - **语音**  
   本地 TTS 支持中文和英文，可选音色、语速，并自动检测语言。入口在智能体子菜单，和 SD 聊天放在一起。STT 用于麦克风输入和音频数据集转写。
@@ -188,7 +188,7 @@ ModxAI Studio is built on open-source projects, including [PyTorch](https://gith
 | AI 对话 | 文本、多模态、RAG、提示词生成、推理选项 |
 | 记忆 | 浏览、编辑、导出 |
 | 定时任务 | 智能体任务、记忆整理、微调、知识库更新 |
-| 频道连接 | Telegram、Discord、钉钉、飞书 |
+| 外部访问 | Telegram、Discord、钉钉、飞书上的机器人，以及本机网关 HTTP API |
 | 模型库 | 导入、下载、加载、局域网 API、资源监控 |
 | 数据处理 | SFT、RAG、音频转文本 |
 | 模型训练 | 准备、监控、评估、测试、量化 |

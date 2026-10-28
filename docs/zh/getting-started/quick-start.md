@@ -74,7 +74,7 @@
 | **工作区** | 预览智能体读写的文件、跨会话笔记、关联历史任务 | [工作区浏览器](../features/agent/workspace.md) |
 | **记忆** | 查看、编辑并导出长期记忆 | [记忆管理](../features/memory/overview.md) |
 | **定时任务** | 按计划执行智能体、整理记忆或更新知识库 | [定时任务](../features/scheduler/overview.md) |
-| **频道连接** | 从 Telegram、Discord、钉钉或飞书访问智能体 | [频道连接](../features/gateway/overview.md) |
+| **外部访问** | 从 Telegram、Discord、钉钉或飞书访问智能体，或调用本机网关的 HTTP API | [外部访问](../features/gateway/overview.md) |
 | **RAG 检索** | 让 AI 基于您的知识库回答问题 | [AI 对话](../features/chat/overview.md) |
 | **图像生成** | 使用 SD 模型生成图片 | [SD 聊天](../features/sdchat/overview.md) |
 | **数据处理** | 将文档转换为训练数据 | [数据处理](../features/dataset/overview.md) |

@@ -74,7 +74,7 @@ After completing the basic chat, you can explore more features:
 | **Workspace** | Preview files the agent reads or writes, share notes, link earlier tasks | [Workspace Browser](../features/agent/workspace.md) |
 | **Memory** | Review, edit, and export long-term memories | [Memory](../features/memory/overview.md) |
 | **Scheduled Tasks** | Run an agent, organize memory, or refresh a knowledge base on a schedule | [Scheduled Tasks](../features/scheduler/overview.md) |
-| **Channels** | Reach the agent from Telegram, Discord, DingTalk, or Feishu | [Channel Connection](../features/gateway/overview.md) |
+| **External Access** | Reach the agent from Telegram, Discord, DingTalk, or Feishu, or call the local gateway HTTP API | [External Access](../features/gateway/overview.md) |
 | **RAG Retrieval** | Let AI answer questions based on your knowledge base | [AI Chat](../features/chat/overview.md) |
 | **Image Generation** | Generate images using SD models | [SD Chat](../features/sdchat/overview.md) |
 | **Data Processing** | Convert documents into training data | [Data Processing](../features/dataset/overview.md) |

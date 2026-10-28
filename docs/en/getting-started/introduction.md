@@ -79,7 +79,7 @@ Convert raw data into trainable datasets:
 
 - **Memory Management**: Review, edit, and archive agent memories and bookmarks, then export them for training or a knowledge base.
 - **Scheduled Tasks**: Run agent tasks, memory organization, memory fine-tuning, and knowledge-base updates on an interval, at a fixed time, or after an upstream task finishes.
-- **Channel Connection**: Reach the local agent from Telegram, Discord, DingTalk, or Feishu. Unpaired sources cannot send tasks.
+- **External Access**: Reach the local agent from Telegram, Discord, DingTalk, or Feishu, or call the gateway HTTP API from this machine or the LAN. Unpaired chats cannot send tasks.
 
 ### ⚙️ Zero-Threshold Environment Configuration
 
