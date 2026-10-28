@@ -21,11 +21,10 @@ The workspace includes a resource previewer. Select a file to view it in the app
 
 Preview covers:
 
-- Ordinary text and code files. The text-preview limit is **10MB**, raised from 512KB
-- **JSONL** files
+- Code, Markdown, and HTML can be shown inline, up to **10MB**
 - **Live HTML preview**: HTML files render directly in the previewer
 
-That 10MB cap applies to text previews in the workspace.
+The 10MB cap is the inline preview limit for code, Markdown, and HTML.
 
 ---
 

@@ -103,7 +103,7 @@ The agent can invoke various tools to complete your tasks:
 | Tool Category | Capabilities |
 |---------------|--------------|
 | **File Operations** | Read, write, move, search files |
-| **Image Parsing** | Parse image files. This is its own tool, separate from image attachments in multimodal chat |
+| **load_external_image** | Loads an external image for multimodal vision. Without mmproj the model stays text-only. It can also read images from a read-only external workspace |
 | **Terminal Execution** | Run commands and scripts |
 | **Web Search** | Search engine queries, web page content extraction |
 | **Browser** | Launch browser, navigate pages, take screenshots, interact |
@@ -286,7 +286,7 @@ For files created or modified by the Agent within the workspace, **Rollback** fu
 ### Performance Recommendations
 
 - For local models, prefer a current model such as Qwen3.5 4B or larger, and set the context length to 32K or more.
-- A VRAM warning no longer keeps agent tasks off the scheduler. The task can still be scheduled while the warning is present. See [Scheduled Tasks](../scheduler/overview.md).
+- A VRAM warning does not permanently park an idle GPU. While the warning is active, GPU grants run one at a time (global maximum 1, reason `vram_warning_serial`). `vram_hard` still rejects a new GPU grant.
 
 ### Workspace
 

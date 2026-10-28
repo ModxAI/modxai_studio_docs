@@ -42,7 +42,7 @@ Besides the custom Q&A samples below, the evaluation module can run four public 
 | **MMLU** | Multiple-choice questions across subjects |
 | **HellaSwag** | Commonsense sentence completion |
 
-Choose one of these built-in sets in the evaluation module, then choose the checkpoints to compare. Custom samples still use the similarity scoring described later on this page. Built-in benchmarks use their own standard scores. Do not read those scores as the 0–1 similarity bands below.
+Choose one of these built-in sets in the evaluation module, then choose the checkpoints to compare. The sets come from those public datasets. The evaluation screen does not show links out to the dataset pages. Custom samples still use the similarity scoring described later on this page. Built-in benchmarks use their own standard scores. Do not read those scores as the 0–1 similarity bands below.
 
 ---
 

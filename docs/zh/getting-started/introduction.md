@@ -113,7 +113,7 @@ ModxAI Studio 是一款专为**本地化AI部署**打造的一站式桌面端应
 
 | 项目 | 要求 |
 |------|------|
-| 操作系统 | Windows 10/11（64 位），正式安装路径 |
+| 操作系统 | Windows 10/11（64 位）。正式安装包是 NSIS x64，另有 MSIX Lite |
 | 内存 | 16GB RAM |
 | 存储 | 20GB 可用空间 |
 | 处理器 | 支持 AVX2 指令集 |
@@ -128,7 +128,7 @@ ModxAI Studio 是一款专为**本地化AI部署**打造的一站式桌面端应
 
 > 💡 无 GPU 也可使用 CPU 模式运行，适合入门体验。
 
-下面的步骤、路径和显卡说明按 **Windows** 正式安装包来写。打包脚本里另有 macOS（dmg、zip，x64 与 arm64）和 Linux（AppImage、deb，arm64）构建目标，从 1.1.7 的打包资源更新起就有。它们不是正式发布。macOS 的环境检查会识别统一内存 GPU。当前能下载的文件见 [下载页](https://www.modxai.net/zh/download)。
+下面的步骤、路径和显卡说明按 **Windows** 正式安装包来写。打包脚本另有 arm64 macOS DMG，以及 arm64 Linux 的 AppImage 和 deb。它们不是正式发布。Intel Mac 和 Linux x64 不在这条产品路径上。arm64 macOS 上，环境检查把统一内存 GPU 记为信息项，Python 依赖走 CPU 环境，推理走 Metal。当前能下载的文件见 [下载页](https://www.modxai.net/zh/download)。
 
 ---
 

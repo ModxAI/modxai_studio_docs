@@ -37,7 +37,7 @@ Environment configuration is a core highlight feature of ModxAI Studio, adopting
 
 ## First-Run Guide
 
-The first time you open the app, an onboarding guide appears and offers to install an environment. You can choose Full, Agent, or Speech based on the detected hardware. After you dismiss the guide, you can still install from this page. Once an environment is installed, the install button becomes **Reinstall**.
+**Get started** on the welcome screen walks through the first steps. The first-run environment install can be skipped. When you do install, choose Full, Agent, or Speech for the detected hardware. Once an environment is installed, the install button becomes **Reinstall**.
 
 The built-in ddgs search component was updated in 1.1.9. If web search still behaves like the previous version after you upgrade the app, use **Reinstall** on the Agent environment that is already installed so the new search component is installed.
 
@@ -96,9 +96,9 @@ The system automatically detects graphics card types, with different support for
 
 ### macOS Unified Memory
 
-The environment check on macOS recognizes a unified-memory GPU. On those machines graphics memory and system memory are the same pool, and the model-library resource monitor shows that shared pool instead of a separate VRAM figure.
+The macOS product path is an **arm64 DMG**. Environment install covers arm64 / aarch64 only. The environment check records a unified-memory GPU as an information item. It does not treat that GPU as a discrete card that needs its own install. Python dependencies use the CPU environment. Inference uses Metal.
 
-This note covers detection and display only. The macOS build target is not a formal release, and these pages do not describe training, SD, or speech there as matching Windows.
+This is not a Windows feature match. Intel Macs are not on this product path.
 
 ### No Discrete GPU
 

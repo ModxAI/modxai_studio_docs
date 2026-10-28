@@ -225,7 +225,7 @@ The online backend calls cloud models with the OpenAI-compatible Chat Completion
 | Max Tool Rounds | Maximum tool call rounds per single task | 100 |
 | Inference Timeout | Maximum wait time per inference | 600 s |
 | Fast Mode | Skip feedback process before tool call | Disabled |
-| Thinking Mode | Allows native thinking blocks. When off, newer models that support closing thinking receive that setting through `chat_template_kwargs` | Enabled |
+| Thinking Mode | On: native thinking blocks, with `preserve_thinking` defaulting to true. Off: `chat_template_kwargs.enable_thinking=false` (some templates name the field `thinking`) and `no_think` | Enabled |
 | Thinking Depth | Depth levels for local models. Deeper levels are usually slower. The levels include `xhigh` | — |
 | KV Cache / MTP | Inference-tuning parameters for local LLMs and multimodal models | — |
 

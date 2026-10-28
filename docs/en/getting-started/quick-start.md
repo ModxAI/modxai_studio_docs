@@ -11,7 +11,7 @@ This guide helps you complete your first AI chat in **5 minutes**.
 
 After installation, double-click the desktop icon to launch ModxAI Studio. The clicks below follow the formal Windows installer. Other desktops exist only as packaging-script build targets. See the [download page](https://www.modxai.net/en/download) for packages that are currently offered.
 
-On the first launch, the app finishes initialization, opens a welcome screen, and shows an onboarding guide plus an environment setup guide. You can skip the environment install if you only want local text chat. From the main page you can move backward and forward through pages you have already opened.
+On the first launch, the app finishes initialization and opens a welcome screen. **Get started** walks through the first steps. The first-run environment install can be skipped, including when you only want local text chat. From the main page you can move backward and forward through pages you have already opened.
 
 > 💡 The first launch requires an internet connection to fetch initialization data (only the first time, not needed afterward). Depending on your network environment, initialization may take some time. Please be patient. If the launch fails, check your network connection and try again.
 

@@ -50,7 +50,7 @@ If you need to use features dependent on Python, please go to the **Settings** p
 > - NVIDIA (recommended):
 >   - If you have an NVIDIA GPU, install the CUDA acceleration libraries using the “Install GPU Acceleration Libraries” option in the Model Library ⚡ button. Chat/multimodal models run fastest on NVIDIA+CUDA; Stable Diffusion (SD, image generation) currently requires CUDA and will only run after the CUDA libraries are installed.
 >   - After installing or updating the acceleration libraries, there is no need to restart the application. The changes take effect the next time a model is loaded. Inference libraries can also update themselves.
->   - The bundled llama.cpp acceleration tag is **b10809**. In the model library you can turn on speculative decoding type `draft-dflash` and choose a compatible local draft GGUF (`--spec-draft-model`). The changelog name “Qwen3.8-Flash-Next” refers to that engine capability. It is not a fixed, downloadable model name in the app. Versions 1.1.6 and 1.1.3 shipped b10075 and b9467.
+>   - The bundled llama.cpp acceleration tag is **b10809**. In the model library you can turn on speculative decoding type `draft-dflash` and choose a compatible local draft GGUF (`--spec-draft-model`). The download catalog includes `Qwen3.8-27B-GGUF`. The changelog phrase “Qwen3.8-Flash-Next” is engine-capability wording, not a catalog model name. Versions 1.1.6 and 1.1.3 shipped b10075 and b9467.
 >   - The Stable Diffusion library moved to **stable-diffusion.cpp 0.4.7** in 1.1.6.
 > - AMD (limitations):
 >   - AMD GPUs can use the built-in Vulkan acceleration for chat/multimodal models (no extra library needed), but SD inference is not supported on AMD/Vulkan at this time.
@@ -612,13 +612,13 @@ Displayed only when GPU is detected:
 - NVIDIA GPU can monitor VRAM and temperature in real-time.
 - AMD/Intel GPU only displays static info (Total VRAM, Vendor).
 - This card is not displayed if no GPU.
-- On a unified-memory machine, graphics memory and system memory are the same pool. The monitor shows that layout instead of a separate VRAM card. The macOS environment check recognizes this kind of GPU. See [Environment Configuration](../settings/environment.md).
+- On a unified-memory machine, graphics memory and system memory are the same pool. The monitor shows that layout instead of a separate VRAM card. On arm64 macOS, the environment check records that GPU as information, Python dependencies use the CPU environment, and inference uses Metal. See [Environment Configuration](../settings/environment.md).
 
 ---
 
 ## Usage Statistics
 
-The toolbox includes a local-model **token and input/output statistics board**. It counts tokens for local inference. The figures update after a model is loaded or unloaded.
+The toolbox **local model usage** panel shows input tokens, output tokens, and request count. The figures update after a model is loaded or unloaded.
 
 ---
 

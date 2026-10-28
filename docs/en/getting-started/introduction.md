@@ -113,7 +113,7 @@ Say goodbye to complex environment configurations:
 
 | Item | Requirement |
 |------|-------------|
-| OS | Windows 10/11 (64-bit), the formal installer path |
+| OS | Windows 10/11 (64-bit). Formal packages are NSIS x64 and MSIX Lite |
 | Memory | 16GB RAM |
 | Storage | 20GB available space |
 | Processor | Supports AVX2 instruction set |
@@ -128,7 +128,7 @@ Say goodbye to complex environment configurations:
 
 > 💡 You can also run in CPU mode without a GPU, suitable for introductory experience.
 
-The steps, paths, and GPU notes below follow the **Windows** installer. Packaging scripts also define macOS targets (dmg and zip, x64 and arm64) and Linux targets (AppImage and deb, arm64), present since the 1.1.7 packaging-asset update. Those targets are not a formal release. The macOS environment check recognizes a unified-memory GPU. See the [download page](https://www.modxai.net/en/download) for packages that are currently offered.
+The steps, paths, and GPU notes below follow the **Windows** installer. Packaging scripts also build an arm64 macOS DMG and arm64 Linux AppImage and deb packages. Those are not a formal release. Intel Mac and Linux x64 are not that product path. On arm64 macOS, the environment check records a unified-memory GPU as information, Python dependencies use the CPU environment, and inference uses Metal. See the [download page](https://www.modxai.net/en/download) for files that are currently offered.
 
 ---
 

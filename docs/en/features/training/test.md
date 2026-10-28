@@ -344,7 +344,7 @@ Prepare Module → Monitor Module → Evaluation Module → Test Module → Pack
 ```
 
 **Positioning of Test Module**:
-- After Evaluation Module: Select a checkpoint from the evaluation score. Besides custom samples, evaluation can use IFEval, GSM8K, MMLU, and HellaSwag. See [Model Evaluation](./evaluate.md).
+- After Evaluation Module: Pick a checkpoint from the evaluation score. Built-in sets include IFEval, GSM8K, MMLU, and HellaSwag. See [Model Evaluation](./evaluate.md). The evaluation screen does not link out to those dataset pages.
 - Before Package Module: Confirm checkpoint quality before packaging.
 
 ---

@@ -377,7 +377,7 @@ After RAG data processing is complete, you can enable knowledge-base retrieval i
 3. **Configure retrieval mode**: Select an appropriate retrieval mode (see below)  
 4. **Start chatting**: The AI will automatically retrieve relevant content to assist answers
 
-The same knowledge base can also be attached to the agent. Chat and the agent each keep their own retrieval settings. The underlying data is shared. Version 1.1.6 fixed the case where sharing a base left one side unable to retrieve.  
+Chat and the agent read the same saved RAG collection list. Each side can keep its own retrieval settings. Version 1.1.6 fixed the case where sharing a collection left one side unable to retrieve.  
 
 ### Retrieval Modes
 

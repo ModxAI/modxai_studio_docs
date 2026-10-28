@@ -49,9 +49,9 @@ The chat page is divided into two columns:
 ### Left - Session List
 
 - **New Chat** button: Located at the top.
-- **Session List**: Grouped by time (Today/Yesterday/Within 7 Days/Within 30 Days/Older). Lists longer than 100 sessions still load. The list can be searched.
+- **Session List**: Grouped by time (Today/Yesterday/Within 7 Days/Within 30 Days/Older). Lists longer than 100 sessions still load. You can search by title.
 - **Date groups**: The folded or expanded state of a date group is kept the next time you open the list.
-- **Pin**: The pin button is on the top menu bar.
+- **Pin submenu**: The pin control in the window chrome pins the submenu. It does not pin a session.
 - **Session Operations**: Option menu to rename or delete conversations.
 
 ### Right - Chat Area
@@ -126,7 +126,8 @@ There are two important switches above the input box:
 - **Function**: When enabled, the AI will display its thinking process.
 - **Display**: Collapsible panel "💭 AI Thinking Process".
 - **Usage**: To understand the AI's reasoning logic.
-- **Disable thinking**: Turning it off sends a close-thinking setting through `chat_template_kwargs` on newer models that support it. It does not only hide the thinking block.
+- **Thinking off**: Sets `chat_template_kwargs.enable_thinking=false`. Some templates use the field name `thinking` instead. The request also includes `no_think`.
+- **Thinking on**: `preserve_thinking` defaults to true, so thinking text is kept.
 
 #### Retrieval Switch
 - **Function**: Enables RAG knowledge base retrieval.

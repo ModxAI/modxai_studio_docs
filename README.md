@@ -9,7 +9,7 @@
 
 > A local-first desktop AI workstation. Run agents, chat, memory, and fine-tuning on your own machine, with one-click environments and no command line.
 
-**ModxAI Studio** is a desktop app for local AI work. **Windows is the formal installer path and the desktop these pages describe.** The repo also has packaging scripts for macOS (dmg and zip, x64 and arm64) and Linux (AppImage and deb, arm64). Those are build targets, not a formal release, and they are not documented here as matching Windows feature for feature. See the [download page](https://www.modxai.net/en/download) for packages that are actually offered. The app combines an agent, text and multimodal chat, speech, image and video generation, datasets, LoRA training, long-term memory, schedules, and messaging-channel access in one graphical interface. Everyday chat runs on bundled llama.cpp. Heavier features install a sandboxed portable Python environment when you ask for them. You do not configure Docker, a system Python, or shell scripts to get started.
+**ModxAI Studio** is a desktop app for local AI work. **Windows is the formal installer path and the desktop these pages describe.** The formal Windows packages are NSIS x64 and MSIX Lite. Packaging scripts also build an arm64 macOS DMG and arm64 Linux AppImage and deb packages. Those are not a formal release, and they are not documented here as matching Windows. Intel Mac and Linux x64 are not that product path. See the [download page](https://www.modxai.net/en/download) for packages that are actually offered. The app combines an agent, text and multimodal chat, speech, image and video generation, datasets, LoRA training, long-term memory, schedules, and messaging-channel access in one graphical interface. Everyday chat runs on bundled llama.cpp. Heavier features install a sandboxed portable Python environment when you ask for them. You do not configure Docker, a system Python, or shell scripts to get started.
 
 These docs describe product behavior through **v1.1.11** (2026-10-27).
 
@@ -95,7 +95,7 @@ The site index is `docs/<lang>/_index.md`. Pages are plain Markdown.
 | Settings | Environment install, language, updates |
 | FAQ | Setup and troubleshooting |
 
-The requirements written out in the manual are **Windows 10/11 (64-bit), 16GB RAM, 20GB free disk, and AVX2**. That is the formal desktop. macOS and Linux packaging targets exist in the build scripts (see above); the [download page](https://www.modxai.net/en/download) is where to see which packages are offered. On macOS, the environment check can recognize a unified-memory GPU. An NVIDIA GPU with 8GB or more of VRAM is the comfortable configuration for training and image generation on Windows, which is the platform these pages describe in detail. CPU mode can run chat.
+The requirements written out in the manual are **Windows 10/11 (64-bit), 16GB RAM, 20GB free disk, and AVX2**. That is the formal desktop (NSIS x64, plus MSIX Lite). The [download page](https://www.modxai.net/en/download) is where to see which files are offered. On the arm64 macOS path, the environment check records a unified-memory GPU as information, Python dependencies use the CPU environment, and inference uses Metal. An NVIDIA GPU with 8GB or more of VRAM is the comfortable configuration for training and image generation on Windows, which is the platform these pages describe in detail. CPU mode can run chat.
 
 ---
 
@@ -111,7 +111,7 @@ ModxAI Studio is built on open-source projects, including [PyTorch](https://gith
 
 > 本地优先的桌面 AI 工作站。智能体、对话、记忆和微调都在你的电脑上完成，一键安装环境，不必使用命令行。
 
-**ModxAI Studio** 是本地 AI 桌面应用。**Windows 是正式安装路径，也是这些文档所描述的桌面。** 仓库里的打包脚本还包含 macOS（dmg 与 zip，x64 和 arm64）以及 Linux（AppImage 与 deb，arm64）构建目标。它们不是正式发布，本文也不把它们写成与 Windows 功能一致。当前提供哪些安装文件，以[下载页](https://www.modxai.net/zh/download)为准。应用把智能体、文本与多模态对话、语音、图像和视频生成、数据集、LoRA 训练、长期记忆、定时任务，以及即时通讯频道访问放在同一个图形界面里。日常对话使用内置的 llama.cpp。更重的功能会在你选择安装时，准备一套沙箱化的便携 Python 环境。开始使用时不需要配置 Docker、系统 Python 或命令行脚本。
+**ModxAI Studio** 是本地 AI 桌面应用。**Windows 是正式安装路径，也是这些文档所描述的桌面。** 正式的 Windows 安装包是 NSIS x64，另有 MSIX Lite。打包脚本还会构建 arm64 的 macOS DMG，以及 arm64 的 Linux AppImage 和 deb。它们不是正式发布，本文也不把它们写成与 Windows 一致。Intel Mac 和 Linux x64 不在这条产品路径上。当前提供哪些安装文件，以[下载页](https://www.modxai.net/zh/download)为准。应用把智能体、文本与多模态对话、语音、图像和视频生成、数据集、LoRA 训练、长期记忆、定时任务，以及即时通讯频道访问放在同一个图形界面里。日常对话使用内置的 llama.cpp。更重的功能会在你选择安装时，准备一套沙箱化的便携 Python 环境。开始使用时不需要配置 Docker、系统 Python 或命令行脚本。
 
 本文档描述的是 **v1.1.11**（2026-10-27）为止的产品行为。
 
@@ -197,7 +197,7 @@ ModxAI Studio is built on open-source projects, including [PyTorch](https://gith
 | 设置 | 环境安装、语言、更新 |
 | FAQ | 安装与排错 |
 
-手册里写明的配置是 **Windows 10/11（64 位）、16GB 内存、20GB 可用磁盘、支持 AVX2**。这是正式桌面。macOS 与 Linux 的构建目标在打包脚本里（见上文）；[下载页](https://www.modxai.net/zh/download)用来看当前实际提供的文件。macOS 的环境检查可以识别统一内存 GPU。训练和图像生成在本文详细描述的 Windows 上，更适合 8GB 及以上显存的 NVIDIA 显卡。没有独显时可以用 CPU 模式进行对话。
+手册里写明的配置是 **Windows 10/11（64 位）、16GB 内存、20GB 可用磁盘、支持 AVX2**。这是正式桌面（NSIS x64，另有 MSIX Lite）。[下载页](https://www.modxai.net/zh/download)用来看当前实际提供的文件。arm64 macOS 路径上，环境检查把统一内存 GPU 记为信息项，Python 依赖走 CPU 环境，推理走 Metal。训练和图像生成在本文详细描述的 Windows 上，更适合 8GB 及以上显存的 NVIDIA 显卡。没有独显时可以用 CPU 模式进行对话。
 
 ---
 

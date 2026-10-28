@@ -232,7 +232,7 @@ The "More Settings" panel contains:
 
 ## HTTP API
 
-Besides the bots above, the external gateway serves an **External Agent HTTP API** for programs on this machine or on the LAN. The listen address decides who can connect: `127.0.0.1` is this computer only, and `0.0.0.0` opens the LAN. Do not publish that port on the public internet.
+The **External Access** page includes bots, an API key, and connection instructions. HTTPS is optional. The external gateway serves an **External Agent HTTP API** on this machine or on the LAN. The listen address decides who can connect: `127.0.0.1` is this computer only, and `0.0.0.0` opens the LAN. Do not publish that port on the public internet.
 
 The repository includes curl, Python, and Node examples under `devtools/external_gateway/`. There is no separate command-line installer.
 

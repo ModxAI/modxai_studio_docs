@@ -37,7 +37,7 @@ The attachment menu on the left side of the input box supports the following typ
 2. Select the appropriate attachment type.
 3. Choose files from the local file system.
 
-You can also paste content from memory and attach it to the message.
+Image attachments can be pasted from the clipboard.
 
 ### Supported Formats
 
@@ -95,7 +95,7 @@ The following parameters are available when connecting a knowledge base:
 
 ## Workspace Reference
 
-Reference other workspace directories, the agent can only read the file content of the referenced directory, and cannot perform editing operations.
+You can attach an external directory. The agent can read files there and cannot write. `load_external_image` can also read images from those directories.
 
 ### Prerequisites
 
