@@ -50,7 +50,9 @@
 > - NVIDIA（推荐）：
 >   - 若使用 NVIDIA 显卡，建议通过“模型库 → 顶部右侧 ⚡ 按钮 → 安装 GPU 加速库”下载并安装对应的 CUDA 加速库。聊天/多模态模型在 NVIDIA+CUDA 下性能最佳；若要使用 Stable Diffusion（SD，图像生成）功能，SD 当前仅支持 CUDA 环境，必须安装 CUDA 加速库后才能运行 SD 推理。
 >   - 安装或更新加速库后，无需重启应用，下次加载模型时生效。推理库也可以自动更新。
->   - 当前内置 llama.cpp 加速标记为 **b10809**。模型库里可以打开投机解码类型 `draft-dflash`，并选择本机兼容的草稿 GGUF（启动参数 `--spec-draft-model`）。下载目录里有 `Qwen3.8-27B-GGUF`。更新日志里的 “Qwen3.8-Flash-Next” 是引擎能力的说法，不是目录里的模型名称。更早的 1.1.6 / 1.1.3 分别对应 b10075 与 b9467。
+>   - llama.cpp 加速标记为 **b10809**。在模型库中选择投机解码类型 `draft-dflash`，再选择本机兼容的草稿 GGUF（`--spec-draft-model`）。
+>   - 下载目录包含 `Qwen3.8-27B-GGUF`。更新日志中的 “Qwen3.8-Flash-Next” 指这项引擎能力，不是可下载的模型名称。
+>   - 1.1.6 与 1.1.3 的加速标记分别是 b10075 与 b9467。
 >   - Stable Diffusion 推理库在 1.1.6 升级到 **stable-diffusion.cpp 0.4.7**。
 > - AMD（限制）：
 >   - AMD 显卡可使用内置的 Vulkan 加速以运行聊天/多模态模型（无需额外加速库），但 SD 推理当前不支持 AMD/Vulkan，因此无法在 AMD 显卡上使用 SD 功能。

@@ -3,19 +3,19 @@
 > v1.1.11
 > 2026-10
 
-This guide helps you complete your first AI chat in **5 minutes**.
+Follow these steps to finish the first local chat.
 
 ---
 
 ## Step 1: Launch the Application
 
-After installation, double-click the desktop icon to launch ModxAI Studio. The clicks below follow the formal Windows installer. Other desktops exist only as packaging-script build targets. See the [download page](https://www.modxai.net/en/download) for packages that are currently offered.
+1. Install the Windows package (NSIS x64 or MSIX Lite) and start it. Other desktop builds are not the formal path these steps describe. See the [download page](https://www.modxai.net/en/download) for files currently offered.
+2. On the welcome screen, choose **Get started**. You can skip the first environment install. Skip it when you only want llama.cpp text chat.
+3. If the install directory needs administrator rights (for example `C:\Program Files`), start the app as administrator. Otherwise it will not start.
 
-On the first launch, the app finishes initialization and opens a welcome screen. **Get started** walks through the first steps. The first-run environment install can be skipped, including when you only want local text chat. From the main page you can move backward and forward through pages you have already opened.
+The first launch fetches initialization data once. If that fails, check the network and start again.
 
-> 💡 The first launch requires an internet connection to fetch initialization data (only the first time, not needed afterward). Depending on your network environment, initialization may take some time. Please be patient. If the launch fails, check your network connection and try again.
-
-> 💡 If you installed the application in a directory that requires administrator privileges (e.g., C:\Program Files), you need to "Run as administrator" when launching the application. Otherwise, it will not start.
+The main page can move backward and forward through pages you have already opened.
 
 ---
 

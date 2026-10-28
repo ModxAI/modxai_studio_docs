@@ -33,7 +33,7 @@ The Evaluation module uses predefined Q&A samples to batch test training checkpo
 
 ## Built-in Benchmarks
 
-Besides the custom Q&A samples below, the evaluation module can run four public benchmarks. They measure general ability. They do not replace samples you write for your own data.
+The evaluation module can run a built-in benchmark set or the custom Q&A samples below. Built-in benchmarks measure general ability. They do not replace samples you write for your own data.
 
 | Benchmark | What it measures |
 |-----------|------------------|

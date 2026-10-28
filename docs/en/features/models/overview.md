@@ -50,7 +50,9 @@ If you need to use features dependent on Python, please go to the **Settings** p
 > - NVIDIA (recommended):
 >   - If you have an NVIDIA GPU, install the CUDA acceleration libraries using the “Install GPU Acceleration Libraries” option in the Model Library ⚡ button. Chat/multimodal models run fastest on NVIDIA+CUDA; Stable Diffusion (SD, image generation) currently requires CUDA and will only run after the CUDA libraries are installed.
 >   - After installing or updating the acceleration libraries, there is no need to restart the application. The changes take effect the next time a model is loaded. Inference libraries can also update themselves.
->   - The bundled llama.cpp acceleration tag is **b10809**. In the model library you can turn on speculative decoding type `draft-dflash` and choose a compatible local draft GGUF (`--spec-draft-model`). The download catalog includes `Qwen3.8-27B-GGUF`. The changelog phrase “Qwen3.8-Flash-Next” is engine-capability wording, not a catalog model name. Versions 1.1.6 and 1.1.3 shipped b10075 and b9467.
+>   - The llama.cpp acceleration tag is **b10809**. In the model library, select speculative decoding type `draft-dflash`, then choose a compatible local draft GGUF (`--spec-draft-model`).
+>   - The download catalog includes `Qwen3.8-27B-GGUF`. The changelog phrase “Qwen3.8-Flash-Next” names this engine capability. It is not a downloadable model name.
+>   - Versions 1.1.6 and 1.1.3 shipped b10075 and b9467.
 >   - The Stable Diffusion library moved to **stable-diffusion.cpp 0.4.7** in 1.1.6.
 > - AMD (limitations):
 >   - AMD GPUs can use the built-in Vulkan acceleration for chat/multimodal models (no extra library needed), but SD inference is not supported on AMD/Vulkan at this time.

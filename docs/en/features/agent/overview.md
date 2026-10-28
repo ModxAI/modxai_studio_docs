@@ -3,7 +3,7 @@
 > v1.1.11
 > 2026-10
 
-The Agent Workbench is the core functional module of ModxAI Studio. Unlike standard chat, the agent **autonomously decomposes tasks, selects tools, executes steps, and produces final results** — you simply describe the goal, and the agent handles web search, file reading, command execution, report generation, and more automatically.
+Describe the goal in the agent workbench. The agent splits the steps, calls tools, and shows progress. Tools include web search, file reads, commands, and writing a result.
 
 ## Table of Contents
 

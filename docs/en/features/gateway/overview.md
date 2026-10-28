@@ -3,7 +3,9 @@
 > v1.1.11
 > 2026-10
 
-**External Access** lets bots on Telegram, Discord, DingTalk, and Feishu talk to the local agent service. You can send tasks, switch sessions, and change settings from those chats, the same way you would inside ModxAI Studio. The same gateway also exposes an HTTP API on this machine or the LAN. See [HTTP API](#http-api).
+Use **External Access** to let Telegram, Discord, DingTalk, or Feishu bots call the local agent, or to call the gateway HTTP API from this machine or the LAN. See [HTTP API](#http-api).
+
+A bot chat must be paired first. Unpaired sources cannot send tasks.
 
 ## Table of Contents
 
@@ -226,15 +228,17 @@ The "More Settings" panel contains:
 | Startup Timeout (seconds) | `60` | How long to wait for the gateway health check |
 | Admin Password | Generated | Used by the `/admin` command |
 
-> **Security**: If only this computer should connect, set the listen address to `127.0.0.1`. Keep `0.0.0.0` only when other devices on the LAN must connect. Do not publish this port on the public internet. External access checks are tighter in recent versions. Pairing codes and the admin password are still required.
+> For this computer only, set the listen address to `127.0.0.1`. Set `0.0.0.0` only when LAN devices must connect. Do not publish that port on the public internet. Bot requests still require pairing. Admin commands still require the admin password.
 
 ---
 
 ## HTTP API
 
-The **External Access** page includes bots, an API key, and connection instructions. HTTPS is optional. The external gateway serves an **External Agent HTTP API** on this machine or on the LAN. The listen address decides who can connect: `127.0.0.1` is this computer only, and `0.0.0.0` opens the LAN. Do not publish that port on the public internet.
+1. Open **External Access**.
+2. Create an Access Key and start the gateway using the connection instructions on that page. HTTPS is optional.
+3. Call the External Agent HTTP API with the curl, Python, or Node example under `devtools/external_gateway/`.
 
-The repository includes curl, Python, and Node examples under `devtools/external_gateway/`. There is no separate command-line installer.
+`127.0.0.1` accepts only this computer. `0.0.0.0` opens the LAN. Do not publish that port on the public internet. There is no separate command-line installer.
 
 ---
 

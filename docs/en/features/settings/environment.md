@@ -37,7 +37,9 @@ Environment configuration is a core highlight feature of ModxAI Studio, adopting
 
 ## First-Run Guide
 
-**Get started** on the welcome screen walks through the first steps. The first-run environment install can be skipped. When you do install, choose Full, Agent, or Speech for the detected hardware. Once an environment is installed, the install button becomes **Reinstall**.
+On the welcome screen, choose **Get started** and follow the steps. You can skip the first environment install.
+
+When you install, choose Full, Agent, or Speech for the detected hardware. After an environment is installed, the install button becomes **Reinstall**.
 
 The built-in ddgs search component was updated in 1.1.9. If web search still behaves like the previous version after you upgrade the app, use **Reinstall** on the Agent environment that is already installed so the new search component is installed.
 
