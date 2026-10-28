@@ -57,7 +57,7 @@ The chat page is divided into two columns:
 ### Right - Chat Area
 
 - **Message List**: Displays the history of the current conversation. Version 1.1.11 corrects the scrollbar styling on the inference screen.
-- **Multiple models**: A normal chat can select more than one model.
+- **Multiple models**: A normal chat can select more than one model. That capability depends on vLLM, which the source still marks as needing to be added (`需补 vllm`).
 - **History navigation**: The main page can move backward and forward through pages you have already opened.
 - **Input Box**: Located at the bottom, containing the following features:
   - **Thinking** switch: Enables the display of AI thinking processes.

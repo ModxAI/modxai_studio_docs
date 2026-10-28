@@ -9,7 +9,7 @@
 
 ## 第一步：启动应用
 
-安装完成后，双击桌面图标启动 ModxAI Studio。Windows 是下面步骤对照的界面。macOS 与 Linux 安装包见[下载页](https://www.modxai.net/zh/download)。
+安装完成后，双击桌面图标启动 ModxAI Studio。下面的点击步骤按 Windows 正式安装包来写。其它桌面只有打包脚本里的构建目标，当前实际提供的文件见[下载页](https://www.modxai.net/zh/download)。
 
 首次启动时，应用会完成初始化，先进入欢迎页，并显示新手引导和环境安装引导。只做本地文本对话时，可以先跳过环境安装。主页面可以沿已经打开过的页面前后返回。
 

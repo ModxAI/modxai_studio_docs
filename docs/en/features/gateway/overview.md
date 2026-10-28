@@ -232,13 +232,13 @@ The "More Settings" panel contains:
 
 ## External Gateway
 
-The bot pairing above is still how channel connections work. The external gateway also has these changes:
+Bot pairing above is still how channel connections work. External access is a separate boundary:
 
 - HTTPS and preset problems have been fixed
 - Sensitive modules are packaged as binaries
-- The gateway can be reached from a command line outside the app
+- A command-line entry from outside the app exists and is marked **待测** (experimental)
 
-If the screen marks command-line access as 待测 (under test), follow that label. These docs do not turn it into a finished procedure.
+That experimental command-line entry is not a finished feature. These docs do not give steps for it.
 
 ---
 

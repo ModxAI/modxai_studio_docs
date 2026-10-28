@@ -98,7 +98,7 @@ The system automatically detects graphics card types, with different support for
 
 The environment check on macOS recognizes a unified-memory GPU. On those machines graphics memory and system memory are the same pool, and the model-library resource monitor shows that shared pool instead of a separate VRAM figure.
 
-This note covers detection and display only. It does not claim that training, SD, or speech on macOS match Windows.
+This note covers detection and display only. The macOS build target is not a formal release, and these pages do not describe training, SD, or speech there as matching Windows.
 
 ### No Discrete GPU
 

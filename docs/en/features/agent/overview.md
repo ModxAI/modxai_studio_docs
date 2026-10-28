@@ -109,7 +109,7 @@ The agent can invoke various tools to complete your tasks:
 | **Browser** | Launch browser, navigate pages, take screenshots, interact |
 | **Crawler** | Batch scrape website content |
 | **Todo Planning** | Create and update task todo lists |
-| **Delegate Collaboration** | Assign subtasks to other roles |
+| **Delegate Collaboration** | During a task, `delegate_task` hands a subtask to another role. This is not a separate multi-agent orchestration screen |
 | **Memory Management** | Search, read, save long-term memory and runtime reminders |
 | **Interaction** | Ask user questions and make suggestions |
 | **Computer** | Screen capture |

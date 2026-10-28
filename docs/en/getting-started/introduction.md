@@ -18,7 +18,7 @@ ModxAI Studio is a **one-stop desktop application** designed for **local AI depl
 AI goes beyond chat to become a **task-executing** personal assistant:
 
 - **Task Planning & Execution**: AI automatically decomposes complex tasks, executes step by step, and provides progress feedback.
-- **Built-in Toolchain & External Skill Loading**: Supports 70+ built-in efficient tools and external Skill integration for web browsing, local file read/write/edit, terminal command execution, and other end-to-end task scenarios.
+- **Built-in Toolchain & External Skill Loading**: Built-in tools and external skills cover web browsing, local file read/write/edit, terminal commands, and other end-to-end tasks. Subtask hand-off uses in-task `delegate_task`. It is not a separate multi-agent orchestration product.
 - **Memory & Preference Learning**: Interactive memory management and exclusive automated memory training, creating a model clone that understands you better with each use.
 
 ### 🤖 AI Chat
@@ -113,7 +113,7 @@ Say goodbye to complex environment configurations:
 
 | Item | Requirement |
 |------|-------------|
-| OS | Windows 10/11 (64-bit) is the primary documented platform. macOS and Linux installers are also built, with packaging assets updated from 1.1.7 |
+| OS | Windows 10/11 (64-bit), the formal installer path |
 | Memory | 16GB RAM |
 | Storage | 20GB available space |
 | Processor | Supports AVX2 instruction set |
@@ -128,7 +128,7 @@ Say goodbye to complex environment configurations:
 
 > 💡 You can also run in CPU mode without a GPU, suitable for introductory experience.
 
-The steps, paths, and GPU notes below are written for **Windows**. They do not mean Windows is the only build. macOS and Linux packaging assets have been updated since 1.1.7, and the macOS environment check recognizes unified-memory GPUs. These docs do not claim that every feature matches Windows on those systems. Current installers are on the download page: [English](https://www.modxai.net/en/download), [中文](https://www.modxai.net/zh/download).
+The steps, paths, and GPU notes below follow the **Windows** installer. Packaging scripts also define macOS targets (dmg and zip, x64 and arm64) and Linux targets (AppImage and deb, arm64), present since the 1.1.7 packaging-asset update. Those targets are not a formal release. The macOS environment check recognizes a unified-memory GPU. See the [download page](https://www.modxai.net/en/download) for packages that are currently offered.
 
 ---
 

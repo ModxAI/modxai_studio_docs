@@ -164,7 +164,7 @@ The system uses **two-layer security detection**:
 
 ## Custom Roles
 
-Define custom roles through their system prompt to clarify role positioning. The main role will delegate subtasks to independently configured roles on demand, or can be explicitly invoked by **role name**.
+Define custom roles through their system prompt to clarify role positioning. During a task, the main role uses `delegate_task` to hand subtasks to independently configured roles, or you can ask for a role by **name**. This is in-task delegation, not a separate multi-agent product.
 
 ### Use Cases
 
