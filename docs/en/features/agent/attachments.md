@@ -1,6 +1,6 @@
 # Attachments & Knowledge Bases
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 The agent supports attaching files, images, audio, and other resources when sending messages, as well as connecting to RAG knowledge bases. This topic covers the usage and limitations of each attachment type.
@@ -36,6 +36,8 @@ The attachment menu on the left side of the input box supports the following typ
 1. Click the attachment button on the left side of the input box.
 2. Select the appropriate attachment type.
 3. Choose files from the local file system.
+
+You can also paste content from memory and attach it to the message.
 
 ### Supported Formats
 

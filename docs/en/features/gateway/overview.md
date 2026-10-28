@@ -1,6 +1,6 @@
 # Channel Connection
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 Channel connections allow you to interact with the local agent service through external instant messaging platform bots (Telegram, Discord, DingTalk, Feishu). You can send tasks, switch sessions, and adjust configuration from anywhere via chat messages — just like in ModxAI Studio.
@@ -14,6 +14,7 @@ Channel connections allow you to interact with the local agent service through e
 - [Control Commands](#control-commands)
 - [Session Management (Admin)](#session-management-admin)
 - [Advanced Settings](#advanced-settings)
+- [External Gateway](#external-gateway)
 - [Notes](#notes)
 
 ---
@@ -226,6 +227,18 @@ The "More Settings" panel contains:
 | Admin Password | Generated | Used by the `/admin` command |
 
 > **Security**: If only this computer should connect, set the listen address to `127.0.0.1`. Keep `0.0.0.0` only when other devices on the LAN must connect. Do not publish this port on the public internet. External access checks are tighter in recent versions. Pairing codes and the admin password are still required.
+
+---
+
+## External Gateway
+
+The bot pairing above is still how channel connections work. The external gateway also has these changes:
+
+- HTTPS and preset problems have been fixed
+- Sensitive modules are packaged as binaries
+- The gateway can be reached from a command line outside the app
+
+If the screen marks command-line access as 待测 (under test), follow that label. These docs do not turn it into a finished procedure.
 
 ---
 

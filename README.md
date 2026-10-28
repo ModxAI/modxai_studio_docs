@@ -11,7 +11,7 @@
 
 **ModxAI Studio** is a Windows desktop app for local AI work. It combines an autonomous agent, text and multimodal chat, speech, image and video generation, datasets, LoRA training, long-term memory, schedules, and messaging-channel access in one graphical interface. Everyday chat runs on bundled llama.cpp. Heavier features install a sandboxed portable Python environment when you ask for them. You do not configure Docker, a system Python, or shell scripts to get started.
 
-These docs describe product behavior through **v1.1.10** (2026-10-23).
+These docs describe product behavior through **v1.1.11** (2026-10-27).
 
 - Product site: [https://www.modxai.net/en](https://www.modxai.net/en)
 - Documentation site: [https://www.modxai.net/en/docs](https://www.modxai.net/en/docs)
@@ -38,10 +38,10 @@ These docs describe product behavior through **v1.1.10** (2026-10-23).
   Reach the local agent from Telegram, Discord, DingTalk, or Feishu. Pairing is required before a chat can send tasks.
 
 - **Speech**  
-  Local TTS for Chinese and English, with voice presets, speed control, and language detection. STT transcribes microphone input and audio datasets.
+  Local TTS for Chinese and English, with voice presets, speed control, and language detection. Open it from the agent submenu, next to SD Chat. STT transcribes microphone input and audio datasets.
 
 - **Image and Video (SD Chat)**  
-  Text-to-image, image-to-image, and video generation in a conversation. Each chat keeps its own resolution, steps, CFG, seed, and sampler profile.
+  Text-to-image, image-to-image, and video generation in a conversation. Each chat keeps its own resolution, steps, CFG, seed, and sampler profile. Open it from the agent submenu.
 
 - **Model Library**  
   Chat, multimodal, embedding, rerank, SD, TTS, and STT models. Download from Hugging Face, ModelScope, or a repository you specify, or import local GGUF and SafeTensors files. LoRA adapters, an OpenAI-compatible LAN API, and online providers (DeepSeek, OpenRouter, and other OpenAI-compatible APIs) sit in the same library.
@@ -113,7 +113,7 @@ ModxAI Studio is built on open-source projects, including [PyTorch](https://gith
 
 **ModxAI Studio** 是面向 Windows 的本地 AI 桌面应用。它把自主智能体、文本与多模态对话、语音、图像和视频生成、数据集、LoRA 训练、长期记忆、定时任务，以及即时通讯频道访问放在同一个图形界面里。日常对话使用内置的 llama.cpp。更重的功能会在你选择安装时，准备一套沙箱化的便携 Python 环境。开始使用时不需要配置 Docker、系统 Python 或命令行脚本。
 
-本文档描述的是 **v1.1.10**（2026-10-23）为止的产品行为。
+本文档描述的是 **v1.1.11**（2026-10-27）为止的产品行为。
 
 - 产品官网：[https://www.modxai.net/zh](https://www.modxai.net/zh)
 - 在线文档：[https://www.modxai.net/zh/docs](https://www.modxai.net/zh/docs)
@@ -140,10 +140,10 @@ ModxAI Studio is built on open-source projects, including [PyTorch](https://gith
   从 Telegram、Discord、钉钉或飞书访问本地智能体。聊天来源需要先配对。
 
 - **语音**  
-  本地 TTS 支持中文和英文，可选音色、语速，并自动检测语言。STT 用于麦克风输入和音频数据集转写。
+  本地 TTS 支持中文和英文，可选音色、语速，并自动检测语言。入口在智能体子菜单，和 SD 聊天放在一起。STT 用于麦克风输入和音频数据集转写。
 
 - **图像与视频（SD 聊天）**  
-  以会话方式完成文生图、图生图和视频生成。每个会话保留自己的分辨率、步数、CFG、种子和采样器。
+  以会话方式完成文生图、图生图和视频生成。每个会话保留自己的分辨率、步数、CFG、种子和采样器。入口在智能体子菜单。
 
 - **模型库**  
   管理聊天、多模态、向量、重排、SD、TTS 和 STT 模型。可从 Hugging Face、ModelScope 或指定仓库下载，也可导入本地 GGUF 与 SafeTensors。LoRA、兼容 OpenAI 的局域网 API，以及在线服务（DeepSeek、OpenRouter 和其他 OpenAI 兼容接口）在同一处管理。

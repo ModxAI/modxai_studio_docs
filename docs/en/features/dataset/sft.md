@@ -1,6 +1,6 @@
 # SFT Data Processing (Text/Code)
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 This article details how to use the SFT (Supervised Fine-Tuning) data processing function of ModxAI Studio to convert raw text or code files into high-quality datasets that meet training format requirements.

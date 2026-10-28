@@ -1,6 +1,6 @@
 # Model Library
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 This article introduces how to use the **Model Library** feature in ModxAI Studio, helping you complete tasks such as model import, download, load, management, and custom export.
@@ -389,6 +389,9 @@ Supports two download sources:
 - **Pause/Resume**: Can cancel and resume download at any time.
 - **Minimize**: Can minimize downloader to button, continue downloading in background.
 - **The window stays usable**: A fast download should not freeze the interface. If it still stalls, pause the download before doing other work.
+- **Refresh progress**: The current download progress can be read again.
+- **Delete local files**: A download entry can remove the files already written to disk.
+- **Open directory**: That button opens the folder that holds the files.
 
 ### Post-Download Processing
 

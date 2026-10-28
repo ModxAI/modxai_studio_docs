@@ -1,6 +1,6 @@
 # Training Evaluation Module Details
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 > 📌 **Module Positioning**: Automatically evaluate checkpoint quality and help users find the best checkpoint through standardized sample testing.

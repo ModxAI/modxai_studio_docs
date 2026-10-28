@@ -1,6 +1,6 @@
 # Agent Workbench
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 The Agent Workbench is the core functional module of ModxAI Studio. Unlike standard chat, the agent **autonomously decomposes tasks, selects tools, executes steps, and produces final results** — you simply describe the goal, and the agent handles web search, file reading, command execution, report generation, and more automatically.
@@ -285,6 +285,7 @@ For files created or modified by the Agent within the workspace, **Rollback** fu
 ### Performance Recommendations
 
 - For local models, prefer a current model such as Qwen3.5 4B or larger, and set the context length to 32K or more.
+- A VRAM warning no longer keeps agent tasks off the scheduler. The task can still be scheduled while the warning is present. See [Scheduled Tasks](../scheduler/overview.md).
 
 ### Workspace
 
@@ -307,3 +308,5 @@ For files created or modified by the Agent within the workspace, **Rollback** fu
 | Instruction Settings | Global instruction files and personal preference configurations | [Instruction Settings](./profile-settings.md) |
 | Preset Management | Save and load workbench parameter presets | [Preset Management](./presets.md) |
 | Workspace Browser | Preview files, share notes across sessions, link earlier tasks | [Workspace Browser](./workspace.md) |
+| SD Chat | Image and video generation. Open it from the agent submenu | [SD Chat](../sdchat/overview.md) |
+| Speech Synthesis | Text-to-speech. Open it from the agent submenu, next to SD Chat | [TTS](../tts/overview.md) |

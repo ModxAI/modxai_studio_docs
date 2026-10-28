@@ -1,6 +1,6 @@
 # AI Chat
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 This article introduces how to use the **Text Chat** and **Multimodal Chat** features in ModxAI Studio. It helps you complete tasks such as daily conversation reasoning, knowledge base Q&A, and image-text understanding.
@@ -49,12 +49,16 @@ The chat page is divided into two columns:
 ### Left - Session List
 
 - **New Chat** button: Located at the top.
-- **Session List**: Grouped by time (Today/Yesterday/Within 7 Days/Within 30 Days/Older). Lists longer than 100 sessions still load.
+- **Session List**: Grouped by time (Today/Yesterday/Within 7 Days/Within 30 Days/Older). Lists longer than 100 sessions still load. The list can be searched.
+- **Date groups**: The folded or expanded state of a date group is kept the next time you open the list.
+- **Pin**: The pin button is on the top menu bar.
 - **Session Operations**: Option menu to rename or delete conversations.
 
 ### Right - Chat Area
 
-- **Message List**: Displays the history of the current conversation.
+- **Message List**: Displays the history of the current conversation. Version 1.1.11 corrects the scrollbar styling on the inference screen.
+- **Multiple models**: A normal chat can select more than one model.
+- **History navigation**: The main page can move backward and forward through pages you have already opened.
 - **Input Box**: Located at the bottom, containing the following features:
   - **Thinking** switch: Enables the display of AI thinking processes.
   - **Retrieval** switch: Enables RAG knowledge base retrieval.

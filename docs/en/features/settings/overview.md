@@ -1,6 +1,6 @@
 # Global Settings
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 This guide introduces how to use the **Settings** feature in ModxAI Studio, helping you complete application configuration, environment installation, theme switching.
@@ -232,7 +232,7 @@ The main menu can check for, download, and install an update directly. You do no
 
 > Downloads may be slow or fail for users in mainland China. A network proxy is recommended.
 
-If the app exits unexpectedly, the next launch runs startup recovery. Unfinished scheduled tasks have their status restored. Other in-progress views are whatever the recovery step actually brings back.
+The next launch recovers unfinished work. Scheduled tasks that had not finished have their status restored.
 
 ---
 

@@ -1,9 +1,11 @@
 # SD Chat - Overview
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 Image and video inference uses stable-diffusion.cpp **0.4.7** as of version 1.1.6. SD still needs the NVIDIA CUDA acceleration libraries. See the [Model Library](../models/overview.md).
+
+Open SD Chat from the **agent submenu**, next to speech synthesis.
 
 ## Table of Contents
 

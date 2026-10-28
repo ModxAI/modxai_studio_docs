@@ -1,6 +1,6 @@
 # Introduction
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 ## What is ModxAI Studio?

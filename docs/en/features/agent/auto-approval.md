@@ -1,6 +1,6 @@
 # Auto Approval & Security
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 During execution, the agent may need to perform high-risk operations such as executing terminal commands or modifying files. The auto-approval and security mechanism helps balance efficiency and safety.

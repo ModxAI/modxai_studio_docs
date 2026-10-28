@@ -1,6 +1,6 @@
 # Role Configuration
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 The agent uses a multi-role collaboration architecture, where each role handles different aspects of a task. This topic describes the purpose and configuration of each role.

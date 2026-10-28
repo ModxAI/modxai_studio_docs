@@ -1,6 +1,6 @@
 # Quick Start
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 This guide helps you complete your first AI chat in **5 minutes**.
@@ -11,7 +11,7 @@ This guide helps you complete your first AI chat in **5 minutes**.
 
 After installation, double-click the desktop icon to launch ModxAI Studio.
 
-On the first launch, the app finishes initialization and shows an onboarding guide plus an environment setup guide. You can skip the environment install if you only want local text chat.
+On the first launch, the app finishes initialization, opens a welcome screen, and shows an onboarding guide plus an environment setup guide. You can skip the environment install if you only want local text chat. From the main page you can move backward and forward through pages you have already opened.
 
 > 💡 The first launch requires an internet connection to fetch initialization data (only the first time, not needed afterward). Depending on your network environment, initialization may take some time. Please be patient. If the launch fails, check your network connection and try again.
 

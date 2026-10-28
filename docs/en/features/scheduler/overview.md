@@ -1,6 +1,6 @@
 # Scheduled Tasks
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 Scheduled tasks can run an **agent task**, **automatic memory organization**, **memory fine-tuning**, or a **knowledge base update**. A task starts on an interval, at a fixed time, or after an upstream task finishes.
@@ -192,6 +192,8 @@ After selecting a task, its recent execution records are displayed below.
 
 Click the **Execute Now** button on a task row to manually trigger execution, regardless of the scheduling strategy. Results are recorded in the run history.
 
+When an interval task is started early by hand, the next trigger is **the current time plus the interval set on that task**.
+
 ### Stop Execution
 
 If a task is running (status "Running" or "Executing"), click **Stop Current Task** to terminate it.
@@ -208,4 +210,5 @@ If a task is running (status "Running" or "Executing"), click **Stop Current Tas
 - Knowledge base updates use `modxai_rag_memory` as the default collection name; multiple executions will **cumulatively update** the same knowledge base.
 - The scheduler scans for due tasks every 15 seconds.
 - If the ModxAI main service restarts, the scheduler automatically restores the status of incomplete tasks.
+- A VRAM warning no longer blocks agent tasks from being scheduled. The task can still be scheduled.
 - In "Existing Session" mode for agent tasks, execution will fail if the target session has been deleted.

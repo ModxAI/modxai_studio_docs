@@ -1,6 +1,6 @@
 # Workspace Browser
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 The workspace browser shows files the agent has read or written in the current workspace, and keeps notes and earlier context available across sessions. File operations stay inside the workspace directory by default. To attach another directory as read-only, see [Attachments & Knowledge Bases](./attachments.md).
@@ -21,17 +21,17 @@ The workspace includes a resource previewer. Select a file to view it in the app
 
 Preview covers:
 
-- Ordinary text and code files
+- Ordinary text and code files. The text-preview limit is **10MB**, raised from 512KB
 - **JSONL** files
 - **Live HTML preview**: HTML files render directly in the previewer
 
-The size limit for previewed files has been raised. Above that limit, the previewer warns that it cannot show the full file, or it shows only part of the content. The exact byte limit is the one shown in the interface.
+That 10MB cap applies to text previews in the workspace.
 
 ---
 
 ## Tabs
 
-The previewer opens files in tabs. Tabs offer more than one close action, so you can close the current tab or a group of related tabs.
+The previewer opens files in tabs. Tabs offer more than one close action, so you can close the current tab or a group of related tabs. The tab bar can also move forward and back through files you have already opened.
 
 The workbench parameter window can be resized horizontally, which leaves room for the preview and the parameters at the same time.
 

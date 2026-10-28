@@ -1,6 +1,6 @@
 # Environment Installation Guide
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 This document provides a detailed introduction to the **Environment Configuration** feature of ModxAI Studio, helping you understand the principles, operational procedures, and troubleshooting methods for environment installation.

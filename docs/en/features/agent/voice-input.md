@@ -1,6 +1,6 @@
 # Voice Input
 
-> v1.1.10
+> v1.1.11
 > 2026-10
 
 The agent supports voice input via microphone. The system automatically transcribes speech to text and fills it into the input box.
