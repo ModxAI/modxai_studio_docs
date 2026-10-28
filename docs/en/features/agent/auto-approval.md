@@ -1,7 +1,7 @@
 # Auto Approval & Security
 
-> v1.1.0
-> 2026-05
+> v1.1.10
+> 2026-10
 
 During execution, the agent may need to perform high-risk operations such as executing terminal commands or modifying files. The auto-approval and security mechanism helps balance efficiency and safety.
 
@@ -23,7 +23,9 @@ When auto approval is enabled, operations requiring confirmation are automatical
 
 - An **Auto Approval toggle** is located above the input box.
 - Disabled by default; session-independent (toggling one session does not affect others).
+- A new session can have auto-approval turned on before the first message is sent.
 - A confirmation message is shown when enabling or disabling.
+- The toggle is stored in a workbench preset and restored when that preset is loaded.
 
 ### Use Cases
 

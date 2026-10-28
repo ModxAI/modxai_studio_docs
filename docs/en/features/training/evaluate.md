@@ -1,12 +1,13 @@
 # Training Evaluation Module Details
 
-> v1.0.0
-> 2025-12
+> v1.1.10
+> 2026-10
 
 > 📌 **Module Positioning**: Automatically evaluate checkpoint quality and help users find the best checkpoint through standardized sample testing.
 
 ## Table of Contents
 - [Overview](#overview)
+- [Built-in Benchmarks](#built-in-benchmarks)
 - [Evaluation Samples](#evaluation-samples)
 - [Evaluation Parameters](#evaluation-parameters)
 - [Evaluation Flow](#evaluation-flow)
@@ -26,6 +27,22 @@ The Evaluation module uses predefined Q&A samples to batch test training checkpo
 | Score Calculation | Calculate similarity between model output and standard answers |
 | Result Comparison | Visual comparison of evaluation results for multiple checkpoints |
 | Best Recommendation | Automatically recommend the checkpoint with the highest score |
+| Built-in Benchmarks | IFEval, GSM8K, MMLU, and HellaSwag |
+
+---
+
+## Built-in Benchmarks
+
+Besides the custom Q&A samples below, the evaluation module can run four public benchmarks. They measure general ability. They do not replace samples you write for your own data.
+
+| Benchmark | What it measures |
+|-----------|------------------|
+| **IFEval** | Instruction following: whether the answer obeys the requested format, constraints, and steps |
+| **GSM8K** | Grade-school math word problems |
+| **MMLU** | Multiple-choice questions across subjects |
+| **HellaSwag** | Commonsense sentence completion |
+
+Choose one of these built-in sets in the evaluation module, then choose the checkpoints to compare. Custom samples still use the similarity scoring described later on this page. Built-in benchmarks use their own standard scores. Do not read those scores as the 0–1 similarity bands below.
 
 ---
 

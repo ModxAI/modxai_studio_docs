@@ -1,7 +1,7 @@
 # Advanced Settings
 
-> v1.1.0
-> 2026-05
+> v1.1.10
+> 2026-10
 
 Advanced settings allow fine-tuning the agent's behavior strategies. All parameters have reasonable defaults and generally do not need modification. Advanced users can adjust them as needed.
 
@@ -58,6 +58,8 @@ Advanced parameters are grouped into 10 categories, displayed as collapsible pan
 |-----------|---------|-------|-------------|
 | File Read Limit | 10MB | 1 MB ~ 100 MB | Maximum bytes allowed for reading a single file, displayed in MB. |
 
+The `glob` tool can take an ignore-rule file so it skips paths you do not want scanned. The rule format is whatever that file already uses. These docs do not define a second syntax.
+
 ---
 
 ## Web Search
@@ -69,6 +71,14 @@ Advanced parameters are grouped into 10 categories, displayed as collapsible pan
 | Max Search Results | 10 | 1 ~ 50 | Maximum number of result entries returned per search. |
 | Content Fetch Limit | 10 | 1 ~ 10 | Maximum number of results from which content is automatically fetched after search. |
 
+You can switch the search source:
+
+- **Built-in ddgs**: The default engine. Version 1.1.9 updates this component for more accurate results. If search still behaves like the old engine after you upgrade, open **Settings → Environment** and use **Reinstall** on the Agent environment that is already installed.
+- **Brave**: Available as a search engine.
+- **DeepSeek web search and fetch**: When the agent is using DeepSeek online access, it can search the web and fetch pages through DeepSeek.
+
+Search results can be filtered with a page block list and a page allow list, so you can keep or drop specific pages. Use the format shown next to those fields in the app.
+
 ---
 
 ## Browser
@@ -77,6 +87,8 @@ Advanced parameters are grouped into 10 categories, displayed as collapsible pan
 |-----------|---------|-------|-------------|
 | Default Timeout | 30 | 1 ~ 300 s | Default timeout for browser-related operations. |
 | Action Timeout | 10 | 0.1 ~ 120 s | Timeout for a single browser interaction (click, input, etc.). |
+
+The built-in headless browser can open a page and simulate clicks and typing. The timeouts above apply to those actions. Browser tools need the Agent environment (Playwright) from Settings.
 
 ---
 

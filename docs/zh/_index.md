@@ -17,6 +17,7 @@
 - [自动审批与安全](./features/agent/auto-approval.md)
 - [指令设置](./features/agent/profile-settings.md)
 - [预设管理](./features/agent/presets.md)
+- [工作区浏览器](./features/agent/workspace.md)
 
 ### AI 对话
 

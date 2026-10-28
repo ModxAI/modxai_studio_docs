@@ -17,6 +17,7 @@
 - [Auto Approval & Security](./features/agent/auto-approval.md)
 - [Instruction Settings](./features/agent/profile-settings.md)
 - [Preset Management](./features/agent/presets.md)
+- [Workspace Browser](./features/agent/workspace.md)
 
 ### AI Chat
 

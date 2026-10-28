@@ -1,7 +1,7 @@
 # Quick Start
 
-> v1.1.0
-> 2026-5
+> v1.1.10
+> 2026-10
 
 This guide helps you complete your first AI chat in **5 minutes**.
 
@@ -11,7 +11,7 @@ This guide helps you complete your first AI chat in **5 minutes**.
 
 After installation, double-click the desktop icon to launch ModxAI Studio.
 
-On the first launch, the application will automatically complete the initialization configuration without manual operation.
+On the first launch, the app finishes initialization and shows an onboarding guide plus an environment setup guide. You can skip the environment install if you only want local text chat.
 
 > 💡 The first launch requires an internet connection to fetch initialization data (only the first time, not needed afterward). Depending on your network environment, initialization may take some time. Please be patient. If the launch fails, check your network connection and try again.
 
@@ -71,6 +71,10 @@ After completing the basic chat, you can explore more features:
 | Feature | Description | Documentation |
 |---------|-------------|---------------|
 | **Agent** | Let AI autonomously execute tasks: web search, file operations, terminal commands | [Agent](../features/agent/overview.md) |
+| **Workspace** | Preview files the agent reads or writes, share notes, link earlier tasks | [Workspace Browser](../features/agent/workspace.md) |
+| **Memory** | Review, edit, and export long-term memories | [Memory](../features/memory/overview.md) |
+| **Scheduled Tasks** | Run an agent, organize memory, or refresh a knowledge base on a schedule | [Scheduled Tasks](../features/scheduler/overview.md) |
+| **Channels** | Reach the agent from Telegram, Discord, DingTalk, or Feishu | [Channel Connection](../features/gateway/overview.md) |
 | **RAG Retrieval** | Let AI answer questions based on your knowledge base | [AI Chat](../features/chat/overview.md) |
 | **Image Generation** | Generate images using SD models | [SD Chat](../features/sdchat/overview.md) |
 | **Data Processing** | Convert documents into training data | [Data Processing](../features/dataset/overview.md) |

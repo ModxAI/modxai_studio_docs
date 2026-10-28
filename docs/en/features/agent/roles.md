@@ -1,7 +1,7 @@
 # Role Configuration
 
-> v1.1.0
-> 2026-05
+> v1.1.10
+> 2026-10
 
 The agent uses a multi-role collaboration architecture, where each role handles different aspects of a task. This topic describes the purpose and configuration of each role.
 
@@ -198,6 +198,8 @@ Each role supports the following configuration items:
 | API Credentials | Bound API Key |
 | LAN Address | Service URL for LAN mode |
 
+The online backend calls cloud models with the OpenAI-compatible Chat Completions protocol. Providers shown in the interface include DeepSeek and OpenRouter. The OpenAI and Claude cache options in Advanced Settings only affect prompt caching for those providers.
+
 ### Prompt
 
 | Item | Description |
@@ -223,7 +225,9 @@ Each role supports the following configuration items:
 | Max Tool Rounds | Maximum tool call rounds per single task | 100 |
 | Inference Timeout | Maximum wait time per inference | 600 s |
 | Fast Mode | Skip feedback process before tool call | Disabled |
-| Thinking Mode | Supports model-native thinking blocks | Enabled |
+| Thinking Mode | Allows native thinking blocks. When off, models that support a disable-thinking instruction receive that instruction | Enabled |
+| Thinking Depth | Depth levels for local models. Deeper levels are usually slower. The levels include `xhigh` | — |
+| KV Cache / MTP | Inference-tuning parameters for local LLMs and multimodal models | — |
 
 ### Toolset Configuration
 

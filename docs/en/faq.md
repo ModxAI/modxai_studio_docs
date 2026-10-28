@@ -1,7 +1,7 @@
 # Frequently Asked Questions
 
-> v1.1.0
-> 2026-05
+> v1.1.10
+> 2026-10
 
 This page summarizes common issues and solutions encountered while using ModxAI Studio.
 
@@ -82,7 +82,7 @@ LoRA must match the base model architecture. Ensure:
 
 ### How can other applications call my loaded model?
 
-Once a model is loaded, ModxAI Studio automatically provides an OpenAI-compatible HTTP API (`/v1/chat/completions`). Other devices or applications on the same local network can call it directly. See [Model Library - LAN Inference Service](../features/models/overview.md#lan-inference-service).
+Once a model is loaded, ModxAI Studio automatically provides an OpenAI-compatible HTTP API (`/v1/chat/completions`). Other devices or applications on the same local network can call it directly. See [Model Library - LAN Inference Service](./features/models/overview.md#lan-inference-service).
 
 ### Can a multimodal model use a knowledge base (RAG)?
 
@@ -110,6 +110,10 @@ The ModxAI Studio agent framework is optimized for local small models. Models wi
 - Execute terminal commands.
 - Manage task lists and track progress.
 - Remember preferences.
+
+### Web search still looks like the old engine?
+
+Version 1.1.9 updates the built-in ddgs engine. After you upgrade the app, open **Settings → Environment** and use **Reinstall** on the Agent environment that is already installed. Brave and DeepSeek web search are separate sources. See [Advanced Settings](./features/agent/advanced-settings.md).
 
 ### Is agent data secure?
 
@@ -204,6 +208,10 @@ When enabled, the system automatically injects reasoning prompts to guide the mo
 
 This parameter requires a **HuggingFace format model directory** (containing `.safetensors` and `config.json`), **not** a GGUF inference model.
 
+### Can evaluation use public benchmarks as well as my own samples?
+
+Yes. The evaluation module supports IFEval, GSM8K, MMLU, and HellaSwag. Custom samples are still scored by similarity. See [Model Evaluation](./features/training/evaluate.md).
+
 ### How to resume training after interruption?
 
 On the training preparation page, set "Resume Training Checkpoint Path" to the last saved checkpoint directory.
@@ -289,6 +297,10 @@ Yes. The current version only supports Chinese and English. Other languages like
 ---
 
 ## Environment Configuration
+
+### I closed the first-run environment guide. Where do I install it later?
+
+Open **Settings → Environment**. You can choose Full, Agent, or Speech. If an environment is already installed, use **Reinstall**.
 
 ### Environment installation failed?
 

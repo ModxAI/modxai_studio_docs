@@ -1,7 +1,7 @@
 # Channel Connection
 
-> v1.1.0
-> 2026-05
+> v1.1.10
+> 2026-10
 
 Channel connections allow you to interact with the local agent service through external instant messaging platform bots (Telegram, Discord, DingTalk, Feishu). You can send tasks, switch sessions, and adjust configuration from anywhere via chat messages — just like in ModxAI Studio.
 
@@ -199,26 +199,62 @@ Each external platform source (chat/channel/session) can manage **multiple sub-s
 - Sub-sessions: Created via `/new`; can be independently configured and switched.
 - `/list` lists all sub-sessions; switch by ID.
 
-### Session Isolation
+### Lazy Start
 
-Each sub-session has independent context, allowing different tasks to run simultaneously without interference.
+A sub-session created with `/new` stores its configuration first (role, model, tools, and so on). The agent session is created when the first body message is sent. You can run `/model`, `/system`, and similar commands before that message.
+
+### Model Setting
+
+- `/model <id>` picks a model from the local model list.
+- `/model <Provider/Model>` uses an online model, for example `deepseek/deepseek-chat`.
+- The optional `[role]` argument selects a role. If you omit it, the command applies to the primary role.
+
+> **Note**: The memory role must use a local model. Online and LAN backends are not supported for it.
 
 ---
 
 ## Advanced Settings
 
-In the Channel Connection page, you can configure the following advanced options:
+The "More Settings" panel contains:
 
-- **Auto-reconnect**: Automatically attempt to reconnect if the connection drops.
-- **Response Language**: Set the language for bot responses.
-- **Max Message Length**: Limit on the length of messages the bot can receive.
-- **Admin Password**: Set or modify the admin password.
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| Listen Address | `0.0.0.0` | Address the gateway binds to |
+| Local Port | `18092` | Gateway port, from 1024 to 65535 |
+| Reply Wait (seconds) | `600` | How long to wait for the agent to respond |
+| Startup Timeout (seconds) | `60` | How long to wait for the gateway health check |
+| Admin Password | Generated | Used by the `/admin` command |
+
+> **Security**: If only this computer should connect, set the listen address to `127.0.0.1`. Keep `0.0.0.0` only when other devices on the LAN must connect. Do not publish this port on the public internet. External access checks are tighter in recent versions. Pairing codes and the admin password are still required.
 
 ---
 
 ## Notes
 
-- Ensure the gateway service is running properly; check the connection status on the page.
-- After a credential change, the service needs to be restarted.
-- Different platforms may have different message format limitations.
-- Paired device list can be managed on the Channel Connection page.
+### Service Dependency
+
+- The channel service runs as its **own subprocess** and needs the ModxAI main service to be running.
+- Stopping the main service stops the channel service.
+- Every enabled platform needs valid credentials, or startup fails.
+
+### Credential Safety
+
+- After you save a token or secret, the input is **cleared**. The page does not keep the plaintext.
+- The page shows a mask such as `****abc123`, not the full credential.
+- To replace a credential, type the new value and save.
+
+### Tool Policy
+
+- The **high-risk tool policy** for channel sessions follows the Studio setting.
+- `/allow_risky_tools` applies to **every sub-session** under the current control source.
+- When `block_high_risk_tools` is on, the tool allow list drops high-risk tools.
+
+### Connection Status
+
+- The top of the page shows whether the service is connected or stopped.
+- **Refresh** reloads gateway status and configuration.
+- **Reset** restores the form to the last saved configuration.
+
+### One Platform at a Time
+
+Only **one** bot platform can be enabled. To switch, select the new platform, save, and start the connection again.

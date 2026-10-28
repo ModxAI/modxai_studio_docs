@@ -1,7 +1,7 @@
 # Agent Workbench
 
-> v1.1.0
-> 2026-05
+> v1.1.10
+> 2026-10
 
 The Agent Workbench is the core functional module of ModxAI Studio. Unlike standard chat, the agent **autonomously decomposes tasks, selects tools, executes steps, and produces final results** — you simply describe the goal, and the agent handles web search, file reading, command execution, report generation, and more automatically.
 
@@ -152,6 +152,8 @@ For sessions you want to keep but don't need to see immediately, use the **Archi
 
 Enter your task description in the input box and press `Enter`. The agent will automatically begin analysis and execution.
 
+Long text in the input box and in the user-instruction area collapses automatically. Expand it when you need the full text.
+
 ### Send Modes
 
 - **Send to New Session**: Start a new round of conversation in the current session, sending the message as a new task.
@@ -178,7 +180,7 @@ Two deletion scopes are supported:
 
 ### Resend Message
 
-Performing a **Resend** operation deletes the current message and all subsequent content, then resends it.
+**Resend** asks for a second confirmation. After you confirm, it deletes that message and everything after it, then sends the message again.
 
 ### Copy Message
 
@@ -228,6 +230,7 @@ While the Agent is performing a task, the interface will display real-time updat
 
 - **Reasoning Process**: Visible when "Thinking Mode" is enabled, displaying the AI's logical reasoning.
 - **Status Indicators**: The bottom status bar displays real-time states such as "Processing," "Compressing Conversation," or "Evaluating."
+- **Duration**: Total task time and the current status stay on screen for the whole run. They do not disappear when a single step refreshes.
 
 ### Auto-Approval
 
@@ -248,7 +251,7 @@ When paused, you can choose to **Continue** or **Stop**.
 
 ### Context Compression
 
-When the conversation length exceeds the model's context window, the Agent will automatically compress historical messages by extracting key information to continue execution, ensuring that long-running tasks are not interrupted by insufficient context.
+When model input reaches the compression trigger ratio (by default, 0.8 of the context window), the agent compresses older messages and keeps higher-priority content. Thresholds and the P0–P3 ratios are in [Advanced Settings](./advanced-settings.md). Compression does not start before that threshold.
 
 ### Rollback Operation
 
@@ -281,13 +284,14 @@ For files created or modified by the Agent within the workspace, **Rollback** fu
 
 ### Performance Recommendations
 
-- For local models, it is recommended to use relatively recent models (e.g., Qwen2.5 7B+) and set the context length to 32K+ for better performance in Agent tasks.
+- For local models, prefer a current model such as Qwen3.5 4B or larger, and set the context length to 32K or more.
 
 ### Workspace
 
 - If no workspace directory is specified, the system uses a default workspace within the temporary directory.
 - Agent file operations are performed within the scope of the workspace by default.
 - You can customize the workspace directory in the Session Configuration.
+- File preview, notes shared across sessions, and links to earlier tasks are covered in the [Workspace Browser](./workspace.md).
 
 ---
 
@@ -302,3 +306,4 @@ For files created or modified by the Agent within the workspace, **Rollback** fu
 | Auto-Approval & Security | Auto-approval toggle, security audit mechanisms, command blacklist | [Auto-Approval & Security](./auto-approval.md) |
 | Instruction Settings | Global instruction files and personal preference configurations | [Instruction Settings](./profile-settings.md) |
 | Preset Management | Save and load workbench parameter presets | [Preset Management](./presets.md) |
+| Workspace Browser | Preview files, share notes across sessions, link earlier tasks | [Workspace Browser](./workspace.md) |

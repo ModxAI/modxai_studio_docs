@@ -1,7 +1,9 @@
 # SD 聊天 - 概览
 
-> v1.0.0
-> 2025-12
+> v1.1.10
+> 2026-10
+
+图像和视频推理使用的 stable-diffusion.cpp 在 1.1.6 升级到 **0.4.7**。SD 仍然需要 NVIDIA CUDA 加速库，见 [模型库](../models/overview.md)。
 
 ## 目录
 

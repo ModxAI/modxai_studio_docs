@@ -1,7 +1,7 @@
 # Preset Management
 
-> v1.1.0
-> 2026-05
+> v1.1.10
+> 2026-10
 
 Preset management allows you to save the complete parameter configuration of the workbench and restore it quickly when needed. Ideal for switching configurations between different task types.
 
@@ -21,6 +21,7 @@ A preset is a **complete snapshot** of the workbench parameters, including:
 - Advanced parameter settings
 - Workspace directory and Skills directory
 - Instruction settings (global instruction file path, personal preferences)
+- Runtime policy, including the auto-approval (YOLO) toggle
 
 ---
 

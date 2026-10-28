@@ -1,7 +1,7 @@
 # Attachments & Knowledge Bases
 
-> v1.1.0
-> 2026-05
+> v1.1.10
+> 2026-10
 
 The agent supports attaching files, images, audio, and other resources when sending messages, as well as connecting to RAG knowledge bases. This topic covers the usage and limitations of each attachment type.
 
@@ -73,6 +73,8 @@ Link a RAG knowledge base to the current session, allowing the agent to prioriti
 ### Disconnecting a Knowledge Base
 
 Click the close button next to the connected knowledge base name to disconnect.
+
+Chat and the agent can attach the same knowledge base. Each side keeps its own retrieval settings. The underlying data is shared.
 
 ### Knowledge Base Parameters
 

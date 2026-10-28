@@ -1,7 +1,7 @@
 # Model Training
 
-> v1.0.0
-> 2025-12
+> v1.1.10
+> 2026-10
 
 This article introduces how to use the **Model Training** function in ModxAI Studio, helping you complete the full training workflow from data preparation to model output.
 
@@ -112,7 +112,8 @@ The Evaluate module is used to assess the model quality of multiple checkpoints:
 |------|------|
 | Checkpoint Selection | Support selecting 2 or more checkpoints for comparative evaluation |
 | Evaluation Dataset | Use sampled data to test model generation capabilities |
-| Comprehensive Scoring | Scoring based on multiple dimensions such as perplexity, semantic similarity, coherence, coverage, etc. |
+| Comprehensive Scoring | Custom samples are scored by semantic similarity, keyword coverage, and format match. See the evaluation module |
+| Built-in Benchmarks | IFEval, GSM8K, MMLU, and HellaSwag |
 | Result Output | Generate detailed evaluation reports and CSV result files to the output directory |
 | Optimal Recommendation | Automatically identify the checkpoint with the highest comprehensive score |
 

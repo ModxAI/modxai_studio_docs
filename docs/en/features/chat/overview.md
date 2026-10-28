@@ -1,7 +1,7 @@
 # AI Chat
 
-> v1.0.0
-> 2025-12
+> v1.1.10
+> 2026-10
 
 This article introduces how to use the **Text Chat** and **Multimodal Chat** features in ModxAI Studio. It helps you complete tasks such as daily conversation reasoning, knowledge base Q&A, and image-text understanding.
 
@@ -49,7 +49,7 @@ The chat page is divided into two columns:
 ### Left - Session List
 
 - **New Chat** button: Located at the top.
-- **Session List**: Grouped by time (Today/Yesterday/Within 7 Days/Within 30 Days/Older).
+- **Session List**: Grouped by time (Today/Yesterday/Within 7 Days/Within 30 Days/Older). Lists longer than 100 sessions still load.
 - **Session Operations**: Option menu to rename or delete conversations.
 
 ### Right - Chat Area
@@ -122,6 +122,7 @@ There are two important switches above the input box:
 - **Function**: When enabled, the AI will display its thinking process.
 - **Display**: Collapsible panel "💭 AI Thinking Process".
 - **Usage**: To understand the AI's reasoning logic.
+- **Disable thinking**: Turning it off sends a disable-thinking instruction to models that support one. It does not only hide the thinking block.
 
 #### Retrieval Switch
 - **Function**: Enables RAG knowledge base retrieval.
@@ -157,7 +158,8 @@ Before use, you need to create a RAG dataset (knowledge base) in the **Data Modu
 
 - **View list**: All available collections are shown in the parameter drawer  
 - **Delete collection**: Click the delete button next to a collection to remove it from chat  
-- **Delete note**: Deleting a collection here only removes its configuration and **does not delete stored vector files**  
+- **Delete note**: Deleting a collection here only removes its configuration and **does not delete stored vector files**
+- **Shared with the agent**: The same knowledge base can be attached from chat and from the agent. Each side keeps its own retrieval settings.  
 
 ### Re-import
 You can re-import a deleted collection as long as the vector data files still exist. You need to select the corresponding import file (rag_dataset_***_meta.json) to import.
@@ -196,6 +198,12 @@ Click the **Slider Icon** button above the input box to open the parameter drawe
 - **Function**: Sets the role or task background for the AI.
 - **Save Template**: Frequently used prompts can be saved as templates.
 - **Delete Template**: Select a template and click the delete button.
+
+#### Thinking Depth
+Local models can use thinking-depth levels. Deeper levels are usually slower. The levels include `xhigh`. This is separate from the thinking switch: the switch decides whether the model thinks, and the depth decides how far.
+
+#### KV Cache and MTP
+Local LLMs and multimodal models can adjust inference options such as KV Cache and MTP. The defaults fit most chats. Change them when you are short on VRAM or speed. Agent roles expose the same parameters. See [Role Configuration](../agent/roles.md).
 
 ### RAG Parameters (Collapsible Panel)
 

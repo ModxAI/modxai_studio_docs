@@ -1,7 +1,7 @@
 # Introduction
 
-> v1.1.0
-> 2026-5
+> v1.1.10
+> 2026-10
 
 ## What is ModxAI Studio?
 
@@ -56,7 +56,7 @@ Unified management of various AI models:
 - **Local Import**: Supports multiple formats like GGUF, SafeTensors.
 - **LoRA Adaptation**: Load exclusive fine-tuning adapters for models.
 - **LAN Service**: Automatically exposes an OpenAI-compatible API after loading, available for other applications on the local network.
-- **Online Model Service**: Currently supports DeepSeek and OpenRouter online model services.
+- **Online Model Service**: DeepSeek, OpenRouter, and OpenAI-compatible Chat Completions endpoints. Advanced settings also include prompt-cache options for OpenAI and Claude.
 
 ### 📊 Data Processing
 
@@ -75,10 +75,17 @@ Convert raw data into trainable datasets:
 - **One-Click Export**: Export training results to GGUF format for direct inference use.
 - **Memory Training**: Automatically iterates and optimizes personalized models based on agent-accumulated or user-bookmarked conversation memories.
 
+### 🗂️ Memory, Schedules, and Channels
+
+- **Memory Management**: Review, edit, and archive agent memories and bookmarks, then export them for training or a knowledge base.
+- **Scheduled Tasks**: Run agent tasks, memory organization, memory fine-tuning, and knowledge-base updates on an interval, at a fixed time, or after an upstream task finishes.
+- **Channel Connection**: Reach the local agent from Telegram, Discord, DingTalk, or Feishu. Unpaired sources cannot send tasks.
+
 ### ⚙️ Zero-Threshold Environment Configuration
 
 Say goodbye to complex environment configurations:
 
+- **First-Run Guide**: The first launch walks through getting started and installing an environment.
 - **One-Click Installation**: Automatically detects hardware and recommends the best configuration.
 - **On-Demand Selection**: Supports Full / Agent / Voice Synthesis three installation capabilities, install as needed.
 - **Sandbox Isolation**: Independent environment, does not affect other system software.
@@ -126,5 +133,6 @@ Say goodbye to complex environment configurations:
 ## Next Steps
 
 - [Quick Start](./quick-start.md) - Complete your first AI chat in 5 minutes.
+- [Agent](../features/agent/overview.md) - Let a model carry out multi-step tasks.
 - [Model Library](../features/models/overview.md) - Learn how to manage and load models.
 - [AI Chat](../features/chat/overview.md) - Dive deeper into chat features.
