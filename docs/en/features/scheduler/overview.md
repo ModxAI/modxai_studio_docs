@@ -210,5 +210,5 @@ If a task is running (status "Running" or "Executing"), click **Stop Current Tas
 - Knowledge base updates use `modxai_rag_memory` as the default collection name; multiple executions will **cumulatively update** the same knowledge base.
 - The scheduler scans for due tasks every 15 seconds.
 - If the ModxAI main service restarts, the scheduler automatically restores the status of incomplete tasks.
-- While a VRAM warning is active, GPU grants run one at a time (global maximum 1, `vram_warning_serial`). An idle GPU is not permanently parked. `vram_hard` still rejects a new GPU grant.
+- When a VRAM warning is shown, GPU tasks run one at a time. An idle GPU is not left stopped. When VRAM is critically low, a new GPU task is refused.
 - In "Existing Session" mode for agent tasks, execution will fail if the target session has been deleted.

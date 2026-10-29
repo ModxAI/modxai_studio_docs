@@ -236,7 +236,7 @@ The "More Settings" panel contains:
 
 1. Open **External Access**.
 2. Create an Access Key and start the gateway using the connection instructions on that page. HTTPS is optional.
-3. Call the External Agent HTTP API with the curl, Python, or Node example under `devtools/external_gateway/`.
+3. Call the HTTP API with the curl, Python, or Node example on that page.
 
 `127.0.0.1` accepts only this computer. `0.0.0.0` opens the LAN. Do not publish that port on the public internet. There is no separate command-line installer.
 

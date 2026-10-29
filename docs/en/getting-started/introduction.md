@@ -18,7 +18,7 @@ The agent is built for small local models. A 1B–3B model with a 32K context ca
 The agent splits a task, calls tools, and reports progress.
 
 - **Execution**: Breaks the task into steps, runs them, and shows progress in the UI
-- **Tools and skills**: Web browsing, local file read/write, and terminal commands, plus external skills. Subtask hand-off uses in-task `delegate_task`. It is not a separate multi-agent product
+- **Tools and skills**: Web browsing, local file read/write, and terminal commands, plus external skills. A subtask goes to another role already configured in the current task. It is not a separate multi-agent product
 - **Memory**: Review, edit, and export memories, then use them for a later fine-tune
 
 ### 🤖 AI Chat

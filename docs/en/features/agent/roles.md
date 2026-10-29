@@ -164,7 +164,7 @@ The system uses **two-layer security detection**:
 
 ## Custom Roles
 
-Define custom roles through their system prompt to clarify role positioning. During a task, the main role uses `delegate_task` to hand subtasks to independently configured roles, or you can ask for a role by **name**. This is in-task delegation, not a separate multi-agent product.
+Write the role’s job in its system prompt. The main role hands it a subtask, or you call it by role name. This stays inside the current task. It is not a separate multi-agent product.
 
 ### Use Cases
 
@@ -225,8 +225,8 @@ The online backend calls cloud models with the OpenAI-compatible Chat Completion
 | Max Tool Rounds | Maximum tool call rounds per single task | 100 |
 | Inference Timeout | Maximum wait time per inference | 600 s |
 | Fast Mode | Skip feedback process before tool call | Disabled |
-| Thinking Mode | On: native thinking blocks, with `preserve_thinking` defaulting to true. Off: `chat_template_kwargs.enable_thinking=false` (some templates name the field `thinking`) and `no_think` | Enabled |
-| Thinking Depth | Depth levels for local models. Deeper levels are usually slower. The levels include `xhigh` | — |
+| Thinking Mode | On: the thinking trace stays in the reply. Off: the model does not produce a thinking trace | Enabled |
+| Thinking Depth | Thinking level for a local model. A higher level is slower. The highest level is xhigh | — |
 | KV Cache / MTP | Inference-tuning parameters for local LLMs and multimodal models | — |
 
 ### Toolset Configuration

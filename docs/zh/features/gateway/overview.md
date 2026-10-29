@@ -235,7 +235,7 @@
 
 1. 打开「外部访问」。
 2. 生成 Access Key，按页面上的连接说明启动网关。HTTPS 可选。
-3. 用 `devtools/external_gateway/` 中的 curl、Python 或 Node 示例调用 External Agent HTTP API。
+3. 按页面上的 curl、Python 或 Node 示例调用 HTTP API。
 
 `127.0.0.1` 只接受本机。`0.0.0.0` 对局域网开放。勿把该端口暴露到公网。没有单独的命令行安装包。
 

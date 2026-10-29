@@ -27,7 +27,7 @@ These docs describe product behavior through **v1.1.11** (2026-10-27).
 ## Key Features
 
 - **Autonomous Agent**  
-  Plans a task, calls tools, and reports progress. The built-in toolchain covers web search, a headless browser, local file read/write, and terminal commands, and it can load external skills. The runtime is tuned so small local models (about 1B–7B, 32K context) can finish ordinary multi-step work. Online models are available when you want them.
+  Splits a task, calls tools, and shows progress. Tools include web search, a headless browser, local file read/write, and terminal commands. External skills can be added. Built for local models in the 1B–7B range with a 32K context. Online models can be used instead.
 
 - **AI Chat (Text and Multimodal)**  
   Local chat through llama.cpp, plus Hugging Face backends when you install an environment. Supports system prompts, thinking depth, RAG over your knowledge bases, and bookmarking conversations for later training.
@@ -39,7 +39,7 @@ These docs describe product behavior through **v1.1.11** (2026-10-27).
   Run an agent prompt, organize memory, fine-tune on memory, or refresh a knowledge base on an interval, at a fixed time, or after an upstream task finishes.
 
 - **External Access**  
-  Reach the local agent from Telegram, Discord, DingTalk, or Feishu. Pairing is required before a chat can send tasks. The same local gateway exposes an HTTP API for this machine or the LAN, with curl, Python, and Node examples in the repo.
+  Reach the local agent from Telegram, Discord, DingTalk, or Feishu. Pair the chat before it can send tasks. The local gateway also serves an HTTP API. The External Access page includes curl, Python, and Node examples.
 
 - **Speech**  
   Local TTS for Chinese and English, with voice presets, speed control, and language detection. Open it from the agent submenu, next to SD Chat. STT transcribes microphone input and audio datasets.
@@ -54,7 +54,7 @@ These docs describe product behavior through **v1.1.11** (2026-10-27).
   Parse, clean, split, synthesize, and vectorize data into SFT, pretrain, DPO, or RAG sets. Structured JSON/JSONL can be field-mapped. Audio transcription can resume after an interruption.
 
 - **Training**  
-  Prepare a LoRA run, watch it, evaluate checkpoints (including IFEval, GSM8K, MMLU, and HellaSwag), test interactively, and export GGUF. LoRA training can start around 8GB of VRAM.
+  Prepare a LoRA run, watch progress, evaluate checkpoints with IFEval, GSM8K, MMLU, and HellaSwag, test in chat, and export GGUF. LoRA training starts at 8GB of VRAM.
 
 - **One-Click Environment**  
   First launch offers an onboarding and environment guide. Install Full, Agent, or Speech capabilities into a portable sandbox, with mirror selection and resume. Basic llama.cpp chat does not need that install.
@@ -135,7 +135,7 @@ ModxAI Studio is built on open-source projects, including [PyTorch](https://gith
 ## 核心功能
 
 - **自主智能体**  
-  拆解任务、调用工具并反馈进度。内置工具覆盖网页搜索、无头浏览器、本地文件读写和终端命令，也可以挂载外部 Skill。运行时针对本地小模型优化，大约 1B–7B、32K 上下文即可完成日常多步任务。需要时也可以改用在线模型。
+  拆解任务、调用工具并显示进度。工具包括网页搜索、无头浏览器、本地文件读写和终端命令，也可挂载外部 Skill。面向 1B–7B、32K 上下文的本地模型。可改用在线模型。
 
 - **AI 对话（文本与多模态）**  
   通过 llama.cpp 进行本地对话；安装环境后也可以使用 Hugging Face 后端。支持系统提示词、思考深度、基于自有知识库的 RAG，以及把对话收藏下来供以后训练。
@@ -147,7 +147,7 @@ ModxAI Studio is built on open-source projects, including [PyTorch](https://gith
   按间隔、固定时间，或在上游任务完成后，自动执行智能体提示词、整理记忆、按记忆微调，或更新知识库。
 
 - **外部访问**  
-  从 Telegram、Discord、钉钉或飞书访问本地智能体。聊天来源需要先配对。同一条本机网关还提供 HTTP API，仓库里有 curl、Python 和 Node 示例。
+  从 Telegram、Discord、钉钉或飞书访问本地智能体。聊天须先配对。本机网关提供 HTTP API。「外部访问」页面含 curl、Python、Node 示例。
 
 - **语音**  
   本地 TTS 支持中文和英文，可选音色、语速，并自动检测语言。入口在智能体子菜单，和 SD 聊天放在一起。STT 用于麦克风输入和音频数据集转写。
@@ -162,7 +162,7 @@ ModxAI Studio is built on open-source projects, including [PyTorch](https://gith
   解析、清洗、切分、合成并向量化，导出 SFT、预训练、DPO 或 RAG 数据。结构化 JSON/JSONL 可以做字段映射。音频转写支持中断后续跑。
 
 - **模型训练**  
-  准备 LoRA 训练、实时监控、评估检查点（含 IFEval、GSM8K、MMLU、HellaSwag）、交互测试，并导出 GGUF。LoRA 大约 8GB 显存即可开始。
+  准备 LoRA 训练、查看进度、用 IFEval、GSM8K、MMLU、HellaSwag 评估检查点、交互测试，并导出 GGUF。LoRA 从 8GB 显存起可开始。
 
 - **一键环境**  
   首次启动提供新手引导和环境安装引导。按需把「全部」「智能体」或「语音合成」装进便携沙箱，可选镜像源，安装可续传。只用 llama.cpp 对话时不必安装这套环境。

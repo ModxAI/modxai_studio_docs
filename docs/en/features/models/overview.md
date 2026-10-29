@@ -50,9 +50,8 @@ If you need to use features dependent on Python, please go to the **Settings** p
 > - NVIDIA (recommended):
 >   - If you have an NVIDIA GPU, install the CUDA acceleration libraries using the “Install GPU Acceleration Libraries” option in the Model Library ⚡ button. Chat/multimodal models run fastest on NVIDIA+CUDA; Stable Diffusion (SD, image generation) currently requires CUDA and will only run after the CUDA libraries are installed.
 >   - After installing or updating the acceleration libraries, there is no need to restart the application. The changes take effect the next time a model is loaded. Inference libraries can also update themselves.
->   - The llama.cpp acceleration tag is **b10809**. In the model library, select speculative decoding type `draft-dflash`, then choose a compatible local draft GGUF (`--spec-draft-model`).
->   - The download catalog includes `Qwen3.8-27B-GGUF`. The changelog phrase “Qwen3.8-Flash-Next” names this engine capability. It is not a downloadable model name.
->   - Versions 1.1.6 and 1.1.3 shipped b10075 and b9467.
+>   - In the model library, turn on speculative decoding, choose type `draft-dflash`, then choose a local draft model (GGUF).
+>   - The matching download name is `Qwen3.8-27B-GGUF`. Qwen3.8-Flash-Next in the changelog is not a downloadable model.
 >   - The Stable Diffusion library moved to **stable-diffusion.cpp 0.4.7** in 1.1.6.
 > - AMD (limitations):
 >   - AMD GPUs can use the built-in Vulkan acceleration for chat/multimodal models (no extra library needed), but SD inference is not supported on AMD/Vulkan at this time.
@@ -206,7 +205,7 @@ Rerank models use a cross-encoder architecture with high computational complexit
 
 **Special Reminder**:
 
-⚠️ **Default Vulkan acceleration** may cause errors when loading with the current version of llamacpp if the "Unlimited Context" option is set. This issue does not occur under CUDA acceleration. NVIDIA GPU users are recommended to download the CUDA acceleration library for the best experience.
+⚠️ With Vulkan, setting context to Unlimited makes a multimodal model fail to load. CUDA does not. On an NVIDIA GPU, install the CUDA acceleration library.
 
 ⚠️ **Multimodal models do not support knowledge-base Q&A (RAG).** RAG is unavailable while a multimodal conversation is active. Switch to a text chat model to use a knowledge base.
 

@@ -103,13 +103,13 @@ The agent can invoke various tools to complete your tasks:
 | Tool Category | Capabilities |
 |---------------|--------------|
 | **File Operations** | Read, write, move, search files |
-| **load_external_image** | Loads an external image for multimodal vision. Without mmproj the model stays text-only. It can also read images from a read-only external workspace |
+| **Load external image** | Sends an external image to a multimodal model. Without the multimodal projection component, the model handles text only. Images in a read-only external workspace can be read too |
 | **Terminal Execution** | Run commands and scripts |
 | **Web Search** | Search engine queries, web page content extraction |
 | **Browser** | Launch browser, navigate pages, take screenshots, interact |
 | **Crawler** | Batch scrape website content |
 | **Todo Planning** | Create and update task todo lists |
-| **Delegate Collaboration** | During a task, `delegate_task` hands a subtask to another role. This is not a separate multi-agent orchestration screen |
+| **Delegate** | The main role hands a subtask to another configured role. Call it by role name. This is not a separate multi-agent product |
 | **Memory Management** | Search, read, save long-term memory and runtime reminders |
 | **Interaction** | Ask user questions and make suggestions |
 | **Computer** | Screen capture |
@@ -286,7 +286,7 @@ For files created or modified by the Agent within the workspace, **Rollback** fu
 ### Performance Recommendations
 
 - For local models, prefer a current model such as Qwen3.5 4B or larger, and set the context length to 32K or more.
-- A VRAM warning does not permanently park an idle GPU. While the warning is active, GPU grants run one at a time (global maximum 1, reason `vram_warning_serial`). `vram_hard` still rejects a new GPU grant.
+- When a VRAM warning is shown, GPU tasks run one at a time. An idle GPU is not left stopped. When VRAM is critically low, a new GPU task is refused.
 
 ### Workspace
 

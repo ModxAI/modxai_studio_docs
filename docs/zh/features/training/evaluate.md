@@ -181,7 +181,7 @@ server/resources/example/train_evaluation/model_evaluation_samples.json
 
 **说明**：模型生成的最大 token 数量。
 
-**评估建议**：根据样本答案的平均长度设置，通常 256-512 足够。
+**建议**：最大生成长度按样本答案的平均长度设置，取 256–512。
 
 ---
 

@@ -150,7 +150,7 @@ Base Model → Convert GGUF → Quantize → Output
 | Merge LoRA weights to base model | ❌ Off |
 | Export base model as GGUF | ❌ Off |
 | Quantize model | ❌ Off |
-| Export LoRA as GGUF (`export_lora_gguf`) | ✅ On |
+| Export LoRA as GGUF | ✅ On |
 
 **Execution Flow**:
 ```

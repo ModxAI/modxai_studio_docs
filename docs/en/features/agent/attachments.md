@@ -95,7 +95,7 @@ The following parameters are available when connecting a knowledge base:
 
 ## Workspace Reference
 
-You can attach an external directory. The agent can read files there and cannot write. `load_external_image` can also read images from those directories.
+You can attach an external directory. The agent can read files there and cannot write. Load external image can also read images in those directories.
 
 ### Prerequisites
 

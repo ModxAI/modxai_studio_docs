@@ -56,9 +56,8 @@ The chat page is divided into two columns:
 
 ### Right - Chat Area
 
-- **Message List**: Displays the history of the current conversation. Version 1.1.11 corrects the scrollbar styling on the inference screen.
-- **Multiple models**: A normal chat can select more than one model. That capability depends on vLLM, which the source still marks as needing to be added (`需补 vllm`).
-- **History navigation**: The main page can move backward and forward through pages you have already opened.
+- **Message List**: Shows the current conversation.
+- **History navigation**: The main page moves backward and forward through pages already opened.
 - **Input Box**: Located at the bottom, containing the following features:
   - **Thinking** switch: Enables the display of AI thinking processes.
   - **Retrieval** switch: Enables RAG knowledge base retrieval.
@@ -126,8 +125,8 @@ There are two important switches above the input box:
 - **Function**: When enabled, the AI will display its thinking process.
 - **Display**: Collapsible panel "💭 AI Thinking Process".
 - **Usage**: To understand the AI's reasoning logic.
-- **Thinking off**: Sets `chat_template_kwargs.enable_thinking=false`. Some templates use the field name `thinking` instead. The request also includes `no_think`.
-- **Thinking on**: `preserve_thinking` defaults to true, so thinking text is kept.
+- **Thinking off**: The model does not produce a thinking trace.
+- **Thinking on**: The thinking trace stays in the reply.
 
 #### Retrieval Switch
 - **Function**: Enables RAG knowledge base retrieval.
@@ -205,10 +204,10 @@ Click the **Slider Icon** button above the input box to open the parameter drawe
 - **Delete Template**: Select a template and click the delete button.
 
 #### Thinking Depth
-Local models can use thinking-depth levels. Deeper levels are usually slower. The levels include `xhigh`. This is separate from the thinking switch: the switch decides whether the model thinks, and the depth decides how far.
+Set thinking depth in the inference settings. A higher level is slower. The highest level is xhigh. The thinking switch turns thinking on or off. Depth sets how far the model thinks.
 
 #### KV Cache and MTP
-Local LLMs and multimodal models can adjust inference options such as KV Cache and MTP. The defaults fit most chats. Change them when you are short on VRAM or speed. Agent roles expose the same parameters. See [Role Configuration](../agent/roles.md).
+In inference settings, adjust KV Cache and MTP when VRAM or speed is short. Agent roles use the same controls. See [Role Configuration](../agent/roles.md).
 
 ### RAG Parameters (Collapsible Panel)
 

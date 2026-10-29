@@ -75,7 +75,7 @@ You can switch the search source:
 
 - **Built-in ddgs**: The default engine. Version 1.1.9 updates this component for more accurate results. If search still behaves like the old engine after you upgrade, open **Settings → Environment** and use **Reinstall** on the Agent environment that is already installed.
 - **Brave**: Available as a search engine.
-- **DeepSeek**: One engine option for `web_search`. It requires saved DeepSeek credentials.
+- **DeepSeek**: One of the web search engines. Save DeepSeek credentials first.
 
 Search results can be filtered with a page block list and a page allow list, so you can keep or drop specific pages. Use the format shown next to those fields in the app.
 
