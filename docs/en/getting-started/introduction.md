@@ -1,13 +1,13 @@
 # Introduction
 
-> v1.1.0
-> 2026-5
+> v1.1.10
+> 2026-10
 
 ## What is ModxAI Studio?
 
-ModxAI Studio is a **one-stop desktop application** designed for **local AI deployment**. It integrates local model deployment, autonomous agents, image generation, knowledge base retrieval, data processing, and model training into a single application, allowing users to leverage intelligent agents for everyday tasks with **zero cost**, **high efficiency**, **unrestricted freedom**, and without concern for data leaks.
+ModxAI Studio runs local models, agents, image generation, knowledge bases, data processing, and LoRA training in one desktop app. Models and chats stay on the machine by default.
 
-**Core Positioning**: Unlike cloud-based AI agent applications on the market, ModxAI Studio's agent framework is deeply optimized for **local small models**. Through refined state management and fault tolerance, even small models with 1B-3B parameters can complete daily tasks within a 32K context window. If used in conjunction with online models, it can also significantly reduce token costs.
+The agent is built for small local models. A 1B–3B model with a 32K context can finish ordinary multi-step tasks. Online models follow that provider’s pricing and terms.
 
 ---
 
@@ -15,11 +15,11 @@ ModxAI Studio is a **one-stop desktop application** designed for **local AI depl
 
 ### 🧠 Autonomous Agent
 
-AI goes beyond chat to become a **task-executing** personal assistant:
+The agent splits a task, calls tools, and reports progress.
 
-- **Task Planning & Execution**: AI automatically decomposes complex tasks, executes step by step, and provides progress feedback.
-- **Built-in Toolchain & External Skill Loading**: Supports 70+ built-in efficient tools and external Skill integration for web browsing, local file read/write/edit, terminal command execution, and other end-to-end task scenarios.
-- **Memory & Preference Learning**: Interactive memory management and exclusive automated memory training, creating a model clone that understands you better with each use.
+- **Execution**: Breaks the task into steps, runs them, and shows progress in the UI
+- **Tools and skills**: Web browsing, local file read/write, and terminal commands, plus external skills. A subtask goes to another role already configured in the current task. It is not a separate multi-agent product
+- **Memory**: Review, edit, and export memories, then use them for a later fine-tune
 
 ### 🤖 AI Chat
 
@@ -56,7 +56,7 @@ Unified management of various AI models:
 - **Local Import**: Supports multiple formats like GGUF, SafeTensors.
 - **LoRA Adaptation**: Load exclusive fine-tuning adapters for models.
 - **LAN Service**: Automatically exposes an OpenAI-compatible API after loading, available for other applications on the local network.
-- **Online Model Service**: Currently supports DeepSeek and OpenRouter online model services.
+- **Online Model Service**: DeepSeek, OpenRouter, and OpenAI-compatible Chat Completions endpoints. Advanced settings also include prompt-cache options for OpenAI and Claude.
 
 ### 📊 Data Processing
 
@@ -75,10 +75,17 @@ Convert raw data into trainable datasets:
 - **One-Click Export**: Export training results to GGUF format for direct inference use.
 - **Memory Training**: Automatically iterates and optimizes personalized models based on agent-accumulated or user-bookmarked conversation memories.
 
+### 🗂️ Memory, Schedules, and Channels
+
+- **Memory Management**: Review, edit, and archive agent memories and bookmarks, then export them for training or a knowledge base.
+- **Scheduled Tasks**: Run agent tasks, memory organization, memory fine-tuning, and knowledge-base updates on an interval, at a fixed time, or after an upstream task finishes.
+- **External Access**: Reach the local agent from Telegram, Discord, DingTalk, or Feishu, or call the gateway HTTP API from this machine or the LAN. Unpaired chats cannot send tasks.
+
 ### ⚙️ Zero-Threshold Environment Configuration
 
 Say goodbye to complex environment configurations:
 
+- **First-Run Guide**: The first launch walks through getting started and installing an environment.
 - **One-Click Installation**: Automatically detects hardware and recommends the best configuration.
 - **On-Demand Selection**: Supports Full / Agent / Voice Synthesis three installation capabilities, install as needed.
 - **Sandbox Isolation**: Independent environment, does not affect other system software.
@@ -90,13 +97,13 @@ Say goodbye to complex environment configurations:
 
 | Advantage | Description |
 |-----------|-------------|
-| **Truly Local** | All data and inference run on your own computer — no internet required, no fees. |
-| **Small Models, Big Results** | Agent framework optimized for 1B-7B local models; 32K context handles daily tasks. |
-| **All-in-One Experience** | Data processing -> Model training -> Inference -> Memory accumulation -> Iterative training, one complete solution. |
-| **High Freedom** | No external restrictions, always available, flexible parameter control, full ownership of your AI. |
-| **Privacy & Security** | Data stored and encrypted locally; agent operations run in a sandbox. |
-| **Simple & Easy to Use** | Graphical interface, no command line operations required. |
-| **Continuous Evolution** | Local memory management and training — your AI gets smarter with use. |
+| **Local inference** | Models, datasets, chats, and memories stay on the machine and are stored encrypted. Online APIs are optional and billed by the provider |
+| **Small models can run tasks** | The agent targets local models in the 1B–7B range with a 32K context |
+| **One workflow** | Data processing, training, inference, memory, and schedules are in the same app |
+| **Adjustable parameters** | Roles, tools, context length, and inference settings are changed in the UI |
+| **Sandbox** | The portable Python environment and agent tools stay off the system Python |
+| **Graphical path** | The main path does not need Docker, a system Python, or a shell |
+| **Memory can be trained again** | Export memories and use them for a later memory fine-tune |
 
 ---
 
@@ -106,7 +113,7 @@ Say goodbye to complex environment configurations:
 
 | Item | Requirement |
 |------|-------------|
-| OS | Windows 10/11 (64-bit) |
+| OS | Windows 10/11 (64-bit). Formal packages are NSIS x64 and MSIX Lite |
 | Memory | 16GB RAM |
 | Storage | 20GB available space |
 | Processor | Supports AVX2 instruction set |
@@ -125,6 +132,7 @@ Say goodbye to complex environment configurations:
 
 ## Next Steps
 
-- [Quick Start](./quick-start.md) - Complete your first AI chat in 5 minutes.
+- [Quick Start](./quick-start.md) - Finish the first local chat.
+- [Agent](../features/agent/overview.md) - Let a model carry out multi-step tasks.
 - [Model Library](../features/models/overview.md) - Learn how to manage and load models.
 - [AI Chat](../features/chat/overview.md) - Dive deeper into chat features.

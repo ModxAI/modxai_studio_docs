@@ -1,7 +1,7 @@
 # Global Settings
 
-> v1.0.0
-> 2025-12
+> v1.1.10
+> 2026-10
 
 This guide introduces how to use the **Settings** feature in ModxAI Studio, helping you complete application configuration, environment installation, theme switching.
 
@@ -63,7 +63,7 @@ The Environment Configuration section automatically detects and displays current
 
 | Item | Description |
 |------|-------------|
-| System | Operating system type (Windows) |
+| System | Operating system type. Path examples in these docs are written for Windows |
 | CPU | CPU core count |
 | Memory | Total system memory (GB) |
 | GPU | Graphics card type (NVIDIA/AMD) |
@@ -228,7 +228,11 @@ The Version Updates section displays current version information and supports on
 | **Download Update** | Download new version installer (displayed when new version available) |
 | **Install and Restart** | Install downloaded update and restart application (displayed after download complete) |
 
+The main menu can check for, download, and install an update directly. You do not have to open this page first.
+
 > Downloads may be slow or fail for users in mainland China. A network proxy is recommended.
+
+The next launch recovers unfinished work. Scheduled tasks that had not finished have their status restored.
 
 ---
 

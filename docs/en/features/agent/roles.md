@@ -1,7 +1,7 @@
 # Role Configuration
 
-> v1.1.0
-> 2026-05
+> v1.1.10
+> 2026-10
 
 The agent uses a multi-role collaboration architecture, where each role handles different aspects of a task. This topic describes the purpose and configuration of each role.
 
@@ -164,7 +164,7 @@ The system uses **two-layer security detection**:
 
 ## Custom Roles
 
-Define custom roles through their system prompt to clarify role positioning. The main role will delegate subtasks to independently configured roles on demand, or can be explicitly invoked by **role name**.
+Write the role’s job in its system prompt. The main role hands it a subtask, or you call it by role name. This stays inside the current task. It is not a separate multi-agent product.
 
 ### Use Cases
 
@@ -198,6 +198,8 @@ Each role supports the following configuration items:
 | API Credentials | Bound API Key |
 | LAN Address | Service URL for LAN mode |
 
+The online backend calls cloud models with the OpenAI-compatible Chat Completions protocol. Providers shown in the interface include DeepSeek and OpenRouter. The OpenAI and Claude cache options in Advanced Settings only affect prompt caching for those providers.
+
 ### Prompt
 
 | Item | Description |
@@ -214,7 +216,7 @@ Each role supports the following configuration items:
 | Max Generation Length | Single task maximum token count (0=auto) | 0 |
 | Max Context Length | Single task maximum context length (0=no limit) | Empty |
 
-> Note: When the context length is empty, it means not to override the context length set in the model library. Recommended minimum 32K
+> Note: This control is the quick adjustment of the local model's context length for that role. You do not have to go back to the model library first. Empty means do not override the library setting. `0` means no limit. Recommended minimum 32K.
 
 ### Advanced Inference Parameters
 
@@ -223,7 +225,9 @@ Each role supports the following configuration items:
 | Max Tool Rounds | Maximum tool call rounds per single task | 100 |
 | Inference Timeout | Maximum wait time per inference | 600 s |
 | Fast Mode | Skip feedback process before tool call | Disabled |
-| Thinking Mode | Supports model-native thinking blocks | Enabled |
+| Thinking Mode | On: the thinking trace stays in the reply. Off: the model does not produce a thinking trace | Enabled |
+| Thinking Depth | Thinking level for a local model. A higher level is slower. The highest level is Max | — |
+| KV Cache / MTP | Inference-tuning parameters for local LLMs and multimodal models | — |
 
 ### Toolset Configuration
 

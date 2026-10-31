@@ -17,6 +17,7 @@
 - [Auto Approval & Security](./features/agent/auto-approval.md)
 - [Instruction Settings](./features/agent/profile-settings.md)
 - [Preset Management](./features/agent/presets.md)
+- [Workspace Browser](./features/agent/workspace.md)
 
 ### AI Chat
 
@@ -31,9 +32,9 @@
 
 - [Scheduled Tasks Overview](./features/scheduler/overview.md)
 
-### Channel Connection
+### External Access
 
-- [Channel Connection Overview](./features/gateway/overview.md)
+- [External Access](./features/gateway/overview.md)
 
 ### Model Library
 

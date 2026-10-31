@@ -1,7 +1,7 @@
 # RAG Knowledge Base Data Processing
 
-> v1.1.0
-> 2026-5
+> v1.1.10
+> 2026-10
 
 This article explains in detail how to use the RAG (Retrieval-Augmented Generation) data processing feature in ModxAI Studio to convert documents into an intelligent knowledge base for AI conversational retrieval.
 
@@ -375,7 +375,9 @@ After RAG data processing is complete, you can enable knowledge-base retrieval i
 1. **Open parameter settings**: Click the parameter drawer in the chat interface  
 2. **Select knowledge base**: Choose a created collection in the RAG configuration area  
 3. **Configure retrieval mode**: Select an appropriate retrieval mode (see below)  
-4. **Start chatting**: The AI will automatically retrieve relevant content to assist answers  
+4. **Start chatting**: The AI will automatically retrieve relevant content to assist answers
+
+Chat and the agent read the same saved RAG collection list. Each side can keep its own retrieval settings. Version 1.1.6 fixed the case where sharing a collection left one side unable to retrieve.  
 
 ### Retrieval Modes
 

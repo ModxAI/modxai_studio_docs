@@ -17,6 +17,7 @@
 - [自动审批与安全](./features/agent/auto-approval.md)
 - [指令设置](./features/agent/profile-settings.md)
 - [预设管理](./features/agent/presets.md)
+- [工作区浏览器](./features/agent/workspace.md)
 
 ### AI 对话
 
@@ -31,9 +32,9 @@
 
 - [定时任务概览](./features/scheduler/overview.md)
 
-### 频道连接
+### 外部访问
 
-- [频道连接概览](./features/gateway/overview.md)
+- [外部访问](./features/gateway/overview.md)
 
 ### 模型库
 

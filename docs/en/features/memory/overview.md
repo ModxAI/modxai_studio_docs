@@ -1,7 +1,7 @@
 # Memory Management
 
-> v1.1.0
-> 2026-05
+> v1.1.10
+> 2026-10
 
 Memory management provides a unified view for reviewing and managing the **long-term memory** accumulated by the agent during execution, as well as manually **bookmarked** Q&A entries. You can preview, edit, archive, delete, or export memories as data formats suitable for training or knowledge base use.
 
@@ -20,21 +20,17 @@ Memory management provides a unified view for reviewing and managing the **long-
 
 ## Memory Sources & Categories
 
-Records in memory management come from two channels:
+The list uses three categories:
 
-| Category | Source | Description |
-|----------|--------|-------------|
-| **Agent Memory** | Automatically generated during agent execution | High-value data autonomously saved by the agent during tasks; suitable for export as knowledge base data |
-| **Manual Bookmarks** | Manually marked by the user during conversation | User feedback via 👍 on agent or chat responses, saved as preferences/long-term memory, and manually bookmarked Q&A pairs; suitable for export as training data |
+| Category | Description |
+|----------|-------------|
+| **Active memory** | Saved by the agent while it runs a task |
+| **Manual bookmarks** | Q&A the user bookmarks or marks with 👍 |
+| **Auto organization** | Written by a scheduled automatic memory-organization task |
 
 ### Memory Types
 
-Different memory types serve different purposes within the agent:
-
-| Type | Description | Visible in Management Page |
-|------|-------------|---------------------------|
-| `insight` | High-value data extracted from conversations | ✅ |
-| `favorite_qa` | Bookmarked Q&A (training data) | ✅ |
+The list types are: summary, insight, task result, context, daily note, and bookmarked Q&A.
 
 ---
 
@@ -47,7 +43,7 @@ The top of the page shows memory statistics:
 | Statistic | Description |
 |-----------|-------------|
 | Total Memories | Total number of memories under the current filter |
-| Agent Memories | Number of automatically accumulated memories |
+| Active memory | Count of entries in the Active memory category |
 | Manual Bookmarks | Number of manually bookmarked memories |
 | Exportable SFT | Number of memories exportable as SFT format |
 | Exportable RAG | Number of memories exportable as RAG format |
@@ -60,9 +56,11 @@ Filter by the following conditions:
 | Filter | Options | Description |
 |--------|---------|-------------|
 | **Search Box** | Free text | Search by title, summary, content, or Q&A text |
-| **Category** | All / Agent Memory / Manual Bookmarks | Filter by memory source |
-| **Memory Type** | Dynamic list | Filter by specific memory type (e.g., insight, favorite_qa) |
+| **Category** | All / Active memory / Manual bookmarks / Auto organization | Filter by memory source |
+| **Memory Type** | Summary / Insight / Task result / Context / Daily note / Bookmarked Q&A | Filter by memory type |
 | **Archive Status** | Not Archived / All / Archived | Filter active or archived memories |
+
+The list and the detail panel both show **category** and **memory type**. The filters use those two fields.
 
 ---
 
@@ -73,15 +71,15 @@ Click the **Preview** button on a memory entry to open a detail panel showing co
 | Field | Description |
 |-------|-------------|
 | Title | Memory title |
-| Category | Agent Memory / Manual Bookmarks |
-| Type | Specific memory type |
+| Category | Active memory / Manual bookmarks / Auto organization |
+| Type | Summary / Insight / Task result / Context / Daily note / Bookmarked Q&A |
 | Tags | Associated tag list |
 | Export Status | Exported / Not Exported |
 | Archive Status | Active / Archived |
 | Question (Bookmarked) | Question in bookmarked Q&A |
 | Answer (Bookmarked) | Answer in bookmarked Q&A |
-| Summary (Agent Memory) | Memory summary |
-| Content (Agent Memory) | Full memory content |
+| Summary | Memory summary |
+| Content | Full memory content |
 | Created At | Time the memory was generated |
 | Updated At | Time of last modification |
 | Last Exported At | Time of most recent export |
@@ -98,7 +96,8 @@ The edit form displays different fields depending on the memory category:
 
 | Category | Editable Fields |
 |----------|-----------------|
-| Agent Memory | Title, Summary, Content |
+| Active memory | Title, Summary, Content |
+| Auto organization | Title, Summary, Content |
 | Manual Bookmarks | Title, Question, Answer |
 
 After saving, a second confirmation is required before the memory content is updated.
@@ -121,7 +120,7 @@ After unarchiving, the memory becomes visible to the agent again.
 - **Single Unarchive**: Click the unarchive button in the archived view.
 - **Batch Unarchive**: Select multiple archived entries and click **Unarchive Selected**.
 
-> **Note**: Archiving only affects records sourced from "Agent Memory." Bookmarked Q&A entries do not participate in archiving.
+> **Note**: Archiving only affects records in the Active memory category. Bookmarked Q&A entries do not participate in archiving.
 
 ---
 

@@ -1,7 +1,7 @@
 # Model Library
 
-> v1.1.0
-> 2026-5
+> v1.1.10
+> 2026-10
 
 This article introduces how to use the **Model Library** feature in ModxAI Studio, helping you complete tasks such as model import, download, load, management, and custom export.
 
@@ -17,6 +17,7 @@ This article introduces how to use the **Model Library** feature in ModxAI Studi
 - [LAN Inference Service](#lan-inference-service)
 - [Custom Model Export](#custom-model-export)
 - [System Resource Monitoring](#system-resource-monitoring)
+- [Usage Statistics](#usage-statistics)
 - [Notes](#notes)
 
 ---
@@ -48,7 +49,9 @@ If you need to use features dependent on Python, please go to the **Settings** p
 >
 > - NVIDIA (recommended):
 >   - If you have an NVIDIA GPU, install the CUDA acceleration libraries using the “Install GPU Acceleration Libraries” option in the Model Library ⚡ button. Chat/multimodal models run fastest on NVIDIA+CUDA; Stable Diffusion (SD, image generation) currently requires CUDA and will only run after the CUDA libraries are installed.
->   - After installing or updating the acceleration libraries, there is no need to restart the application. The changes will take effect the next time a model is loaded.
+>   - After installing or updating the acceleration libraries, there is no need to restart the application. The changes take effect the next time a model is loaded. Inference libraries can also update themselves.
+>   - In the model library, turn on speculative decoding, choose type `draft-dflash`, then choose a local draft model (GGUF).
+>   - The Stable Diffusion library moved to **stable-diffusion.cpp 0.4.7** in 1.1.6.
 > - AMD (limitations):
 >   - AMD GPUs can use the built-in Vulkan acceleration for chat/multimodal models (no extra library needed), but SD inference is not supported on AMD/Vulkan at this time.
 > - No discrete GPU / integrated GPUs:
@@ -115,8 +118,6 @@ The bottom of the page displays real-time resource usage:
 - `.safetensors`: HF Transformers format.
 
 **Environment Requirements**: llama.cpp backend requires no environment installation; HF backend requires environment installation in **Settings**.
-
-**Quota Consumption**: Free for llama.cpp backend; quota deducted on load for HF backend.
 
 **Features**:
 - Supports LoRA adapters.
@@ -196,8 +197,6 @@ Rerank models use a cross-encoder architecture with high computational complexit
 
 **Environment Requirements**: No environment installation required in **Settings**.
 
-**Quota Consumption**: Quota deducted after successful load.
-
 **Features**:
 - Supports LoRA adapters.
 - Supports custom context size (n_ctx).
@@ -205,7 +204,9 @@ Rerank models use a cross-encoder architecture with high computational complexit
 
 **Special Reminder**:
 
-⚠️ **Default Vulkan acceleration** may cause errors when loading with the current version of llamacpp if the "Unlimited Context" option is set. This issue does not occur under CUDA acceleration. NVIDIA GPU users are recommended to download the CUDA acceleration library for the best experience.
+⚠️ With Vulkan, setting context to Unlimited makes a multimodal model fail to load. CUDA does not. On an NVIDIA GPU, install the CUDA acceleration library.
+
+⚠️ **Multimodal models do not support knowledge-base Q&A (RAG).** RAG is unavailable while a multimodal conversation is active. Switch to a text chat model to use a knowledge base.
 
 ### SD Model (Stable Diffusion)
 
@@ -216,8 +217,6 @@ Rerank models use a cross-encoder architecture with high computational complexit
 - Requires VAE, CLIP, T5XXL, etc., components.
 
 **Environment Requirements**: Requires CPU or GPU environment.
-
-**Quota Consumption**: Quota deducted after successful load.
 
 **Supported Template Types**:
 - **sd_official**: Stable Diffusion official architecture (requires VAE + CLIP-L + CLIP-G, etc.).
@@ -302,6 +301,8 @@ Rerank models use a cross-encoder architecture with high computational complexit
    - **Description**: Model description (Optional).
 5. **Confirm Import**: Click "Import" button to complete.
 
+Importing a `.safetensors` file reports the file size.
+
 ### Smart Detection Rules
 
 The system automatically infers model type based on the following information:
@@ -368,6 +369,7 @@ Supports two download sources:
 
 - **ModelScope**: Faster access for users in Chinese mainland.
 - **Hugging Face**: Rich global model resources.
+- **A chosen repository**: The download station can download a model from a repository you select, not only by browsing the built-in list. The list includes the Qwopus series.
 
 ### Download Process
 
@@ -386,6 +388,10 @@ Supports two download sources:
 - **File Count**: Downloaded files / Total files.
 - **Pause/Resume**: Can cancel and resume download at any time.
 - **Minimize**: Can minimize downloader to button, continue downloading in background.
+- **The window stays usable**: A fast download should not freeze the interface. If it still stalls, pause the download before doing other work.
+- **Refresh progress**: The current download progress can be read again.
+- **Delete local files**: A download entry can remove the files already written to disk.
+- **Open directory**: That button opens the folder that holds the files.
 
 ### Post-Download Processing
 
@@ -424,8 +430,9 @@ After loading a model, ModxAI Studio automatically exposes an OpenAI-compatible 
 4. **Environment Check**:
    - Embedding/Rerank/SD models automatically check environment installation status.
    - If not installed, a popup will prompt to go to the settings page to install.
-5. **Wait for Load**: Button shows "Loading...".
-6. **Load Complete**: Model status becomes "Loaded", button becomes "Loaded Model".
+5. **Wait for Load**: Button shows "Loading...". Status text is more specific before and after the load.
+6. **You can stop**: A load in progress can be stopped manually. You do not have to wait for it to finish.
+7. **Load Complete**: Model status becomes "Loaded", button becomes "Loaded Model".
 
 ### Unload Model
 
@@ -441,7 +448,7 @@ After loading a model, ModxAI Studio automatically exposes an OpenAI-compatible 
   - Chat/Multimodal: Max 1 LoRA loaded.
   - SD Model: Multiple LoRA files under specified directory can be loaded simultaneously.
 - **Auto Unload**: Loading a new model automatically unloads the old one.
-- **Quota Deduction**: Free quota deducted after successful load of Embedding/Rerank/Multimodal/SD models.
+- **Concurrency Limit**: The agent cannot keep a chat model and a multimodal model loaded at the same time. Chat, embedding, rerank, SD, TTS, and STT can be loaded together.
 
 ### Context Size Setting
 
@@ -479,8 +486,8 @@ Chat and Multimodal models support custom context size (n_ctx):
 3. **Click Delete**: Click "Delete" button in operation column.
 4. **Confirm Operation**: Popup confirms deletion.
 5. **File Handling**:
-   - **Delete Record Only**: Does not delete actual files.
-   - **File Retention**: Model files remain in original location.
+   - **Delete the record only**: The files stay on disk.
+   - **Also delete local files**: A model that came from the download station can have its local files removed safely together with the library record. Unload a loaded model first.
 
 **Warning**:
 - Delete operation cannot be undone.
@@ -608,6 +615,12 @@ Displayed only when GPU is detected:
 
 ---
 
+## Usage Statistics
+
+The toolbox **local model usage** panel shows input tokens, output tokens, and request count. The figures update after a model is loaded or unloaded.
+
+---
+
 ## Notes
 
 ### File Format Restrictions
@@ -638,7 +651,7 @@ Environment is automatically checked when loading the following models:
 
 - **Loaded Model**: Cannot be deleted, must unload first.
 - **Base Model**: Associated LoRA deleted after base model deletion.
-- **File Retention**: Delete operation only deletes database record, not actual file.
+- **Local files**: Deleting only the record leaves the files on disk. A downloaded model can also have those local files removed safely.
 
 ### Performance Suggestions
 

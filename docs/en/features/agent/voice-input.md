@@ -1,7 +1,7 @@
 # Voice Input
 
-> v1.1.0
-> 2026-05
+> v1.1.10
+> 2026-10
 
 The agent supports voice input via microphone. The system automatically transcribes speech to text and fills it into the input box.
 
@@ -48,7 +48,7 @@ The agent supports voice input via microphone. The system automatically transcri
 
 1. Click the microphone button again to stop recording.
 2. The system automatically sends the audio to the STT model for transcription.
-3. The interface displays a "Transcribing" indicator.
+3. The interface displays a "Transcribing" indicator and keeps showing progress.
 4. Once complete, the transcribed text is automatically filled into the input box.
 
 ### Recording Duration
