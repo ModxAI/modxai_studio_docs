@@ -1,7 +1,7 @@
 # SFT Data Processing (Text/Code)
 
-> v1.1.0
-> 2026-5
+> v1.1.10
+> 2026-10
 
 This article details how to use the SFT (Supervised Fine-Tuning) data processing function of ModxAI Studio to convert raw text or code files into high-quality datasets that meet training format requirements.
 
@@ -64,7 +64,7 @@ Suitable for processing various documents, articles, technical materials, and ot
 
 **Structured Data (JSON)**:
 
-Select "JSON" from the file type dropdown to switch to structured data input mode. Suitable for JSON/JSONL data with fixed fields (e.g., news, business records), allowing direct field mapping to standard formats without going through the unstructured cleaning pipeline.
+Select "JSON" from the file type dropdown to switch to structured data input mode. Suitable for JSON/JSONL data with fixed fields (e.g., news, business records), allowing direct field mapping to standard formats without going through the unstructured cleaning pipeline. The same mapping can feed SFT, pretraining, or DPO. The export format you choose later decides which of those shapes is written.
 
 When structured data is selected, the conversion step displays the following parameters:
 
@@ -321,6 +321,8 @@ Pre-training is no longer a standalone step. Set the **Export Format** parameter
 | sft_chatml | ChatML dialogue format (system/user/assistant) | SFT fine-tuning |
 | pretrain | Plain text corpus (single assistant message) | Pre-training / Continued pre-training |
 | dpo | Preference pair format (prompt/chosen/rejected) | DPO preference alignment training |
+
+Field mapping for structured JSON/JSONL (see Structured Data above) is written into one of these three outputs. Choosing `sft_chatml`, `pretrain`, or `dpo` selects the sample shape. The mapping does not send that input back through the unstructured cleaning path.
 
 ---
 

@@ -1,7 +1,7 @@
 # Attachments & Knowledge Bases
 
-> v1.1.0
-> 2026-05
+> v1.1.10
+> 2026-10
 
 The agent supports attaching files, images, audio, and other resources when sending messages, as well as connecting to RAG knowledge bases. This topic covers the usage and limitations of each attachment type.
 
@@ -36,6 +36,8 @@ The attachment menu on the left side of the input box supports the following typ
 1. Click the attachment button on the left side of the input box.
 2. Select the appropriate attachment type.
 3. Choose files from the local file system.
+
+Image attachments can be pasted from the clipboard.
 
 ### Supported Formats
 
@@ -74,6 +76,8 @@ Link a RAG knowledge base to the current session, allowing the agent to prioriti
 
 Click the close button next to the connected knowledge base name to disconnect.
 
+Chat and the agent can attach the same knowledge base. Each side keeps its own retrieval settings. The underlying data is shared.
+
 ### Knowledge Base Parameters
 
 The following parameters are available when connecting a knowledge base:
@@ -91,7 +95,7 @@ The following parameters are available when connecting a knowledge base:
 
 ## Workspace Reference
 
-Reference other workspace directories, the agent can only read the file content of the referenced directory, and cannot perform editing operations.
+You can attach an external directory. The agent can read files there and cannot write. Load external image can also read images in those directories.
 
 ### Prerequisites
 

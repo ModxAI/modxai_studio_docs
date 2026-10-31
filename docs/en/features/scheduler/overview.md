@@ -1,9 +1,9 @@
 # Scheduled Tasks
 
-> v1.1.0
-> 2026-05
+> v1.1.10
+> 2026-10
 
-Scheduled tasks allow you to preset automatic execution plans for **agent tasks**, **memory fine-tuning**, or **knowledge base updates**. Tasks can be automatically triggered at fixed intervals or specified times without manual supervision.
+Scheduled tasks can run an **agent task**, **automatic memory organization**, **memory fine-tuning**, or a **knowledge base update**. A task starts on an interval, at a fixed time, or after an upstream task finishes.
 
 ## Table of Contents
 
@@ -19,11 +19,12 @@ Scheduled tasks allow you to preset automatic execution plans for **agent tasks*
 
 ## Task Types
 
-Scheduled tasks support three types:
+Scheduled tasks support four types:
 
 | Type | Description | Use Cases |
 |------|-------------|-----------|
 | **Agent Task** | Sends preset prompts to the agent on schedule and executes automatically | Periodic report generation, data scraping, routine inspections |
+| **Automatic Memory Organization** | Organizes memories at a set time or across a range of earlier sessions, without training immediately | Turn recent chats into memories before you decide to fine-tune |
 | **Memory Fine-Tuning** | Automatically exports memories and triggers model fine-tuning | Periodically optimize personal models based on new memories |
 | **Knowledge Base Update** | Automatically vectorizes memory data and updates the RAG knowledge base | Periodic data accumulation |
 
@@ -36,11 +37,21 @@ Automatically triggers the agent to execute specified tasks on a schedule. Confi
 | User Prompt | ✅ | Task instructions to send to the agent |
 | Target Session | ✅ | **New Session**: Create a new session each execution / **Existing Session**: Send a message to an existing session |
 | Main Model (optional) | ❌ | Temporarily replace the main role model without overwriting the original session configuration |
+| Parameter Preset | ❌ | Apply an agent workbench preset. Auto-approval (YOLO) saved in that preset is included |
 
 - **New Session Mode**: Creates a brand new session each time, avoiding context interference.
 - **Existing Session Mode**: Appends messages to the specified session, suitable for ongoing conversations. Select from the dropdown if chosen.
 
 > **Note**: When an existing session is selected, if the session is currently running an agent task, the new execution will be blocked until the previous task completes.
+
+### Automatic Memory Organization
+
+Organize memories on a schedule instead of fine-tuning or writing a knowledge base immediately. The run can be limited in either of two ways:
+
+- Execute at a specified time
+- Organize only a range of earlier sessions
+
+Results show up in [Memory Management](../memory/overview.md). A later memory fine-tuning or knowledge-base update task can consume them.
 
 ### Memory Fine-Tuning
 
@@ -69,6 +80,7 @@ Automatically vectorizes memory data and writes it to a RAG knowledge base on a 
 | Vector Normalization | ❌ | Whether to normalize vectors; enabled by default |
 | Target Dimension | ❌ | Target vector dimension; default 1024 |
 | Pooling Strategy | ❌ | Vector pooling method: `mean` / `max` / `cls`; default `mean` |
+| Custom Data Source | ❌ | Besides vectorizing memories, you can point this update at another data source |
 
 > **Prerequisites**: If no embedding model is available, import an Embedding type model in the model library first.
 
@@ -87,11 +99,17 @@ Repeats execution at a fixed time interval. Configuration:
 | Interval Value | Positive integer | e.g., 30 |
 | Interval Unit | Time unit | Minutes / Hours / Days / Weeks / Months / Years |
 
-Example: "Every 30 minutes" or "Every 1 day."
+Example: "Every 30 minutes" or "Every 1 day." Use the time picker to set the clock time.
 
 ### Fixed Time
 
 Executes once at a specified time point. Select the date and time. The execution time must be later than the current time.
+
+### Upstream Task
+
+A task can name an upstream task. When that upstream run succeeds, this task starts on its own. Use it for sequences such as "refresh the knowledge base, then run the agent."
+
+The global one-at-a-time limit still applies. While the upstream task is running, the downstream task waits.
 
 ---
 
@@ -125,8 +143,8 @@ The task list displays all created scheduled tasks:
 | Column | Description |
 |--------|-------------|
 | Name | Task name |
-| Task Type | Agent Task / Memory Fine-Tuning / Knowledge Base Update |
-| Trigger Method | Displays "Every X minutes" or a fixed time point |
+| Task Type | Agent Task / Automatic Memory Organization / Memory Fine-Tuning / Knowledge Base Update |
+| Trigger Method | "Every X minutes", a fixed time, or an upstream task |
 | Next Execution | Estimated next execution time |
 | Last Status | Status of the most recent execution |
 | Enabled | Toggle switch |
@@ -157,6 +175,7 @@ After selecting a task, its recent execution records are displayed below.
 | Scheduled Trigger | Automatically triggered on schedule |
 | Manual Trigger | Triggered via the "Execute Now" button |
 | Retry | System automatic retry |
+| Upstream Finished | Starts automatically after the linked upstream task finishes |
 
 ### Operations
 
@@ -172,6 +191,8 @@ After selecting a task, its recent execution records are displayed below.
 ### Manual Execution
 
 Click the **Execute Now** button on a task row to manually trigger execution, regardless of the scheduling strategy. Results are recorded in the run history.
+
+When an interval task is started early by hand, the next trigger is **the current time plus the interval set on that task**.
 
 ### Stop Execution
 
@@ -189,4 +210,5 @@ If a task is running (status "Running" or "Executing"), click **Stop Current Tas
 - Knowledge base updates use `modxai_rag_memory` as the default collection name; multiple executions will **cumulatively update** the same knowledge base.
 - The scheduler scans for due tasks every 15 seconds.
 - If the ModxAI main service restarts, the scheduler automatically restores the status of incomplete tasks.
+- When a VRAM warning is shown, GPU tasks run one at a time. An idle GPU is not left stopped. When VRAM is critically low, a new GPU task is refused.
 - In "Existing Session" mode for agent tasks, execution will fail if the target session has been deleted.

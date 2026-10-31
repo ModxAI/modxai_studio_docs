@@ -1,13 +1,14 @@
 # Environment Installation Guide
 
-> v1.0.0
-> 2025-12
+> v1.1.10
+> 2026-10
 
 This document provides a detailed introduction to the **Environment Configuration** feature of ModxAI Studio, helping you understand the principles, operational procedures, and troubleshooting methods for environment installation.
 
 ## Table of Contents
 
 - [Feature Overview](#feature-overview)
+- [First-Run Guide](#first-run-guide)
 - [Storage Location and Space Requirements](#storage-location-and-space-requirements)
 - [GPU Detection Standards](#gpu-detection-standards)
 - [NVIDIA Driver and CUDA Configuration](#nvidia-driver-and-cuda-configuration)
@@ -31,6 +32,16 @@ Environment configuration is a core highlight feature of ModxAI Studio, adopting
 | **Dynamic Loading** | Load libraries at runtime as needed, fast startup, low memory usage |
 | **Resume Support** | Can continue after installation interruption, downloaded files will be retained |
 | **Immediate Use** | No need to restart the application after installation, features immediately available |
+
+---
+
+## First-Run Guide
+
+On the welcome screen, choose **Get started** and follow the steps. You can skip the first environment install.
+
+When you install, choose Full, Agent, or Speech for the detected hardware. After an environment is installed, the install button becomes **Reinstall**.
+
+The built-in ddgs search component was updated in 1.1.9. If web search still behaves like the previous version after you upgrade the app, use **Reinstall** on the Agent environment that is already installed so the new search component is installed.
 
 ---
 

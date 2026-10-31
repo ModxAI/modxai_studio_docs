@@ -1,7 +1,7 @@
 # Instruction Settings
 
-> v1.1.0
-> 2026-05
+> v1.1.10
+> 2026-10
 
 Instruction settings allow configuring global instruction files and personal preferences, so the agent follows your customized requirements on every execution.
 
@@ -37,6 +37,8 @@ Click the **Instruction Settings** button in the right panel to open the instruc
 - Plain text file (`.md`, `.txt`, etc.)
 - Content is injected as part of the system prompt.
 - Recommended to include project rules, behavior constraints, output format, etc.
+
+A long instruction body collapses automatically. Expand it to read the full text. The message input box does the same.
 
 ---
 

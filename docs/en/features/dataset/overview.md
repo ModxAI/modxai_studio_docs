@@ -1,7 +1,7 @@
 # Data Processing
 
-> v1.1.0
-> 2026-5
+> v1.1.10
+> 2026-10
 
 This article introduces how to use the **Data Processing** feature in ModxAI Studio, helping you convert raw data into standardized datasets for SFT fine-tuning, RAG retrieval, and audio transcription.
 
@@ -87,7 +87,7 @@ Used to generate supervised fine-tuning training data, supporting three source d
 **Structured Dataset** (file type "JSON"):
 - Supported formats: JSON, JSONL
 - Use cases: News, tables, business records, and other data with existing structured fields. Fields can be directly mapped to avoid the unstructured cleaning pipeline.
-- Output format: Standardized JSONL training data.
+- Output format: Standardized JSONL. The export format can be SFT (`sft_chatml`), pretraining (`pretrain`), or DPO (`dpo`). Field mapping is described in [SFT Data Processing](./sft.md).
 
 ### RAG Dataset
 

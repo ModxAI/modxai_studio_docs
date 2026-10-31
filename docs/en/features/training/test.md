@@ -1,7 +1,7 @@
 # Training Test Module Details
 
-> v1.0.0
-> 2025-12
+> v1.1.10
+> 2026-10
 
 > 📌 **Module Positioning**: Interactively test the actual inference effect of checkpoints and verify the answer quality of the model in real dialogue scenarios.
 
@@ -344,7 +344,7 @@ Prepare Module → Monitor Module → Evaluation Module → Test Module → Pack
 ```
 
 **Positioning of Test Module**:
-- After Evaluation Module: Select checkpoint based on evaluation score.
+- After Evaluation Module: Pick a checkpoint from the evaluation score. Built-in sets include IFEval, GSM8K, MMLU, and HellaSwag. See [Model Evaluation](./evaluate.md). The evaluation screen does not link out to those dataset pages.
 - Before Package Module: Confirm checkpoint quality before packaging.
 
 ---
