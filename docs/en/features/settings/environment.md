@@ -96,12 +96,6 @@ The system automatically detects graphics card types, with different support for
 > - When selecting GPU environment, will **automatically fall back to CPU version of PyTorch**
 > - AMD GPU users are recommended to directly select CPU environment, but this does not affect inference acceleration
 
-### macOS Unified Memory
-
-The macOS product path is an **arm64 DMG**. Environment install covers arm64 / aarch64 only. The environment check records a unified-memory GPU as an information item. It does not treat that GPU as a discrete card that needs its own install. Python dependencies use the CPU environment. Inference uses Metal.
-
-This is not a Windows feature match. Intel Macs are not on this product path.
-
 ### No Discrete GPU
 
 If the system does not detect a discrete GPU (only integrated GPU or no GPU):

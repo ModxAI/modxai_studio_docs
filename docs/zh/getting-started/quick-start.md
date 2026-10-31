@@ -9,7 +9,7 @@
 
 ## 第一步：启动应用
 
-1. 安装 Windows 包（NSIS x64 或 MSIX Lite），双击启动。其它桌面的构建目标不是本文的正式路径。当前文件见[下载页](https://www.modxai.net/zh/download)。
+1. 安装 Windows 包，双击启动。其它桌面的构建目标不是本文的正式路径。当前文件见[下载页](https://www.modxai.net/zh/download)。
 2. 在欢迎页选择「开始使用」。首次环境安装可跳过。只用 llama.cpp 文本对话时，可以先不装环境。
 3. 若安装目录需要管理员权限（例如 `C:\Program Files`），以管理员身份启动。否则应用无法启动。
 

@@ -128,8 +128,6 @@ Say goodbye to complex environment configurations:
 
 > 💡 You can also run in CPU mode without a GPU, suitable for introductory experience.
 
-The steps, paths, and GPU notes below follow the **Windows** installer. Packaging scripts also build an arm64 macOS DMG and arm64 Linux AppImage and deb packages. Those are not a formal release. Intel Mac and Linux x64 are not that product path. On arm64 macOS, the environment check records a unified-memory GPU as information, Python dependencies use the CPU environment, and inference uses Metal. See the [download page](https://www.modxai.net/en/download) for files that are currently offered.
-
 ---
 
 ## Next Steps

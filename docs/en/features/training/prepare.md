@@ -117,7 +117,7 @@ Parameters are displayed in layers according to importance:
 - **SFT Training**: JSONL format, one JSON object per line, containing dialogue data.
 - **Pre-training**: Plain text or JSONL format.
 
-Those files can be produced by the structured field mapping in [Data Processing](../dataset/sft.md), which can export SFT, pretraining, or DPO. Training types on this page are still **SFT or pretraining**. There is no separate DPO training type here.
+Those files can be produced by the structured field mapping in [Data Processing](../dataset/sft.md), which can export SFT, pretraining, or DPO. Training types on this page are still **SFT or pretraining**.
 
 **SFT Data Example**:
 ```json

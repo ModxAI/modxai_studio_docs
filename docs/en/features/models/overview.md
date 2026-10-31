@@ -51,7 +51,6 @@ If you need to use features dependent on Python, please go to the **Settings** p
 >   - If you have an NVIDIA GPU, install the CUDA acceleration libraries using the “Install GPU Acceleration Libraries” option in the Model Library ⚡ button. Chat/multimodal models run fastest on NVIDIA+CUDA; Stable Diffusion (SD, image generation) currently requires CUDA and will only run after the CUDA libraries are installed.
 >   - After installing or updating the acceleration libraries, there is no need to restart the application. The changes take effect the next time a model is loaded. Inference libraries can also update themselves.
 >   - In the model library, turn on speculative decoding, choose type `draft-dflash`, then choose a local draft model (GGUF).
->   - The matching download name is `Qwen3.8-27B-GGUF`. Qwen3.8-Flash-Next in the changelog is not a downloadable model.
 >   - The Stable Diffusion library moved to **stable-diffusion.cpp 0.4.7** in 1.1.6.
 > - AMD (limitations):
 >   - AMD GPUs can use the built-in Vulkan acceleration for chat/multimodal models (no extra library needed), but SD inference is not supported on AMD/Vulkan at this time.
@@ -613,7 +612,6 @@ Displayed only when GPU is detected:
 - NVIDIA GPU can monitor VRAM and temperature in real-time.
 - AMD/Intel GPU only displays static info (Total VRAM, Vendor).
 - This card is not displayed if no GPU.
-- On a unified-memory machine, graphics memory and system memory are the same pool. The monitor shows that layout instead of a separate VRAM card. On arm64 macOS, the environment check records that GPU as information, Python dependencies use the CPU environment, and inference uses Metal. See [Environment Configuration](../settings/environment.md).
 
 ---
 

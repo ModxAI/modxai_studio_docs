@@ -204,7 +204,7 @@ Click the **Slider Icon** button above the input box to open the parameter drawe
 - **Delete Template**: Select a template and click the delete button.
 
 #### Thinking Depth
-Set thinking depth in the inference settings. A higher level is slower. The highest level is xhigh. The thinking switch turns thinking on or off. Depth sets how far the model thinks.
+Set thinking depth in the inference settings. A higher level is slower. The highest level is Max. The thinking switch turns thinking on or off. Depth sets how far the model thinks.
 
 #### KV Cache and MTP
 In inference settings, adjust KV Cache and MTP when VRAM or speed is short. Agent roles use the same controls. See [Role Configuration](../agent/roles.md).

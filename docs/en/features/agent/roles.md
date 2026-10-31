@@ -226,7 +226,7 @@ The online backend calls cloud models with the OpenAI-compatible Chat Completion
 | Inference Timeout | Maximum wait time per inference | 600 s |
 | Fast Mode | Skip feedback process before tool call | Disabled |
 | Thinking Mode | On: the thinking trace stays in the reply. Off: the model does not produce a thinking trace | Enabled |
-| Thinking Depth | Thinking level for a local model. A higher level is slower. The highest level is xhigh | — |
+| Thinking Depth | Thinking level for a local model. A higher level is slower. The highest level is Max | — |
 | KV Cache / MTP | Inference-tuning parameters for local LLMs and multimodal models | — |
 
 ### Toolset Configuration

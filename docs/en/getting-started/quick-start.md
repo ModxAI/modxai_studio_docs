@@ -9,7 +9,7 @@ Follow these steps to finish the first local chat.
 
 ## Step 1: Launch the Application
 
-1. Install the Windows package (NSIS x64 or MSIX Lite) and start it. Other desktop builds are not the formal path these steps describe. See the [download page](https://www.modxai.net/en/download) for files currently offered.
+1. Install the Windows package and start it. Other desktop builds are not the formal path these steps describe. See the [download page](https://www.modxai.net/en/download) for files currently offered.
 2. On the welcome screen, choose **Get started**. You can skip the first environment install. Skip it when you only want llama.cpp text chat.
 3. If the install directory needs administrator rights (for example `C:\Program Files`), start the app as administrator. Otherwise it will not start.
 

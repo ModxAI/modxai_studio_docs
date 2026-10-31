@@ -51,7 +51,6 @@
 >   - 若使用 NVIDIA 显卡，建议通过“模型库 → 顶部右侧 ⚡ 按钮 → 安装 GPU 加速库”下载并安装对应的 CUDA 加速库。聊天/多模态模型在 NVIDIA+CUDA 下性能最佳；若要使用 Stable Diffusion（SD，图像生成）功能，SD 当前仅支持 CUDA 环境，必须安装 CUDA 加速库后才能运行 SD 推理。
 >   - 安装或更新加速库后，无需重启应用，下次加载模型时生效。推理库也可以自动更新。
 >   - 在模型库中打开投机解码，类型选择 `draft-dflash`，再选择本机的草稿模型（GGUF）。
->   - 下载列表中的对应模型是 `Qwen3.8-27B-GGUF`。更新日志中的 Qwen3.8-Flash-Next 不是可下载的模型。
 >   - Stable Diffusion 推理库在 1.1.6 升级到 **stable-diffusion.cpp 0.4.7**。
 > - AMD（限制）：
 >   - AMD 显卡可使用内置的 Vulkan 加速以运行聊天/多模态模型（无需额外加速库），但 SD 推理当前不支持 AMD/Vulkan，因此无法在 AMD 显卡上使用 SD 功能。
@@ -613,7 +612,6 @@ SD 模型支持二次编辑推理能力标签：
 - NVIDIA GPU 可实时监控显存和温度
 - AMD/Intel GPU 仅显示静态信息（总显存、厂商）
 - 无 GPU 时不显示此卡片
-- 统一内存的机器上，图形内存与系统内存是同一块。监控按这种机器显示，而不是再画一块独立显存。arm64 macOS 上，环境检查把统一内存 GPU 记为信息项，Python 依赖走 CPU 环境，推理走 Metal。见 [环境配置](../settings/environment.md)
 
 ---
 
