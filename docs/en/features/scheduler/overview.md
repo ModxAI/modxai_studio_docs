@@ -1,6 +1,6 @@
 # Scheduled Tasks
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 Scheduled tasks can run an **agent task**, **automatic memory organization**, **memory fine-tuning**, or a **knowledge base update**. A task starts on an interval, at a fixed time, or after an upstream task finishes.

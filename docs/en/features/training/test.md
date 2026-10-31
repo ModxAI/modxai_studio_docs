@@ -1,6 +1,6 @@
 # Training Test Module Details
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 > 📌 **Module Positioning**: Interactively test the actual inference effect of checkpoints and verify the answer quality of the model in real dialogue scenarios.

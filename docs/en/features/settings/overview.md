@@ -1,6 +1,6 @@
 # Global Settings
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 This guide introduces how to use the **Settings** feature in ModxAI Studio, helping you complete application configuration, environment installation, theme switching.

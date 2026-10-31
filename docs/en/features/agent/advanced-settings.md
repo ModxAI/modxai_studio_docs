@@ -1,6 +1,6 @@
 # Advanced Settings
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 Advanced settings allow fine-tuning the agent's behavior strategies. All parameters have reasonable defaults and generally do not need modification. Advanced users can adjust them as needed.

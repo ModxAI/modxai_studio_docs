@@ -1,6 +1,6 @@
 # Workspace Browser
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 The workspace browser shows files the agent has read or written in the current workspace, and keeps notes and earlier context available across sessions. File operations stay inside the workspace directory by default. To attach another directory as read-only, see [Attachments & Knowledge Bases](./attachments.md).

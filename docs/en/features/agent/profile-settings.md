@@ -1,6 +1,6 @@
 # Instruction Settings
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 Instruction settings allow configuring global instruction files and personal preferences, so the agent follows your customized requirements on every execution.

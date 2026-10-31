@@ -1,6 +1,6 @@
 # Attachments & Knowledge Bases
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 The agent supports attaching files, images, audio, and other resources when sending messages, as well as connecting to RAG knowledge bases. This topic covers the usage and limitations of each attachment type.

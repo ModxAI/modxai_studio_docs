@@ -1,6 +1,6 @@
 # Prompt Optimization
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 This article introduces how to use the **Prompt Optimization** feature of ModxAI Studio to help you quickly generate high-quality prompts and improve the effect of conversations with AI.

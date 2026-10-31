@@ -1,6 +1,6 @@
 # RAG Knowledge Base Data Processing
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 This article explains in detail how to use the RAG (Retrieval-Augmented Generation) data processing feature in ModxAI Studio to convert documents into an intelligent knowledge base for AI conversational retrieval.

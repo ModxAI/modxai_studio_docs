@@ -1,6 +1,6 @@
 # Quick Start
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 Follow these steps to finish the first local chat.

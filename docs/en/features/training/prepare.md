@@ -1,6 +1,6 @@
 # Prepare Module Details
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 This article details the functions and parameter configurations of the **Prepare** page in the ModxAI Studio training module, helping you correctly set up training tasks.

@@ -1,6 +1,6 @@
 # Data Processing
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 This article introduces how to use the **Data Processing** feature in ModxAI Studio, helping you convert raw data into standardized datasets for SFT fine-tuning, RAG retrieval, and audio transcription.

@@ -1,6 +1,6 @@
 # AI Chat
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 This article introduces how to use the **Text Chat** and **Multimodal Chat** features in ModxAI Studio. It helps you complete tasks such as daily conversation reasoning, knowledge base Q&A, and image-text understanding.

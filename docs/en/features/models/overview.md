@@ -1,6 +1,6 @@
 # Model Library
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 This article introduces how to use the **Model Library** feature in ModxAI Studio, helping you complete tasks such as model import, download, load, management, and custom export.

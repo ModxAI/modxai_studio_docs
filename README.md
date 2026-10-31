@@ -15,8 +15,6 @@ Install the Windows package: NSIS x64 or MSIX Lite. These pages describe that de
 
 Packaging scripts also build an arm64 macOS DMG, plus an arm64 Linux AppImage and deb. Those builds are not a formal release and do not match the Windows behavior documented here. Intel Mac and Linux x64 are not this product path. See the [download page](https://www.modxai.net/en/download) for files currently offered.
 
-These docs describe product behavior through **v1.1.11** (2026-10-27).
-
 - Product site: [https://www.modxai.net/en](https://www.modxai.net/en)
 - Documentation site: [https://www.modxai.net/en/docs](https://www.modxai.net/en/docs)
 - Release notes: [https://www.modxai.net/en/changelog](https://www.modxai.net/en/changelog)
@@ -122,8 +120,6 @@ ModxAI Studio is built on open-source projects, including [PyTorch](https://gith
 安装 Windows 包：NSIS x64 或 MSIX Lite。本文描述的是这个桌面。日常对话使用内置 llama.cpp。只有功能要求时才安装沙箱 Python 环境。开始使用不需要 Docker、系统 Python 或命令行脚本。
 
 打包脚本还会构建 arm64 macOS DMG，以及 arm64 Linux 的 AppImage 和 deb。这些构建不是正式发布，也不按本文的 Windows 行为对照。Intel Mac 和 Linux x64 不在这条产品路径上。当前提供的文件见[下载页](https://www.modxai.net/zh/download)。
-
-本文档描述的是 **v1.1.11**（2026-10-27）为止的产品行为。
 
 - 产品官网：[https://www.modxai.net/zh](https://www.modxai.net/zh)
 - 在线文档：[https://www.modxai.net/zh/docs](https://www.modxai.net/zh/docs)

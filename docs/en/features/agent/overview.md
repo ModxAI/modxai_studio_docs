@@ -1,6 +1,6 @@
 # Agent Workbench
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 Describe the goal in the agent workbench. The agent splits the steps, calls tools, and shows progress. Tools include web search, file reads, commands, and writing a result.

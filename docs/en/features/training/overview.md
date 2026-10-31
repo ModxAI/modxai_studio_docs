@@ -1,6 +1,6 @@
 # Model Training
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 This article introduces how to use the **Model Training** function in ModxAI Studio, helping you complete the full training workflow from data preparation to model output.

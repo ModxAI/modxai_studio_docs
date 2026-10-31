@@ -1,6 +1,6 @@
 # Audio to Text Data Processing
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 This article details how to use the Audio to Text function of ModxAI Studio to batch transcribe audio files into text data.

@@ -1,6 +1,6 @@
 # External Access
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 Use **External Access** to let Telegram, Discord, DingTalk, or Feishu bots call the local agent, or to call the gateway HTTP API from this machine or the LAN. See [HTTP API](#http-api).

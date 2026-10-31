@@ -1,6 +1,6 @@
 # Training Quantize Module Details
 
-> v1.1.11
+> v1.1.10
 > 2026-10
 
 > 📌 **Module Positioning**: Convert training artifacts into deployable GGUF format, supporting weight merging, format conversion, and quantization compression.
