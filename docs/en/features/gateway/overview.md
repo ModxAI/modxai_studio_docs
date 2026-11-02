@@ -43,12 +43,7 @@ A bot chat must be paired first. Unpaired sources cannot send tasks.
 
 ### Step 2: Start the Service
 
-Click **Start Connection**. The system will:
-
-1. Verify the credentials are valid.
-2. Launch the gateway subprocess.
-3. Register the bot adapter.
-4. Display the service status as "Connected."
+Click **Start Connection** and wait for the status to show **Connected**. If the connection fails, check the platform credentials and network.
 
 ### Step 3: Pair a Device
 
@@ -181,7 +176,7 @@ Enter admin mode with `/admin <password>` to execute:
 
 ### Admin Authentication
 
-Admin authentication is **in-process cached**; re-authentication is required after a gateway service restart.
+Enter the administrator password again after restarting the connection service.
 
 | Command | Description |
 |---------|-------------|
@@ -246,8 +241,8 @@ The "More Settings" panel contains:
 
 ### Service Dependency
 
-- The channel service runs as its **own subprocess** and needs the ModxAI main service to be running.
-- Stopping the main service stops the channel service.
+- Keep the ModxAI service running while using a bot.
+- Stopping the ModxAI service also stops the bot connection.
 - Every enabled platform needs valid credentials, or startup fails.
 
 ### Credential Safety
@@ -260,7 +255,7 @@ The "More Settings" panel contains:
 
 - The **high-risk tool policy** for channel sessions follows the Studio setting.
 - `/allow_risky_tools` applies to **every sub-session** under the current control source.
-- When `block_high_risk_tools` is on, the tool allow list drops high-risk tools.
+- Tools blocked by the high-risk tool policy are unavailable.
 
 ### Connection Status
 

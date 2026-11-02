@@ -11,9 +11,8 @@
 
 **ModxAI Studio** is a desktop app for local models, agents, chat, datasets, and LoRA training.
 
-Install the Windows package: NSIS x64 or MSIX Lite. These pages describe that desktop. Daily chat uses the bundled llama.cpp. Install the sandboxed Python environment only when a feature asks for it. You do not need Docker, a system Python, or shell scripts to start.
+This guide covers ModxAI Studio 1.1.10 for Windows. Download the installer from the product website. For local text chat, start with the built-in chat engine; install additional components in Settings when a feature requires them.
 
-Packaging scripts also build an arm64 macOS DMG, plus an arm64 Linux AppImage and deb. Those builds are not a formal release and do not match the Windows behavior documented here. Intel Mac and Linux x64 are not this product path. See the [download page](https://www.modxai.net/en/download) for files currently offered.
 
 - Product site: [https://www.modxai.net/en](https://www.modxai.net/en)
 - Documentation site: [https://www.modxai.net/en/docs](https://www.modxai.net/en/docs)
@@ -25,7 +24,7 @@ Packaging scripts also build an arm64 macOS DMG, plus an arm64 Linux AppImage an
 ## Key Features
 
 - **Autonomous Agent**  
-  Splits a task, calls tools, and shows progress. Tools include web search, a headless browser, local file read/write, and terminal commands. External skills can be added. Built for local models in the 1B–7B range with a 32K context. Online models can be used instead.
+  Splits a task, calls tools, and shows progress. Tools include web search, a headless browser, local file read/write, and terminal commands. External skills can be added. Choose a model suited to the task and your hardware. Online models can be used instead.
 
 - **AI Chat (Text and Multimodal)**  
   Local chat through llama.cpp, plus Hugging Face backends when you install an environment. Supports system prompts, thinking depth, RAG over your knowledge bases, and bookmarking conversations for later training.
@@ -65,9 +64,9 @@ Packaging scripts also build an arm64 macOS DMG, plus an arm64 Linux AppImage an
 | --------- | ----------- |
 | **Graphical from the start** | Download, install, and use. No Docker, system Python, or command line for the main path. |
 | **Local by default** | Models, datasets, chats, and memories stay on the machine. Online APIs are optional. |
-| **Small models can do tasks** | The agent keeps state and retries so 1B–7B models can work inside a 32K window. |
+| **Small models can do tasks** | Choose a model that fits the task and available resources; review its results. |
 | **One workflow** | Data, training, inference, memory, schedules, and channels live in one app. |
-| **Sandbox** | The portable environment and agent tools stay isolated from the rest of the system. |
+| **Environment setup** | Install the required environment in Settings; review tool permissions before running agent tasks. |
 | **Works offline after setup** | No account is required. After models and environments are in place, local features do not need a network. |
 
 ---
@@ -99,7 +98,6 @@ The site index is `docs/<lang>/_index.md`. Pages are plain Markdown.
 
 Documented minimums for the Windows desktop: **Windows 10/11 (64-bit), 16GB RAM, 20GB free disk, AVX2**. Training and image generation on that desktop work more comfortably with an NVIDIA GPU of 8GB VRAM or more. Chat can run on CPU.
 
-On the arm64 macOS path, the environment check records a unified-memory GPU as information. Python dependencies use the CPU environment. Inference uses Metal.
 
 ---
 
@@ -117,9 +115,8 @@ ModxAI Studio is built on open-source projects, including [PyTorch](https://gith
 
 **ModxAI Studio** 是用于本地模型、智能体、对话、数据集和 LoRA 训练的桌面应用。
 
-安装 Windows 包：NSIS x64 或 MSIX Lite。本文描述的是这个桌面。日常对话使用内置 llama.cpp。只有功能要求时才安装沙箱 Python 环境。开始使用不需要 Docker、系统 Python 或命令行脚本。
+本指南适用于 Windows 版 ModxAI Studio 1.1.10。请从官网下载并安装。首次本地文本对话可使用内置聊天引擎；需要其他功能时，再按提示到设置中安装所需组件。
 
-打包脚本还会构建 arm64 macOS DMG，以及 arm64 Linux 的 AppImage 和 deb。这些构建不是正式发布，也不按本文的 Windows 行为对照。Intel Mac 和 Linux x64 不在这条产品路径上。当前提供的文件见[下载页](https://www.modxai.net/zh/download)。
 
 - 产品官网：[https://www.modxai.net/zh](https://www.modxai.net/zh)
 - 在线文档：[https://www.modxai.net/zh/docs](https://www.modxai.net/zh/docs)
@@ -131,7 +128,7 @@ ModxAI Studio is built on open-source projects, including [PyTorch](https://gith
 ## 核心功能
 
 - **自主智能体**  
-  拆解任务、调用工具并显示进度。工具包括网页搜索、无头浏览器、本地文件读写和终端命令，也可挂载外部 Skill。面向 1B–7B、32K 上下文的本地模型。可改用在线模型。
+  拆解任务、调用工具并显示进度。工具包括网页搜索、无头浏览器、本地文件读写和终端命令，也可挂载外部 Skill。请按任务和硬件选择模型。可改用在线模型。
 
 - **AI 对话（文本与多模态）**  
   通过 llama.cpp 进行本地对话；安装环境后也可以使用 Hugging Face 后端。支持系统提示词、思考深度、基于自有知识库的 RAG，以及把对话收藏下来供以后训练。
@@ -171,9 +168,9 @@ ModxAI Studio is built on open-source projects, including [PyTorch](https://gith
 | ---- | ---- |
 | **从图形界面开始** | 下载安装即可使用。主路径不需要 Docker、系统 Python 或命令行。 |
 | **默认在本地** | 模型、数据集、对话和记忆留在本机。在线 API 是可选项。 |
-| **小模型也能做任务** | 智能体维护状态并允许重试，1B–7B 模型可以在 32K 窗口内完成日常步骤。 |
+| **小模型也能做任务** | 按任务和可用资源选择模型，并检查任务结果。 |
 | **一条工作流** | 数据、训练、推理、记忆、定时任务和频道在同一个应用里。 |
-| **沙箱隔离** | 便携环境和智能体工具与系统其余部分隔开。 |
+| **环境配置** | 在设置中安装所需环境，执行智能体任务前检查工具权限。 |
 | **准备好之后可离线** | 不需要注册账号。模型和环境就位后，本地功能不依赖网络。 |
 
 ---
@@ -205,7 +202,6 @@ ModxAI Studio is built on open-source projects, including [PyTorch](https://gith
 
 Windows 桌面的最低配置：**Windows 10/11（64 位）、16GB 内存、20GB 可用磁盘、AVX2**。在该桌面上，训练和图像生成更适合 8GB 及以上显存的 NVIDIA 显卡。对话可以使用 CPU。
 
-arm64 macOS 路径上，环境检查把统一内存 GPU 记为信息项。Python 依赖使用 CPU 环境。推理使用 Metal。
 
 ---
 

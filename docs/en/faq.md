@@ -100,7 +100,7 @@ No. RAG retrieval is unavailable in multimodal dialogue mode. For knowledge base
 
 ### What model size is suitable for the agent?
 
-The ModxAI Studio agent framework is optimized for local small models. Models with 1B-3B parameters can handle simple multi-step tasks within a 32K context. Larger models (7B+) can handle more complex tasks. Multimodal models like Qwen3.5 are recommended.
+Prefer a model with good instruction-following and tool-calling capabilities that fits your RAM and VRAM. Check a simple task first rather than choosing by parameter count alone. See [Model Requirements](./features/agent/overview.md#model-requirements).
 
 ### What can the agent do?
 
@@ -111,13 +111,15 @@ The ModxAI Studio agent framework is optimized for local small models. Models wi
 - Manage task lists and track progress.
 - Remember preferences.
 
-### Web search still looks like the old engine?
+<a id="web-search-still-looks-like-the-old-engine"></a>
 
-Version 1.1.9 updates the built-in ddgs engine. After you upgrade the app, open **Settings → Environment** and use **Reinstall** on the Agent environment that is already installed. Brave and DeepSeek web search are separate sources. See [Advanced Settings](./features/agent/advanced-settings.md).
+### What if web search is unavailable?
+
+Check the network and proxy, then confirm that the Agent environment is installed in **Settings → Environment**. Use **Reinstall** if needed. Also check the selected search source in [Advanced Settings](./features/agent/advanced-settings.md).
 
 ### Is agent data secure?
 
-Yes. All agent operations are executed in a local sandbox. File operations are restricted to authorized directories, and the browser runs in an isolated environment. Your data is never uploaded to any cloud service. However, when using online models, please assess based on the respective service provider's terms.
+Review the workspace, tool permissions, and approval settings before using the agent. Online models and network tools may send task content to the relevant services; check their terms before using sensitive data. Keep manual approval enabled for important file operations and review the results.
 
 ---
 

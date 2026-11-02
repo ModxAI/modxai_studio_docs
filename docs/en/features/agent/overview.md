@@ -13,27 +13,24 @@ Describe the goal in the agent workbench. The agent splits the steps, calls tool
 - [Session Management](#session-management)
 - [Sending Messages](#sending-messages)
 - [Execution Process](#execution-process)
-- [Notes](#notes)
+- [Notes](#important-notes)
 - [More Features](#more-features)
 
 ---
 
 ## Prerequisites
 
-The Agent Workbench has **minimum configuration requirements** for models and environment. Without meeting these conditions, it will not function properly.
+Choose a model for the main role, then install the tools your tasks need.
 
 ### Model Requirements
 
-> **A model must be configured for the "Main Role"**, otherwise new sessions cannot be created or messages sent.
+> **Configure a model for the Main Role** before creating a session or sending a message.
 
-| Item | Minimum | Recommended |
-|------|---------|-------------|
-| Model Family | Qwen3 / Qwen3.5 or newer | Qwen3-8B or above |
-| Parameter Size | ≥ 4B | 8B~32B |
-| Context Length | ≥ 32K tokens | 64K~128K |
-| Quantization | Q4_K_M | Q8_0 |
+Prefer a model with good instruction-following and tool-calling capabilities. Parameter count alone does not determine whether a task will succeed.
 
-> **Why these requirements?** The agent must simultaneously understand task objectives, break down steps, read tool outputs, and make decisions. Smaller models or those with shorter context windows tend to get stuck in loops or fail to complete multi-step tasks.
+- **Local models**: Choose a model and quantization level that fit your RAM and VRAM. Check the results with a simple task first.
+- **Long tasks**: A 32K context is a starting recommendation. Adjust it within the model’s supported range and your available resources; it is not a universal minimum.
+- **Check results**: Models can miss steps or give incorrect answers. Review important actions and final results.
 
 Model sources:
 - **Local Models**: Download and load from the model library (supports LLM / VLM / HF standard models)
@@ -252,7 +249,7 @@ When paused, you can choose to **Continue** or **Stop**.
 
 ### Context Compression
 
-When model input reaches the compression trigger ratio (by default, 0.8 of the context window), the agent compresses older messages and keeps higher-priority content. Thresholds and the P0–P3 ratios are in [Advanced Settings](./advanced-settings.md). Compression does not start before that threshold.
+In long conversations, the agent compresses older messages and retains key information before continuing. Some details may be lost, so state important requirements in the current task. See [Advanced Settings](./advanced-settings.md) for related controls.
 
 ### Rollback Operation
 
@@ -279,13 +276,13 @@ For files created or modified by the Agent within the workspace, **Rollback** fu
 ### Execution Security
 
 - The Agent can execute terminal commands and modify files; please use it within a trusted workspace.
-- Disabling **Auto-Approval** prevents accidental high-risk operations.
+- For important file changes and terminal commands, turn off **Auto-Approval** and review requests before approving them.
 - A **Command Blacklist** can be configured in Advanced Parameters to prohibit the execution of specific commands.
 - Enabling the **Security Role** adds an additional layer of security auditing.
 
 ### Performance Recommendations
 
-- For local models, prefer a current model such as Qwen3.5 4B or larger, and set the context length to 32K or more.
+- Choose a model for your task and hardware. See [Model Requirements](#model-requirements).
 - When a VRAM warning is shown, GPU tasks run one at a time. An idle GPU is not left stopped. When VRAM is critically low, a new GPU task is refused.
 
 ### Workspace

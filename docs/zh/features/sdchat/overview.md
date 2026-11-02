@@ -3,7 +3,7 @@
 > v1.1.10
 > 2026-10
 
-图像和视频推理使用的 stable-diffusion.cpp 在 1.1.6 升级到 **0.4.7**。SD 仍然需要 NVIDIA CUDA 加速库，见 [模型库](../models/overview.md)。
+在 SD 聊天中输入描述，使用已加载的模型生成图像或视频。使用前需要安装 NVIDIA CUDA 加速库，见[模型库](../models/overview.md)。
 
 SD 聊天的入口在**智能体子菜单**里，和语音合成放在一起。
 

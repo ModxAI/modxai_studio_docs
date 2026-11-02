@@ -3,12 +3,14 @@
 > v1.1.10
 > 2026-10
 
-This article details the functions and parameter configurations of the **Prepare** page in the ModxAI Studio training module, helping you correctly set up training tasks.
+Use the **Prepare** page to create a task, select your model and data, and start training. This guide applies to Windows version 1.1.10. Start with [Training Flow](#training-flow), then use the parameter reference below when you need to adjust a setting.
 
 ## Table of Contents
 
 - [Interface Overview](#interface-overview)
+- [Training Flow](#training-flow)
 - [Task Management](#task-management)
+- [Parameter Templates](#parameter-templates)
 - [Parameter Configuration](#parameter-configuration)
 - [Data Configuration Parameters](#data-configuration-parameters)
 - [Training Configuration Parameters](#training-configuration-parameters)
@@ -16,8 +18,6 @@ This article details the functions and parameter configurations of the **Prepare
 - [Optimization Configuration Parameters](#optimization-configuration-parameters)
 - [Log Configuration Parameters](#log-configuration-parameters)
 - [General Configuration Parameters](#general-configuration-parameters)
-- [Parameter Templates](#parameter-templates)
-- [Training Flow](#training-flow)
 
 ---
 
@@ -29,6 +29,42 @@ The Prepare module interface is divided into left and right areas:
 |------|------|
 | Left - Basic Config | Task name, config template, training type, training device, task management |
 | Right - Operation Control | Parameter configuration entry, start/stop training buttons, reset button |
+
+---
+
+## Training Flow
+
+### Create New Task
+
+Prepare a training data file, a trainable model directory, and an output directory with enough free space. GGUF files cannot be used as the training model; see [Data Configuration Parameters](#data-configuration-parameters) for file requirements. If the training environment is not installed, complete [Environment Setup](../settings/environment.md) first.
+
+1. Select "New Task" in task management. Keep the generated name or enter your own.
+2. Choose SFT or Pre-training and select the corresponding configuration template.
+3. Select the training device.
+4. Click "Config Params" and set the training data file, training model directory, and output directory.
+5. Check the other required fields. For a first attempt, start with the template settings and adjust them for your model, data length, and available VRAM.
+6. Click "Start Training". If an environment or parameter warning appears, resolve it before starting again.
+7. Confirm that the task status changes to "Running", then open [Monitor](./monitor.md) to view progress and logs. "Completed" means the training run has finished; use [Evaluate](./evaluate.md) or [Test](./test.md) to check its results.
+
+### Continue Existing Task
+
+1. Select existing task in task management.
+2. System automatically loads parameter configuration of that task.
+3. Can adjust parameters as needed.
+4. Click "Start Training".
+
+### Resume Training
+
+1. Fill checkpoint directory path in "Checkpoint path for resume".
+2. Ensure checkpoint contains complete training state.
+3. Click "Start Training", will continue from that checkpoint.
+
+### Environment Check
+
+Before starting training, system will automatically check:
+- Whether Python training environment is ready.
+- Whether necessary dependency packages are installed.
+- Whether GPU/CUDA is available (if GPU training is selected).
 
 ---
 
@@ -70,6 +106,32 @@ The task list displays status tags for each task:
 | Completed | Green | Training completed normally |
 | Stopped | Orange | Stopped by user |
 | Failed | Red | Training exited abnormally |
+
+---
+
+## Parameter Templates
+
+### System Preset Templates
+
+The system provides two default templates:
+
+| Template | Description |
+|------|------|
+| SFT | Supervised fine-tuning default configuration, LoRA enabled |
+| Pretrain | Pre-training default configuration, LoRA disabled |
+
+### Custom Templates
+
+1. **Save Template**: After configuring parameters, click "Save As" to save as a custom template.
+2. **Load Template**: Select saved template from template dropdown box.
+3. **Delete Template**: Click delete icon to the right of template in dropdown box.
+
+### Temporary Parameters
+
+When checking "Temporary Template" option during task creation:
+
+- Your changes apply only to the current task and do not overwrite the saved template.
+- To reuse these settings, save them as a new template.
 
 ---
 
@@ -245,7 +307,7 @@ model_directory/
 
 2. **Fill Path**: Fill the full checkpoint path into this parameter.
    ```
-   /path/to/output_dir/checkpoint-500
+   C:\ModxAI\training-output\checkpoint-500
    ```
 
 3. **Start Training**: Click "Start Training", training will continue from that checkpoint.
@@ -1126,68 +1188,6 @@ checkpoint-500/
 **Function**:
 - Same seed can reproduce training results.
 - Convenient for comparative experiments.
-
----
-
-## Parameter Templates
-
-### System Preset Templates
-
-The system provides two default templates:
-
-| Template | Description |
-|------|------|
-| SFT | Supervised fine-tuning default configuration, LoRA enabled |
-| Pretrain | Pre-training default configuration, LoRA disabled |
-
-### Custom Templates
-
-1. **Save Template**: After configuring parameters, click "Save As" to save as a custom template.
-2. **Load Template**: Select saved template from template dropdown box.
-3. **Delete Template**: Click delete icon to the right of template in dropdown box.
-
-### Temporary Parameters
-
-When checking "Temporary Template" option during task creation:
-
-- **Do not overwrite original template**: Currently modified parameters will not be saved to the currently selected template.
-- **Save as task parameters only**: Parameters will be saved as independent configuration for this task.
-- **Backend reads task parameters**: Backend uses current temporary parameters during training, irrelevant to template.
-- **Support subsequent save as**: If this set of temporary parameters works well, you can save it as a new template later.
-
----
-
-## Training Flow
-
-### Create New Task
-
-1. Select "New Task" in task management.
-2. Set task name (or use auto-generated name).
-3. Select training type (SFT or Pre-training).
-4. Select configuration template or use custom configuration.
-5. Click "Config Params" to adjust various parameters.
-6. Confirm required parameters are filled completely.
-7. Click "Start Training".
-
-### Continue Existing Task
-
-1. Select existing task in task management.
-2. System automatically loads parameter configuration of that task.
-3. Can adjust parameters as needed.
-4. Click "Start Training".
-
-### Resume Training
-
-1. Fill checkpoint directory path in "Checkpoint path for resume".
-2. Ensure checkpoint contains complete training state.
-3. Click "Start Training", will continue from that checkpoint.
-
-### Environment Check
-
-Before starting training, system will automatically check:
-- Whether Python training environment is ready.
-- Whether necessary dependency packages are installed.
-- Whether GPU/CUDA is available (if GPU training is selected).
 
 ---
 
