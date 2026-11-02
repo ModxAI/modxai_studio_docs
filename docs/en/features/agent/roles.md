@@ -55,7 +55,7 @@ The main role supports three model connection methods:
 ### Recommended Models
 
 - **Qwen3.5 Series** (9B+): First choice, strong tool-calling and instruction-following capabilities.
-- At least 4B parameters, context window recommended at 32K or above.
+- Choose a model for your task and hardware. For long tasks, a 32K context is a starting recommendation, not a universal minimum.
 - Quantization format Q4_K_M or higher recommended.
 
 ### Default Inference Parameters
@@ -216,7 +216,7 @@ The online backend calls cloud models with the OpenAI-compatible Chat Completion
 | Max Generation Length | Single task maximum token count (0=auto) | 0 |
 | Max Context Length | Single task maximum context length (0=no limit) | Empty |
 
-> Note: This control is the quick adjustment of the local model's context length for that role. You do not have to go back to the model library first. Empty means do not override the library setting. `0` means no limit. Recommended minimum 32K.
+> Note: This control is the quick adjustment of the local model's context length for that role. You do not have to go back to the model library first. Empty means do not override the library setting. `0` means no limit. For long tasks, start with 32K if supported by the model and available resources.
 
 ### Advanced Inference Parameters
 

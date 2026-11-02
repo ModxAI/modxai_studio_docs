@@ -51,7 +51,6 @@ If you need to use features dependent on Python, please go to the **Settings** p
 >   - If you have an NVIDIA GPU, install the CUDA acceleration libraries using the “Install GPU Acceleration Libraries” option in the Model Library ⚡ button. Chat/multimodal models run fastest on NVIDIA+CUDA; Stable Diffusion (SD, image generation) currently requires CUDA and will only run after the CUDA libraries are installed.
 >   - After installing or updating the acceleration libraries, there is no need to restart the application. The changes take effect the next time a model is loaded. Inference libraries can also update themselves.
 >   - In the model library, turn on speculative decoding, choose type `draft-dflash`, then choose a local draft model (GGUF).
->   - The Stable Diffusion library moved to **stable-diffusion.cpp 0.4.7** in 1.1.6.
 > - AMD (limitations):
 >   - AMD GPUs can use the built-in Vulkan acceleration for chat/multimodal models (no extra library needed), but SD inference is not supported on AMD/Vulkan at this time.
 > - No discrete GPU / integrated GPUs:
@@ -416,7 +415,7 @@ After loading a model, ModxAI Studio automatically exposes an OpenAI-compatible 
 - **Third-Party Integration**: Supports any OpenAI API-compatible client (e.g., other agent applications, automation scripts) for direct integration.
 - **Development & Debugging**: Use curl, Postman, or similar tools to test the inference interface directly.
 
-> No API Key authentication required. The service port and address can be viewed within the application.
+> This API does not require an API key. View the service address and port in the app. Use it only on a trusted network; do not expose it through port forwarding or a public tunnel. Other devices that can reach the service may call your model.
 
 ---
 

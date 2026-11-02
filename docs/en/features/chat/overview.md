@@ -207,7 +207,7 @@ Click the **Slider Icon** button above the input box to open the parameter drawe
 Set thinking depth in the inference settings. A higher level is slower. The highest level is Max. The thinking switch turns thinking on or off. Depth sets how far the model thinks.
 
 #### KV Cache and MTP
-In inference settings, adjust KV Cache and MTP when VRAM or speed is short. Agent roles use the same controls. See [Role Configuration](../agent/roles.md).
+These are advanced inference settings. Keep the defaults when starting out. Before changing them, read the option descriptions, change one setting at a time, and check response quality and resource use. For the corresponding agent settings, see [Role Configuration](../agent/roles.md).
 
 ### RAG Parameters (Collapsible Panel)
 

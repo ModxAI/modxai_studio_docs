@@ -7,7 +7,7 @@
 
 ModxAI Studio runs local models, agents, image generation, knowledge bases, data processing, and LoRA training in one desktop app. Models and chats stay on the machine by default.
 
-The agent is built for small local models. A 1B–3B model with a 32K context can finish ordinary multi-step tasks. Online models follow that provider’s pricing and terms.
+This guide covers version 1.1.10 for Windows. Agent results depend on model capabilities, task complexity, and available resources. See [Model Requirements](../features/agent/overview.md#model-requirements). Online models follow the provider’s pricing and terms.
 
 ---
 
@@ -18,7 +18,7 @@ The agent is built for small local models. A 1B–3B model with a 32K context ca
 The agent splits a task, calls tools, and reports progress.
 
 - **Execution**: Breaks the task into steps, runs them, and shows progress in the UI
-- **Tools and skills**: Web browsing, local file read/write, and terminal commands, plus external skills. A subtask goes to another role already configured in the current task. It is not a separate multi-agent product
+- **Tools and skills**: Web browsing, local file read/write, and terminal commands, plus external skills. Subtasks can be assigned to other configured roles
 - **Memory**: Review, edit, and export memories, then use them for a later fine-tune
 
 ### 🤖 AI Chat
@@ -88,7 +88,7 @@ Say goodbye to complex environment configurations:
 - **First-Run Guide**: The first launch walks through getting started and installing an environment.
 - **One-Click Installation**: Automatically detects hardware and recommends the best configuration.
 - **On-Demand Selection**: Supports Full / Agent / Voice Synthesis three installation capabilities, install as needed.
-- **Sandbox Isolation**: Independent environment, does not affect other system software.
+- **Environment Management**: Install and manage the required runtime components in Settings.
 - **On-Demand Loading**: Dependencies are not loaded when features are not in use.
 
 ---
@@ -97,11 +97,11 @@ Say goodbye to complex environment configurations:
 
 | Advantage | Description |
 |-----------|-------------|
-| **Local inference** | Models, datasets, chats, and memories stay on the machine and are stored encrypted. Online APIs are optional and billed by the provider |
-| **Small models can run tasks** | The agent targets local models in the 1B–7B range with a 32K context |
+| **Local inference** | Run models locally. When using online models or network tools, consider the data sent and any provider charges |
+| **Small models can run tasks** | Choose a local model for your task and check its results with a simple task first |
 | **One workflow** | Data processing, training, inference, memory, and schedules are in the same app |
 | **Adjustable parameters** | Roles, tools, context length, and inference settings are changed in the UI |
-| **Sandbox** | The portable Python environment and agent tools stay off the system Python |
+| **Environment setup** | Install required components in Settings without manually configuring system Python |
 | **Graphical path** | The main path does not need Docker, a system Python, or a shell |
 | **Memory can be trained again** | Export memories and use them for a later memory fine-tune |
 

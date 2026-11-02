@@ -14,7 +14,6 @@ This article explains in detail how to use the RAG (Retrieval-Augmented Generati
 - [System Capabilities](#system-capabilities)
 - [Processing Workflow](#processing-workflow)
 - [Step-by-Step Details](#step-by-step-details)
-- [Parameter Configuration](#parameter-configuration)
 - [Output and Storage](#output-and-storage)
 - [Using in Chat](#using-in-chat)
 - [Notes](#notes)
@@ -377,7 +376,7 @@ After RAG data processing is complete, you can enable knowledge-base retrieval i
 3. **Configure retrieval mode**: Select an appropriate retrieval mode (see below)  
 4. **Start chatting**: The AI will automatically retrieve relevant content to assist answers
 
-Chat and the agent read the same saved RAG collection list. Each side can keep its own retrieval settings. Version 1.1.6 fixed the case where sharing a collection left one side unable to retrieve.  
+Chat and the agent read the same saved RAG collection list. Each side can keep its own retrieval settings.
 
 ### Retrieval Modes
 

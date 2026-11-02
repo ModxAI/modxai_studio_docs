@@ -3,7 +3,7 @@
 > v1.1.10
 > 2026-10
 
-Image and video inference uses stable-diffusion.cpp **0.4.7** as of version 1.1.6. SD still needs the NVIDIA CUDA acceleration libraries. See the [Model Library](../models/overview.md).
+Describe what you want to create in SD Chat and use a loaded model to generate images or video. Install the NVIDIA CUDA acceleration libraries before starting. See the [Model Library](../models/overview.md).
 
 Open SD Chat from the **agent submenu**, next to speech synthesis.
 
@@ -340,7 +340,9 @@ During generation, progress bar shown below message list:
 
 ---
 
-## Favorite Data
+<a id="favorite-data"></a>
+
+## Important Notes
 
 ### Model Requirements
 

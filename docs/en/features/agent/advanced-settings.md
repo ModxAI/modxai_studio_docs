@@ -73,7 +73,7 @@ The `glob` tool can take an ignore-rule file so it skips paths you do not want s
 
 You can switch the search source:
 
-- **Built-in ddgs**: The default engine. Version 1.1.9 updates this component for more accurate results. If search still behaves like the old engine after you upgrade, open **Settings → Environment** and use **Reinstall** on the Agent environment that is already installed.
+- **Built-in ddgs**: The default search engine. If search is unavailable, check the network and confirm that the Agent environment is installed in **Settings → Environment**. Use **Reinstall** if needed.
 - **Brave**: Available as a search engine.
 - **DeepSeek**: One of the web search engines. Save DeepSeek credentials first.
 
