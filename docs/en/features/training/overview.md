@@ -3,7 +3,7 @@
 > v1.1.10
 > 2026-10
 
-This article introduces how to use the **Model Training** function in ModxAI Studio, helping you complete the full training workflow from data preparation to model output.
+Prepare your data and model, create a training task, monitor progress, then evaluate, test, and export the result.
 
 ## Table of Contents
 
@@ -164,23 +164,6 @@ pending → running → completed
 | `completed` | Training completed normally |
 | `failed` | Training exited abnormally |
 
-### Task ID
-
-A unique Task ID is generated when each training task is created, used for:
-- Associating training logs
-- Associating checkpoint records
-- Associating evaluation, testing, and packaging operations
-
-### Related Data Tables
-
-The training module involves the following core data:
-
-| Data Type | Description |
-|----------|------|
-| Training Task | Basic task information, status, configuration |
-| Task Parameters | Specific training parameter values for the task |
-| Training Log | Metrics such as loss, lr, progress for each step |
-| Checkpoint Record | Save time, steps, and loss value for each checkpoint |
 
 ---
 
@@ -334,3 +317,4 @@ Parameters on the interface are displayed in layers according to importance:
 - [Evaluate Module Details](./evaluate.md) - Checkpoint evaluation and comparative analysis
 - [Test Module Details](./test.md) - Interactive testing function
 - [Package Module Details](./package.md) - GGUF export and quantization options
+

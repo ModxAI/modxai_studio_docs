@@ -3,17 +3,17 @@
 > v1.1.10
 > 2026-10
 
-> 📌 **Module Positioning**: Convert training artifacts into deployable GGUF format, supporting weight merging, format conversion, and quantization compression.
+Export training results as GGUF files. Choose weight merging, format conversion, or quantization options for your intended use.
 
 ## Table of Contents
 - [Overview](#overview)
+- [Packaging Flow](#packaging-flow)
 - [Configuration Templates (Recommended)](#configuration-templates-recommended)
   - [Template Overview](#template-overview)
   - [Template Details](#template-details)
 - [Basic Configuration Parameters](#basic-configuration-parameters)
 - [Packaging Options Details](#packaging-options-details)
 - [Option Dependencies](#option-dependencies)
-- [Packaging Flow](#packaging-flow)
 - [Packaging Log](#packaging-log)
 - [FAQ](#faq)
 - [Usage Suggestions](#usage-suggestions)
@@ -41,6 +41,45 @@ The Quantize module is responsible for converting trained models (including base
 | Unquantized GGUF | `{model_name}.gguf` | GGUF file with original precision |
 | Quantized GGUF | `{model_name}-{Q_TYPE}.gguf` | Quantized GGUF file |
 | LoRA GGUF | `{checkpoint_name}-lora.gguf` | GGUF file of LoRA adapter |
+
+---
+
+## Packaging Flow
+
+### Standard Flow (Using Template)
+
+1. **Select Task**
+   - Select completed training task from dropdown list.
+   - System automatically fills path information.
+
+2. **Select Template**
+   - Select appropriate preset template according to needs.
+   - Confirm configuration summary displayed on the right.
+
+3. **Select Checkpoint** (LoRA Task)
+   - Select version to quantize from checkpoint list.
+   - Refer to evaluation score to select best checkpoint.
+
+4. **Confirm Output Directory**
+   - Check if output directory is correct.
+   - Ensure sufficient disk space.
+
+5. **Start Packaging**
+   - Click "Start Packaging" button.
+   - Wait for packaging to complete.
+
+### Custom Flow
+
+1. **Select Task and Checkpoint**
+
+2. **Select "Custom" Template**
+   - All options become editable at this time.
+
+3. **Configure Options**
+   - Set item by item according to needs.
+   - Pay attention to dependencies between options.
+
+4. **Start Packaging**
 
 ---
 
@@ -440,45 +479,6 @@ Exporting LoRA alone needs the training environment already installed. If this s
 
 ---
 
-## Packaging Flow
-
-### Standard Flow (Using Template)
-
-1. **Select Task**
-   - Select completed training task from dropdown list.
-   - System automatically fills path information.
-
-2. **Select Template**
-   - Select appropriate preset template according to needs.
-   - Confirm configuration summary displayed on the right.
-
-3. **Select Checkpoint** (LoRA Task)
-   - Select version to quantize from checkpoint list.
-   - Refer to evaluation score to select best checkpoint.
-
-4. **Confirm Output Directory**
-   - Check if output directory is correct.
-   - Ensure sufficient disk space.
-
-5. **Start Packaging**
-   - Click "Start Packaging" button.
-   - Wait for packaging to complete.
-
-### Custom Flow
-
-1. **Select Task and Checkpoint**
-
-2. **Select "Custom" Template**
-   - All options become editable at this time.
-
-3. **Configure Options**
-   - Set item by item according to needs.
-   - Pay attention to dependencies between options.
-
-4. **Start Packaging**
-
----
-
 ## Packaging Log
 
 Real-time logs are displayed during packaging:
@@ -570,3 +570,4 @@ For most users:
 - [Monitor Module Details](./monitor.md) - Training monitoring
 - [Evaluate Module Details](./evaluate.md) - Checkpoint evaluation
 - [Test Module Details](./test.md) - Interactive testing
+

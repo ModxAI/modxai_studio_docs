@@ -3,7 +3,7 @@
 > v1.1.10
 > 2026-10
 
-This article introduces how to use the **Data Processing** feature in ModxAI Studio, helping you convert raw data into standardized datasets for SFT fine-tuning, RAG retrieval, and audio transcription.
+Turn documents, code, or audio into training data, knowledge bases, or transcripts. Choose a data type, then configure the processing steps and output directory.
 
 ## Table of Contents
 
@@ -30,12 +30,7 @@ This article introduces how to use the **Data Processing** feature in ModxAI Stu
 
 ## Feature Overview
 
-The Data Processing module is one of the core features of ModxAI Studio, providing a complete conversion process from raw data to training datasets. Key features include:
-
-- **Multi-Data Type Support**: Supports text, code, RAG knowledge bases, audio-to-text, and other data types.
-- **Pipeline Processing**: Adopts a step-by-step pipeline architecture, where each step can be configured independently.
-- **AI Enhancement Capabilities**: Implements advanced functions such as intelligent data synthesis and quality filtering through AI nodes.
-- **Resume from Breakpoint**: Allows restarting from a specific step after a failure, avoiding re-execution of completed steps.
+Choose a data type, then convert, clean, and export your files. Enable AI synthesis or quality filtering when needed. If processing stops, resume from a selected step.
 
 ---
 
@@ -93,7 +88,7 @@ Used to generate supervised fine-tuning training data, supporting three source d
 
 Used to generate vectorized knowledge bases required for retrieval augmentation:
 
-- Supported formats: Same as text datasets.
+- Supported formats: Same as text datasets, including structured JSON/JSONL.
 - Output format: Vector embedding data, stored in vector database.
 
 ### Audio to Text
@@ -130,8 +125,10 @@ Transcribe audio files into structured text:
 | 1 | Clean | Clean and preprocess. | ✓ |
 | 2 | Split | Split data chunks. | ✓ |
 | 3 | Analyze | Quality analysis. | ✓ |
-| 4 | Generate Vector | Use embedding model to generate embeddings. | ✓ |
-| 5 | Store Vector | Parse and store in vector database. | ✓ |
+| 4 | AI Synthesis | Generate summaries for text blocks with a chat model. | Optional |
+| 5 | AI Parsing | Parse the generated summaries. | Optional |
+| 11 | Generate Vector | Use an embedding model to generate embeddings. | ✓ |
+| 12 | Store Vector | Store the vectors in the knowledge base. | ✓ |
 
 ### Audio to Text Processing Steps
 
@@ -149,7 +146,7 @@ The system presets multiple workflow templates for quick selection of common ste
 - **AI Quality**: Includes AI synthesis and AI filtering steps, suitable for pursuing high-quality data.
 - **Custom**: Manually select steps to execute.
 
-> Pre-training no longer has a separate step. Set the **Export Format** to `pretrain` in Step 4 (AI Synthesis), and the output will follow the pre-training format.
+> Set the **Export Format** to `pretrain` in Step 4 (AI Synthesis), and the output will follow the pre-training format.
 
 ---
 
@@ -218,12 +215,12 @@ Using AI nodes (Step 4, 8) requires ensuring:
 
 ### Model Reuse Mechanism
 
-AI nodes in SFT data processing support reusing loaded chat models:
+AI nodes in SFT and RAG data processing can reuse loaded chat models:
 
 - If a model is already loaded in the chat interface and the configuration (Base Model + LoRA) matches what the AI node needs.
 - The system automatically detects and reuses the model, and requests enter the queue for processing.
 - Multiple requests are processed serially through the queue mechanism without interference. Supports processing while chatting.
-- **Model is not unloaded after SFT task completion**, and your chat session is unaffected.
+- **The model is not unloaded after the task finishes**, and your chat session is unaffected.
 
 ### RAG Embedding Model
 
@@ -287,10 +284,6 @@ A: AI nodes need to call AI models for inference, and processing speed depends o
 - Ensure GPU is available to accelerate inference.
 - Reduce the amount of data to be processed for testing.
 
-**Q: Can I continue processing after the quota is used up?**
-
-A: After the quota is used up, steps consuming quota cannot be executed. You can upgrade your account to get more quota or wait for quota reset.
-
 ---
 
 ## Subsequent Documentation
@@ -298,3 +291,4 @@ A: After the quota is used up, steps consuming quota cannot be executed. You can
 - [SFT Data Processing](./sft.md) - Detailed guide for SFT text/code data processing.
 - [RAG Data Processing](./rag.md) - Detailed guide for RAG knowledge base generation.
 - [Audio to Text](./audio2text.md) - Detailed guide for audio transcription function.
+

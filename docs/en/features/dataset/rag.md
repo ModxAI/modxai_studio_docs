@@ -3,7 +3,7 @@
 > v1.1.10
 > 2026-10
 
-This article explains in detail how to use the RAG (Retrieval-Augmented Generation) data processing feature in ModxAI Studio to convert documents into an intelligent knowledge base for AI conversational retrieval.
+Build a knowledge base from your documents for retrieval in AI chat. Prepare your source files and an embedding model before starting.
 
 ---
 
@@ -33,9 +33,7 @@ This article explains in detail how to use the RAG (Retrieval-Augmented Generati
 
 ## Feature Overview
 
-The RAG knowledge base is a technique that allows AI to "look up references" when answering questions. By converting your documents into vector representations, the AI can retrieve relevant content during a conversation, providing more accurate and professional answers.
-
-Unlike traditional full-text search, a RAG system understands the **semantic meaning** of questions. Even if the way you phrase your query is different from the wording in the documents, it can still find relevant content.
+A knowledge base lets AI retrieve information from your documents when answering. Retrieved material provides context for the model; check its answers before using them.
 
 **Typical use cases:**
 
@@ -484,3 +482,4 @@ A: It is recommended to use English or Pinyin. Chinese names may cause compatibi
 - [Data Processing Overview](./overview.md) – Architecture of the data processing module  
 - [SFT Data Processing](./sft.md) – Dataset generation for model fine-tuning  
 - [Audio to Text](./audio2text.md) – Detailed guide to audio transcription
+

@@ -3,7 +3,7 @@
 > v1.1.10
 > 2026-10
 
-This article details how to use the Audio to Text function of ModxAI Studio to batch transcribe audio files into text data.
+Transcribe audio files in batches and export the results as text or subtitles.
 
 ---
 
@@ -365,4 +365,5 @@ A: Choose according to your needs:
 ---
 
 *For other questions, please refer to project documentation or ask in the community.*
+
 

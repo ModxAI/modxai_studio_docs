@@ -17,7 +17,7 @@ The agent supports voice input via microphone. The system automatically transcri
 
 ## Prerequisites
 
-> \u26a0\ufe0f **An STT model must be loaded and a microphone device connected** for voice input to function.
+> **An STT model must be loaded and a microphone device connected** for voice input to function.
 
 ### Required Models
 
@@ -111,3 +111,4 @@ Click the **Read Aloud button** (🔊) next to the agent's response to synthesiz
 - Transcription accuracy depends on STT model quality and recording clarity. The `faster-whisper-large-v3` model is recommended.
 - Transcribed text is automatically filled into the input box and can be manually edited before sending.
 - If transcription accuracy is unsatisfactory, try switching to a different STT model.
+

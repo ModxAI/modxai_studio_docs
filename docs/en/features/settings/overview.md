@@ -3,7 +3,7 @@
 > v1.1.10
 > 2026-10
 
-This guide introduces how to use the **Settings** feature in ModxAI Studio, helping you complete application configuration, environment installation, theme switching.
+Use Settings to install environments, adjust app options, change the theme, and check for updates.
 
 ## Table of Contents
 
@@ -21,13 +21,7 @@ This guide introduces how to use the **Settings** feature in ModxAI Studio, help
 
 ## Feature Overview
 
-The Settings module is the core configuration center of ModxAI Studio, providing global configuration capabilities at the application level. Key features:
-
-- **One-Click Environment Installation**: Reduces configuration barriers by automatically detecting hardware and recommending optimal environments
-- **Differential Dependency Loading**: Install on demand; unused features don't install dependencies, saving disk space
-- **Sandboxed Dynamic Loading**: Isolated environments, loaded only when needed to avoid conflicts
-- **Multi-Language Support**: Supports Chinese and English interface switching
-- **Theme Switching**: Multiple preset themes with light/dark mode support
+Use Settings to install environments, change the interface language and theme, and adjust how the app starts and closes.
 
 ---
 
@@ -262,4 +256,5 @@ The Help & Feedback section provides support entry points:
 ## Related Documentation
 
 - [Environment Installation Guide](./environment.md) - Detailed environment installation guide and troubleshooting
+
 

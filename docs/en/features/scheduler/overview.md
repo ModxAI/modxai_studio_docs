@@ -88,7 +88,7 @@ Automatically vectorizes memory data and writes it to a RAG knowledge base on a 
 
 ## Scheduling Strategies
 
-Scheduled tasks support two trigger methods:
+Tasks can use the following triggers:
 
 ### Interval Trigger
 
@@ -120,7 +120,7 @@ The global one-at-a-time limit still applies. While the upstream task is running
 1. Click the **New Task** button.
 2. Enter a task name (required).
 3. Select the task type from the dropdown.
-4. Configure the scheduling strategy (interval or fixed time).
+4. Configure the trigger; see [Scheduling Strategies](#scheduling-strategies).
 5. Fill in task-specific configuration based on the task type.
 6. Click Confirm to create.
 
@@ -212,3 +212,4 @@ If a task is running (status "Running" or "Executing"), click **Stop Current Tas
 - If the ModxAI main service restarts, the scheduler automatically restores the status of incomplete tasks.
 - When a VRAM warning is shown, GPU tasks run one at a time. An idle GPU is not left stopped. When VRAM is critically low, a new GPU task is refused.
 - In "Existing Session" mode for agent tasks, execution will fail if the target session has been deleted.
+

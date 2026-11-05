@@ -3,7 +3,7 @@
 > v1.1.10
 > 2026-10
 
-> 📌 **Module Positioning**: Real-time monitoring of training progress, viewing historical training data, and analyzing training status through visual charts.
+View training progress, metric charts, and logs, or review a stopped or completed task.
 
 ## Table of Contents
 - [Overview](#overview)
@@ -178,8 +178,8 @@ When the same training task is trained multiple times (e.g., restart after inter
 
 ### Data Storage
 
-- **Historical Data**: Saved in `training_logs` table of local database.
-- **Page Switching**: Chart data will be restored from cache when switching back from other pages.
+- **Historical Data**: Saved locally and available in History Review mode.
+- **Page Switching**: Return to the page to view the chart again.
 
 ---
 
@@ -208,21 +208,16 @@ Detailed logs during training are displayed at the bottom of the page:
 ## Real-time Monitoring Mode
 
 ### Working Principle
-1. Push frequency is controlled by `logging_steps` parameter (default push once every 10 steps).
-2. Frontend updates charts and metric display after receiving events.
+
+While training runs, the page updates the charts and metrics.
 
 ### Data Update Frequency
 
-| Configuration Item | Description |
-|--------|------|
-| logging_steps | Record log every X steps |
-| Backend Throttling | About 300ms sending interval |
+Set **Logging steps** in the training parameters to choose how often to record a log entry (default: every 10 steps).
 
 ### Chart Smoothing
 
-To avoid excessive curve jitter, the system uses a dual smoothing strategy:
-- **Exponential Smoothing (EMA)**: Smooth sudden data points.
-- **Moving Average (MA)**: Further noise reduction.
+The charts smooth fluctuations to make trends easier to read.
 
 ---
 
@@ -234,9 +229,7 @@ Select a task with status **Completed** or **Stopped**, system automatically swi
 
 ### Data Loading
 
-1. Load all training logs of the task from database.
-2. Parse metric data in logs.
-3. Render complete training curves at once.
+Select a task to view its saved training curves and logs.
 
 ### Historical Data Limit
 
@@ -279,3 +272,4 @@ Select a task with status **Completed** or **Stopped**, system automatically swi
 - [Evaluate Module Details](./evaluate.md) - Checkpoint evaluation
 - [Test Module Details](./test.md) - Interactive testing
 - [Package Module Details](./package.md) - GGUF export
+
