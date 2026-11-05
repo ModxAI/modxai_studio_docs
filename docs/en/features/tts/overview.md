@@ -3,7 +3,7 @@
 > v1.1.10
 > 2026-10
 
-This article introduces the **TTS (Text-to-Speech)** feature in ModxAI Studio, helping you understand how to use local TTS models to convert text into natural speech.
+Turn text into speech with a local TTS model, and choose a voice and speaking speed.
 
 Open speech synthesis from the **agent submenu**, next to SD Chat.
 

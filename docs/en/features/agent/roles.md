@@ -122,7 +122,7 @@ The main role supports three model connection methods:
 
 ### Important Constraints
 
-> \u26a0\ufe0f The memory role has the following hard constraints:
+> The memory role has the following hard constraints:
 > - **Can only use local models**, does not support online or LAN.
 > - **Tools are prohibited** (tool rounds fixed to 0).
 > - **Streaming output is not supported**.

@@ -3,15 +3,15 @@
 > v1.1.10
 > 2026-10
 
-> 📌 **Module Positioning**: Interactively test the actual inference effect of checkpoints and verify the answer quality of the model in real dialogue scenarios.
+Select a training checkpoint and enter questions to check its answers in conversation.
 
 ## Table of Contents
 - [Overview](#overview)
 - [Usage Scenarios](#usage-scenarios)
+- [Test Flow](#test-flow)
 - [Inference Parameters](#inference-parameters)
   - [Basic Parameters](#basic-parameters)
   - [Advanced Parameters](#advanced-parameters)
-- [Test Flow](#test-flow)
 - [Test Suggestions](#test-suggestions)
 - [FAQ](#faq)
 - [Relationship with Other Modules](#relationship-with-other-modules)
@@ -48,6 +48,39 @@ The Test module provides an interactive dialogue interface, allowing users to ma
 ```
 Evaluation Module → Find High Score Checkpoints → Test Module Verification → Determine Final Checkpoint
 ```
+
+---
+
+## Test Flow
+
+### 1. Select Checkpoint
+
+Select the checkpoint to test from the task's checkpoint list:
+- Can select based on recommendation from Evaluation module.
+- Can select checkpoints with different training steps for comparison.
+
+### 2. Configure Parameters
+
+Click parameter configuration button:
+- Adjust inference parameters.
+- Set system prompt (optional).
+- Configure thinking mode (optional).
+
+### 3. Start Dialogue
+
+In the dialogue box:
+1. Input test question.
+2. Wait for model to generate reply.
+3. View reply content.
+4. Continue to input next question (multi-turn dialogue).
+
+### 4. Analyze Results
+
+Focus on the following aspects:
+- **Answer Accuracy**: Whether the question is answered correctly.
+- **Answer Fluency**: Whether the language is natural and smooth.
+- **Format Standardization**: Whether it meets expected output format.
+- **Knowledge Correctness**: Whether it contains correct knowledge.
 
 ---
 
@@ -222,39 +255,6 @@ Evaluation Module → Find High Score Checkpoints → Test Module Verification �
 ```
 You are a professional customer service assistant, please answer user questions in a friendly and professional tone.
 ```
-
----
-
-## Test Flow
-
-### 1. Select Checkpoint
-
-Select the checkpoint to test from the task's checkpoint list:
-- Can select based on recommendation from Evaluation module.
-- Can select checkpoints with different training steps for comparison.
-
-### 2. Configure Parameters
-
-Click parameter configuration button:
-- Adjust inference parameters.
-- Set system prompt (optional).
-- Configure thinking mode (optional).
-
-### 3. Start Dialogue
-
-In the dialogue box:
-1. Input test question.
-2. Wait for model to generate reply.
-3. View reply content.
-4. Continue to input next question (multi-turn dialogue).
-
-### 4. Analyze Results
-
-Focus on the following aspects:
-- **Answer Accuracy**: Whether the question is answered correctly.
-- **Answer Fluency**: Whether the language is natural and smooth.
-- **Format Standardization**: Whether it meets expected output format.
-- **Knowledge Correctness**: Whether it contains correct knowledge.
 
 ---
 

@@ -17,7 +17,7 @@ The agent supports voice input via microphone. The system automatically transcri
 
 ## Prerequisites
 
-> \u26a0\ufe0f **An STT model must be loaded and a microphone device connected** for voice input to function.
+> **An STT model must be loaded and a microphone device connected** for voice input to function.
 
 ### Required Models
 

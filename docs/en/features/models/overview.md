@@ -3,7 +3,7 @@
 > v1.1.10
 > 2026-10
 
-This article introduces how to use the **Model Library** feature in ModxAI Studio, helping you complete tasks such as model import, download, load, management, and custom export.
+Use the Model Library to download, import, and load models, manage existing models, or export a custom model.
 
 ## Table of Contents
 
@@ -290,9 +290,11 @@ Rerank models use a cross-encoder architecture with high computational complexit
 
 1. **Click Import Button**: Click "Import" under the corresponding model category tab.
 2. **Select File**:
-   - **Chat/Multimodal**: Select `.gguf` or `.bin` file.
+   - **Chat/Multimodal**: Select a `.gguf` or `.bin` file. For HF chat models, select the directory containing `.safetensors` files.
    - **Embedding/Rerank**: Select `.safetensors` file or directory containing the file.
-   - **SD Model**: Must use SD import dialog separately.
+   - **SD Model**: Use the separate SD import dialog.
+   - **TTS Model**: Select the `.pth` weights file.
+   - **STT Model**: Use the downloader; it manages the model files.
 3. **Auto Verification**: System automatically detects file format and model type.
 4. **Fill Information**:
    - **Name**: Model display name.
@@ -304,14 +306,7 @@ Importing a `.safetensors` file reports the file size.
 
 ### Smart Detection Rules
 
-The system automatically infers model type based on the following information:
-
-- **Filename**: Contains keywords like `vision`, `mmproj`, `multimodal`.
-- **Directory Name**: Parent directory contains model type related keywords.
-- **Format**:
-  - `.gguf/.bin` → Chat or Multimodal.
-  - `.safetensors` + Directory → Embedding or Rerank.
-  - `.gguf/.bin/.safetensors` + Single File → SD Model.
+Check the detected category before confirming the import. If it is incorrect, select the category that matches the model’s purpose.
 
 ### Multimodal Projection Component (mmproj)
 
@@ -624,7 +619,8 @@ The toolbox **local model usage** panel shows input tokens, output tokens, and r
 
 ### File Format Restrictions
 
-- **Chat/Multimodal**: Only supports `.gguf` and `.bin`.
+- **Chat**: `.gguf` or `.bin` files, or an HF model directory containing `.safetensors` files.
+- **Multimodal**: `.gguf` or `.bin` files.
 - **Embedding/Rerank**: Only supports `.safetensors` (Optional directory import).
 - **SD Model**: Only supports `.gguf/.safetensors/.bin`.
 - Unsupported formats will be rejected during validation phase.

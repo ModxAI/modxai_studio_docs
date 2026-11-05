@@ -46,7 +46,7 @@ The agent's **browser operations** and **web search** features depend on additio
 
 ### Voice Input Environment
 
-Voice input requires loading **STT (Speech-to-Text)** and **TTS (Text-to-Speech)** models. See [Voice Input](./voice-input.md).
+Voice input requires a microphone and a loaded **STT (Speech-to-Text)** model. Load a **TTS (Text-to-Speech)** model only if you want replies read aloud. See [Voice Input](./voice-input.md).
 
 ---
 
@@ -91,7 +91,7 @@ The agent uses a **multi-role collaboration** architecture, where each role has 
 | **Security Role** | Pre-screening of high-risk content and safety recommendations | Optional |
 | **Delegate Role** | Delegates subtasks to independently configured roles | Optional |
 
-Each role's model and parameters can be independently configured. Except for the main role, if a role has no model specified, it automatically reuses the main role's model. See [Role Configuration](./roles.md).
+Each role can have its own model and parameters. Summary, Security, Evaluate, and Delegate roles reuse the main model when no model is specified. The Memory role requires a local model. See [Role Configuration](./roles.md).
 
 ### Toolset
 

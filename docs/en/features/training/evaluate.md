@@ -3,28 +3,28 @@
 > v1.1.10
 > 2026-10
 
-> 📌 **Module Positioning**: Automatically evaluate checkpoint quality and help users find the best checkpoint through standardized sample testing.
+Compare training checkpoints with an evaluation set, then test them in chat to check answer quality.
 
 ## Table of Contents
 - [Overview](#overview)
 - [Built-in Benchmarks](#built-in-benchmarks)
 - [Evaluation Samples](#evaluation-samples)
-- [Evaluation Parameters](#evaluation-parameters)
 - [Evaluation Flow](#evaluation-flow)
+- [Evaluation Parameters](#evaluation-parameters)
 - [Evaluation Metrics](#evaluation-metrics)
 - [Usage Suggestions](#usage-suggestions)
 - [Difference from Test Module](#difference-from-test-module)
 
 ## Overview
 
-The Evaluation module uses predefined Q&A samples to batch test training checkpoints, automatically calculates similarity scores, and helps users objectively evaluate model training effects.
+Evaluate checkpoints using built-in benchmarks or custom Q&A samples. Compare their scores, then test the checkpoints on your own tasks.
 
 ### Core Functions
 
 | Function | Description |
 |------|------|
 | Batch Evaluation | Automatically evaluate checkpoints using sample datasets |
-| Score Calculation | Calculate similarity between model output and standard answers |
+| Score Calculation | Use the selected benchmark’s scoring method, or similarity for custom Q&A samples |
 | Result Comparison | Visual comparison of evaluation results for multiple checkpoints |
 | Best Recommendation | Automatically recommend the checkpoint with the highest score |
 | Built-in Benchmarks | IFEval, GSM8K, MMLU, and HellaSwag |
@@ -50,13 +50,7 @@ Choose one of these built-in sets in the evaluation module, then choose the chec
 
 ### Default Sample File
 
-The system ships with a default evaluation sample file:
-
-```
-server/resources/example/train_evaluation/model_evaluation_samples.json
-```
-
-When running the evaluation function for the first time, this file will be copied to the user data directory as the default configuration.
+The default sample file is `model_evaluation_samples.json`. Check the sample file path in the evaluation parameters before editing it.
 
 ### Sample Format
 
@@ -100,6 +94,38 @@ Users can modify the sample file to suit their own evaluation needs:
 | Answer Standard | Use expected standard answer format |
 | Quantity Balance | Appropriate balance between train and validation quantities |
 | Difficulty Gradient | Include questions of different difficulties from simple to complex |
+
+---
+
+## Evaluation Flow
+
+### 1. Select Checkpoint
+
+Select the checkpoint to evaluate on the evaluation page:
+- Can select a single checkpoint for evaluation.
+- Can select multiple checkpoints for comparative evaluation.
+
+### 2. Configure Parameters
+
+Click the parameter configuration button to adjust evaluation parameters:
+- Set sampling ratio and sample number limit.
+- Adjust inference parameters (recommend using low temperature).
+- Confirm evaluation sample file path.
+
+### 3. Execute Evaluation
+
+1. Click "Start Evaluation" button.
+2. System loads checkpoint and initializes model.
+3. Perform inference sample by sample.
+4. Score the output using the selected evaluation set’s method.
+5. Generate evaluation report.
+
+### 4. View Results
+
+After evaluation is complete, display:
+- **Overall Score**: Average similarity for custom Q&A samples; built-in benchmarks use their own scoring methods.
+- **Detailed Results**: Question, standard answer, model output, and score for each sample.
+- **Comparison Chart**: Score comparison when evaluating multiple checkpoints.
 
 ---
 
@@ -198,43 +224,11 @@ The following parameters are located in the fold panel:
 
 ---
 
-## Evaluation Flow
-
-### 1. Select Checkpoint
-
-Select the checkpoint to evaluate on the evaluation page:
-- Can select a single checkpoint for evaluation.
-- Can select multiple checkpoints for comparative evaluation.
-
-### 2. Configure Parameters
-
-Click the parameter configuration button to adjust evaluation parameters:
-- Set sampling ratio and sample number limit.
-- Adjust inference parameters (recommend using low temperature).
-- Confirm evaluation sample file path.
-
-### 3. Execute Evaluation
-
-1. Click "Start Evaluation" button.
-2. System loads checkpoint and initializes model.
-3. Perform inference sample by sample.
-4. Calculate similarity between model output and standard answer.
-5. Generate evaluation report.
-
-### 4. View Results
-
-After evaluation is complete, display:
-- **Overall Score**: Average similarity score of all samples.
-- **Detailed Results**: Question, standard answer, model output, and score for each sample.
-- **Comparison Chart**: Score comparison when evaluating multiple checkpoints.
-
----
-
 ## Evaluation Metrics
 
 ### Similarity Calculation
 
-Evaluation uses text similarity algorithms to calculate the match degree between model output and standard answer:
+Custom Q&A samples use text similarity to compare model output with the reference answer:
 
 | Factor | Weight |
 |------|------|
@@ -243,6 +237,8 @@ Evaluation uses text similarity algorithms to calculate the match degree between
 | Format Match | Reference metric |
 
 ### Score Interpretation
+
+The ranges below apply only to similarity scores for custom Q&A samples, not to built-in benchmarks.
 
 | Score Range | Description |
 |----------|------|

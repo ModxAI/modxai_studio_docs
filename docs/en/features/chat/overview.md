@@ -3,7 +3,7 @@
 > v1.1.10
 > 2026-10
 
-This article introduces how to use the **Text Chat** and **Multimodal Chat** features in ModxAI Studio. It helps you complete tasks such as daily conversation reasoning, knowledge base Q&A, and image-text understanding.
+Chat with a loaded model, or ask a multimodal model about images. You can also connect a knowledge base for text chat.
 
 ## Table of Contents
 
@@ -21,9 +21,7 @@ This article introduces how to use the **Text Chat** and **Multimodal Chat** fea
 
 ## Environment Requirements
 
-**No additional environment dependencies are required for this feature.**
-
-Text chat and multimodal chat features use llama.cpp as the inference engine, so there is no need to install environment in **Settings** beforehand.
+Chat and multimodal models that use llama.cpp need no additional environment. HF Transformers chat models require a CPU or GPU environment installed in **Settings**.
 
 You only need to:
 1. Download and load a chat model or multimodal model in the Model Library.

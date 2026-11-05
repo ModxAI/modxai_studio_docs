@@ -140,7 +140,7 @@ The system presets common dangerous commands: `rm`, `del`, `format`, `shutdown`,
 
 ### Custom Blacklist
 
-Edit the command blacklist in Advanced Settings \u2192 Security group. Separate multiple commands with commas or newlines.
+Edit the command blacklist in Advanced Settings → Security group. Separate multiple commands with commas or newlines.
 
 > ⚠️ Commands on the blacklist are **always rejected**, regardless of auto-approval or manual confirmation mode.
 
@@ -148,11 +148,11 @@ Edit the command blacklist in Advanced Settings \u2192 Security group. Separate 
 
 ## Security Role
 
-The security role is an optional role component. The security review described above is only performed when it is enabled.
+The optional security role adds model-based risk checks when enabled.
 
 ### Enabling
 
-In the right configuration panel, expand "Role Parameters" \u2192 "Security Role" \u2192 enable and configure the model.
+In the right configuration panel, expand "Role Parameters" → "Security Role" → enable and configure the model.
 
 ### Relationship with Basic Security
 

@@ -44,7 +44,8 @@ This page summarizes common issues and solutions encountered while using ModxAI 
 
 - Click the **Refresh button** to update the model list.
 - Check the file format:
-  - Chat/Multimodal models: `.gguf` or `.bin`
+  - Chat models: `.gguf` or `.bin`, or an HF model directory containing `.safetensors` files.
+  - Multimodal models: `.gguf` or `.bin`.
   - Embedding/Rerank models: `.safetensors` (import the directory)
 
 ### Model failed to load?
@@ -94,9 +95,9 @@ No. RAG retrieval is unavailable in multimodal dialogue mode. For knowledge base
 
 ### What are the prerequisites for the agent?
 
-1. Load a chat model for the main role.
-2. Install "Full" or "Agent" environment capabilities in **Settings** (required for browser and web tools).
-3. Switch to agent mode in the chat interface.
+1. Open the **Agent Workbench** and select a model for the main role in session settings. You can use a local, online, or LAN model; see [Role Configuration](./features/agent/roles.md).
+2. Install the "Full" or "Agent" environment in **Settings** if you need browser or web search tools.
+3. Create a session, enter your task, and send it.
 
 ### What model size is suitable for the agent?
 
@@ -187,7 +188,7 @@ In SFT or RAG data processing, selecting "JSON" as the file type enters structur
 | pretrain | Plain text corpus | Pre-training / Continued pre-training |
 | dpo | prompt/chosen/rejected preference pairs | DPO preference alignment training |
 
-Switch the export format parameter in the AI synthesis step. Pre-training no longer has a separate step.
+Choose the appropriate **Export Format** in the AI synthesis step.
 
 ### What is Chain of Thought (CoT) mode?
 
@@ -308,7 +309,7 @@ Open **Settings → Environment**. You can choose Full, Agent, or Speech. If an 
 
 Common solutions:
 - **Switch mirror source**: Users in China should select Alibaba Cloud or Tencent Cloud.
-- **Check disk space**: Environment installation requires approximately 5-10 GB of space.
+- **Check disk space**: Check the [space requirements](./features/settings/environment.md#storage-location-and-space-requirements) for the environment you selected.
 - **Check network**: Ensure access to the download source.
 - **Retry installation**: Click the "Reinstall" button.
 

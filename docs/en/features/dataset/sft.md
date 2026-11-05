@@ -3,7 +3,7 @@
 > v1.1.10
 > 2026-10
 
-This article details how to use the SFT (Supervised Fine-Tuning) data processing function of ModxAI Studio to convert raw text or code files into high-quality datasets that meet training format requirements.
+Convert text, code, or structured files into model training data. Select your files, then configure cleaning, synthesis, and export steps.
 
 ---
 
@@ -122,13 +122,13 @@ To simplify operations, the system presets several common workflow templates. Yo
 | **AI Quality** | 0→1→2→3→4→5→7→8→9→10 | Need AI to filter low-quality data | Includes quality assessment filtering |
 | **Custom** | Select as needed | Special needs | Manually select steps to execute |
 
-> Pre-training no longer has a separate step. Set the **Export Format** to `pretrain` in the AI synthesis step node, and subsequent steps will output plain text corpus in pre-training format.
+> Set the **Export Format** to `pretrain` in the AI synthesis step node, and subsequent steps will output plain text corpus in pre-training format.
 
 ---
 
 ## Processing Flow Overview
 
-SFT data processing includes 11 steps (0-10), some of which are optional:
+The table below lists the SFT processing steps; some are optional:
 
 | Step | Name | Description | Required | Configurable |
 | :--- | :--- | :--- | :--- | :--- |
@@ -314,7 +314,7 @@ Near-duplicate detection in this step can use an embedding model to improve accu
 
 ### Export Format & Pre-training
 
-Pre-training is no longer a standalone step. Set the **Export Format** parameter in Step 4 (AI Synthesis) to control the final output:
+Set **Export Format** in Step 4 (AI Synthesis) to choose the final output format:
 
 | Export Format | Output Content | Use Case |
 |---------------|----------------|----------|
@@ -599,4 +599,3 @@ A: Mainly supports:
 ---
 
 *For other questions, please refer to project documentation or ask in the community.*
-

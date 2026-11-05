@@ -88,7 +88,7 @@ Automatically vectorizes memory data and writes it to a RAG knowledge base on a 
 
 ## Scheduling Strategies
 
-Scheduled tasks support two trigger methods:
+Tasks can use the following triggers:
 
 ### Interval Trigger
 
@@ -120,7 +120,7 @@ The global one-at-a-time limit still applies. While the upstream task is running
 1. Click the **New Task** button.
 2. Enter a task name (required).
 3. Select the task type from the dropdown.
-4. Configure the scheduling strategy (interval or fixed time).
+4. Configure the trigger; see [Scheduling Strategies](#scheduling-strategies).
 5. Fill in task-specific configuration based on the task type.
 6. Click Confirm to create.
 

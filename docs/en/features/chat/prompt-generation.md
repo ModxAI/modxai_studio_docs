@@ -3,7 +3,7 @@
 > v1.1.10
 > 2026-10
 
-This article introduces how to use the **Prompt Optimization** feature of ModxAI Studio to help you quickly generate high-quality prompts and improve the effect of conversations with AI.
+Describe your task to generate a prompt. Review the result before using it in a chat or agent task.
 
 ## Table of Contents
 
@@ -130,7 +130,7 @@ Analyze the problems in this code
 Summarize machine learning
 ```
 
-**Incorrect Examples** (Already clear task instructions, no need to optimize):
+**Examples that usually need no optimization** (the task is already clear):
 ```
 Please translate "Artificial Intelligence is changing the world" into English
 ```
@@ -138,7 +138,7 @@ Please translate "Artificial Intelligence is changing the world" into English
 Calculate the result of 123 + 456
 ```
 
-> **Important Note**: If your input is already very clear and specific, using prompt optimization may result in empty or meaningless results. This feature is designed for vague and general expressions.
+> **Note**: Clear task instructions can be used directly without optimization. Review any details the model adds and correct them before use.
 
 ### 5. Generate Optimized Prompt
 
@@ -310,7 +310,7 @@ After selecting a template, you can modify the content of the system or user pro
 
 If the generation result is not ideal:
 
-1. **Check Input**: Confirm if the original prompt is vague enough (too specific instructions do not need optimization).
+1. **Check Input**: Check that the goal, context, and constraints are clear. You can use an already clear instruction directly.
 2. **Switch Template**: Try other optimization strategies.
 3. **Adjust Instruction**: Modify requirements in the user prompt template (e.g., "increase technical depth", "simplify expression", etc.).
 4. **Regenerate**: Click "Generate" button to optimize again.
@@ -360,7 +360,7 @@ Optimized: "Develop a command-line calculator program based on Python, requireme
 ```
 
 **Solution**:
-- Use more vague, general input.
+- Add your goal, context, and constraints, then check whether the generated prompt fits your needs.
 - If the task itself is very clear, enter it directly in the chat box, no need for prompt optimization.
 
 ---

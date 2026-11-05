@@ -27,14 +27,14 @@ Intelligent conversation with local large language models:
 
 - **Text Chat**: Daily Q&A, code generation, creative writing, etc.
 - **Multimodal Chat**: Supports image-text understanding; upload images for AI analysis.
-- **RAG Enhancement**: Answer questions based on your knowledge base; AI understands your domain better.
+- **RAG Enhancement**: Retrieve material from your knowledge base for the model to use when answering.
 - **Data Collection**: Collect high-quality conversations for generating training or RAG data.
 
 ### 🖼️ Image & Video Generation
 
 Creative generation using Stable Diffusion models:
 
-- **Text-to-Image**: Generate exquisite images based on text descriptions.
+- **Text-to-Image**: Generate images from text descriptions.
 - **Image-to-Image**: Perform style transfer or content modification based on existing images.
 - **Video Generation**: Supports video generation models like the Wan series.
 
@@ -69,11 +69,11 @@ Convert raw data into trainable datasets:
 
 ### 🎯 Model Training
 
-- **LoRA Efficient Fine-Tuning**: Start training with as little as 8GB VRAM.
+- **LoRA Efficient Fine-Tuning**: Fine-tune models with LoRA. VRAM requirements depend on the model and training settings.
 - **Real-Time Monitoring**: Visualize training progress and loss curves.
 - **Checkpoint Evaluation**: Automatically evaluate multiple checkpoints and recommend the best result.
 - **One-Click Export**: Export training results to GGUF format for direct inference use.
-- **Memory Training**: Automatically iterates and optimizes personalized models based on agent-accumulated or user-bookmarked conversation memories.
+- **Memory Training**: Use memories saved by the agent or bookmarked conversations for fine-tuning.
 
 ### 🗂️ Memory, Schedules, and Channels
 
@@ -81,12 +81,14 @@ Convert raw data into trainable datasets:
 - **Scheduled Tasks**: Run agent tasks, memory organization, memory fine-tuning, and knowledge-base updates on an interval, at a fixed time, or after an upstream task finishes.
 - **External Access**: Reach the local agent from Telegram, Discord, DingTalk, or Feishu, or call the gateway HTTP API from this machine or the LAN. Unpaired chats cannot send tasks.
 
-### ⚙️ Zero-Threshold Environment Configuration
+<a id="⚙️-zero-threshold-environment-configuration"></a>
 
-Say goodbye to complex environment configurations:
+### Environment Configuration
+
+Install the components required by a feature in Settings:
 
 - **First-Run Guide**: The first launch walks through getting started and installing an environment.
-- **One-Click Installation**: Automatically detects hardware and recommends the best configuration.
+- **One-Click Installation**: Detects hardware and provides installation options.
 - **On-Demand Selection**: Supports Full / Agent / Voice Synthesis three installation capabilities, install as needed.
 - **Environment Management**: Install and manage the required runtime components in Settings.
 - **On-Demand Loading**: Dependencies are not loaded when features are not in use.
