@@ -304,4 +304,3 @@ The ranges below apply only to similarity scores for custom Q&A samples, not to 
 - [Monitor Module Details](./monitor.md) - Training monitoring
 - [Test Module Details](./test.md) - Interactive testing
 - [Package Module Details](./package.md) - GGUF export
-

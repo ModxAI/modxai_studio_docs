@@ -138,4 +138,3 @@ Install the components required by a feature in Settings:
 - [Agent](../features/agent/overview.md) - Let a model carry out multi-step tasks.
 - [Model Library](../features/models/overview.md) - Learn how to manage and load models.
 - [AI Chat](../features/chat/overview.md) - Dive deeper into chat features.
-

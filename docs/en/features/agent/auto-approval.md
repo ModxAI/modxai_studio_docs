@@ -160,4 +160,3 @@ In the right configuration panel, expand "Role Parameters" â†’ "Security Role" â
 - The security role provides additional **semantic-level** security analysis.
 - It is recommended to enable the security role when processing high-risk content.
 - If no model is specified for the security role, it automatically uses the main role's model.
-

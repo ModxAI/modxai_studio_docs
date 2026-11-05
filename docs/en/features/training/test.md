@@ -356,4 +356,3 @@ Prepare Module → Monitor Module → Evaluation Module → Test Module → Pack
 - [Monitor Module Details](./monitor.md) - Training monitoring
 - [Evaluate Module Details](./evaluate.md) - Checkpoint evaluation
 - [Package Module Details](./package.md) - GGUF export
-

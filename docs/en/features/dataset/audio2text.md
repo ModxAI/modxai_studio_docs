@@ -365,5 +365,3 @@ A: Choose according to your needs:
 ---
 
 *For other questions, please refer to project documentation or ask in the community.*
-
-

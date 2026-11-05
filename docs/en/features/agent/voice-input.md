@@ -111,4 +111,3 @@ Click the **Read Aloud button** (🔊) next to the agent's response to synthesiz
 - Transcription accuracy depends on STT model quality and recording clarity. The `faster-whisper-large-v3` model is recommended.
 - Transcribed text is automatically filled into the input box and can be manually edited before sending.
 - If transcription accuracy is unsatisfactory, try switching to a different STT model.
-

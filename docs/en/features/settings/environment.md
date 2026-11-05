@@ -458,5 +458,3 @@ Installation logs are displayed in real-time in the progress card:
 ## Related Documentation
 
 - [Global Settings Overview](./overview.md) - Return to settings feature overview
-
-

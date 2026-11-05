@@ -678,4 +678,3 @@ After completing this chapter, you can:
 - Go to **Knowledge Base** feature, configure embedding and rerank models for RAG retrieval.
 - Go to **Data Processing** feature, use model to generate SFT or RAG datasets.
 - Go to **Settings** page, manage environment and system configuration.
-
