@@ -1,368 +1,112 @@
-# Audio to Text Data Processing
+# Audio to Text
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
-This article details how to use the Audio to Text function of ModxAI Studio to batch transcribe audio files into text data.
+Transcribe local audio files in batches into timestamped text, with optional subtitle and document exports. Use it for meeting recordings, interviews, and podcasts. This page covers file transcription, not live microphone transcription.
 
----
+## Before You Start
 
-## Table of Contents
+- Install the required CPU or GPU environment in **Settings → System** and confirm that it is ready. See [Environment Setup](../settings/environment.md).
+- Put your `.mp3`, `.wav`, `.m4a`, or `.wma` files in an input folder.
+- Prepare a separate output folder. Processing includes subfolders of the input folder, so try a few files first.
+- Add a **faster-whisper** model to your model library. Keep the complete model folder, including `model.bin` and either `vocabulary.json` or `tokenizer.json`. Do not download only the weights file.
 
-- [Feature Introduction](#feature-introduction)
-- [Model Preparation](#model-preparation)
-- [Processing Flow](#processing-flow)
-- [Step-by-Step Details](#step-by-step-details)
-- [Output Formats](#output-formats)
-- [Notes](#notes)
-- [FAQ](#faq)
+### Download a Model
 
----
+1. Open **Model Center → Download**.
+2. In **Browse**, select **Audio2Text**, then choose a model, download source, and version.
+3. Check the required disk space and save location, then start the download.
+4. Check the download and import results in **Downloads**, then confirm that the model appears in **Model Center → STT**.
 
-## Feature Introduction
+Downloads started from **Browse** automatically attempt to import the model after file verification. **Repository** downloads and files downloaded elsewhere need a manual import: open **Model Center → STT**, click **Import**, select `model.bin` inside the model folder, check the name and category, and complete the import.
 
-The Audio to Text (Audio2Text) function is based on **faster-whisper**, capable of batch transcribing audio files into text. It supports multiple audio formats and provides various output format choices.
+Downloading requires an internet connection. Use the size shown on the download page. Memory use, VRAM use, and transcription speed depend on the model, audio, and device.
 
-**Applicable Scenarios**:
-- Meeting recording transcription
-- Video subtitle generation
-- Podcast content organization
-- Speech dataset construction
+## Run a Transcription
 
-**Supported Audio Formats**: `.mp3`, `.wav`, `.m4a`, `.wma`
+1. Open **Self Improvement → Dataset**, then select **MM → Audio2Text**.
+2. Select or enter the audio folder in **Input Directory** and set the result location in **Output Directory**.
+3. Under **File type**, keep **All supported types** or select only the extensions you want to process.
+4. In **Audio2Text Model**, select an imported faster-whisper model.
+5. Keep **Model Loading**, **Transcribe**, and **Output** selected. To change settings, click **…** on the relevant step and save your changes. For a first run, start with the defaults.
+6. Click **Start**. In **Monitoring**, check the file count, progress, and logs. The app scans the input folder and its subfolders, then processes files one at a time, starting with the most recently modified.
+7. Check the completion or error message. Click **Open** in the success dialog to open the output folder.
 
-**Core Features**:
-- Supports automatic language detection
-- Supports GPU acceleration (CUDA)
-- VAD (Voice Activity Detection) filters silent segments
-- Real-time progress display and log output
-- Multiple output formats (JSON, SRT, HTML, Markdown)
+If a newly imported model is missing from the selector, leave the Dataset page and return before selecting it.
 
----
+## Check the Results
 
-## Model Preparation
+Results are saved in your output folder using the audio filename without its extension. For example, `meeting.mp3` produces `meeting.json`.
 
-### Model Requirements
+| Format | What it contains |
+| --- | --- |
+| JSON | Generated for each completed audio file. Includes recognized text, segment start and end times, and the detected language. Word-level timing is included when enabled. |
+| SRT | Optional subtitles with timecodes. |
+| HTML | Optional timestamped text for reading in a browser. |
+| Markdown (md) | An optional timestamped text list for further editing. |
 
-Audio to Text uses **faster-whisper** format models. The model directory must contain the following core files:
+JSON is generated even if you select only other output formats. Check that the expected files exist, then review the text and timestamps, especially names, technical terms, and noisy sections.
 
-| File | Description | Required |
-| :--- | :--- | :--- |
-| `model.bin` | Model weight file | ✓ |
-| `vocabulary.json` | Vocabulary file | ✓ |
-| `config.json` | Configuration file | - |
-| `tokenizer.json` | Tokenizer file | - |
+**Watch for filename collisions:** all results go directly into the same output folder. Input subfolders are not recreated. Audio files with the same name in different subfolders, or `meeting.mp3` and `meeting.wav`, write to the same result filenames. Rename them first or process separate batches into different output folders. Existing results with matching names may also be overwritten.
 
-### Get Model
+## Settings
 
-#### Method 1: Download via Downloader (Recommended)
-
-1. Enter "Download" page.
-2. Select "Audio to Text" in category.
-3. Select appropriate model version to download:
-   - **faster-whisper-base**: Approx 150MB, fast, suitable for general scenarios.
-   - **faster-whisper-large-v3**: Approx 3.3GB, highest accuracy, suitable for professional scenarios.
-
-**Available Model List**:
-
-| Model Name | Size | Accuracy | Speed | Applicable Scenario |
-| :--- | :--- | :--- | :--- | :--- |
-| faster-whisper-base | ~150MB | Medium | Fastest | Daily use, fast transcription |
-| faster-whisper-small | ~500MB | Higher | Fast | Balance accuracy and speed |
-| faster-whisper-medium | ~1.5GB | High | Medium | Multi-language mixed scenarios |
-| faster-whisper-large-v3 | ~3.3GB | Highest | Slower | Professional transcription, low-quality audio |
-
-#### Method 2: Manual Download
-
-Download model files from HuggingFace or ModelScope and unzip to local directory.
-
-- HuggingFace: `https://huggingface.co/Systran/faster-whisper-*`
-- ModelScope: `https://www.modelscope.cn/models/Systran/faster-whisper-*`
-
-> ⚠️ **Important Note**:
-> 
-> Models downloaded via downloader **will not be automatically imported into the Model Library**. You need to **manually select the local model directory** in the processing interface when using.
-> 
-> Please ensure the selected directory contains `model.bin` file, otherwise the model cannot be loaded.
-
----
-
-## Processing Flow
-
-Audio to Text processing includes 3 steps:
-
-| Step | Name | Description | Configurable |
-| :--- | :--- | :--- | :--- |
-| 0 | Load Model | Load faster-whisper model | ✓ |
-| 1 | Transcribe | Convert audio to text | ✓ |
-| 2 | Output | Generate output file in specified format | ✓ |
-
-**Processing Logic**:
-1. Load specified faster-whisper model into memory/VRAM.
-2. Scan input directory in reverse order of file modification time.
-3. Transcribe audio files one by one, outputting real-time progress.
-4. Generate multi-format output files.
-5. Automatically unload model to release resources after processing completes.
-
----
-
-## Step-by-Step Details
-
-### Step 0: Load Model
-
-**Function**: Load faster-whisper model into memory or VRAM.
-
-#### Configurable Parameters
-
-| Parameter | Description | Default | Options/Range |
-| :--- | :--- | :--- | :--- |
-| **Model Path** | Local model directory path | - | Must contain model.bin |
-| **Compute Precision** | Model inference precision | float16 | `float16` / `int8` / `int8_float16` |
-| **Compute Device** | Running device selection | auto | `auto` / `cuda` / `cpu` |
-
-**Advanced Parameters** (Collapsible Area):
-
-| Parameter | Description | Default | Range |
-| :--- | :--- | :--- | :--- |
-| **CPU Threads** | Number of threads in CPU mode | 4 | 1-32 |
-| **Worker Processes** | Number of parallel processing processes | 1 | 1-8 |
-| **Device Index** | Specify which card to use for multi-GPU | 0 | 0-7 |
-
-**Compute Precision Explanation**:
-
-| Precision Type | Description | Applicable Scenario |
-| :--- | :--- | :--- |
-| `float16` | Half-precision floating point | GPU recommended, fast speed, high accuracy |
-| `int8` | 8-bit integer quantization | CPU recommended, small memory usage |
-| `int8_float16` | Mixed precision | Balance speed and accuracy on GPU |
-
----
-
-### Step 1: Transcribe
-
-**Function**: Convert audio content to text, identify speech and generate text segments with timestamps.
-
-#### Configurable Parameters
-
-| Parameter | Description | Default | Options/Range |
-| :--- | :--- | :--- | :--- |
-| **Beam Size** | Beam search width during decoding | 5 | 1-10 |
-| **Audio Language** | Specify audio language | auto | auto/zh/en/ja/ko/es/fr/de/ru |
-| **VAD** | Filter non-speech segments | Enabled | On/Off |
-
-**Advanced Parameters** (Collapsible Area):
-
-| Parameter | Description | Default | Range |
-| :--- | :--- | :--- | :--- |
-| **Repeat Penalty** | Strength to suppress repetitive generation | 1.1 | 1.0-1.5 |
-| **Word Timestamps** | Return timestamp for each word | Disabled | On/Off |
-| **Min Silence Duration** | Minimum silence duration recognized by VAD (ms) | 2000 | 100-5000 |
-
-**Parameter Explanation**:
-
-**Beam Size**:
-- Larger value means more accurate transcription results, but slower speed.
-- Recommended value: 5 for general scenarios, 8-10 for high accuracy requirements.
-
-**Voice Activity Detection (VAD)**:
-- When enabled, automatically filters silence and non-speech segments.
-- Recommended to enable for audio with poor recording quality or loud background noise.
-- If too few segments are identified after enabling, the system will automatically fallback and retry.
-
-**Audio Language**:
-- `auto`: Automatically detect language, suitable for single-language audio.
-- Specify language: For audio with known language, specifying language can improve accuracy.
-- Supported languages: Chinese (zh), English (en), Japanese (ja), Korean (ko), Spanish (es), French (fr), German (de), Russian (ru).
-
----
-
-### Step 2: Output
-
-**Function**: Save transcription results as files in specified format.
-
-#### Configurable Parameters
-
-| Parameter | Description | Default | Options |
-| :--- | :--- | :--- | :--- |
-| **Output Format** | Output file format (Multi-select) | json | json/srt/html/md |
-
----
-
-## Output Formats
-
-Each audio file will generate corresponding output files based on selected formats:
-
-### JSON Format (Default)
-
-Retains complete transcription information, including timestamps and metadata:
-
-```json
-{
-  "file": "meeting_record.mp3",
-  "segments": [
-    {
-      "index": 0,
-      "start": 0.0,
-      "end": 3.52,
-      "text": "Hello everyone, today we discuss project progress."
-    },
-    {
-      "index": 1,
-      "start": 3.52,
-      "end": 7.84,
-      "text": "First, let Xiao Wang report on development status."
-    }
-  ],
-  "info": {
-    "language": "en",
-    "language_probability": 0.98
-  }
-}
-```
-
-**Field Explanation**:
-- `segments`: Transcription segment array
-  - `index`: Segment sequence number
-  - `start`/`end`: Start/End time (seconds)
-  - `text`: Recognized text content
-  - `words`: (Optional) Word-level timestamps, only when enabled
-- `info`: Audio information
-  - `language`: Detected language
-  - `language_probability`: Language detection confidence
-
-### SRT Format
-
-Standard subtitle format, can be used directly in video players:
-
-```srt
-1
-00:00:00,000 --> 00:00:03,520
-Hello everyone, today we discuss project progress.
-
-2
-00:00:03,520 --> 00:00:07,840
-First, let Xiao Wang report on development status.
-```
-
-### HTML Format
-
-Web page format with styles, convenient for previewing in browser:
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <title>meeting_record</title>
-  <style>
-    .seg { margin: 8px 0; }
-    .ts { color: #888; margin-right: 8px; }
-  </style>
-</head>
-<body>
-  <div class="seg">
-    <span class="ts">[0.00 - 3.52]</span>
-    Hello everyone, today we discuss project progress.
-  </div>
-  ...
-</body>
-</html>
-```
-
-### Markdown Format
-
-Concise list format, suitable for document editing:
-
-```markdown
-# meeting_record
-
-- [0.00s - 3.52s] Hello everyone, today we discuss project progress.
-- [3.52s - 7.84s] First, let Xiao Wang report on development status.
-```
-
----
-
-## Notes
+These are the initial values for commonly used settings. If you have saved changes before, use the values currently shown in the settings panel.
 
 ### Model Loading
 
-1. **Model Directory Verification**: Automatically checks if `model.bin` and `vocabulary.json` are included when selecting directory.
-2. **VRAM Usage**: large-v3 model requires approx 4GB VRAM, please ensure GPU has sufficient space.
-3. **First Load**: First time loading model may take a long time, please wait patiently.
+| Setting | Initial value | Notes |
+| --- | --- | --- |
+| Device | `auto` | Options: `auto`, `cuda`, `cpu`. Automatic mode checks the device and runtime. The app may use CPU if CUDA is unavailable. |
+| Compute Type | `float16` | Options: `float32`, `float16`, `int8`, `int8_float16`, `int8_float32`. CPU supports `float32`, `int8`, and `int8_float32`; incompatible CPU settings are changed to `float32`. |
+| CPU Threads | `4` | Advanced setting, range 1–32. |
+| Workers | `1` | Advanced setting, range 1–8. |
+| Device Index | `0` | Advanced setting, range 0–7, for selecting a CUDA device. |
 
-### Transcription Quality
+To apply new device or compute settings to a model that is already loaded, finish the task, unload it in **Model Center → STT**, then start a new task.
 
-1. **Audio Quality**: Clear audio yields better transcription results.
-2. **Background Noise**: Suggest enabling VAD filtering when noise is loud.
-3. **Multi-language Mixed**: For multi-language mixed audio, suggest using large model and setting language to auto.
+### Transcribe
 
-### Resource Management
+| Setting | Initial value | Notes |
+| --- | --- | --- |
+| Beam Size | `5` | Range 1–10. A higher value increases decoding work but does not guarantee better accuracy. |
+| Language | `auto` | Detect automatically, or select Chinese, English, Japanese, Korean, Spanish, French, German, or Russian. |
+| VAD Filter | On | Voice activity detection selects speech segments. If speech is missing, try again with this off. |
+| Word Timestamps | Off | Advanced setting. Adds word-level timing to JSON results. |
+| Min Silence Duration | `2000` ms | Advanced setting, range 100–5000 ms. Used when VAD is enabled. |
 
-1. **Auto Unload**: Model automatically unloads after processing completes, releasing memory/VRAM.
-2. **Interrupt Processing**: If stopped during processing, model will not unload immediately (to avoid crash), will clean up on next operation.
-3. **Temporary Files**: `.transcribing.json` temporary file generated during processing, automatically deleted upon completion.
+### Output
 
-### Performance Optimization
+**Output Formats** initially selects `json`. You can also select `srt`, `html`, and `md`. See [Check the Results](#check-the-results) for file contents and naming.
 
-1. **GPU Acceleration**: Prioritize using CUDA when NVIDIA GPU is available, speed improvement is significant. Suggest installing [cudnn](https://developer.nvidia.com/cudnn).
-2. **Precision Selection**:
-   - GPU: Recommend `float16`
-   - CPU: Recommend `int8` (Faster speed, smaller memory)
-3. **Batch Processing**: System processes in reverse order of file modification time, latest files first.
+## Stop and Run Again
 
----
+- Click **Stop Processing** and wait for the interface to confirm that the task has stopped before starting another. Stopping may take time.
+- Completed files remain in the output folder. The current audio may leave a `.transcribing.json` temporary file, which is not a complete result. After writing the final JSON normally, the app attempts to remove the corresponding temporary file.
+- Transcription cannot resume from a temporary file or an interrupted position. Clicking **Start** again rescans and processes matching input files; completed files are not skipped automatically.
+- To retry only failed or unfinished files, put them in a separate input folder and use a new output folder to protect results you have already checked.
+
+## Notes
+
+- **Finishing a task does not unload the model.** After transcription completes or is stopped during processing, the loaded model remains available. To release resources, wait until the task ends, then open **Model Center → STT** and click **Unload**.
+- **Check errors before treating the batch as complete.** Other files may continue processing when one fails. Compare the logs with the output folder to identify files that need another attempt.
+- **Choose settings that fit your device.** If memory or VRAM is insufficient, try a smaller model, or switch to CPU with a compatible compute type. Model download size alone does not tell you how much memory it needs to run.
 
 ## FAQ
 
-### Q: Model load failed, prompting model.bin not found?
+### What if the model list is empty or the model fails to load?
 
-A: Please check the following:
-1. Confirm correct model directory is selected (the layer containing model.bin).
-2. If unzipped model, ensure no extra nested directories.
-3. Whether model file download is complete (compare file size).
+Confirm that the model is imported under **Model Center → STT**. Check that its path still exists, the download is complete, and `model.bin` is in the same folder as `vocabulary.json` or `tokenizer.json`. Return to the Dataset page and select the model again.
 
-### Q: Transcription result is empty or very few segments?
+### What if no files are found?
 
-A: VAD filtering might be too aggressive. System will automatically try to disable VAD and re-transcribe. If problem persists:
-1. Check if audio file is normal (can play with player).
-2. Try manually disabling VAD and process again.
-3. For audio with lots of background music, recognition might be affected.
+Check the input folder and **File type** filter. The folder must contain audio with the selected extensions, rather than videos or archives. Try playing the audio to confirm that it is readable.
 
-### Q: Why doesn't the downloaded model appear in Model Library?
+### What if the transcript is empty or misses speech?
 
-A: This is by design. faster-whisper models are specialized formats, different from llama.cpp models, and are not automatically imported into the unified Model Library. You need to manually select the model directory path in the processing interface when using.
+Check that the recording contains clear speech and that the language setting is appropriate. When VAD produces very few segments, the app attempts another transcription with VAD disabled; this does not guarantee a complete result. If the problem remains, turn VAD off manually and retry a single file, then review the output.
 
-### Q: What if GPU VRAM is insufficient?
+## Related Guides
 
-A: Try the following solutions:
-1. Use smaller model (e.g., base or small).
-2. Change compute precision to `int8_float16`.
-3. Switch to CPU mode (speed will slow down).
-4. Close other programs occupying VRAM.
-
-### Q: Transcription speed is very slow?
-
-A: Methods to improve speed:
-1. Ensure using GPU instead of CPU.
-2. Use smaller model (base model is fastest).
-3. Lower beam_size to 3-4.
-4. Use `float16` precision.
-
-### Q: Is real-time transcription supported?
-
-A: Current version is batch processing mode, does not support real-time streaming transcription. Audio files need to be fully uploaded before processing starts.
-
-### Q: How to choose appropriate model?
-
-A: Choose according to your needs:
-
-| Need | Recommended Model |
-| :--- | :--- |
-| Fast transcription, low accuracy requirement | faster-whisper-base |
-| Daily meeting recording | faster-whisper-small |
-| Multi-language mixed scenario | faster-whisper-medium |
-| Professional grade transcription, noisy environment | faster-whisper-large-v3 |
-
----
-
-*For other questions, please refer to project documentation or ask in the community.*
-
+- [Dataset Overview](./overview.md)

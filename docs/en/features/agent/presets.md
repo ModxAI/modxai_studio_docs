@@ -1,7 +1,7 @@
 # Preset Management
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
 Preset management allows you to save the complete parameter configuration of the workbench and restore it quickly when needed. Ideal for switching configurations between different task types.
 
@@ -20,28 +20,24 @@ A preset is a **complete snapshot** of the workbench parameters, including:
 - All role parameter configurations (model, prompt, inference parameters, etc.)
 - Advanced parameter settings
 - Workspace directory and Skills directory
-- Instruction settings (global instruction file path, personal preferences)
+- Instruction settings (global instruction file path, search ignore file, personal preferences)
 - Runtime policy, including the auto-approval (YOLO) toggle
 
 ---
 
 ## Saving a Preset
 
-1. Adjust all parameters in the right configuration panel.
-2. Click the **Preset Management** button.
-3. In the preset dialog, click **Save Current Configuration**.
-4. Enter a preset name.
-5. Confirm to save.
+1. Open **Runtime Settings** at the top right of the agent page and adjust the parameters. Configure and save instruction files, search ignore files, and user preferences under **Settings → Agent**.
+2. Click **Save Preset** (disk icon) at the top of the parameter panel.
+3. Enter a name. Expand **Runtime Policies** to check automatic approval if needed.
+4. Click **Save Preset**.
 
-The system includes a built-in default preset (non-deletable) that is automatically created on first use after installation.
-
----
+The built-in default preset cannot be deleted.
 
 ## Loading a Preset
 
-1. Click the **Preset Management** button.
-2. Find the target preset in the preset list.
-3. Click on the preset and select **Load**.
-4. After confirmation, the current workbench parameters will be replaced by the preset configuration.
+1. Open **Runtime Settings** and select a preset from the dropdown at the top of the panel.
+2. Click **Load Preset** beside the dropdown.
+3. Check the loaded parameters and automatic approval setting before sending a task.
 
-Loading a preset overwrites the current session's configuration. It is recommended to save the current configuration before loading a preset.
+Loading replaces the current configuration and restores the preset’s global instruction file path, search ignore file, and user preferences. Save it as a preset first if you need to keep it. You can delete non-default presets from the dropdown after confirming the deletion.

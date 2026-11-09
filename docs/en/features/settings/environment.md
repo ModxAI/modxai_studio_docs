@@ -1,9 +1,11 @@
 # Environment Installation Guide
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
-This document provides a detailed introduction to the **Environment Configuration** feature of ModxAI Studio, helping you understand the principles, operational procedures, and troubleshooting methods for environment installation.
+Install the environment required by a feature in Settings. Check disk space and hardware requirements first; use the troubleshooting steps below if installation fails.
+
+Open **Settings → System**. Environment dependencies and CUDA inference libraries have separate installation sections. Install what your features need.
 
 ## Table of Contents
 
@@ -22,16 +24,7 @@ This document provides a detailed introduction to the **Environment Configuratio
 
 ## Feature Overview
 
-Environment configuration is a core highlight feature of ModxAI Studio, adopting the following technical strategies:
-
-| Feature | Description |
-|---------|-------------|
-| **One-Click Installation** | Automatically configure portable Python environment and all dependencies |
-| **Sandbox Isolation** | Completely independent from system Python, no impact on existing development environments |
-| **Differential Loading** | Install on demand, unused feature modules will not install corresponding dependencies |
-| **Dynamic Loading** | Load libraries at runtime as needed, fast startup, low memory usage |
-| **Resume Support** | Can continue after installation interruption, downloaded files will be retained |
-| **Immediate Use** | No need to restart the application after installation, features immediately available |
+Choose a CPU or GPU environment, then install Full, Agent, or Speech capabilities as needed. Interrupted downloads can resume using files already downloaded. Check the environment status after installation, then load the required models.
 
 ---
 
@@ -102,7 +95,7 @@ If the system does not detect a discrete GPU (only integrated GPU or no GPU):
 
 - GPU option will be disabled
 - Only CPU environment can be installed
-- All features work normally, but inference and training speed will be slower
+- Features that support CPU execution are available, but inference and training may be slower
 
 ---
 
@@ -169,7 +162,7 @@ If the command fails or reports "command not found", it means the driver or CUDA
 **Characteristics**:
 - Smaller download size (approximately 2-3 GB)
 - No CUDA environment dependency
-- All features available but slower speed
+- Features that support CPU execution are available, but may be slower
 
 ### GPU Environment
 
@@ -467,4 +460,3 @@ Installation logs are displayed in real-time in the progress card:
 ## Related Documentation
 
 - [Global Settings Overview](./overview.md) - Return to settings feature overview
-

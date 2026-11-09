@@ -1,9 +1,13 @@
 # AI Chat
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
-This article introduces how to use the **Text Chat** and **Multimodal Chat** features in ModxAI Studio. It helps you complete tasks such as daily conversation reasoning, knowledge base Q&A, and image-text understanding.
+Chat with a loaded model, or ask a multimodal model about images. You can also connect a knowledge base for text chat.
+
+Hover over the corresponding conversation entry in the main menu to view its conversation list. Selecting a conversation opens it. Use **Runtime Settings** at the top right to adjust the current conversation.
+
+Click the page title to rename the current conversation. The hover list is only for selecting conversations. To rename or delete from the list, pin the submenu and use the pencil or trash button beside the conversation.
 
 ## Table of Contents
 
@@ -21,9 +25,7 @@ This article introduces how to use the **Text Chat** and **Multimodal Chat** fea
 
 ## Environment Requirements
 
-**No additional environment dependencies are required for this feature.**
-
-Text chat and multimodal chat features use llama.cpp as the inference engine, so there is no need to install environment in **Settings** beforehand.
+Chat and multimodal models that use llama.cpp need no additional environment. HF Transformers chat models require a CPU or GPU environment installed in **Settings**.
 
 You only need to:
 1. Download and load a chat model or multimodal model in the Model Library.
@@ -44,15 +46,15 @@ When no model is loaded, the chat page will prompt you to "Go to Model Library t
 
 ## Interface Layout
 
-The chat page is divided into two columns:
+Open the conversation list from the main menu. Pin the submenu to keep the list on the left; the main area shows the current conversation.
 
 ### Left - Session List
 
-- **New Chat** button: Located at the top.
+- **New Conversation** button: Located at the top.
 - **Session List**: Grouped by time (Today/Yesterday/Within 7 Days/Within 30 Days/Older). Lists longer than 100 sessions still load. You can search by title.
 - **Date groups**: The folded or expanded state of a date group is kept the next time you open the list.
 - **Pin submenu**: The pin control in the window chrome pins the submenu. It does not pin a session.
-- **Session Operations**: Option menu to rename or delete conversations.
+- **Session Operations**: Use the pencil and trash buttons in the pinned list to rename or delete. The hover list is only for selecting conversations.
 
 ### Right - Chat Area
 
@@ -63,7 +65,6 @@ The chat page is divided into two columns:
   - **Retrieval** switch: Enables RAG knowledge base retrieval.
   - Attachment button (displayed only for multimodal models).
   - Prompt Generation button (Magic Wand icon).
-  - Inference Parameter Settings button (Slider icon).
   - Send button.
 
 ---
@@ -72,7 +73,7 @@ The chat page is divided into two columns:
 
 ### New Chat
 
-Click the **"New Chat"** button at the top left. The system will:
+Click **New Conversation** at the top of the conversation list, or the plus button at the top of the page. The system will:
 1. Automatically generate a temporary title (e.g., "New Chat 10:30").
 2. Automatically generate a formal title after the first message is sent.
 
@@ -82,14 +83,14 @@ Click directly on any conversation in the session list on the left.
 
 ### Rename Chat
 
-1. Click the menu on the right side of the session.
-2. Select **"Rename"**.
+1. Pin the submenu to show the conversation list on the left.
+2. Click the pencil button beside the conversation.
 3. Enter the new title and confirm.
 
 ### Delete Chat
 
-1. Click the menu on the right side of the session.
-2. Select **"Delete"**.
+1. Pin the submenu to show the conversation list on the left.
+2. Click the trash button beside the conversation.
 3. Confirm the operation (this action cannot be undone).
 
 ---
@@ -99,7 +100,7 @@ Click directly on any conversation in the session list on the left.
 ### Text Chat
 
 1. Enter your question in the input box.
-2. Click the Send button or press the `Enter` key.
+2. Click Send or use the shortcut selected in **Settings → General → Editor**. `Shift + Enter` inserts a new line.
 
 ### Image-Text Chat (Multimodal)
 
@@ -145,7 +146,7 @@ Before use, you need to create a RAG dataset (knowledge base) in the **Data Modu
 
 ### Usage Steps
 
-1. **Open Inference Parameter Settings** (Click the slider icon above the input box).
+1. Click **Runtime Settings** (gear icon) at the top right.
 2. **Expand the "RAG Model Configuration" collapsible panel**.
 3. **Select Knowledge Base**: Select a created dataset from the dropdown menu.
 4. **Configure Parameters** (Optional):
@@ -179,7 +180,7 @@ In the knowledge base dropdown of the inference parameter drawer, there is a del
 
 ## Inference Parameter Settings
 
-Click the **Slider Icon** button above the input box to open the parameter drawer.
+Click **Runtime Settings** (gear icon) at the top right to open the parameter panel.
 
 ### Basic Parameters
 
@@ -278,6 +279,8 @@ Suggestions:
 - Check if the inference parameters are reasonable.
 
 ### Context Management
+
+Click the **Context Usage** ring at the top of the page to view usage and use **Compress Context** if needed. The ring is disabled when no context data is available. Compression can omit details, so restate important requirements.
 
 - Each conversation maintains its context independently.
 - The backend automatically manages the context window length.

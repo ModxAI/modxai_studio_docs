@@ -1,9 +1,9 @@
 # Model Training
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
-This article introduces how to use the **Model Training** function in ModxAI Studio, helping you complete the full training workflow from data preparation to model output.
+Prepare a model and dataset, create a training task, monitor it, then evaluate, test, and export the result. Open **Self Improvement → Training** from the main menu.
 
 ## Table of Contents
 
@@ -16,321 +16,89 @@ This article introduces how to use the **Model Training** function in ModxAI Stu
 - [Parameter Template Mechanism](#parameter-template-mechanism)
 - [Next Steps](#next-steps)
 
----
-
 ## Environment Requirements
 
-### Basic Requirements
+Install an environment with training support in [Settings → System](../settings/environment.md). Training supports CPU or NVIDIA CUDA. Memory, GPU memory, and storage requirements depend on the model, training method, sequence length, batch size, and checkpoint settings. There is no single minimum GPU-memory figure for every model.
 
-| Requirement | Description |
-|------|------|
-| Runtime Environment | Need to install GPU or CPU environment in the **Settings** |
-| VRAM | LoRA fine-tuning minimum 4GB, recommended 8GB or above |
-| Disk Space | Sufficient storage space for checkpoints and logs |
-
-### Environment Installation
-
-On the training preparation page, click "Environment Config" to install Python dependencies required for training:
-
-- **GPU Environment**: Install PyTorch CUDA version and related training libraries.
-- **CPU Environment**: Install PyTorch CPU version (training speed is slower).
-
-### Hardware Recommendations
-
-| Model Scale | VRAM Requirement (LoRA) | VRAM Requirement (Full) |
-|----------|----------------|----------------|
-| Below 1B | 4GB | 16GB |
-| 1-3B | 6GB | 24GB |
-| 3-7B | 8GB | 40GB |
-| 7-14B | 12GB | 80GB |
-
----
+Prepare a complete trainable model directory with configuration, weights, and a usable tokenizer, not a GGUF inference file. For SFT/pretraining output from Data Processing, prefer `train/final_dataset.jsonl` and select `eval/final_dataset.jsonl` separately when evaluating during training. See [Prepare](./prepare.md).
 
 ## Feature Overview
 
-The Model Training module is one of the core functions of ModxAI Studio, providing a complete workflow from training configuration to model output. Key features include:
+1. In [Prepare](./prepare.md), select SFT or pretraining, enter model, data, and output paths, apply parameters, and click **Start**.
+2. In [Monitor](./monitor.md), confirm the task is running and inspect loss, speed, and logs.
+3. Once training has ended and checkpoints are available, compare benchmarks in [Evaluate](./evaluate.md) and inspect your own questions in [Test](./test.md).
+4. Choose a checkpoint and follow the [quantization guide](./package.md) to export GGUF.
 
-- **Multi-Training Type Support**: Supports both SFT (Supervised Fine-Tuning) and Pre-training.
-- **LoRA Efficient Fine-Tuning**: SFT uses LoRA technology by default, significantly reducing VRAM requirements.
-- **Real-time Monitoring**: Visual display of core metrics such as training progress, loss curve, and learning rate changes.
-- **Checkpoint Management**: Automatically saves training checkpoints and supports resuming training from breakpoints.
-- **Model Evaluation**: Comprehensive evaluation of multiple checkpoints, automatically recommending the optimal checkpoint.
-- **Interactive Testing**: Select checkpoints for real-time inference testing to verify model response quality.
-- **One-Click Packaging**: Export training artifacts to GGUF format for direct use in inference deployment.
-
----
+Data Processing can export DPO preference data, but this training interface has no DPO training type.
 
 ## Interface Layout
 
-The training module adopts a tab-based layout, containing five functional pages:
-
-| Tab | Icon | Description |
-|------|------|------|
-| **Prepare** | Slider | Create training tasks and configure training parameters |
-| **Monitor** | Line Chart | View training progress and real-time metrics |
-| **Evaluate** | Pie Chart | Evaluate the quality of checkpoints |
-| **Test** | Send | Interactively test checkpoint effects |
-| **Package** | Save | Export model to GGUF format |
-
----
+| Tab | Purpose |
+|-----|---------|
+| Prepare | Create tasks, configure parameters, and start or stop training |
+| Monitor | Inspect current progress and saved metric history |
+| Evaluate | Compare the base model and checkpoints on fixed benchmarks |
+| Test | Enter questions and inspect the selected checkpoint's answers |
+| Quantize | Export supported training outputs to GGUF |
 
 ## Functional Modules
 
 ### Prepare Module
 
-The Prepare module is used to create and configure training tasks:
-
-| Function | Description |
-|------|------|
-| Training Type Selection | SFT (Supervised Fine-Tuning) or Pre-training |
-| Data File Configuration | Training data and evaluation data file paths |
-| Model Path Settings | Base model path and tokenizer path |
-| Output Directory Specification | Storage location for checkpoints, logs, and other training artifacts |
-| Parameter Template Selection | Quickly load preset parameter combinations |
-| Parameter Fine-Tuning | Adjust various training hyperparameters item by item |
+Choose the training type, device, and template, then configure training data, model, and output locations. The SFT template enables LoRA by default; the pretraining template does not use it. Settings must still match the model, and templates are not guaranteed to suit every device.
 
 ### Monitor Module
 
-The Monitor module provides two working modes:
+Select a running task for live metrics or a task that is not running for saved history. Charts include training loss, perplexity, learning rate, gradient norm, evaluation loss, and speed. Live charts show up to the latest 400 points, and history charts up to 4000, rather than necessarily showing every recorded point.
 
-**Real-time Monitoring Mode**:
-- Automatically enters when a training task is running.
-- Displays current steps, total steps, progress percentage, and estimated remaining time in real-time.
-- Real-time plotting of curves for Loss, Perplexity, Learning Rate, Gradient Norm, etc.
-- Displays real-time training logs.
-
-**History Review Mode**:
-- Select completed training tasks to view historical data.
-- Load and display complete training curves.
-- Review training logs and checkpoint records.
+Evaluation loss during training requires a separate evaluation file and an active strategy. It is different from benchmark evaluation below.
 
 ### Evaluate Module
 
-The Evaluate module is used to assess the model quality of multiple checkpoints:
+Choose a training task and one or more checkpoints, optionally including the base model. Built-in benchmarks are IFEval, MMLU-Pro, GSM8K, and HellaSwag, with Quick, Extended, and Full scales.
 
-| Function | Description |
-|------|------|
-| Checkpoint Selection | Support selecting 2 or more checkpoints for comparative evaluation |
-| Evaluation Dataset | Use sampled data to test model generation capabilities |
-| Comprehensive Scoring | Custom samples are scored by semantic similarity, keyword coverage, and format match. See the evaluation module |
-| Built-in Benchmarks | IFEval, GSM8K, MMLU, and HellaSwag |
-| Result Output | Generate detailed evaluation reports and CSV result files to the output directory |
-| Optimal Recommendation | Automatically identify the checkpoint with the highest comprehensive score |
+Prepare resources as prompted, click **Check and continue**, then **Start Evaluation** after the checks pass. Results include a score matrix, benchmark trends, individual samples, and two-model comparisons. **Highest for This Benchmark** is a per-benchmark result, not an overall best-model recommendation.
 
-Evaluation result files are stored in the task output directory.
+Use **Evaluation History** to view or continue runs, copy settings, recalculate, or export JSONL. The current evaluation page has no custom question-and-answer sample input.
 
 ### Test Module
 
-The Test module provides interactive inference testing:
+Choose an available checkpoint from a finished task, configure inference parameters and an optional system prompt, and start entering questions. LoRA checkpoints also need their original base model.
 
-| Function | Description |
-|------|------|
-| Checkpoint Loading | Select any checkpoint for testing |
-| Parameter Adjustment | Inference parameters such as Temperature, Top-P, Top-K, Repetition Penalty, etc. |
-| Real-time Chat | Send messages to the model and view replies in real-time |
-| System Prompt | Customize system prompts to test different role effects |
+Each input is independent and does not include earlier questions and answers as context. Exit before changing parameters or checkpoints.
 
-### Package Module
+### Quantize Module
 
-The Package module is used to export deployable models:
-
-| Function | Description |
-|------|------|
-| Checkpoint Selection | Select the LoRA checkpoint to be packaged |
-| Quantization Type | Support multiple quantization formats (Q2_K to Q8_0, F16, etc.) |
-| Merge LoRA | Choose whether to merge LoRA weights into the base model |
-| Output Format | Export to GGUF format, directly usable for inference |
-
----
+Select model artifacts, an output location, and available quantization options to export GGUF. See the [quantization guide](./package.md) for supported models and full instructions.
 
 ## Training Task Mechanism
 
-### Task Lifecycle
+Tasks show pending, running, completed, stopped, or failed/error states. Completion means the run ended; it does not guarantee correct answers from the trained model.
 
-Training tasks transition through the following states:
+Checkpoints follow the save strategy, step interval, and retention limit. Older checkpoints may be removed when the limit is exceeded. Back up any checkpoint you need to keep.
 
-```
-pending → running → completed
-                 ↘ stopped (stopped by user)
-                 ↘ failed (abnormal exit)
-```
-
-| State | Description |
-|------|------|
-| `pending` | Task created, waiting to start |
-| `running` | Training in progress |
-| `stopping` | Stopping (transitional state) |
-| `stopped` | Stopped by user |
-| `completed` | Training completed normally |
-| `failed` | Training exited abnormally |
-
-### Task ID
-
-A unique Task ID is generated when each training task is created, used for:
-- Associating training logs
-- Associating checkpoint records
-- Associating evaluation, testing, and packaging operations
-
-### Related Data Tables
-
-The training module involves the following core data:
-
-| Data Type | Description |
-|----------|------|
-| Training Task | Basic task information, status, configuration |
-| Task Parameters | Specific training parameter values for the task |
-| Training Log | Metrics such as loss, lr, progress for each step |
-| Checkpoint Record | Save time, steps, and loss value for each checkpoint |
-
----
+Selecting an existing task and clicking **Start** does not automatically resume its previous progress. Set a usable resume checkpoint as described in [Prepare](./prepare.md#resume-from-a-checkpoint).
 
 ## Training Parameter System
 
-Training parameters are organized by function and support two template types: SFT and Pre-training.
+Settings are grouped into data, training, LoRA, optimization, logging, and general configuration. See [Prepare](./prepare.md#parameter-configuration) for details.
 
-> **Parameter Name Note**: The "Interface Display Name" column in the table below matches the parameter labels in the application interface for easy reference.
-
-### Parameter Categories
-
-| Category | Description | Key Parameters |
-|------|------|----------|
-| **data** | Data Configuration | Training data, evaluation data, model directory, tokenizer, etc. |
-| **training** | Training Configuration | Batch size, learning rate, epochs, save strategy, etc. |
-| **lora** | LoRA Configuration | Enable status, r, alpha, dropout, target modules |
-| **optimization** | Optimization Configuration | Mixed precision (FP16/BF16/TF32), gradient checkpointing |
-| **logging** | Log Configuration | Log level, logging steps |
-| **general** | General Configuration | Random seed |
-
-### Core Parameter Description
-
-**Data Configuration**:
-
-| Interface Display Name | Default | Description |
-|-------------|--------|------|
-| Training data file path | - | Training data file in JSONL format (Required) |
-| (opt.) Evaluation data file path | - | Evaluation data file in JSONL format |
-| Training output directory | - | Storage location for checkpoints, logs, etc. (Required) |
-| Training model path | - | **Directory path of the trainable model** (Required, see note below) |
-| (opt.) Tokenizer path | - | Tokenizer directory path, leave blank to use model's own tokenizer |
-| (opt.) Checkpoint path for resume | - | Continue training from specified checkpoint |
-| Maximum samples | 0 | Limit number of training samples, 0 means unlimited |
-| Evaluation sampling ratio | 0 | Ratio of evaluation set split from training set (0-1) |
-
-> ⚠️ **About "Training model path"**:
-> 
-> This parameter needs to specify the directory where the **trainable model** is located, **not** the GGUF inference model in the Model Library.
-> 
-> - **Correct Format**: HuggingFace format model directory, containing `.safetensors` weight files and `config.json` configuration file.
-> - **Incorrect Format**: `.gguf` file (only for inference, not for training).
-> 
-> Please ensure the model directory contains the following necessary files:
-> - `config.json` - Model configuration
-> - `*.safetensors` - Model weight files
-> - `tokenizer.json` or `tokenizer_config.json` - Tokenizer configuration (optional, can also be specified separately)
-
-**Training Configuration**:
-
-| Interface Display Name | Default | Description |
-|-------------|--------|------|
-| Batch size | 2 | Number of samples processed per step (1-128) |
-| Gradient accumulation steps | 4 | Update weights after accumulating how many steps (1-256) |
-| Max sequence length | 512 | Maximum length of input sequence (128-8192) |
-| Learning rate | 2e-4 | Step size for model parameter updates (1e-6 to 1e-1) |
-| Optimizer | adamw_torch | Optimization algorithm type |
-| LR scheduler type | cosine | Learning rate change strategy |
-| Training epochs | 2 | Number of times to traverse the complete dataset (1-100) |
-| Weight decay | 0.01 | Regularization parameter to prevent overfitting |
-| Warmup ratio | 0.1 | Proportion of learning rate warmup phase |
-| Max gradient norm | 1.0 | Gradient clipping threshold |
-| Save strategy | steps | Checkpoint save strategy: steps/epoch/no |
-| Save steps | 100 | Save checkpoint every X steps |
-| Evaluation strategy | no | Evaluation strategy during training: steps/epoch/no |
-| Evaluation steps | 100 | Evaluate every X steps |
-| Max saved checkpoints | 100 | Maximum number of checkpoints to retain |
-| Early stopping patience | 0 | Step threshold to stop training when evaluation metrics do not improve |
-
-**LoRA Configuration** (Enabled by default for SFT):
-
-| Interface Display Name | Default | Description |
-|-------------|--------|------|
-| Use LoRA fine-tuning | true | Whether to enable LoRA efficient fine-tuning |
-| LoRA r parameter | 16 | LoRA rank, affects parameter count (1-512) |
-| LoRA alpha parameter | 16 | LoRA scaling factor |
-| LoRA dropout | 0.0 | Dropout ratio of LoRA layers (0-1) |
-| LoRA target modules | ["q_proj", "v_proj"] | Model modules to apply LoRA |
-| Merge LoRA weights after training | false | Whether to merge LoRA into base model after training |
-
-**Optimization Configuration**:
-
-| Interface Display Name | Default | Description |
-|-------------|--------|------|
-| Use FP16 mixed precision | true | Use half-precision floating point to accelerate training |
-| Use BF16 mixed precision (NVIDIA GPU) | false | Use BF16 format (Requires Ampere architecture or above) |
-| Use TF32 (NVIDIA GPU) | false | Use TensorFloat-32 format |
-| Gradient checkpointing | true | Trade time for space, reduce VRAM usage |
-
-**Log Configuration**:
-
-| Interface Display Name | Default | Description |
-|-------------|--------|------|
-| Log level | info | Log detail level: debug/info/warning/error |
-| Logging steps | 10 | Record logs every X steps |
-
-**General Configuration**:
-
-| Interface Display Name | Default | Description |
-|-------------|--------|------|
-| Random seed | 42 | Control randomness to ensure reproducibility (0-999999) |
-
-### Difference between SFT and Pre-training
-
-| Configuration Item | SFT | Pre-training |
-|--------|-----|--------|
-| LoRA | Enabled by default | Disabled by default (LoRA configuration area hidden) |
-| Data Format | Dialogue format JSONL | Plain text data |
-| Goal | Instruction following capability | Language modeling capability |
-
----
+- Required paths: training data, a trainable model directory, and a writable output directory.
+- Evaluation during training: supply a separate evaluation file and enable a strategy. Evaluation sampling ratio samples that file; it does not split the training data.
+- Resource use: mainly depends on the model size, training method, batch size, and sequence length.
+- Early stopping: counts consecutive evaluations without improvement, not training steps.
+- Comparisons: keep data, seed, and parameters consistent. Identical results across devices are not guaranteed.
 
 ## Parameter Template Mechanism
 
-### Template Types
+Load a built-in or custom template, edit it in training parameter configuration, and click **Apply**. Changes apply to the current task without overwriting the original template. To reuse them, click the save icon beside the template selector and create a custom template.
 
-The system supports two types of parameter templates:
-
-| Type | Description |
-|------|------|
-| **Default Template** | System preset basic parameter configuration, distinguished by training type (SFT/Pre-training) |
-| **User Template** | Parameter configuration customized and saved by the user |
-
-### Temporary Parameters
-
-When creating a training task:
-
-1. First load the selected parameter template.
-2. Users can adjust various parameters on this basis.
-3. Adjusted parameters are saved as **Task Parameters**, independent of the template.
-4. Subsequent modifications to the template do not affect created tasks.
-
-### Parameter Folding
-
-Parameters on the interface are displayed in layers according to importance:
-
-| Fold Group | Description |
-|--------|------|
-| No Fold | Core parameters, expanded by default |
-| `optional` | Optional parameters, folded by default |
-| `advanced` | Advanced parameters, folded by default |
-| `optimization` | Optimization related parameters, folded by default |
-| `save` | Save strategy parameters, folded by default |
-| `eval` | Evaluation strategy parameters, folded by default |
-
----
+Expand optional parameter groups as needed. Cancelling or closing the drawer does not apply unconfirmed edits.
 
 ## Next Steps
 
-- [Prepare Module Details](./prepare.md) - Guide to training task creation and parameter configuration
-- [Monitor Module Details](./monitor.md) - Real-time monitoring and history review functions
-- [Evaluate Module Details](./evaluate.md) - Checkpoint evaluation and comparative analysis
-- [Test Module Details](./test.md) - Interactive testing function
-- [Package Module Details](./package.md) - GGUF export and quantization options
+- [Prepare](./prepare.md)
+- [Monitor](./monitor.md)
+- [Evaluate](./evaluate.md)
+- [Test](./test.md)
+- [Quantization guide](./package.md)

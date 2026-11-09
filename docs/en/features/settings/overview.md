@@ -1,9 +1,9 @@
 # Global Settings
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
-This guide introduces how to use the **Settings** feature in ModxAI Studio, helping you complete application configuration, environment installation, theme switching.
+Use Settings to install environments, adjust app options, change the theme, and check for updates.
 
 ## Table of Contents
 
@@ -21,32 +21,28 @@ This guide introduces how to use the **Settings** feature in ModxAI Studio, help
 
 ## Feature Overview
 
-The Settings module is the core configuration center of ModxAI Studio, providing global configuration capabilities at the application level. Key features:
-
-- **One-Click Environment Installation**: Reduces configuration barriers by automatically detecting hardware and recommending optimal environments
-- **Differential Dependency Loading**: Install on demand; unused features don't install dependencies, saving disk space
-- **Sandboxed Dynamic Loading**: Isolated environments, loaded only when needed to avoid conflicts
-- **Multi-Language Support**: Supports Chinese and English interface switching
-- **Theme Switching**: Multiple preset themes with light/dark mode support
+Use Settings to install environments, change the interface language and theme, and adjust how the app starts and closes.
 
 ---
 
 ## Interface Layout
 
-The Settings page uses a card-based vertical layout, organized by functional sections:
+Click **Settings** at the bottom of the main menu, then choose a category:
 
-| Section | Description |
-|---------|-------------|
-| **Environment Configuration** | System information viewing, training environment installation and management |
-| **General Settings** | Language, close behavior, startup settings, and other window behavior configurations |
-| **Global Parameters** | Inference device, max tokens, content filtering, and other runtime parameters |
-| **Theme Settings** | Application appearance theme selection |
-| **Version Updates** | Current version info, update checking, download and installation |
-| **Help & Feedback** | Documentation links, feedback submission, privacy policy, etc. |
+| Category | Contents |
+|----------|----------|
+| **General** | Language, window behavior, message send shortcut, and global parameters |
+| **System** | Environment installation and CUDA inference libraries |
+| **Agent** | Message mode, global instruction file, search ignore file, and user preferences |
+| **Credentials** | Online model connections and credentials |
+| **Appearance** | Themes and appearance |
+| **Help** | App information, updates, documentation, and feedback |
 
 ---
 
 ## Environment Configuration
+
+Open **Settings → System**. Install environment dependencies and CUDA inference libraries separately as needed for your features.
 
 Environment Configuration is one of the **core highlights** of ModxAI Studio, designed to lower the barrier for environment setup.
 
@@ -56,6 +52,14 @@ Environment Configuration is one of the **core highlights** of ModxAI Studio, de
 - **Differential Loading**: Install dependencies on demand; training packages only installed when training features are needed
 - **Sandbox Isolation**: Completely independent environment, not dependent on system Python, avoiding conflicts
 - **Resume Support**: Installation can continue after interruption; downloaded packages are retained
+
+### CUDA Inference Libraries
+
+When an NVIDIA GPU is detected, **Settings → System** shows **CUDA Inference Library Installation**:
+
+1. Select **Text Generation** or **Image Generation** for your task.
+2. Click **Install** and wait for completion. Click **Stop** if you need to interrupt it.
+3. Reload the relevant model after installation to use the new library.
 
 ### System Information
 
@@ -117,7 +121,13 @@ After installation, feature availability icons are displayed in the upper right 
 
 ## General Settings
 
-General Settings configure the basic behavior of the application:
+Open **Settings → General** to configure app behavior.
+
+### Editor
+
+Under **Message Send Shortcut**, choose `Enter` or `Ctrl + Enter`. This applies to the agent, AI Chat, image generation, and speech synthesis input boxes. `Shift + Enter` always inserts a new line.
+
+Choose the agent’s default **Queue / Steer** mode separately under **Settings → Agent → Messages**. See [Send Modes](../agent/overview.md#send-modes).
 
 ### Select Language
 
@@ -155,6 +165,8 @@ Set the behavior when clicking the window close button:
 ---
 
 ## Global Parameters
+
+Open **Settings → General**.
 
 Global Parameters affect the runtime behavior of the application and apply to all feature modules.
 
@@ -202,13 +214,15 @@ ModxAI Studio provides multiple preset themes supporting light and dark modes. U
 
 ### How to Switch
 
-1. Browse theme preview cards in the Theme Settings section
+1. Open **Settings → Appearance** and browse the theme preview cards
 2. Click on the theme card you want to use
 3. Theme takes effect immediately; selection is automatically saved
 
 ---
 
 ## Version Updates
+
+Open **Settings → Help**.
 
 The Version Updates section displays current version information and supports online updates:
 
@@ -238,6 +252,8 @@ The next launch recovers unfinished work. Scheduled tasks that had not finished 
 
 ## Help & Feedback
 
+Open **Settings → Help**.
+
 The Help & Feedback section provides support entry points:
 
 ### Analytics & Improvement
@@ -262,4 +278,3 @@ The Help & Feedback section provides support entry points:
 ## Related Documentation
 
 - [Environment Installation Guide](./environment.md) - Detailed environment installation guide and troubleshooting
-

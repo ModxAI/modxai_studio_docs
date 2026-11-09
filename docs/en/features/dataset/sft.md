@@ -1,9 +1,9 @@
 # SFT Data Processing (Text/Code)
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
-This article details how to use the SFT (Supervised Fine-Tuning) data processing function of ModxAI Studio to convert raw text or code files into high-quality datasets that meet training format requirements.
+Convert text, code, or structured files into model training data. Select your files, then configure cleaning, synthesis, and export steps.
 
 ---
 
@@ -27,7 +27,7 @@ This article details how to use the SFT (Supervised Fine-Tuning) data processing
 
 **This feature requires installing CPU or GPU environment dependencies in the settings.**
 - Go to the **Settings** page of ModxAI Studio
-- In the **Environment Management** tab, select and install the required environment (CPU/GPU)
+- Under **System**, in Environment Configuration, select and install the required environment (CPU/GPU)
 - After installation, return to the data processing page to use the related features
 
 ---
@@ -64,22 +64,27 @@ Suitable for processing various documents, articles, technical materials, and ot
 
 **Structured Data (JSON)**:
 
-Select "JSON" from the file type dropdown to switch to structured data input mode. Suitable for JSON/JSONL data with fixed fields (e.g., news, business records), allowing direct field mapping to standard formats without going through the unstructured cleaning pipeline. The same mapping can feed SFT, pretraining, or DPO. The export format you choose later decides which of those shapes is written.
+For existing JSON/JSONL, open **Self Improvement → Dataset → SFT → Text**, select the structured **JSON** file type, and choose the training format: SFT, Pretrain, or DPO. This route runs only **Convert/Parse → Output** (steps 0 and 10), without text cleaning or AI synthesis.
 
-When structured data is selected, the conversion step displays the following parameters:
+1. Select input and output directories and the JSON file type.
+2. Select the training format.
+3. Open Convert/Parse parameters and enter the source field names. Only mappings for the selected format are shown.
+4. Configure the dataset split under Output. SFT and pretraining also need a tokenizer matching the target model.
+5. Start processing, check valid, invalid, and warning counts in progress, and inspect the output manifest when complete.
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| Limit Count | Process only the first N files or records; 0 means no limit | 0 |
-| Record ID Field | Unique identifier field name for each record | id |
-| Title Field | Source field mapped to document title | title |
-| Content Field | Source field mapped to document content (required) | content |
-| Summary Field | Source field mapped to document summary | description |
-| Keyword Fields | Source fields mapped to keywords, comma-separated | keywords,tag_key |
-| Category Fields | Source fields mapped to category, comma-separated | catname,areaname |
-| Author Field | Source field mapped to author | author_key |
-| Source Field | Source field mapped to source | copyfrom |
-| Published Time Field | Source field mapped to publish time | inputtime |
+| Training format | Accepted samples and mappings |
+|-----------------|-------------------------------|
+| SFT | A `messages` array, or `instruction`, optional `input`, and `output`; custom fields use SFT instruction, SFT input, and SFT output mappings |
+| Pretrain | A `text` field; custom fields use the Pretrain text mapping |
+| DPO | `prompt`, `chosen`, and `rejected`; custom fields use DPO prompt, Chosen response, and Rejected response mappings |
+
+For a source record such as `{"question":"Hello","answer":"Hello!"}`, select SFT, map SFT instruction to `question` and SFT output to `answer`, and leave SFT input empty if there is no additional input.
+
+Record ID Field identifies an existing record ID. Limit Count `0` means no limit. Source field names support dot-separated nested paths and comma-separated alternatives, selecting the first nonempty value in order.
+
+SFT conversations accept only `system`, `user`, and `assistant` roles. They need a user question and must end with a nonempty assistant answer. Pretraining text and all three DPO fields must be nonempty strings, and DPO chosen and rejected responses must differ. Invalid records are excluded. If all records are invalid, processing fails; use the validation report to correct them and retry.
+
+DPO preference data can be exported, but the current [Training module](../training/prepare.md) provides only SFT and pretraining, not DPO training.
 
 ### Code Data (Code)
 
@@ -122,13 +127,13 @@ To simplify operations, the system presets several common workflow templates. Yo
 | **AI Quality** | 0→1→2→3→4→5→7→8→9→10 | Need AI to filter low-quality data | Includes quality assessment filtering |
 | **Custom** | Select as needed | Special needs | Manually select steps to execute |
 
-> Pre-training no longer has a separate step. Set the **Export Format** to `pretrain` in the AI synthesis step node, and subsequent steps will output plain text corpus in pre-training format.
+> For unstructured text or code, choose the **Export Format** in AI Synthesis. Pretraining output retains both text samples and tokenized training files. Structured JSON instead uses the page's Training Format selection and the 0→10 workflow.
 
 ---
 
 ## Processing Flow Overview
 
-SFT data processing includes 11 steps (0-10), some of which are optional:
+The following steps apply to unstructured text and code. Structured JSON training data uses only steps 0 and 10:
 
 | Step | Name | Description | Required | Configurable |
 | :--- | :--- | :--- | :--- | :--- |
@@ -144,7 +149,7 @@ SFT data processing includes 11 steps (0-10), some of which are optional:
 | 10 | Output | Generate final training data | ✓ | ✓ |
 
 **Step Relationship Explanation**:
-- Steps 5/9 are automatically triggered after executing 4/8, no manual selection needed.
+- The AI Synthesis template includes steps 4/5, and AI Quality also includes steps 8/9. In a custom workflow, include the required parsing steps rather than assuming an AI step adds them automatically.
 - Steps 8-9 require the output of Step 7 as input.
 
 ---
@@ -256,8 +261,8 @@ Use dedicated parsers to analyze code structure:
 
 Near-duplicate detection in this step can use an embedding model to improve accuracy. By default, the system uses the `all-MiniLM-L6-v2` model, if it cannot be installed, an alternative algorithm is used for near-duplicate detection:
 
-- **Local first**: Tries to load a locally downloaded model first  
-- **Automatic fallback**: Falls back to TF-IDF if an embedding model is unavailable  
+- **Local first**: Tries to load a locally downloaded model first
+- **Automatic fallback**: Falls back to TF-IDF if an embedding model is unavailable
 
 > **Resource Tip**: This step is multi-threaded parallel processing, which will consume significant CPU and memory resources. Please pay attention to system load when processing large amounts of data.
 
@@ -307,14 +312,14 @@ This step is recommended to be executed after Step 4 completes, cleaning the AI 
 
 Near-duplicate detection in this step can use an embedding model to improve accuracy. By default, the system uses the `all-MiniLM-L6-v2` model, if it cannot be installed, an alternative algorithm is used for near-duplicate detection:
 
-- **Local first**: Tries to load a locally downloaded model first  
-- **Automatic fallback**: Falls back to TF-IDF if an embedding model is unavailable  
+- **Local first**: Tries to load a locally downloaded model first
+- **Automatic fallback**: Falls back to TF-IDF if an embedding model is unavailable
 
 ---
 
 ### Export Format & Pre-training
 
-Pre-training is no longer a standalone step. Set the **Export Format** parameter in Step 4 (AI Synthesis) to control the final output:
+Set **Export Format** in Step 4 (AI Synthesis) to choose the final output format:
 
 | Export Format | Output Content | Use Case |
 |---------------|----------------|----------|
@@ -362,8 +367,8 @@ Field mapping for structured JSON/JSONL (see Structured Data above) is written i
 - `<F>`: Fail, filter out this data entry.
 
 > ⚠️ **Important Warning**:
-> 
-> AI filtering requires using a **model with strong analysis capabilities** (e.g., models with 4B+ parameters). Using a model with insufficient capabilities may:
+>
+> Test AI filtering on a small, representative sample before using it on the full dataset. Using a model with insufficient capabilities may:
 > - Incorrectly mark high-quality data as low quality.
 > - Retain actually problematic data.
 > - Lead to a decline in final dataset quality.
@@ -380,22 +385,20 @@ Field mapping for structured JSON/JSONL (see Structured Data above) is written i
 
 ### Step 10: Output
 
-**Function**: Generate final training data files, supporting multiple formats and dataset splitting.
+Split valid records into training, validation, and test sets, and write JSONL files and a manifest. This step does not offer JSON/NPY format selection or a parallel-thread setting.
 
-**Configurable Parameters**:
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| Dataset Split | Training/validation/test proportions | 0.8 / 0.1 / 0.1 |
+| Tokenizer Path | Tokenizer directory for SFT and pretraining; match it to the target model. DPO export does not need one | Currently configured tokenizer |
+| System Prompt | System message used when tokenizing SFT; not used for pretraining or DPO | Empty |
+| Split Seed | Controls the random split order; available in advanced settings | 42 |
 
-| Parameter | Description | Default | Options |
-| :--- | :--- | :--- | :--- |
-| **Dataset Split** | Train/Eval/Test set ratio | 0.8, 0.1, 0.1 | Sum of three ratios should be 1 |
-| **Parallel Threads** | Data processing parallelism | 16 | 1-64 |
-| **Tokenizer Path** | Tokenizer for Token calculation | Built-in | Can specify custom path |
-| **Save Format** | Output file format | .jsonl | `.jsonl` / `.json` / `.npy` |
-| **System Prompt** | System message added to all conversations | Empty | Customizable |
+After completion, inspect `training_dataset_manifest.json` and the files it lists. Only nonempty splits produce files; a small dataset may leave a split empty.
 
-**Output Files**:
-- `train.jsonl`: Training set
-- `eval.jsonl`: Validation set
-- `test.jsonl`: Test set
+- **SFT/pretraining**: each nonempty split contains `data.jsonl` and `final_dataset.jsonl`.
+- **DPO**: each nonempty split contains only `data.jsonl`, with no tokenized file for the current training module.
+- **For training**: select `train/final_dataset.jsonl`. For evaluation during training, select `eval/final_dataset.jsonl` and enable an evaluation strategy in the training parameters.
 
 ---
 
@@ -502,31 +505,28 @@ When an AI request fails, the system automatically retries and repairs:
 
 ## Output Formats
 
-### JSONL Format (Recommended)
+### Output location
 
-One JSON object per line, conforming to ChatML format:
+Text output normally uses `output directory/datasets/text_dataset/final`. C/C++ uses `datasets/code_dataset/final`, and Shader uses `datasets/shader_dataset/final`. Existing tasks may retain an earlier layout; follow the locations in progress messages and the output manifest.
 
-```jsonl
-{"messages": [{"role": "system", "content": "..."}, {"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}]}
-{"messages": [{"role": "system", "content": "..."}, {"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}]}
-```
+### Raw samples and training files
 
-### JSON Format
+| File | Contents |
+|------|----------|
+| `train/data.jsonl`, `eval/data.jsonl`, `test/data.jsonl` | Normalized raw samples: `messages` for SFT, `text` for pretraining, or `prompt`, `chosen`, and `rejected` for DPO, with a sample identifier |
+| `final_dataset.jsonl` in each split | Tokenized SFT/pretraining records containing `input_ids`, `label`, and `length`; these are training files, not raw ChatML conversations |
+| `training_dataset_manifest.json` | Data format, split information, sample counts, validation summary, and artifact paths |
+| `training_validation.jsonl` | Written when a validation report is available; includes record locations, field issues, and warnings |
+| `training_metadata.jsonl` | Written separately when additional metadata is present |
 
-Complete JSON array:
+Raw and tokenized files serve different purposes. Pretraining `data.jsonl` cannot replace `final_dataset.jsonl`. JSONL export does not mean the training page accepts every JSON/JSONL structure.
 
-```json
-[
-  {"messages": [...]},
-  {"messages": [...]}
-]
-```
+### Check the output
 
-### NPY Format
-
-NumPy binary format, suitable for direct loading by training frameworks:
-- `train.npy`: Token ID array
-- `train.npy.shape.json`: Shape metadata
+1. Confirm that the task finished and produced a manifest.
+2. Check valid counts, invalid records, and warnings, not just whether files exist.
+3. Inspect raw samples to confirm that questions, answers, or text were mapped correctly.
+4. Use the training file listed in the manifest and retain its matching model tokenizer.
 
 ---
 
@@ -546,8 +546,8 @@ NumPy binary format, suitable for direct loading by training frameworks:
 
 ### AI Model Selection
 
-1. **Synthesis Step**: Recommend using models with 4B+ parameters.
-2. **Filter Step**: Recommend using models with 4B+ parameters.
+1. **Synthesis Step**: Check questions and answers on a small sample before choosing a model.
+2. **Filter Step**: Inspect both retained and rejected samples to confirm that filtering matches your criteria.
 
 ---
 
@@ -567,11 +567,11 @@ A: Try the following methods:
 
 ### Q: Why is there no separate pre-training entry?
 
-A: The processing flow for pre-training data is highly similar to SFT. Main differences:
-- No AI Q&A generation (Steps 4-5).
-- Output format is plain text instead of conversation format.
+A: Pretraining and SFT use the same data-processing page. The selection depends on the input type:
+- For structured JSON, choose pretraining under **Training Format** on the page, configure the fields, then run conversion and output.
+- For unstructured text and code, set **Export Format** to `pretrain` in the AI synthesis step.
 
-Therefore, it is integrated into the same interface. Set the **Export Format** to `pretrain` in Step 4 (AI Synthesis) to output in pre-training format.
+The exported `data.jsonl` preserves raw samples with a `text` field; `final_dataset.jsonl` contains tokenized training records. For training, select `train/final_dataset.jsonl` from a nonempty training split rather than using the raw text samples directly. See [Output Formats](#output-formats) for file purposes.
 
 ### Q: AI filtering causes significant data reduction?
 
@@ -599,4 +599,3 @@ A: Mainly supports:
 ---
 
 *For other questions, please refer to project documentation or ask in the community.*
-

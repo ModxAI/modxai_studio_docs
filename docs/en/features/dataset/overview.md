@@ -1,9 +1,11 @@
 # Data Processing
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
-This article introduces how to use the **Data Processing** feature in ModxAI Studio, helping you convert raw data into standardized datasets for SFT fine-tuning, RAG retrieval, and audio transcription.
+Turn documents, code, or audio into training data, knowledge bases, or transcripts. Choose a data type, then configure the processing steps and output directory.
+
+Open the **Self Improvement** submenu and choose **Dataset**.
 
 ## Table of Contents
 
@@ -23,19 +25,14 @@ This article introduces how to use the **Data Processing** feature in ModxAI Stu
 
 **This feature requires installing CPU or GPU environment dependencies in the settings.**
 - Go to the **Settings** page of ModxAI Studio
-- In the **Environment Management** tab, select and install the required environment (CPU/GPU)
+- Under **System**, in Environment Configuration, select and install the required environment (CPU/GPU)
 - After installation, return to the data processing page to use the related features
 
 ---
 
 ## Feature Overview
 
-The Data Processing module is one of the core features of ModxAI Studio, providing a complete conversion process from raw data to training datasets. Key features include:
-
-- **Multi-Data Type Support**: Supports text, code, RAG knowledge bases, audio-to-text, and other data types.
-- **Pipeline Processing**: Adopts a step-by-step pipeline architecture, where each step can be configured independently.
-- **AI Enhancement Capabilities**: Implements advanced functions such as intelligent data synthesis and quality filtering through AI nodes.
-- **Resume from Breakpoint**: Allows restarting from a specific step after a failure, avoiding re-execution of completed steps.
+Choose a data type, then convert, clean, and export your files. Enable AI synthesis or quality filtering when needed. If SFT or RAG processing stops, resume from a selected step.
 
 ---
 
@@ -86,14 +83,14 @@ Used to generate supervised fine-tuning training data, supporting three source d
 
 **Structured Dataset** (file type "JSON"):
 - Supported formats: JSON, JSONL
-- Use cases: News, tables, business records, and other data with existing structured fields. Fields can be directly mapped to avoid the unstructured cleaning pipeline.
+- Map fields for the training format: instruction, input, and output for SFT; text for pretraining; prompt, chosen response, and rejected response for DPO. See [SFT Data Processing](./sft.md) for fields and examples.
 - Output format: Standardized JSONL. The export format can be SFT (`sft_chatml`), pretraining (`pretrain`), or DPO (`dpo`). Field mapping is described in [SFT Data Processing](./sft.md).
 
 ### RAG Dataset
 
 Used to generate vectorized knowledge bases required for retrieval augmentation:
 
-- Supported formats: Same as text datasets.
+- Supported formats: Same as text datasets, including structured JSON/JSONL.
 - Output format: Vector embedding data, stored in vector database.
 
 ### Audio to Text
@@ -108,6 +105,8 @@ Transcribe audio files into structured text:
 ## Processing Flow
 
 ### SFT Text/Code Processing Steps
+
+This table applies to unstructured text and code. Structured JSON training data runs only Steps 0 and 10.
 
 | Step | Name | Description | Required |
 | :--- | :--- | :--- | :--- |
@@ -130,8 +129,10 @@ Transcribe audio files into structured text:
 | 1 | Clean | Clean and preprocess. | ✓ |
 | 2 | Split | Split data chunks. | ✓ |
 | 3 | Analyze | Quality analysis. | ✓ |
-| 4 | Generate Vector | Use embedding model to generate embeddings. | ✓ |
-| 5 | Store Vector | Parse and store in vector database. | ✓ |
+| 4 | AI Synthesis | Generate summaries for text blocks with a chat model. | Optional |
+| 5 | AI Parsing | Parse the generated summaries. | Optional |
+| 11 | Generate Vector | Use an embedding model to generate embeddings. | ✓ |
+| 12 | Store Vector | Store the vectors in the knowledge base. | ✓ |
 
 ### Audio to Text Processing Steps
 
@@ -149,7 +150,7 @@ The system presets multiple workflow templates for quick selection of common ste
 - **AI Quality**: Includes AI synthesis and AI filtering steps, suitable for pursuing high-quality data.
 - **Custom**: Manually select steps to execute.
 
-> Pre-training no longer has a separate step. Set the **Export Format** to `pretrain` in Step 4 (AI Synthesis), and the output will follow the pre-training format.
+> For unstructured text and code, set **Export Format** to `pretrain` in Step 4 (AI Synthesis). For structured JSON, use the page's **Training Format** selection.
 
 ---
 
@@ -157,46 +158,41 @@ The system presets multiple workflow templates for quick selection of common ste
 
 ### SFT Dataset Output
 
-After processing is complete, data is stored in subdirectories of the output directory by step:
+Text output normally uses `output directory/datasets/text_dataset/final`. C/C++ uses `datasets/code_dataset/final`, and Shader uses `datasets/shader_dataset/final`. Existing tasks may retain an earlier layout; follow progress messages and the output manifest.
 
-```
-Output Directory/
-├── ori/          # Step 0: Raw parsed data
-├── opt1/         # Step 1: Cleaned data
-├── opt2/         # Step 2: Split data
-├── opt3/         # Step 3: Analyzed data
-├── opt4/         # Step 4: AI synthesized data
-├── opt5/         # Step 5: AI synthesis parsed data
-├── opt7/         # Step 7: Integrated data
-├── opt8/         # Step 8: AI filtered data
-├── opt9/         # Step 9: AI filter parsed data
-└── final/        # Step 10: Final training data
-    ├── train/    # Training set
-    │   └── final_dataset.jsonl
-    ├── eval/     # Validation set
-    │   └── final_dataset.jsonl
-    └── test/     # Test set
-        └── final_dataset.jsonl
+Example SFT/pretraining output:
+
+```text
+final/
+├── training_dataset_manifest.json
+├── training_validation.jsonl     # When a validation report is available
+├── training_metadata.jsonl       # When additional metadata is present
+├── train/
+│   ├── data.jsonl
+│   └── final_dataset.jsonl
+├── eval/
+│   ├── data.jsonl
+│   └── final_dataset.jsonl
+└── test/
+    ├── data.jsonl
+    └── final_dataset.jsonl
 ```
 
-**Training Usage**: In the training module, select `final/train/final_dataset.jsonl` as the training data file.
+Only nonempty splits are written. `data.jsonl` holds normalized raw samples; `final_dataset.jsonl` holds tokenized training records. Step 10 writes JSONL, without a JSON/NPY save-format selector.
+
+For training, select `train/final_dataset.jsonl`. For evaluation during training, select `eval/final_dataset.jsonl` and enable an evaluation strategy. Pretraining `data.jsonl` cannot replace the tokenized training file.
+
+DPO writes only `data.jsonl` per nonempty split, containing prompts, chosen responses, and rejected responses. The current Training module does not support DPO training.
 
 ### Output File Naming
 
-Unified naming rules for output files of each step:
+Step 10 writes `training_dataset_manifest.json`, listing data format, split information, counts, validation summary, and actual artifact paths. Check this manifest before selecting a training file.
 
-| Step | Filename |
-| :--- | :--- |
-| Step 0 | `code_dataset.jsonl` / Named by file type |
-| Step 1-9 | `opt{N}_dataset.jsonl` |
-| Step 10 | `final_dataset.jsonl` |
+Steps can produce several intermediate files; `opt{N}_dataset.jsonl` is not a universal filename for every step. See [SFT Data Processing](./sft.md#output-formats) for fields and file purposes.
 
 ### Output Format Selection
 
-Step 10 supports multiple output formats:
-- `.jsonl` (Default, recommended for SFT training)
-- `.json`
-- `.npy` (NumPy format, suitable for direct loading after preprocessing)
+Structured JSON uses the page's Training Format selection. Unstructured text and code use export settings in the selected processing steps. SFT, pretraining, and DPO samples can be exported; see [SFT Data Processing](./sft.md) for file purposes and current training support.
 
 ---
 
@@ -218,12 +214,12 @@ Using AI nodes (Step 4, 8) requires ensuring:
 
 ### Model Reuse Mechanism
 
-AI nodes in SFT data processing support reusing loaded chat models:
+Local AI nodes can reuse a loaded llama.cpp chat model when the configuration matches.
 
-- If a model is already loaded in the chat interface and the configuration (Base Model + LoRA) matches what the AI node needs.
-- The system automatically detects and reuses the model, and requests enter the queue for processing.
-- Multiple requests are processed serially through the queue mechanism without interference. Supports processing while chatting.
-- **Model is not unloaded after SFT task completion**, and your chat session is unaffected.
+- Matching includes the base model, LoRA, context size, and runtime parameters, not only the model name.
+- Finishing a data-processing step does not itself unload the shared model.
+- Data processing and chat share compute resources, so chat requests may wait or respond more slowly.
+- Switching to a different configuration may be blocked while other tasks use the model. Wait for those tasks to finish first.
 
 ### RAG Embedding Model
 
@@ -236,6 +232,8 @@ Step 11 (Generate Vector) of RAG data processing requires:
 ---
 
 ## Resume from Breakpoint
+
+This section applies to SFT and RAG text and code workflows. Audio transcription cannot resume from its interruption point; starting again retranscribes from the beginning and may overwrite existing results with matching names. See [Audio to Text](./audio2text.md).
 
 ### Usage Scenarios
 
@@ -286,10 +284,6 @@ A: AI nodes need to call AI models for inference, and processing speed depends o
 - Use smaller models for fast processing.
 - Ensure GPU is available to accelerate inference.
 - Reduce the amount of data to be processed for testing.
-
-**Q: Can I continue processing after the quota is used up?**
-
-A: After the quota is used up, steps consuming quota cannot be executed. You can upgrade your account to get more quota or wait for quota reset.
 
 ---
 

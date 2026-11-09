@@ -40,6 +40,15 @@
 
 - [模型管理](./features/models/overview.md)
 
+### RSI 自我改进
+
+- [RSI 概览](./features/rsi/overview.md)
+- [配置与开始运行](./features/rsi/configure.md)
+- [评测任务与会话导入](./features/rsi/evaluation-tasks.md)
+- [改进 Skill](./features/rsi/skills.md)
+- [对比与导出成果](./features/rsi/results.md)
+- [历史、继续改进与异常处理](./features/rsi/history.md)
+
 ### 数据处理
 
 - [数据处理概览](./features/dataset/overview.md)

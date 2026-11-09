@@ -1,11 +1,13 @@
 # External Access
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
 Use **External Access** to let Telegram, Discord, DingTalk, or Feishu bots call the local agent, or to call the gateway HTTP API from this machine or the LAN. See [HTTP API](#http-api).
 
 A bot chat must be paired first. Unpaired sources cannot send tasks.
+
+Expand **More** in the main menu and choose **External**.
 
 ## Table of Contents
 

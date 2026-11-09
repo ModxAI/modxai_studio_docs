@@ -1,7 +1,7 @@
 # Voice Input
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
 The agent supports voice input via microphone. The system automatically transcribes speech to text and fills it into the input box.
 
@@ -17,7 +17,7 @@ The agent supports voice input via microphone. The system automatically transcri
 
 ## Prerequisites
 
-> \u26a0\ufe0f **An STT model must be loaded and a microphone device connected** for voice input to function.
+> **An STT model must be loaded and a microphone device connected** for voice input to function.
 
 ### Required Models
 
@@ -40,9 +40,9 @@ The agent supports voice input via microphone. The system automatically transcri
 
 ### Start Recording
 
-1. Click the **Microphone button** on the left side of the input box.
-2. Recording begins; the button state changes to recording.
-3. The interface displays a "Recording" indicator.
+1. Click **Dictation** (microphone icon) on the right side of the input box.
+2. Once recording begins, the button shows an audio-level animation.
+3. Speak the text you want to enter.
 
 ### Stop Recording & Transcribe
 

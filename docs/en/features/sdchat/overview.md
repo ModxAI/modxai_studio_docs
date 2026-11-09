@@ -1,11 +1,15 @@
 # SD Chat - Overview
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
 Describe what you want to create in SD Chat and use a loaded model to generate images or video. Install the NVIDIA CUDA acceleration libraries before starting. See the [Model Library](../models/overview.md).
 
-Open SD Chat from the **agent submenu**, next to speech synthesis.
+Open the **Agent** submenu and choose **Image**.
+
+Hover over the corresponding conversation entry in the main menu to view its conversation list. Selecting a conversation opens it. Use **Runtime Settings** at the top right to adjust the current conversation.
+
+Click the page title to rename the current conversation. The hover list is only for selecting conversations. To rename or delete from the list, pin the submenu and use the pencil or trash button beside the conversation.
 
 ## Table of Contents
 
@@ -44,7 +48,7 @@ SD Chat uses Stable Diffusion models for image and video generation. Before usin
 > **GPU Acceleration Libraries (Important)**
 >
 > - **NVIDIA (Recommended; Required for SD)**:
->   - If an NVIDIA discrete GPU is detected, it is recommended to install the corresponding CUDA acceleration libraries via "Model Library → ⚡ button → Install GPU Acceleration Libraries". Chat/multimodal models perform best on NVIDIA+CUDA; Stable Diffusion (SD, image generation) currently only supports CUDA, so to use SD features, CUDA acceleration libraries must be installed first.
+>   - If an NVIDIA discrete GPU is detected, it is recommended to install the corresponding CUDA acceleration libraries via **Settings → System → CUDA Inference Library Installation**. Chat/multimodal models perform best on NVIDIA+CUDA; Stable Diffusion (SD, image generation) currently only supports CUDA, so to use SD features, CUDA acceleration libraries must be installed first.
 >   - After installing or updating the acceleration libraries, there is no need to restart the application. The changes will take effect the next time a model is loaded.
 > - **AMD (Limited)**:
 >   - AMD GPUs can use built-in Vulkan acceleration to run chat/multimodal models (no additional installation required), but SD inference currently does not support AMD/Vulkan, so SD features cannot be used on AMD GPUs.
@@ -82,7 +86,7 @@ Each conversation can independently configure generation parameters (resolution,
 
 ## Interface Layout
 
-SD Chat interface uses a left-right dual-column layout:
+Open the conversation list from the main menu. Pin the submenu to keep the list on the left; the main area shows the current conversation.
 
 ### Left Sidebar (Conversation List)
 - **New Conversation** button: Located at top
@@ -95,10 +99,10 @@ SD Chat interface uses a left-right dual-column layout:
 - **Progress Bar**: Shown below message list during generation
 - **Input Box**: Bottom area for entering prompts
 - **Attachment Button**: Left of input box (only shown when image-to-image or video is supported)
-- **Parameters Button**: Bottom toolbar of input box, click to open parameters drawer
+- **Runtime Settings**: Click the gear icon at the top right to open the parameter panel
 - **Generate Button**: Bottom right of toolbar
 
-> **Prompt When Model Not Loaded**: Right panel shows "Go to Model Library to Load <Image Generation Model>" button, click to jump to Model Library.
+> **Prompt When Model Not Loaded**: The page shows "Go to Model Library to Load <Image Generation Model>" button, click to jump to Model Library.
 
 ---
 
@@ -131,7 +135,7 @@ SD Chat automatically supports the following modes based on loaded model capabil
 ### Send Prompt
 
 1. Enter prompt in input box
-2. Click **Generate** button (or press `Ctrl+Enter`)
+2. Click **Generate** button or use the send shortcut selected in **Settings → General → Editor**. `Shift + Enter` inserts a new line
 3. System will immediately show user message and start generation
 4. After generation completes, AI message will display generated images/videos
 
@@ -166,23 +170,23 @@ SD Chat automatically supports the following modes based on loaded model capabil
 - Click conversation item in left list to switch
 
 #### Rename Conversation
-1. Right-click conversation item (or click `···` menu on right of conversation)
-2. Select **Rename**
+1. Pin the submenu to show the conversation list on the left.
+2. Click the pencil button beside the conversation.
 3. Enter new title (maximum 80 characters)
 4. Click **Confirm**
 
 > **Auto Title**: After first prompt is sent, system automatically generates title from prompt (maximum 30 characters). After manual rename, no longer auto-updates.
 
 #### Delete Conversation
-1. Right-click conversation item
-2. Select **Delete**
+1. Pin the submenu to show the conversation list on the left.
+2. Click the trash button beside the conversation.
 3. Confirm deletion (will delete conversation along with all messages and generated image records)
 
 ---
 
 ## Parameter Configuration
 
-Click **Parameters button** (slider icon) on bottom toolbar of input box to open parameters drawer.
+Click **Runtime Settings** (gear icon) at the top right to open the parameter panel.
 
 ### Basic Parameters
 
@@ -471,4 +475,3 @@ A:
 - Learn how to import and load SD models in [Model Library](../models/overview.md)
 - Check [Prompt Generation](../chat/prompt-generation.md) feature to learn how to optimize prompts
 - Bookmark a result you want to keep, then manage it in [Memory](../memory/overview.md)
-

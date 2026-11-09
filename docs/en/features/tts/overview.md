@@ -1,11 +1,15 @@
 # TTS Speech Synthesis
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
-This article introduces the **TTS (Text-to-Speech)** feature in ModxAI Studio, helping you understand how to use local TTS models to convert text into natural speech.
+Turn text into speech with a local TTS model, and choose a voice and speaking speed.
 
-Open speech synthesis from the **agent submenu**, next to SD Chat.
+Open the **Agent** submenu and choose **Audio**.
+
+Hover over the corresponding conversation entry in the main menu to view its conversation list. Selecting a conversation opens it. Use **Runtime Settings** at the top right to adjust the current conversation.
+
+Click the page title to rename the current conversation. The hover list is only for selecting conversations. To rename or delete from the list, pin the submenu and use the pencil or trash button beside the conversation.
 
 ## Table of Contents
 
@@ -80,7 +84,7 @@ TTS (Text-to-Speech) is a dedicated text-to-speech module that supports:
 
 ## Interface Layout
 
-TTS interface uses a left-right dual-column layout:
+Open the conversation list from the main menu. Pin the submenu to keep the list on the left; the main area shows the current conversation.
 
 ### Left Sidebar (Conversation List)
 - **New Conversation** button: Located at the top
@@ -91,10 +95,10 @@ TTS interface uses a left-right dual-column layout:
 - **Message List**: Displays user input text and generated audio
 - **Progress Bar**: Shown below message list during generation
 - **Input Box**: Bottom area for entering text to convert
-- **Parameters Button**: Bottom toolbar of input box, click to open parameters drawer
+- **Runtime Settings**: Click the gear icon at the top right to open the parameter panel
 - **Generate Button**: Bottom right of toolbar
 
-> **Prompt When Model Not Loaded**: Right panel shows "Go to Model Library to Load <Speech Synthesis Model>" button, click to jump to Model Library.
+> **Prompt When Model Not Loaded**: The page shows "Go to Model Library to Load <Speech Synthesis Model>" button, click to jump to Model Library.
 
 ---
 
@@ -130,7 +134,7 @@ The current version of TTS supports the following languages:
 ### Input Text and Generate
 
 1. Enter text to convert in the input box
-2. Click **Generate** button (or press `Ctrl+Enter`)
+2. Click **Generate** button or use the send shortcut selected in **Settings → General → Editor**. `Shift + Enter` inserts a new line
 3. System immediately shows user message and starts generation
 4. After generation completes, AI message will display audio player
 
@@ -149,7 +153,7 @@ The current version of TTS supports the following languages:
 
 ## Parameter Configuration
 
-Click the **Parameters button** (slider icon) on the bottom toolbar of the input box to open the parameters drawer.
+Click **Runtime Settings** (gear icon) at the top right to open the parameter panel.
 
 ### Basic Parameters
 
@@ -199,14 +203,14 @@ System includes multiple voice presets:
 - Click conversation item in the left list to switch
 
 ### Rename Conversation
-1. Right-click conversation item (or click `···` menu on the right of conversation)
-2. Select **Rename**
+1. Pin the submenu to show the conversation list on the left.
+2. Click the pencil button beside the conversation.
 3. Enter new title
 4. Click **Confirm**
 
 ### Delete Conversation
-1. Right-click conversation item
-2. Select **Delete**
+1. Pin the submenu to show the conversation list on the left.
+2. Click the trash button beside the conversation.
 3. Confirm deletion (will delete conversation along with all messages and generated audio records)
 
 ---

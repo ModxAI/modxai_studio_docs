@@ -1,15 +1,15 @@
 # Quick Start
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
-This guide covers ModxAI Studio 1.1.10 for Windows. Follow these steps to start your first local chat.
+Follow these steps to start your first local chat. Installation path examples use Windows notation.
 
 ---
 
 ## Step 1: Launch the Application
 
-1. Download and install the Windows version, then open the app. Get the installer from the [download page](https://www.modxai.net/en/download).
+1. Get the installer from the [download page](https://www.modxai.net/en/download), install it, and open the app.
 2. On the welcome screen, choose **Get started**. You can skip the first environment install. Skip it when you only want llama.cpp text chat.
 3. If the install directory needs administrator rights (for example `C:\Program Files`), start the app as administrator. Otherwise it will not start.
 
@@ -25,8 +25,8 @@ For the first use, you need to import or download a chat model.
 
 ### Method 1: Online Download (Recommended)
 
-1. Click **"Model Library"** in the left navigation bar.
-2. Click the **"Download"** button in the top toolbar.
+1. Open the **Model Center** submenu.
+2. Choose **Download**.
 3. Select a download source (Users in Chinese mainland are recommended to select **ModelScope**).
 4. Select a model in the Chat Model category (e.g., Qwen3.5-9B-GGUF).
 5. Select a quantized version (Recommended Q4_K_M, balancing effect and resource usage).
@@ -38,7 +38,7 @@ For the first use, you need to import or download a chat model.
 
 If you already have a local model file (.gguf format):
 
-1. Click **"Model Library"** -> **"Import"**.
+1. Open **Model Center** and click **Import**.
 2. Select the model file.
 3. Confirm import information and complete.
 
@@ -55,10 +55,10 @@ If you already have a local model file (.gguf format):
 
 ## Step 4: Start Chatting
 
-1. Click **"Chat"** in the left navigation bar.
-2. Click **"New Chat"** or **directly enter a question**.
+1. Open the **Agent** submenu and choose **Chat**.
+2. Click **New Conversation** or **directly enter a question**.
 3. Enter your question in the input box.
-4. Press **Enter** or click the send button.
+4. Click Send or use the shortcut selected in **Settings → General → Editor**. `Shift + Enter` inserts a new line.
 
 🎉 Congratulations! You have successfully completed your first AI chat!
 
@@ -78,6 +78,7 @@ After completing the basic chat, you can explore more features:
 | **RAG Retrieval** | Let AI answer questions based on your knowledge base | [AI Chat](../features/chat/overview.md) |
 | **Image Generation** | Generate images using SD models | [SD Chat](../features/sdchat/overview.md) |
 | **Data Processing** | Convert documents into training data | [Data Processing](../features/dataset/overview.md) |
+| **RSI Self Improvement** | Test and improve a system prompt or Skill, then compare and export results | [RSI](../features/rsi/overview.md) |
 | **Model Training** | Fine-tune your exclusive model | [Model Training](../features/training/overview.md) |
 | **LAN API** | Automatically provides OpenAI-compatible interface after loading model | [Model Library](../features/models/overview.md#lan-inference-service) |
 
@@ -98,7 +99,7 @@ After completing the basic chat, you can explore more features:
 ### No response in chat?
 
 - Confirm the model has been successfully loaded (Status shows "Loaded").
-- Check the system resource monitor at the bottom of the page.
+- Open **Model Center** and check resource usage at the top right.
 
 ---
 

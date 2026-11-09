@@ -1,7 +1,7 @@
 # Frequently Asked Questions
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
 This page summarizes common issues and solutions encountered while using ModxAI Studio.
 
@@ -11,9 +11,9 @@ This page summarizes common issues and solutions encountered while using ModxAI 
 
 ### What should I do after first launch?
 
-1. Go to the **Model Library**, download or import a chat model.
-2. Load the model, then navigate to the **Chat** page to start using it.
-3. To use advanced features (training, data processing, etc.), install the environment in **Settings** first.
+1. Open **Model Center** and download a chat model from **Download**, or import a local model on the model page.
+2. Load the model, then open **Agent → Chat** and send your first message.
+3. For training, data processing, and other features, install the required environment in **Settings → System** first. See [Quick Start](./getting-started/quick-start.md) for the full workflow.
 
 ### Which features require environment installation in Settings?
 
@@ -26,9 +26,9 @@ This page summarizes common issues and solutions encountered while using ModxAI 
 | SD Image Generation | **Requires** CPU or GPU environment |
 | TTS Speech Synthesis | **Requires** CPU or GPU environment (GPU recommended) |
 | STT Speech to Text | **Requires** CPU or GPU environment (GPU recommended) |
-| Model Training | **Requires** GPU environment (recommended) |
+| Model Training | **Requires** CPU or GPU environment (GPU recommended) |
 | Agent (Browser/Web Tools) | **Requires** "Full" or "Agent" capability installation |
-| Audio to Text | **Requires** GPU environment (recommended) |
+| Audio to Text | **Requires** CPU or GPU environment (GPU recommended) |
 
 ---
 
@@ -44,7 +44,8 @@ This page summarizes common issues and solutions encountered while using ModxAI 
 
 - Click the **Refresh button** to update the model list.
 - Check the file format:
-  - Chat/Multimodal models: `.gguf` or `.bin`
+  - Chat models: `.gguf` or `.bin`, or an HF model directory containing `.safetensors` files.
+  - Multimodal models: `.gguf` or `.bin`.
   - Embedding/Rerank models: `.safetensors` (import the directory)
 
 ### Model failed to load?
@@ -94,9 +95,9 @@ No. RAG retrieval is unavailable in multimodal dialogue mode. For knowledge base
 
 ### What are the prerequisites for the agent?
 
-1. Load a chat model for the main role.
-2. Install "Full" or "Agent" environment capabilities in **Settings** (required for browser and web tools).
-3. Switch to agent mode in the chat interface.
+1. Open the **Agent Workbench** and select a model for the main role in session settings. You can use a local, online, or LAN model; see [Role Configuration](./features/agent/roles.md).
+2. Install the "Full" or "Agent" environment in **Settings** if you need browser or web search tools.
+3. Create a session, enter your task, and send it.
 
 ### What model size is suitable for the agent?
 
@@ -115,7 +116,7 @@ Prefer a model with good instruction-following and tool-calling capabilities tha
 
 ### What if web search is unavailable?
 
-Check the network and proxy, then confirm that the Agent environment is installed in **Settings → Environment**. Use **Reinstall** if needed. Also check the selected search source in [Advanced Settings](./features/agent/advanced-settings.md).
+Check the network and proxy, then confirm that the Agent environment is installed in **Settings → System → Environment Configuration**. Use **Reinstall** if needed. Also check the selected search source in [Advanced Settings](./features/agent/advanced-settings.md).
 
 ### Is agent data secure?
 
@@ -128,7 +129,7 @@ Review the workspace, tool permissions, and approval settings before using the a
 ### Chat is not responding?
 
 1. Confirm the model is loaded successfully (status shows "Loaded").
-2. Check the system resource monitor at the bottom of the page (excessive memory/CPU usage).
+2. Open **Model Center** and check CPU, memory, and VRAM usage at the top right.
 3. Try starting a new conversation.
 
 ### AI reply is empty or shows "Model did not return a valid response"?
@@ -171,9 +172,13 @@ AI nodes require model inference; speed depends on hardware:
 
 ### How do I resume from a checkpoint?
 
+These steps apply to SFT and RAG text and code workflows:
+
 1. Uncheck completed steps.
 2. Keep the steps that need re-execution checked.
 3. Ensure the output data of preceding steps exists.
+
+Audio transcription cannot resume from its interruption point. Starting again retranscribes from the beginning and may overwrite results with matching names. Check the input and output folders as described in [Audio to Text](./features/dataset/audio2text.md).
 
 ### What is structured data input?
 
@@ -181,13 +186,13 @@ In SFT or RAG data processing, selecting "JSON" as the file type enters structur
 
 ### What is the difference between sft_chatml / pretrain / dpo export formats?
 
-| Format | Output | Use Case |
+| Format | Sample Content | Use Case |
 |--------|--------|----------|
 | sft_chatml | system/user/assistant dialogue format | SFT fine-tuning |
-| pretrain | Plain text corpus | Pre-training / Continued pre-training |
-| dpo | prompt/chosen/rejected preference pairs | DPO preference alignment training |
+| pretrain | Text corpus | Pretraining or continued pretraining after tokenization |
+| dpo | prompt/chosen/rejected preference pairs | Exporting preference samples; the current Training page does not support DPO |
 
-Switch the export format parameter in the AI synthesis step. Pre-training no longer has a separate step.
+For unstructured text and code, choose **Export Format** in the AI synthesis step. For structured JSON, choose **Training Format** on the page. For SFT and pretraining, prefer the exported `train/final_dataset.jsonl` for training; do not treat raw sample files as tokenized training files. See [SFT Data Processing](./features/dataset/sft.md) for output files and their uses.
 
 ### What is Chain of Thought (CoT) mode?
 
@@ -199,20 +204,15 @@ When enabled, the system automatically injects reasoning prompts to guide the mo
 
 ### What configuration is needed for training?
 
-| Model Size | VRAM Requirement (LoRA) | VRAM Requirement (Full) |
-|------------|------------------------|-------------------------|
-| < 1B | 4GB | 16GB |
-| 1-3B | 6GB | 24GB |
-| 3-7B | 8GB | 40GB |
-| 7-14B | 12GB | 80GB |
+RAM and VRAM requirements depend on the model, sequence length, batch size, optimizer, and use of LoRA, not only the parameter count. Choose an available device and matching environment, then check the workflow with a small dataset. If memory is insufficient, try a smaller batch size or sequence length. See [Training Preparation](./features/training/prepare.md).
 
 ### What should I fill in "Training Model Directory"?
 
-This parameter requires a **HuggingFace format model directory** (containing `.safetensors` and `config.json`), **not** a GGUF inference model.
+Select a complete local **Hugging Face model directory** containing the configuration, weights, and usable tokenizer files. Supported weights may use Safetensors or PyTorch format; the file does not have to be named `model.safetensors`. GGUF inference models cannot be used here.
 
-### Can evaluation use public benchmarks as well as my own samples?
+### Which benchmarks are supported? Can I use my own questions?
 
-Yes. The evaluation module supports IFEval, GSM8K, MMLU, and HellaSwag. Custom samples are still scored by similarity. See [Model Evaluation](./features/training/evaluate.md).
+The evaluation page offers four fixed benchmarks: IFEval, MMLU-Pro, GSM8K, and HellaSwag. It has no custom sample-file input. Use [Model Testing](./features/training/test.md) to check answers to your own questions. See [Model Evaluation](./features/training/evaluate.md) for benchmark preparation and scoring.
 
 ### How to resume training after interruption?
 
@@ -302,13 +302,13 @@ Yes. The current version only supports Chinese and English. Other languages like
 
 ### I closed the first-run environment guide. Where do I install it later?
 
-Open **Settings → Environment**. You can choose Full, Agent, or Speech. If an environment is already installed, use **Reinstall**.
+Open **Settings → System → Environment Configuration**. You can choose Full, Agent, or Speech. If an environment is already installed, use **Reinstall**.
 
 ### Environment installation failed?
 
 Common solutions:
 - **Switch mirror source**: Users in China should select Alibaba Cloud or Tencent Cloud.
-- **Check disk space**: Environment installation requires approximately 5-10 GB of space.
+- **Check disk space**: Check the [space requirements](./features/settings/environment.md#storage-location-and-space-requirements) for the environment you selected.
 - **Check network**: Ensure access to the download source.
 - **Retry installation**: Click the "Reinstall" button.
 

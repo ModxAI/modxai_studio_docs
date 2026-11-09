@@ -1,9 +1,11 @@
 # Advanced Settings
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
 Advanced settings allow fine-tuning the agent's behavior strategies. All parameters have reasonable defaults and generally do not need modification. Advanced users can adjust them as needed.
+
+Open **Runtime Settings** (gear icon) at the top right of the agent page.
 
 ## Table of Contents
 
@@ -73,7 +75,7 @@ The `glob` tool can take an ignore-rule file so it skips paths you do not want s
 
 You can switch the search source:
 
-- **Built-in ddgs**: The default search engine. If search is unavailable, check the network and confirm that the Agent environment is installed in **Settings → Environment**. Use **Reinstall** if needed.
+- **Built-in ddgs**: The default search engine. If search is unavailable, check the network and confirm that the Agent environment is installed in **Settings → System → Environment Configuration**. Use **Reinstall** if needed.
 - **Brave**: Available as a search engine.
 - **DeepSeek**: One of the web search engines. Save DeepSeek credentials first.
 

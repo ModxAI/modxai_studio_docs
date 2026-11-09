@@ -1,7 +1,7 @@
 # Instruction Settings
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
 Instruction settings allow configuring global instruction files and personal preferences, so the agent follows your customized requirements on every execution.
 
@@ -10,6 +10,7 @@ Instruction settings allow configuring global instruction files and personal pre
 - [Global Instruction File](#global-instruction-file)
 - [Personal Preferences](#personal-preferences)
 - [Workspace Auto Detection](#workspace-auto-detection)
+- [Search Ignore File](#search-ignore-file)
 
 ---
 
@@ -19,7 +20,7 @@ An instruction file is a plain text file whose content is injected into the agen
 
 ### Configuration
 
-Click the **Instruction Settings** button in the right panel to open the instruction settings page.
+Open **Settings → Agent** to find **Global Instruction File** and **User Preferences**. Set the workspace directory in the agent page’s **Runtime Settings**.
 
 #### Method 1: Auto Detection (Recommended)
 
@@ -31,6 +32,7 @@ Click the **Instruction Settings** button in the right panel to open the instruc
 
 1. Click **Browse Instruction File**.
 2. Select a plain text file.
+3. Click **Save** at the bottom of the page and check the active path shown under the file field.
 
 ### Instruction File Format
 
@@ -38,7 +40,7 @@ Click the **Instruction Settings** button in the right panel to open the instruc
 - Content is injected as part of the system prompt.
 - Recommended to include project rules, behavior constraints, output format, etc.
 
-A long instruction body collapses automatically. Expand it to read the full text. The message input box does the same.
+An instruction file detected in the workspace takes priority over a manually selected file. Check the active path shown on the page.
 
 ---
 
@@ -48,10 +50,10 @@ Personal preferences allow you to add multiple short descriptions to remind the 
 
 ### Adding Preferences
 
-1. Find the "Personal Preferences" area on the instruction settings page.
+1. Open **Settings → Agent** and find **User Preferences**.
 2. Click **Add Preference**.
 3. Enter a description (200 characters or fewer per entry).
-4. Multiple preferences can be added.
+4. Add more preferences if needed, then click **Save**.
 
 ### Preference Examples
 
@@ -60,7 +62,7 @@ Personal preferences allow you to add multiple short descriptions to remind the 
 
 ### Managing Preferences
 
-- Click the delete button next to a preference entry to remove it.
+- Click the delete button next to an entry, then click **Save**.
 - All preferences are merged into the agent's system prompt with higher weight.
 
 ---
@@ -70,7 +72,11 @@ Personal preferences allow you to add multiple short descriptions to remind the 
 After setting the workspace directory, the system automatically detects instruction files at the following locations:
 
 - `AGENTS.md` in the workspace root
-- `.agents.md` in the workspace root
-- Other AGENTS-like naming patterns
+- `AGENTS.txt` in the workspace root
+- `agents.md` in the workspace root
 
-Detected files take effect automatically and require no manual specification. This is the recommended approach — simply place an `AGENTS.md` file in the workspace root, and all agents running in that workspace will follow its instructions.
+The app checks these names in the order listed and uses the first file it finds. Check the active path shown on the page.
+
+## Search Ignore File
+
+Under **Settings → Agent → Global Instruction File**, click **Browse Ignore File**, choose a text rules file, and click **Save**. A `.modxignore` file in the workspace root takes priority over a manually selected file. Without a selected file, the app uses its built-in ignore rules. These rules affect file searches and do not replace tool permissions or approval.

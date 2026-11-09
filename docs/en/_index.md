@@ -40,6 +40,15 @@
 
 - [Model Management](./features/models/overview.md)
 
+### RSI Self Improvement
+
+- [RSI Overview](./features/rsi/overview.md)
+- [Configure and Start a Run](./features/rsi/configure.md)
+- [Evaluation Tasks and Conversation Imports](./features/rsi/evaluation-tasks.md)
+- [Improve a Skill](./features/rsi/skills.md)
+- [Compare and Export Results](./features/rsi/results.md)
+- [History, Continuation, and Troubleshooting](./features/rsi/history.md)
+
 ### Data Processing
 
 - [Data Processing Overview](./features/dataset/overview.md)

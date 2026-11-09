@@ -1,9 +1,11 @@
 # Model Library
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
-This article introduces how to use the **Model Library** feature in ModxAI Studio, helping you complete tasks such as model import, download, load, management, and custom export.
+Use the Model Library to download, import, load, and manage models.
+
+Open **Model Center** in the main menu. To download a model, choose **Download** in its submenu.
 
 ## Table of Contents
 
@@ -15,7 +17,6 @@ This article introduces how to use the **Model Library** feature in ModxAI Studi
 - [Model Load and Unload](#model-load-and-unload)
 - [Model Management](#model-management)
 - [LAN Inference Service](#lan-inference-service)
-- [Custom Model Export](#custom-model-export)
 - [System Resource Monitoring](#system-resource-monitoring)
 - [Usage Statistics](#usage-statistics)
 - [Notes](#notes)
@@ -31,7 +32,6 @@ The following model types require environment to be installed in **Settings** be
 - **Embedding Model**: Used for RAG retrieval, requires CPU or GPU environment.
 - **Rerank Model**: Used for retrieval result optimization, requires CPU or GPU environment.
 - **SD Model (Image Generation)**: Requires CPU or GPU environment.
-- **Custom Model Export**: Requires CPU or GPU environment.
 
 ### No Environment Dependencies
 
@@ -48,13 +48,13 @@ If you need to use features dependent on Python, please go to the **Settings** p
 > **GPU Acceleration libraries (Important)**
 >
 > - NVIDIA (recommended):
->   - If you have an NVIDIA GPU, install the CUDA acceleration libraries using the “Install GPU Acceleration Libraries” option in the Model Library ⚡ button. Chat/multimodal models run fastest on NVIDIA+CUDA; Stable Diffusion (SD, image generation) currently requires CUDA and will only run after the CUDA libraries are installed.
+>   - If you have an NVIDIA GPU, install the CUDA acceleration libraries under **Settings → System → CUDA Inference Library Installation**. Chat/multimodal models run fastest on NVIDIA+CUDA; Stable Diffusion (SD, image generation) currently requires CUDA and will only run after the CUDA libraries are installed.
 >   - After installing or updating the acceleration libraries, there is no need to restart the application. The changes take effect the next time a model is loaded. Inference libraries can also update themselves.
 >   - In the model library, turn on speculative decoding, choose type `draft-dflash`, then choose a local draft model (GGUF).
 > - AMD (limitations):
 >   - AMD GPUs can use the built-in Vulkan acceleration for chat/multimodal models (no extra library needed), but SD inference is not supported on AMD/Vulkan at this time.
 > - No discrete GPU / integrated GPUs:
->   - If no NVIDIA discrete GPU is detected, the “Install GPU Acceleration Libraries” control will not appear. You can still use CPU or platform Vulkan (where supported) for chat models, but performance will be limited.
+>   - If no NVIDIA discrete GPU is detected, the **CUDA Inference Library Installation** section will not appear. You can still use CPU or platform Vulkan (where supported) for chat models, but performance will be limited.
 
 ---
 
@@ -65,11 +65,9 @@ The Model Library page is divided into the following areas:
 ### Top Toolbar
 
 - **Import Button**: Manually import local model files.
-- **Download Button**: Open the model downloader to download models from Hugging Face or ModelScope.
 - **Load Button**: Load the selected model into memory.
 - **Unload Button**: Unload the currently loaded model.
 - **Refresh Button**: Refresh the model list and status.
-- **Create Model Button**: Open the custom model export interface.
 
 ### Model Category Tabs
 
@@ -93,11 +91,7 @@ Displays all models under the current category, including:
 
 ### System Resource Monitoring
 
-The bottom of the page displays real-time resource usage:
-
-- **CPU**: CPU usage.
-- **Memory**: Memory usage.
-- **GPU**: GPU memory and temperature (if GPU is available).
+The resource strip at the top right shows CPU, memory, and VRAM usage percentages.
 
 ---
 
@@ -137,11 +131,9 @@ After importing an HF Transformers format chat model, the following configuratio
 
 **Model Reuse Mechanism**:
 
-When you are generating SFT data, if a chat model is already running:
-- The system automatically detects if the model configuration matches (Base Model + LoRA).
-- If matched, the SFT task reuses the model, and requests enter the queue for processing.
-- The model is not unloaded after the SFT task completes, and your chat session is unaffected.
-- Multiple requests are processed serially through the queue mechanism without interference.
+Local AI nodes in data processing can reuse a llama.cpp chat model when its configuration matches. Matching includes the base model, LoRA, context size, and runtime parameters, not only the model name.
+
+Finishing a processing step does not itself unload the shared model, but data processing and chat compete for compute resources, so chat may wait or respond more slowly. Switching configurations may also be blocked while other tasks use the model. See [Model Reuse in Data Processing](../dataset/overview.md#model-reuse-mechanism).
 
 ### Embedding Model
 
@@ -290,9 +282,11 @@ Rerank models use a cross-encoder architecture with high computational complexit
 
 1. **Click Import Button**: Click "Import" under the corresponding model category tab.
 2. **Select File**:
-   - **Chat/Multimodal**: Select `.gguf` or `.bin` file.
+   - **Chat/Multimodal**: Select a `.gguf` or `.bin` file. For HF chat models, select the directory containing `.safetensors` files.
    - **Embedding/Rerank**: Select `.safetensors` file or directory containing the file.
-   - **SD Model**: Must use SD import dialog separately.
+   - **SD Model**: Use the separate SD import dialog.
+   - **TTS Model**: Select the `.pth` weights file.
+   - **STT Model**: Use the downloader; it manages the model files.
 3. **Auto Verification**: System automatically detects file format and model type.
 4. **Fill Information**:
    - **Name**: Model display name.
@@ -304,14 +298,7 @@ Importing a `.safetensors` file reports the file size.
 
 ### Smart Detection Rules
 
-The system automatically infers model type based on the following information:
-
-- **Filename**: Contains keywords like `vision`, `mmproj`, `multimodal`.
-- **Directory Name**: Parent directory contains model type related keywords.
-- **Format**:
-  - `.gguf/.bin` → Chat or Multimodal.
-  - `.safetensors` + Directory → Embedding or Rerank.
-  - `.gguf/.bin/.safetensors` + Single File → SD Model.
+Check the detected category before confirming the import. If it is incorrect, select the category that matches the model’s purpose.
 
 ### Multimodal Projection Component (mmproj)
 
@@ -360,7 +347,7 @@ Add LoRA adapter to base model:
 
 ### Open Downloader
 
-Click the "Download" button on the top toolbar to open the model downloader window.
+Open **Model Center → Download** in the main menu. Browse the catalog, specify a repository, or view download management.
 
 ### Download Source Selection
 
@@ -386,7 +373,7 @@ Supports two download sources:
 - **Progress Display**: Real-time display of download percentage, speed, remaining time.
 - **File Count**: Downloaded files / Total files.
 - **Pause/Resume**: Can cancel and resume download at any time.
-- **Minimize**: Can minimize downloader to button, continue downloading in background.
+- **Switch pages**: Use other pages while downloads continue. Return to download management to check progress.
 - **The window stays usable**: A fast download should not freeze the interface. If it still stalls, pause the download before doing other work.
 - **Refresh progress**: The current download progress can be read again.
 - **Delete local files**: A download entry can remove the files already written to disk.
@@ -515,108 +502,17 @@ SD models support secondary editing of inference capability tags:
 
 ---
 
-## Custom Model Export
-
-### Feature Description
-
-Create and export custom language models from scratch based on configuration parameters, for experiments or specific needs.
-
-**Environment Requirements**: Requires CPU or GPU environment.
-
-### Usage Flow
-
-1. **Open Creation Drawer**: Click "Create Model" button in top right corner.
-2. **Select Preset** (Optional):
-   - ModxAI-Custom-Small (Lightweight)
-   - ModxAI-Custom-Medium (Medium Scale)
-   - ModxAI-Custom-Large (Large Scale)
-   - ModxAI-Completely-Free (Fully Custom)
-3. **Configure Basic Parameters**:
-   - **Output Directory**: Model save path (Required).
-   - **Vocab Size**: 10,000 - 100,000.
-   - **Hidden Size**: 128 - 8192.
-4. **Tokenizer Configuration**:
-   - **Default Tokenizer**: Use pretrained tokenizer.
-   - **Custom Tokenizer**: Train from corpus file (Select .txt file).
-5. **Advanced Parameters** (Collapsible Panel):
-   - **Layers**: Transformer layers.
-   - **Attention Heads**: Multi-head attention mechanism.
-   - **FFN Intermediate**: Feed-forward network dimension.
-   - **KV Heads**: Key-Value attention heads.
-6. **Parameter Preview**:
-   - Real-time display of **Total Parameters** and **Estimated VRAM Usage**.
-   - Validation error prompts (e.g., unreasonable configuration).
-7. **Start Export**: Click "Create Model" button.
-8. **Wait for Completion**: Export process may take a few minutes.
-
-**Reminder**:
-- This model is not recommended for direct inference use, only for scenarios like experiments and pre-training.
-
-### Preset Explanation
-
-| Preset | Parameters | VRAM Usage | Applicable Scenario |
-| :--- | :--- | :--- | :--- |
-| Small | ~100M | ~2GB | Lightweight testing, learning. |
-| Medium | ~500M | ~4GB | General conversation, experiments. |
-| Large | ~1B+ | ~8GB+ | Complex tasks, high quality. |
-| Completely-Free | Dynamic | Dynamic | Experimental. |
-
-### Parameter Validation Rules
-
-System automatically checks the following constraints:
-
-- Attention heads must be divisible by hidden size.
-- KV heads must be divisible by attention heads.
-- Estimated VRAM does not exceed system available memory.
-- Parameters are within reasonable range.
-
-### Custom Tokenizer
-
-If you need to train a tokenizer from specific domain corpus:
-
-1. **Prepare Corpus**: Plain text file (.txt), one sentence per line.
-2. **Set Vocab Size**: 8,000 - 50,000 (Recommended 16,000 - 32,000).
-3. **Select Type**:
-   - **SentencePiece** (Recommended): Suitable for Chinese, Japanese, etc.
-   - **BPE**: Suitable for English and other Latin languages.
-4. **Start Training**: System automatically trains and saves tokenizer.
-5. **Auto Apply**: Automatically used for model export after training completion.
-
----
-
 ## System Resource Monitoring
 
-The bottom of the page displays real-time system resource usage:
+The top-right resource strip shows CPU, memory, and VRAM usage percentages. A bar shows a warning state above 90%. VRAM shows “—” when its usage data is unavailable.
 
-### CPU Monitoring
-
-- **Usage**: Ring progress bar shows CPU usage percentage.
-- **Status**: Red warning when exceeding 90%.
-
-### Memory Monitoring
-
-- **Usage**: Ring progress bar shows memory usage percentage.
-- **Specific Value**: Used / Total Capacity (GB).
-- **Status**: Red warning when exceeding 90%, triggers memory shortage prompt, and unloads models if necessary to ensure system stability.
-
-### GPU Monitoring
-
-Displayed only when GPU is detected:
-
-- **VRAM Usage**: Used / Total Capacity (MB).
-- **Temperature**: Real-time temperature (°C).
-- **Vendor Info**: GPU model and manufacturer.
-
-**Note**:
-- NVIDIA GPU can monitor VRAM and temperature in real-time.
-- AMD/Intel GPU only displays static info (Total VRAM, Vendor).
-- This card is not displayed if no GPU.
+If usage stays high, stop unnecessary tasks or unload unused models before retrying.
 
 ---
 
 ## Usage Statistics
 
-The toolbox **local model usage** panel shows input tokens, output tokens, and request count. The figures update after a model is loaded or unloaded.
+Open **More → Toolbox → Local Model Usage** to view input tokens, output tokens, and request count. Choose day, week, month, or year, then click **Refresh** to read the latest data.
 
 ---
 
@@ -624,7 +520,8 @@ The toolbox **local model usage** panel shows input tokens, output tokens, and r
 
 ### File Format Restrictions
 
-- **Chat/Multimodal**: Only supports `.gguf` and `.bin`.
+- **Chat**: `.gguf` or `.bin` files, or an HF model directory containing `.safetensors` files.
+- **Multimodal**: `.gguf` or `.bin` files.
 - **Embedding/Rerank**: Only supports `.safetensors` (Optional directory import).
 - **SD Model**: Only supports `.gguf/.safetensors/.bin`.
 - Unsupported formats will be rejected during validation phase.
@@ -671,9 +568,6 @@ A: LoRA must match base model architecture, recommended to use specially trained
 
 **Q: Download speed slow?**
 A: Try switching download source.
-
-**Q: Custom model export failed?**
-A: Check if parameter configuration is reasonable, output directory has write permission, environment is correctly installed.
 
 ---
 

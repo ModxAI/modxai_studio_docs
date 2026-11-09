@@ -1,281 +1,105 @@
-# Training Monitor Module Details
+# Training Monitoring Guide
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
-> 📌 **Module Positioning**: Real-time monitoring of training progress, viewing historical training data, and analyzing training status through visual charts.
+Use **Self Improvement → Training → Monitor** to inspect training progress, metric curves, and logs, or review a task that has already ended.
 
-## Table of Contents
-- [Overview](#overview)
-- [Interface Layout](#interface-layout)
-- [Metric Charts](#metric-charts)
-- [Chart Data Accumulation Mechanism](#chart-data-accumulation-mechanism)
-- [Training Log](#training-log)
-- [Real-time Monitoring Mode](#real-time-monitoring-mode)
-- [History Review Mode](#history-review-mode)
-- [Usage Suggestions](#usage-suggestions)
-- [Next Steps](#next-steps)
+## Contents
 
----
+- [Before you start](#before-you-start)
+- [View a training task](#view-a-training-task)
+- [Interface layout](#interface-layout)
+- [Metric charts](#metric-charts)
+- [Chart settings](#chart-settings)
+- [Accumulated chart data](#accumulated-chart-data)
+- [Training logs](#training-logs)
+- [Real-time monitoring](#real-time-monitoring)
+- [History review](#history-review)
+- [Usage suggestions](#usage-suggestions)
 
-## Overview
+## Before you start
 
-The Monitor module provides two working modes:
+Create and start a task in [Prepare](./prepare.md). You can also select an existing task directly from the monitor. A task without recorded training metrics has no curves to inspect.
 
-| Mode | Trigger Condition | Description |
-|------|----------|------|
-| **Real-time Monitoring** | Select a running task | Receive training metrics in real-time, charts update dynamically |
-| **History Review** | Select a completed/stopped task | Load historical training logs, view complete training curves |
+## View a training task
 
-The system automatically switches modes based on the selected task status, no manual setting required.
+1. Open **Self Improvement → Training → Monitor**. Starting training successfully from Prepare also opens this page automatically.
+2. Choose the task in the selector at the top.
+3. A running task uses real-time monitoring. A task that is not running loads its saved records in history mode. The mode changes automatically.
+4. Inspect progress, current metrics, and curves. Expand **Other Charts** for additional metrics and scroll down to **Training Logs**.
+5. To stop training, return to [Prepare](./prepare.md), click **Stop Training**, and wait for the status to change.
 
----
+Progress and estimated time describe the run, not the model's quality. Check the final task status and logs to determine whether training ended normally.
 
-## Interface Layout
+## Interface layout
 
-### Task Selector
+| Area | Contents |
+|------|----------|
+| Task selector | Searchable task names and statuses |
+| Progress | Current step, total steps, percentage, and estimated time remaining |
+| Current metrics | Current loss, learning rate, and processing speed (SPL/s, or samples per second) |
+| Main charts | Training loss and perplexity |
+| Other charts | Gradient norm, learning rate, evaluation loss, and training speed |
+| Training logs | Timestamped training events and metric records |
 
-The task selector at the top of the page is used to select the training task to monitor:
+## Metric charts
 
-- **Dropdown List**: Displays all training tasks, including task names and status tags.
-- **Status Tag Colors**:
-  - 🟢 Green: Running
-  - 🔵 Blue: Completed
-  - 🟡 Yellow: Pending
-  - 🔴 Red: Failed/Error
-  - ⚪ Gray: Stopped
+| Metric | How to read it |
+|--------|----------------|
+| Training loss | Look at the overall trend; a single fluctuation does not establish a failure |
+| Perplexity | Reflects uncertainty when predicting training text; compare under the same data and settings rather than using a universal target |
+| Gradient norm | Look for sustained unusual changes and investigate the learning rate and data |
+| Learning rate | Check the warmup and scheduling pattern |
+| Evaluation loss | Comes from evaluation during training and requires a separate evaluation file and an active evaluation strategy |
+| Training speed | Samples per second; affected by the model, sequence length, batch size, device, and saving operations |
 
-### Training Status Panel
+If the evaluation-loss chart is empty, check the evaluation file and strategy in the training parameters. This loss is different from the benchmark scores in [Evaluate](./evaluate.md).
 
-Displays key progress information of the current training:
+## Chart settings
 
-| Metric | Description |
-|------|------|
-| Current Steps | Number of training steps completed |
-| Total Steps | Estimated total steps of the training task |
-| Training Progress | Completion percentage |
-| Estimated Remaining Time | Estimated remaining time based on current speed |
+Click the gear beside the task selector to open chart settings:
 
-### Real-time Metrics Panel
+- **Smoothing strength**: `0%` shows raw data. Higher values smooth the trend.
+- **Moving window**: a larger window smooths local fluctuations more.
+- **EMA coefficient**: a higher value responds more quickly to new data.
+- Click **Apply** to confirm, or use **Reset Default** to restore defaults.
 
-Displays key training metrics of the latest step:
+Use the mouse wheel to zoom, then drag to pan. Smoothing changes the display only. To investigate a spike, set smoothing to `0%` and compare it with the logs.
 
-| Metric | Description | Ideal Trend |
-|------|------|----------|
-| Current Loss | Loss value of the model in the current batch | Gradually decreasing |
-| Learning Rate | Current learning rate value | Changes according to scheduling strategy |
-| Training Speed | Samples processed per second (SPL/s) | Stable |
+## Accumulated chart data
 
----
+History is saved per training task. Restarting the same task may leave records from several runs together, with step numbers starting again. This does not mean training resumed from a checkpoint.
 
-## Metric Charts
+Create separate tasks when comparing different parameter sets. Leaving the page does not stop training; select the task again when you return.
 
-### Main Charts (Displayed by Default)
+## Training logs
 
-#### Loss Curve
+Logs include training start, training steps, evaluation, checkpoint saves, and completion events. The live list shows up to the latest `200` entries. History review loads saved training records.
 
-| Attribute | Description |
-|------|------|
-| **Meaning** | The gap between model prediction and true label |
-| **Ideal Trend** | Overall downward trend, eventually leveling off |
-| **Abnormal Situation** | Continuous rise or violent oscillation indicates unstable training |
+These are training events and metrics, not necessarily a complete copy of every terminal message. For a failed task, also read the failure message. Deleting a training task deletes its log records.
 
-**Analysis Tips**:
-- Rapid decline in the early stage is normal.
-- Slow decline in the later stage belongs to convergence phenomenon.
-- Sudden rise may be due to excessive learning rate.
+## Real-time monitoring
 
-#### Perplexity Curve
+Running tasks update charts as new metrics arrive. The **Logging steps** setting controls the interval, with a preset of every `10` steps. This is not a fixed once-per-second update rate.
 
-| Attribute | Description |
-|------|------|
-| **Meaning** | Model's uncertainty in predicting the next token |
-| **Calculation** | perplexity = exp(loss) |
-| **Ideal Trend** | Decreases synchronously with loss |
-| **Reference Value** | The lower the better, usually single digits to tens |
+Live curves show up to the latest `400` points. Metrics may pause while the model loads, data is prepared, or checkpoints are saved. Check logs and status before treating an unchanged chart as a failure.
 
-**Analysis Tips**:
-- Perplexity is the exponential form of loss, reflecting model quality more intuitively.
-- Perplexity of 10 means the model hesitates among 10 candidate words on average.
+## History review
 
-### Other Charts (Fold Group)
+Select a task that is not running to inspect saved metrics and events, including completed, stopped, or failed tasks. History charts show up to the latest `4000` points, so a chart may not contain the full history.
 
-Click **"Other Charts"** fold panel to expand more analysis charts:
+If there are no curves, check whether the task reached training and produced metrics. If history fails to load, select the task again to retry.
 
-#### Gradient Norm
+## Usage suggestions
 
-| Attribute | Description |
-|------|------|
-| **Meaning** | L2 norm of gradient vector, reflecting parameter update magnitude |
-| **Ideal Trend** | Relatively stable, no extreme values |
-| **Abnormal Situation** | Value explosion indicates gradient explosion, need to reduce learning rate |
+- Compare trends using the same data and settings. Fixed loss or gradient thresholds do not apply to every model.
+- If training loss falls while evaluation loss keeps rising, investigate overfitting before adjusting epochs, learning rate, or data.
+- Use benchmark evaluation and interactive testing to assess the model's actual capabilities.
 
-**Analysis Tips**:
-- Gradient norm too large (e.g., >100) indicates need for gradient clipping.
-- Gradient norm too small (close to 0) may be gradient disappearance.
+## Related guides
 
-#### Learning Rate Curve
-
-| Attribute | Description |
-|------|------|
-| **Meaning** | Learning rate value used by current optimizer |
-| **Ideal Trend** | Smooth change according to set scheduling strategy |
-| **Common Forms** | cosine (cosine decay), linear (linear decay) |
-
-**Analysis Tips**:
-- Learning rate rises gradually from 0 during warmup phase.
-- Gradually decreases according to strategy during normal training phase.
-- Curve shape should be consistent with `lr_scheduler_type` parameter.
-
-#### Evaluation Loss
-
-| Attribute | Description |
-|------|------|
-| **Meaning** | Loss value calculated on evaluation set |
-| **Prerequisite** | Need to set evaluation strategy and evaluation data |
-| **Ideal Trend** | Decreases synchronously with training loss, gap not too large |
-
-**Analysis Tips**:
-- Training loss decreases but evaluation loss rises = Overfitting.
-- Gap too large requires adjustment of regularization parameters.
-- Evaluation loss is an important basis for selecting the best checkpoint.
-
-#### Training Speed
-
-| Attribute | Description |
-|------|------|
-| **Meaning** | Samples processed per second (Samples per Second) |
-| **Ideal Trend** | Keep stable |
-| **Abnormal Situation** | Violent speed fluctuation may be I/O bottleneck |
-
-**Analysis Tips**:
-- Speed is related to batch size and sequence length.
-- Speed will drop briefly when saving checkpoints.
-- Continuous low speed requires checking data loading configuration.
-
----
-
-## Chart Data Accumulation Mechanism
-
-> ⚠️ **Important Feature**: Training metrics of the same task will be **accumulated**, not started from scratch.
-
-### Accumulation Principle
-
-When the same training task is trained multiple times (e.g., restart after interruption with modified parameters), the chart will continue from the last step:
-
-**Example Scenario**:
-1. Task A first trained to step 30 and interrupted.
-2. Continue training after modifying parameters (start from step 0).
-3. Chart X-axis displays: `30 → 10 → 20 → 30 → 40 ...`
-
-### Significance of Accumulation
-
-| Scenario | Function |
-|------|------|
-| Parameter Tuning | Intuitively compare effects of different parameter configurations |
-| Resume Training | View the entire training history completely |
-| Troubleshooting | Track metric changes before and after training interruption |
-
-### Data Storage
-
-- **Historical Data**: Saved in `training_logs` table of local database.
-- **Page Switching**: Chart data will be restored from cache when switching back from other pages.
-
----
-
-## Training Log
-
-Detailed logs during training are displayed at the bottom of the page:
-
-### Log Types
-
-| Type | Color | Description |
-|------|------|------|
-| Training Start | 🟢 Green | Training task started |
-| Training Step | 🔵 Blue | Recorded once every logging_steps |
-| Evaluation Event | 🟡 Yellow | Model evaluation completed |
-| Checkpoint Save | 🔵 Blue | Checkpoint saved |
-| Training End | 🟢 Green | Training task completed |
-
-### Log Storage
-
-- **Real-time Log**: Displays latest 200 records.
-- **Full Log**: Saved in local database, viewable via History Review mode.
-- **Persistence**: Training logs are retained after application is closed.
-
----
-
-## Real-time Monitoring Mode
-
-### Working Principle
-1. Push frequency is controlled by `logging_steps` parameter (default push once every 10 steps).
-2. Frontend updates charts and metric display after receiving events.
-
-### Data Update Frequency
-
-| Configuration Item | Description |
-|--------|------|
-| logging_steps | Record log every X steps |
-| Backend Throttling | About 300ms sending interval |
-
-### Chart Smoothing
-
-To avoid excessive curve jitter, the system uses a dual smoothing strategy:
-- **Exponential Smoothing (EMA)**: Smooth sudden data points.
-- **Moving Average (MA)**: Further noise reduction.
-
----
-
-## History Review Mode
-
-### Entry Method
-
-Select a task with status **Completed** or **Stopped**, system automatically switches to History Review mode.
-
-### Data Loading
-
-1. Load all training logs of the task from database.
-2. Parse metric data in logs.
-3. Render complete training curves at once.
-
-### Historical Data Limit
-
-- Max display **4000 data points**.
-- Excess parts will automatically crop earliest records.
-- Ensure chart performance is not affected.
-
----
-
-## Usage Suggestions
-
-### Monitoring Best Practices
-
-1. **Focus on Loss Curve**
-   - Normal Training: Steady decline then leveling off.
-   - Need Intervention: Violent oscillation or continuous rise.
-
-2. **Observe Evaluation Loss**
-   - Synchronous decline with training loss is ideal state.
-   - Consider early stopping when evaluation loss starts to rise.
-
-3. **Check Gradient Norm**
-   - Stable value indicates healthy training.
-   - Sudden increase requires checking data or reducing learning rate.
-
-### Performance Optimization
-
-| Scenario | Suggestion |
-|------|------|
-| Long-time Training | Appropriately increase logging_steps to reduce data volume |
-| Need Fine Monitoring | Decrease logging_steps to get denser data points |
-| Page Lag | Fold infrequently used chart panels |
-
----
-
-## Next Steps
-
-- [Overview](./overview.md) - Training function overview
-- [Prepare Module Details](./prepare.md) - Task creation and parameter configuration
-- [Evaluate Module Details](./evaluate.md) - Checkpoint evaluation
-- [Test Module Details](./test.md) - Interactive testing
-- [Package Module Details](./package.md) - GGUF export
+- [Prepare](./prepare.md): parameters and stopping training
+- [Evaluate](./evaluate.md): compare checkpoints
+- [Test](./test.md): inspect actual answers
+- [Quantize](./package.md): export the model
