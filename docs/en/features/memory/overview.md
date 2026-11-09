@@ -1,9 +1,11 @@
 # Memory Management
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
 Memory management provides a unified view for reviewing and managing the **long-term memory** accumulated by the agent during execution, as well as manually **bookmarked** Q&A entries. You can preview, edit, archive, delete, or export memories as data formats suitable for training or knowledge base use.
+
+Expand **More** in the main menu and choose **Memories**.
 
 ## Table of Contents
 

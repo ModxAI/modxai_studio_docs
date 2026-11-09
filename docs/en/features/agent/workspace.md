@@ -1,60 +1,56 @@
 # Workspace Browser
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
-The workspace browser shows files the agent has read or written in the current workspace, and keeps notes and earlier context available across sessions. File operations stay inside the workspace directory by default. To attach another directory as read-only, see [Attachments & Knowledge Bases](./attachments.md).
+The workspace browser lists directories and files in the current workspace, including files the agent has not read or changed. Preview results in the app, open files, or save a copy locally.
 
-## Table of Contents
+## Open Workspace Resources
 
-- [Resource Preview](#resource-preview)
-- [Tabs](#tabs)
-- [Work Notes](#work-notes)
-- [Task Linking](#task-linking)
-- [Notes](#notes)
+1. Open **Runtime Settings** on the agent page and check **Workspace Root**. Select your project directory if needed.
+2. Click **Workspace Resources** at the top of the page.
+3. Expand directories on the left and select a file. You can search by filename, filter by type, or refresh the current directory.
 
----
+Drag the drawer edge to adjust its width. If a newly generated file is missing, refresh and check the workspace path used by the current conversation.
 
 ## Resource Preview
 
-The workspace includes a resource previewer. Select a file to view it in the app instead of opening an external program first.
+- Code, plain text, Markdown, and HTML support built-in preview, with a **10 MB** text preview limit.
+- Images, audio, and video can be previewed depending on format, with a **32 MB** media preview limit.
+- For unsupported or oversized files, use **Open**, or **Download locally** and view them in a suitable application.
 
-Preview covers:
+Previewing does not require a loaded model and does not replace a file editor.
 
-- Code, Markdown, and HTML can be shown inline, up to **10MB**
-- **Live HTML preview**: HTML files render directly in the previewer
+### HTML Interaction
 
-The 10MB cap is the inline preview limit for code, Markdown, and HTML.
+HTML opens in static isolated preview by default. Scripts and external resources are disabled.
 
----
+1. Check that you trust the file's source and code before clicking **Trust and Enable Interaction**.
+2. Check the file path in the confirmation dialog. Confirming enables scripts, downloads, and page dialogs.
+3. Click **Return to Static Preview** when interaction is no longer needed.
+
+Interactive preview remains isolated, with network and main-app access blocked. Changing files or modifying the file requires confirmation again. Do not enable interaction merely to inspect an unfamiliar file.
 
 ## Tabs
 
-The previewer opens files in tabs. Tabs offer more than one close action, so you can close the current tab or a group of related tabs. The tab bar can also move forward and back through files you have already opened.
+Selecting a file opens a preview tab. Close individual tabs, or use the tab menu to close other tabs, tabs to the right, or all tabs. Back and forward buttons navigate previously viewed tabs.
 
-The workbench parameter window can be resized horizontally, which leaves room for the preview and the parameters at the same time.
+Changing the main workspace clears the previous workspace's tabs and previews.
 
----
+## Work Notes and Task Association
 
-## Work Notes
+The agent can save handoff notes containing results, paths, and unresolved items. Later tasks can refer to these notes when reading relevant history. This does not put every historical conversation into the current context.
 
-Work notes are shared across sessions. Use them for paths, conclusions, or follow-ups that should not stay inside a single conversation.
+Choose a read mode under **Runtime Settings → Task association**:
 
-To keep a conclusion as an exportable memory, use the feedback actions on a reply, or edit entries in [Memory Management](../memory/overview.md).
+- **Automatic (last 24 hours)**: Read recent task background.
+- **Selected conversations**: Choose at least one historical conversation. Enable **Also read recent tasks** if needed.
+- **Off**: Do not automatically associate this task background.
 
----
-
-## Task Linking
-
-Workbench parameters can link the current task to earlier sessions. After a link is set, the agent can read that historical context and continue unfinished work or check a previous decision.
-
-To reuse the same workbench parameters from a schedule, select a parameter preset when you create the scheduled task. See [Scheduled Tasks](../scheduler/overview.md).
-
----
+Use [Memory Management](../memory/overview.md) to organize, edit, or export long-term memories. Scheduled tasks can reuse settings through presets; see [Scheduled Tasks](../scheduler/overview.md).
 
 ## Notes
 
-- If no workspace is set, the app uses a default workspace under the temporary directory. Change it in the session configuration.
-- An external workspace reference is read-only. The agent cannot write into that directory.
-- Previewing HTML or JSONL does not require a separate model load.
-- Files the agent changed can still be **rolled back** from the progress node. See [Agent Overview](./overview.md).
+- Check the workspace directory before starting a task to avoid writing results to the wrong location.
+- To read another directory without changing the main workspace, use a [workspace reference](./attachments.md#workspace-reference).
+- Use the actions offered on each file-change card to determine whether a change can be undone. Keep backups of important files. See [Agent Overview](./overview.md).

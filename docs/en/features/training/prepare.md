@@ -1,1200 +1,207 @@
-# Prepare Module Details
+# Preparation Module Guide
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
-Use the **Prepare** page to create a task, select your model and data, and start training. This guide applies to Windows version 1.1.10. Start with [Training Flow](#training-flow), then use the parameter reference below when you need to adjust a setting.
+Use **Self Improvement → Training → Prepare** to create an SFT (supervised fine-tuning) or pretraining task, configure its model, data, and output location, and start training.
 
-## Table of Contents
+## Contents
 
-- [Interface Overview](#interface-overview)
-- [Training Flow](#training-flow)
-- [Task Management](#task-management)
-- [Parameter Templates](#parameter-templates)
-- [Parameter Configuration](#parameter-configuration)
-- [Data Configuration Parameters](#data-configuration-parameters)
-- [Training Configuration Parameters](#training-configuration-parameters)
-- [LoRA Configuration Parameters](#lora-configuration-parameters)
-- [Optimization Configuration Parameters](#optimization-configuration-parameters)
-- [Log Configuration Parameters](#log-configuration-parameters)
-- [General Configuration Parameters](#general-configuration-parameters)
+- [Before you start](#before-you-start)
+- [Interface overview](#interface-overview)
+- [Training workflow](#training-workflow)
+- [Task management](#task-management)
+- [Parameter templates](#parameter-templates)
+- [Parameter configuration](#parameter-configuration)
+- [Data configuration parameters](#data-configuration-parameters)
+- [Training configuration parameters](#training-configuration-parameters)
+- [LoRA configuration parameters](#lora-configuration-parameters)
+- [Optimization configuration parameters](#optimization-configuration-parameters)
+- [Logging configuration parameters](#logging-configuration-parameters)
+- [General configuration parameters](#general-configuration-parameters)
 
----
+## Before you start
 
-## Interface Overview
+- Install an environment with training support under [Settings → System](../settings/environment.md).
+- Prepare a complete local model directory with its configuration, weights, and usable tokenizer files. Use a trainable Hugging Face model, not a GGUF file. Supported model weights may use Safetensors or PyTorch format; the weight file does not have to be named `model.safetensors`.
+- Prepare training files that match the training type and model tokenizer. See [Data configuration parameters](#data-configuration-parameters). Evaluation during training also requires a separate evaluation file.
+- Choose a writable output directory with room for checkpoints. Training uses memory or GPU memory continuously.
 
-The Prepare module interface is divided into left and right areas:
+Training supports CPU and NVIDIA CUDA. **Auto** uses CUDA when available and otherwise uses CPU. When choosing GPU, also check that the actual environment has CUDA. Other inference backends are not automatically available for training.
 
-| Area | Function |
-|------|------|
-| Left - Basic Config | Task name, config template, training type, training device, task management |
-| Right - Operation Control | Parameter configuration entry, start/stop training buttons, reset button |
+## Interface overview
 
----
+| Area | Purpose |
+|------|---------|
+| Basic configuration | Task name, parameter template, training type, device, and task selection |
+| Operation controls | Open training parameters, start or stop training, and reset the form |
 
-## Training Flow
+## Training workflow
 
-### Create New Task
+### Create a new task
 
-Prepare a training data file, a trainable model directory, and an output directory with enough free space. GGUF files cannot be used as the training model; see [Data Configuration Parameters](#data-configuration-parameters) for file requirements. If the training environment is not installed, complete [Environment Setup](../settings/environment.md) first.
+1. Open **Self Improvement → Training → Prepare** and choose **New Task** in task management.
+2. Keep the generated name or enter a name that identifies the experiment.
+3. Select the training type, a matching parameter template, and the device. The available training types are SFT and pretraining, not DPO.
+4. Open **Parameter configuration** and set the training data file, model directory, and output directory. The file button beside the model path selects a file inside the model directory and fills in its parent directory.
+5. Adjust parameters as needed and click **Apply** at the bottom of the drawer. For a first run, start from a template and use a small dataset to check the workflow.
+6. Click **Start**. If a parameter, file, or environment check fails, address the reported issue and try again.
+7. Once training starts, the app switches to [Monitor](./monitor.md). Check that the task is running and that logs and metrics appear.
 
-1. Select "New Task" in task management. Keep the generated name or enter your own.
-2. Choose SFT or Pre-training and select the corresponding configuration template.
-3. Select the training device.
-4. Click "Config Params" and set the training data file, training model directory, and output directory.
-5. Check the other required fields. For a first attempt, start with the template settings and adjust them for your model, data length, and available VRAM.
-6. Click "Start Training". If an environment or parameter warning appears, resolve it before starting again.
-7. Confirm that the task status changes to "Running", then open [Monitor](./monitor.md) to view progress and logs. "Completed" means the training run has finished; use [Evaluate](./evaluate.md) or [Test](./test.md) to check its results.
+A **Completed** status means the training run has ended. Use [Evaluate](./evaluate.md) and [Test](./test.md) to check whether the result meets your needs.
 
-### Continue Existing Task
+### Restart an existing task
 
-1. Select existing task in task management.
-2. System automatically loads parameter configuration of that task.
-3. Can adjust parameters as needed.
-4. Click "Start Training".
+Select the task in task management, inspect its loaded parameters, apply any changes, and click **Start**. **Selecting an existing task does not resume its previous progress automatically.** To resume, configure a checkpoint as described below.
 
-### Resume Training
+### Resume from a checkpoint
 
-1. Fill checkpoint directory path in "Checkpoint path for resume".
-2. Ensure checkpoint contains complete training state.
-3. Click "Start Training", will continue from that checkpoint.
+1. Open the optional settings under **Parameter configuration → Data** and set the checkpoint path for resuming training.
+2. Select a checkpoint directory that matches the original model and training configuration and contains the full training state. Final model weights or LoRA weights alone may not be sufficient to restore progress.
+3. Check the output directory and other settings, click **Apply**, then **Start**. Check the logs for the checkpoint and step actually restored.
 
-### Environment Check
+### Environment checks
 
-Before starting training, system will automatically check:
-- Whether Python training environment is ready.
-- Whether necessary dependency packages are installed.
-- Whether GPU/CUDA is available (if GPU training is selected).
+Starting a task checks training support and required files. Passing these checks does not guarantee sufficient memory, GPU memory, or model compatibility. Review the startup logs as well.
 
----
+To interrupt training, return to **Prepare**, click **Stop Training**, and wait for the task status to change. Before restarting, check that a usable checkpoint was saved.
 
-## Task Management
+## Task management
 
-### Task Name Auto-Generation
+### Generated task names
 
-When creating a new task, the system automatically generates a task name in the format:
+The default name combines the training type and local system time, for example `sft_20261109_143052`. Use distinct names for different data or parameter experiments.
 
-```
-{training_type}_{timestamp}
-```
+### Task list actions
 
-**Example**: `sft_20241201_143052`
+- **New Task**: configure a new training task.
+- **Existing task**: load its parameters and status.
+- **Delete task**: click the delete icon beside a task that is not running and confirm. This removes its task, training-log, and checkpoint records and cannot be undone in the interface. It does not clean up model output files on disk.
 
-- Training Type: `sft` or `pretrain`
-- Timestamp: `YYYYMMDD_HHmmss` format
+Stop a running task before deleting it.
 
-You can manually modify the task name.
+### Task statuses
 
-### Task List Operations
+The list distinguishes pending, running, completed, stopped, and failed/error states. If a run fails, read the error rather than relying on the progress percentage alone.
 
-| Operation | Description |
-|------|------|
-| New Task | Select "New Task" option to create a brand new training task |
-| Select Existing Task | Select a created task from the dropdown list to load its parameter configuration |
-| Delete Task | Click the delete icon to the right of the task to delete non-running tasks |
+## Parameter templates
 
-> ⚠️ **Note**: Running tasks cannot be deleted; training must be stopped first.
+### Built-in templates
 
-### Task Status
+The SFT template enables LoRA by default. The pretraining template does not use LoRA. Templates are starting points, not settings guaranteed to suit every model or device.
 
-The task list displays status tags for each task:
+### Custom templates
 
-| Status | Color | Description |
-|------|------|------|
-| Pending | Blue | Task created, waiting to start |
-| Running | Green | Training is in progress |
-| Completed | Green | Training completed normally |
-| Stopped | Orange | Stopped by user |
-| Failed | Red | Training exited abnormally |
+1. Open training parameter configuration, select a template, and edit its values.
+2. Click the save icon beside the template selector. Enter a unique name, training type, and optional description, then confirm.
+3. Select the saved template on later runs. Non-default templates can be deleted using their delete icon in the drawer's template list, followed by confirmation.
 
----
+### Temporary parameters
 
-## Parameter Templates
+Click **Apply** to use edited values for the current task without overwriting the original template. The page shows a temporary configuration. Closing or cancelling the drawer discards unapplied edits. Save a custom template when you want to reuse the settings.
 
-### System Preset Templates
+## Parameter configuration
 
-The system provides two default templates:
+Parameters are grouped into data, training, LoRA, optimization, logging, and general settings. Some appear in collapsed optional, advanced, or saving groups. The selected template determines which settings are visible.
 
-| Template | Description |
-|------|------|
-| SFT | Supervised fine-tuning default configuration, LoRA enabled |
-| Pretrain | Pre-training default configuration, LoRA disabled |
+The following sections explain their main uses. Check the current template and interface for defaults and allowed values. A template's values are not hardware requirements.
 
-### Custom Templates
-
-1. **Save Template**: After configuring parameters, click "Save As" to save as a custom template.
-2. **Load Template**: Select saved template from template dropdown box.
-3. **Delete Template**: Click delete icon to the right of template in dropdown box.
-
-### Temporary Parameters
-
-When checking "Temporary Template" option during task creation:
-
-- Your changes apply only to the current task and do not overwrite the saved template.
-- To reuse these settings, save them as a new template.
-
----
-
-## Parameter Configuration
-
-Click the "Config Params" button to open the parameter configuration drawer. Parameters are classified into six configuration areas by function:
-
-| Configuration Area | English Name | Description |
-|----------|--------|------|
-| Data Config | data | Training data, model path, output directory, etc. |
-| Training Config | training | Batch size, learning rate, save strategy, etc. |
-| LoRA Config | lora | LoRA related parameters (Visible for SFT) |
-| Optimization Config | optimization | Mixed precision, gradient checkpointing, etc. |
-| Log Config | logging | Log level, recording frequency |
-| General Config | general | Random seed, etc. |
-
-### Parameter Folding
-
-Parameters are displayed in layers according to importance:
-
-| Fold Group | Description |
-|--------|------|
-| General Params | Core necessary parameters, expanded by default |
-| Optional Params | Not required but commonly used parameters |
-| Advanced Params | Advanced tuning parameters |
-| Optimization Params | Performance optimization related |
-| Save Params | Checkpoint save strategy |
-| Evaluation Params | Evaluation strategy during training |
-
----
-
-## Data Configuration Parameters
+## Data configuration parameters
 
 ### Training data file path
 
-| Attribute | Value |
-|------|-----|
-| Type | File Path |
-| Required | ✅ Yes |
-| Default | - |
+Prefer `train/final_dataset.jsonl` from [Data Processing](../dataset/sft.md), and the matching `eval/final_dataset.jsonl` for evaluation during training. These are under the processing result's `final` directory; check the output manifest for actual locations. Do not confuse `data.jsonl`, which holds raw samples, with the tokenized training file `final_dataset.jsonl`.
 
-**Description**: Specify the full path of the training data file.
+Existing prepared `.jsonl`, `.npy`, and `.mmap` files are also accepted when they match the model tokenizer. Keep companion files alongside a `.mmap` file.
 
-**Data Format Requirements**:
-- **SFT Training**: JSONL format, one JSON object per line, containing dialogue data.
-- **Pre-training**: Plain text or JSONL format.
+SFT also accepts JSONL with one JSON object per line containing a `messages` array, for example:
 
-Those files can be produced by the structured field mapping in [Data Processing](../dataset/sft.md), which can export SFT, pretraining, or DPO. Training types on this page are still **SFT or pretraining**.
-
-**SFT Data Example**:
 ```json
-{"messages": [{"role": "user", "content": "Hello"}, {"role": "assistant", "content": "Hello! How can I help you?"}]}
-{"messages": [{"role": "user", "content": "Introduce yourself"}, {"role": "assistant", "content": "I am an AI assistant..."}]}
+{"messages":[{"role":"user","content":"Hello"},{"role":"assistant","content":"Hello!"}]}
 ```
 
----
+Raw TXT, ordinary JSON arrays, pretraining records containing only a `text` field, and DPO pairs cannot be used directly as prepared training files here. Pretraining text must first be tokenized and exported in a training format; renaming the extension is not enough.
 
-### (opt.) Evaluation data file path
+### Evaluation data file
 
-| Attribute | Value |
-|------|-----|
-| Type | File Path |
-| Required | ❌ No |
-| Default | - |
-| Fold Group | Optional Params |
+Select a separate evaluation file and enable an evaluation strategy in the training settings. Its format and tokenizer must match the training data.
 
-**Description**: Specify the evaluation data file path for model evaluation during training.
+**Evaluation sampling ratio** samples the supplied evaluation file; it does not split evaluation data out of the training file. For JSONL/NPY files, `0` or `1` uses all evaluation samples, while a value between them uses that proportion.
 
-**Usage Scenarios**:
-- Used with "Evaluation Strategy" parameter.
-- Monitor model performance during training.
-- Support early stopping mechanism.
+### Other data settings
 
-**If evaluation file is not provided**:
-- You can use "Evaluation sampling ratio" to automatically split from the training set.
-- Or set "Evaluation Strategy" to `no` to skip evaluation during training.
+| Parameter | Purpose and notes |
+|-----------|-------------------|
+| Training model directory | A complete local base model, not a single GGUF file |
+| Training output directory | Stores results and checkpoints; use separate directories for separate experiments |
+| Tokenizer path | Optional; leave empty to use the model directory's tokenizer |
+| Resume checkpoint path | Restores saved training state; see [Resume from a checkpoint](#resume-from-a-checkpoint) |
+| Load existing LoRA weights | Not the same as restoring the full training state; leave off for a first run |
+| Maximum samples | Limits training samples; `0` means no limit |
+| Reshuffle data | Affects sample order; keep consistent in comparisons |
+| Data loader workers | Controls loading parallelism; increasing it also uses more resources |
+| Pin memory | A data-loading option to adjust for the device and available memory |
 
----
+## Training configuration parameters
 
-### Training output directory
+| Parameter | Purpose |
+|-----------|---------|
+| Batch size | Samples processed together; try lowering it when GPU memory is insufficient |
+| Gradient accumulation steps | Accumulates several batches before updating parameters |
+| Maximum sequence length | Limits tokens processed per training sample; longer sequences need more resources |
+| Learning rate | Controls the size of parameter updates |
+| Optimizer and learning-rate scheduler | Control the update method and learning-rate changes; some choices need extra dependencies or supported hardware |
+| Training epochs | Number of passes through the data |
+| Maximum training steps | A positive value limits update steps; `-1` removes this limit, but epochs still apply |
+| Weight decay and maximum gradient norm | Constrain parameter updates |
+| Warmup ratio and steps | Control learning-rate warmup at the start |
+| Cosine annealing cycles | Used with the corresponding learning-rate scheduler |
 
-| Attribute | Value |
-|------|-----|
-| Type | Directory Path |
-| Required | ✅ Yes |
-| Default | - |
+### Saving and evaluation during training
 
-**Description**: Specify the output directory for training artifacts.
+- **Save strategy**: `steps` saves at a step interval, `epoch` saves at epoch boundaries, and `no` disables periodic saving. Set **Save steps** when using `steps`.
+- **Maximum saved checkpoints**: limits retained checkpoints; older checkpoints may be removed. Back up any checkpoint you need to keep.
+- **Evaluation strategy**: defaults to `no`. Selecting `steps` or `epoch` also requires a valid evaluation file. Set **Evaluation steps** when using `steps`.
+- **Early stopping patience**: counts consecutive evaluations without improvement, not training steps. `0` disables early stopping. It requires evaluation data and an active evaluation strategy. Match saving and evaluation strategies; for step-based saving, use a save interval that is a multiple of the evaluation interval.
+- **Early stopping threshold**: improvements smaller than this value count as no improvement.
 
-**Output Content Includes**:
-- `checkpoint-{step}/` - Training checkpoint directory
-- Final model after training completion
+The monitor's evaluation-loss curve comes from evaluation during training. It is separate from the benchmark tests on the [Evaluate page](./evaluate.md).
 
-**Notes**:
-- Ensure the directory has sufficient disk space.
-- Checkpoint quantity × model size may consume a lot of space.
-- Can be limited by "Max saved checkpoints" parameter.
+## LoRA configuration parameters
 
----
+LoRA trains a smaller set of additional weights, usually using fewer resources than updating the whole model. SFT templates provide these options:
 
-### Training model path
+| Parameter | Purpose |
+|-----------|---------|
+| Use LoRA | Enables LoRA; disabling it changes the training method and resource needs |
+| LoRA rank (r) | Controls the size of the additional weights |
+| LoRA alpha | Controls the scaling of LoRA updates |
+| LoRA dropout | Dropout rate during training |
+| LoRA target modules | Must match actual layer names in the model; names differ between models |
+| Merge LoRA after training | Merges the trained LoRA with the base model and needs additional storage |
+| PEFT configuration path | Optional existing LoRA configuration; set only when needed |
 
-| Attribute | Value |
-|------|-----|
-| Type | Directory Path |
-| Required | ✅ Yes |
-| Default | - |
+Keep the original base model. Testing or evaluating an unmerged LoRA checkpoint still requires it.
 
-**Description**: Specify the base model directory used for training.
+## Optimization configuration parameters
 
-> ⚠️ **Important Reminder**: This parameter requires a **trainable model**, not a GGUF model for inference!
+- **QLoRA and 8-bit optimizers** require suitable NVIDIA CUDA support and components. Do not enable them solely because GPU memory is low.
+- **FP16 and BF16 mixed precision** depend on device support. Do not enable both. CPU training does not use FP16.
+- **TF32** is for NVIDIA GPUs that support it.
+- **Gradient checkpointing** saves memory through extra computation and may slow training.
+- **Low CPU memory usage** reduces memory use while loading a model; training still needs sufficient memory.
 
-**Correct Model Format**:
-- HuggingFace format model directory
-- Contains `.safetensors` weight files
-- Contains `config.json` configuration file
+## Logging configuration parameters
 
-**Model Directory Structure Example**:
-```
-model_directory/
-├── config.json              # Model configuration (Required)
-├── model.safetensors        # Model weights (Required)
-├── tokenizer.json           # Tokenizer configuration
-├── tokenizer_config.json    # Tokenizer configuration
-├── special_tokens_map.json  # Special token mapping
-└── generation_config.json   # Generation configuration
-```
+**Log level** controls verbosity. **Logging steps** controls the interval between recorded training metrics, with a preset value of `10`. Smaller intervals give denser curves and more logs.
 
-**Error Examples**:
-- ❌ `model.gguf` - GGUF format is only for inference, not trainable.
-- ❌ `model.bin` - Old PyTorch format, safetensors is recommended.
+## General configuration parameters
 
-**Get Trainable Model**:
-1. Download complete model directory from HuggingFace Hub.
-2. Select training model category from downloader and download to local directory. Note that this model will not be automatically imported into the Model Library.
+**Random seed** controls random processes. Keep the seed, data, and parameters consistent when comparing experiments. Different devices or environments may still produce different results.
 
----
+## Related guides
 
-### (opt.) Tokenizer path
-
-| Attribute | Value |
-|------|-----|
-| Type | Directory Path |
-| Required | ❌ No |
-| Default | - |
-| Fold Group | Optional Params |
-
-**Description**: Specify custom tokenizer directory path.
-
-**Usage Scenarios**:
-- Use a tokenizer different from the model.
-- Use a custom extended tokenizer.
-- Tokenizer files are missing in the model directory.
-
-**Leave Blank**: Automatically use the tokenizer in the model directory.
-
----
-
-### (opt.) Checkpoint path for resume
-
-| Attribute | Value |
-|------|-----|
-| Type | Directory Path |
-| Required | ❌ No |
-| Default | - |
-| Fold Group | Optional Params |
-
-**Description**: Continue training from the specified checkpoint.
-
-**Resume Training Flow**:
-
-1. **Find Checkpoint**: Find the checkpoint directory to resume from in the output directory, e.g., `checkpoint-500`.
-
-2. **Fill Path**: Fill the full checkpoint path into this parameter.
-   ```
-   C:\ModxAI\training-output\checkpoint-500
-   ```
-
-3. **Start Training**: Click "Start Training", training will continue from that checkpoint.
-
-**Notes**:
-- Checkpoint directory must contain complete training state files.
-- Step count will continue from previous count after resume.
-- To start from scratch, please clear this parameter.
-
-**Checkpoint Directory Structure**:
-```
-checkpoint-500/
-├── adapter_config.json      # LoRA configuration
-├── adapter_model.safetensors # LoRA weights
-├── optimizer.pt             # Optimizer state
-├── scheduler.pt             # Scheduler state
-├── trainer_state.json       # Training state
-└── training_args.bin        # Training parameters
-```
-
----
-
-### (Not recommended) Attach LoRA weights
-
-| Attribute | Value |
-|------|-----|
-| Type | Boolean |
-| Required | ❌ No |
-| Default | false |
-| Fold Group | Optional Params |
-
-**Description**: Load existing LoRA weights before training.
-
-> ⚠️ **Not Recommended**: This function is for special scenarios and may cause training instability.
-
-**Usage Scenarios**:
-- Continue fine-tuning on existing LoRA basis.
-- Multi-stage training process.
-
----
-
-### Maximum samples
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ❌ No |
-| Default | 0 |
-| Range | 0 - 100000 |
-| Fold Group | Optimization Params |
-
-**Description**: Limit the number of training samples used.
-
-**Usage Scenarios**:
-- Quick test of training flow (set to small value like 100).
-- Limit training volume of large datasets.
-- Debug parameter configuration.
-
-**Special Value**:
-- `0` = Unlimited, use all data.
-
----
-
-### Evaluation sampling ratio
-
-| Attribute | Value |
-|------|-----|
-| Type | Float |
-| Required | ❌ No |
-| Default | 0 |
-| Range | 0 - 1 |
-| Step | 0.01 |
-| Fold Group | Optimization Params |
-
-**Description**: Ratio of evaluation set automatically split from training data.
-
-**Workflow**:
-1. Load training data.
-2. Randomly split evaluation set according to specified ratio.
-3. Remaining data is used for training.
-
-**Example**:
-- `0.1` = 10% data for evaluation, 90% for training.
-- `0` = No split, need to provide evaluation file separately.
-
-**Usage Suggestions**:
-- If independent evaluation file exists, set to `0`.
-- If data volume is small (< 1000 items), suggest `0.1` ~ `0.2`.
-- If data volume is large (> 10000 items), suggest `0.05` ~ `0.1`.
-
----
-
-### Reshuffle data
-
-| Attribute | Value |
-|------|-----|
-| Type | Boolean |
-| Required | ❌ No |
-| Default | false |
-| Fold Group | Optional Params |
-
-**Description**: Whether to reshuffle data order at the beginning of each training epoch.
-
-**Suggestions**:
-- For smaller datasets, suggest enabling to increase randomness.
-- For very large datasets, can be disabled to save time.
-
----
-
-### Data loader threads
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ❌ No |
-| Default | 1 |
-| Range | 0 - 16 |
-| Fold Group | Optimization Params |
-
-**Description**: Number of parallel threads for data loading.
-
-**Tuning Suggestions**:
-- Can be appropriately increased when CPU cores are many.
-- Windows system suggests keeping 0 or 1.
-- Too large may cause increased memory usage.
-
----
-
-### Use locked page memory
-
-| Attribute | Value |
-|------|-----|
-| Type | Boolean |
-| Required | ❌ No |
-| Default | false |
-| Fold Group | Optimization Params |
-
-**Description**: Use locked page memory to accelerate data transfer from CPU to GPU.
-
-**Suggestions**:
-- Suggest enabling for GPU training.
-- Better effect when system memory is sufficient.
-
----
-
-## Training Configuration Parameters
-
-### Batch size
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ✅ Yes |
-| Default | 2 |
-| Range | 1 - 128 |
-
-**Description**: Number of samples processed per training step.
-
-**Influencing Factors**:
-- **VRAM Usage**: Larger batch requires higher VRAM.
-- **Training Stability**: Larger batch is usually more stable.
-- **Training Speed**: Larger batch may speed up single step training.
-
-**Tuning Suggestions**:
-
-| VRAM | Suggested Batch Size (LoRA) |
-|------|----------------------|
-| 4GB | 1 - 2 |
-| 8GB | 2 - 4 |
-| 16GB | 4 - 8 |
-| 24GB+ | 8 - 16 |
-
-**When VRAM is insufficient**: Decrease batch size, increase gradient accumulation steps.
-
----
-
-### Gradient accumulation steps
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ✅ Yes |
-| Default | 4 |
-| Range | 1 - 256 |
-
-**Description**: Update model parameters after accumulating gradients for how many mini-batches.
-
-**Effective Batch Size** = Batch Size × Gradient Accumulation Steps
-
-**Example**:
-- Batch Size = 2, Gradient Accumulation = 4 → Effective Batch = 8
-- Batch Size = 1, Gradient Accumulation = 8 → Effective Batch = 8
-
-**Usage Scenarios**:
-- When VRAM is limited but large batch effect is needed.
-- Simulate large batch training with smaller VRAM.
-
----
-
-### Max sequence length
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ✅ Yes |
-| Default | 512 |
-| Range | 128 - 8192 |
-| Step | 8 |
-
-**Description**: Maximum token count of input sequence.
-
-**Impact**:
-- Sequences exceeding this length will be truncated.
-- Longer sequences require more VRAM.
-- Affects context length the model can handle.
-
-**Tuning Suggestions**:
-- Set according to actual length of training data.
-- Dialogue data usually 512 - 1024 is sufficient.
-- Long text tasks may need 2048+.
-
-⚠️ Note: Must match the maximum length in the dataset (affected by the **Max Output Length** parameter in settings) to avoid excessive truncation.
-
----
-
-### Learning rate
-
-| Attribute | Value |
-|------|-----|
-| Type | Float |
-| Required | ✅ Yes |
-| Default | 2e-4 |
-| Range | 1e-6 - 1e-1 |
-
-**Description**: Step size for model parameter updates.
-
-**Tuning Suggestions**:
-
-| Training Type | Suggested Learning Rate |
-|----------|------------|
-| LoRA Fine-tuning | 1e-4 ~ 5e-4 |
-| Full Fine-tuning | 1e-5 ~ 5e-5 |
-| Pre-training | 1e-4 ~ 1e-3 |
-
-**Common Issues**:
-- Learning rate too high: Training unstable, loss oscillates or diverges.
-- Learning rate too low: Convergence slow, training effect poor.
-
----
-
-### Optimizer
-
-| Attribute | Value |
-|------|-----|
-| Type | Select Box |
-| Required | ✅ Yes |
-| Default | adamw_torch |
-
-**Description**: Select optimization algorithm.
-
-**Common Optimizers**:
-
-| Optimizer | Description |
-|--------|------|
-| `adamw_torch` | PyTorch native AdamW, recommended |
-| `adamw_8bit` | 8-bit AdamW, saves VRAM |
-| `paged_adamw_8bit` | Paged 8-bit AdamW, VRAM optimization |
-| `adafactor` | High memory efficiency, suitable for large models |
-| `sgd` | Stochastic Gradient Descent, simple and stable |
-
-**When VRAM is insufficient**: Try `adamw_8bit` or `paged_adamw_8bit`.
-
----
-
-### LR scheduler type
-
-| Attribute | Value |
-|------|-----|
-| Type | Select Box |
-| Required | ✅ Yes |
-| Default | cosine |
-
-**Description**: Strategy for learning rate change over training process.
-
-**Common Schedulers**:
-
-| Scheduler | Description |
-|--------|------|
-| `cosine` | Cosine annealing, smooth decay, recommended |
-| `linear` | Linear decay |
-| `constant` | Constant learning rate |
-| `constant_with_warmup` | Constant after warmup |
-| `cosine_with_restarts` | Cosine annealing with restarts |
-
----
-
-### Training epochs
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ✅ Yes |
-| Default | 2 |
-| Range | 1 - 100 |
-
-**Description**: Number of times to completely traverse the training dataset.
-
-**Tuning Suggestions**:
-- Small dataset (< 1000 items): 3 - 10 epochs
-- Medium dataset (1000 - 10000 items): 2 - 5 epochs
-- Large dataset (> 10000 items): 1 - 3 epochs
-
-**Signs of Overfitting**:
-- Training loss continues to decrease but validation loss rises.
-- Should reduce epochs or enable early stopping at this time.
-
----
-
-### Weight decay
-
-| Attribute | Value |
-|------|-----|
-| Type | Float |
-| Required | ❌ No |
-| Default | 0.01 |
-| Range | 0 - 1 |
-| Fold Group | Advanced Params |
-
-**Description**: L2 regularization parameter to prevent overfitting.
-
-**Suggestion**: Usually keep default value 0.01.
-
----
-
-### Warmup ratio
-
-| Attribute | Value |
-|------|-----|
-| Type | Float |
-| Required | ❌ No |
-| Default | 0.1 |
-| Range | 0 - 1 |
-| Fold Group | Optional Params |
-
-**Description**: Proportion of learning rate warmup phase in total training steps.
-
-**Warmup Process**:
-- At the beginning of training, learning rate gradually increases from 0 to set value.
-- Warmup phase proportion is controlled by this parameter.
-
-**Suggestion**: 0.05 - 0.1 usually works well.
-
----
-
-### Warmup steps
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ❌ No |
-| Default | 0 |
-| Range | 0 - 10000 |
-| Fold Group | Optional Params |
-
-**Description**: Specific number of steps for learning rate warmup.
-
-**Priority**: If `warmup_steps > 0` is set, this value is used preferentially, ignoring `warmup_ratio`.
-
----
-
-### Max gradient norm
-
-| Attribute | Value |
-|------|-----|
-| Type | Float |
-| Required | ❌ No |
-| Default | 1.0 |
-| Range | 0.1 - 10 |
-| Fold Group | Advanced Params |
-
-**Description**: Gradient clipping threshold to prevent gradient explosion.
-
-**Suggestion**: Usually keep default value 1.0.
-
----
-
-### Max training steps (-1=unlimited)
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ❌ No |
-| Default | -1 |
-| Range | -1 - 100000 |
-| Fold Group | Optional Params |
-
-**Description**: Limit maximum training steps.
-
-**Priority**: If `max_steps > 0` is set, it takes precedence over `num_train_epochs`.
-
-**Usage Scenarios**:
-- Precisely control training duration.
-- Quick test (set to small value like 100).
-
----
-
-### LR cosine annealing cycles
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ❌ No |
-| Default | 2 |
-| Range | 1 - 10 |
-| Fold Group | Advanced Params |
-
-**Description**: Number of restart cycles when using `cosine_with_restarts` scheduler.
-
----
-
-### Save strategy
-
-| Attribute | Value |
-|------|-----|
-| Type | Select Box |
-| Required | ❌ No |
-| Default | steps |
-| Options | steps / epoch / no |
-| Fold Group | Save Params |
-
-**Description**: Trigger strategy for checkpoint saving.
-
-| Strategy | Description |
-|------|------|
-| `steps` | Save every specified number of steps |
-| `epoch` | Save at the end of each training epoch |
-| `no` | Do not save intermediate checkpoints |
-
----
-
-### Save steps
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ❌ No |
-| Default | 100 |
-| Range | 1 - 10000 |
-| Fold Group | Save Params |
-
-**Description**: Save checkpoint every X steps when save strategy is `steps`.
-
----
-
-### Evaluation strategy
-
-| Attribute | Value |
-|------|-----|
-| Type | Select Box |
-| Required | ❌ No |
-| Default | no |
-| Options | steps / epoch / no |
-| Fold Group | Evaluation Params |
-
-**Description**: Strategy for evaluating model during training.
-
-**Prerequisite**: Need to provide evaluation data (evaluation file or evaluation sampling ratio).
-
-| Strategy | Description |
-|------|------|
-| `steps` | Evaluate every specified number of steps |
-| `epoch` | Evaluate at the end of each epoch |
-| `no` | Do not evaluate during training |
-
----
-
-### Evaluation steps
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ❌ No |
-| Default | 100 |
-| Range | 1 - 10000 |
-| Fold Group | Evaluation Params |
-
-**Description**: Evaluate every X steps when evaluation strategy is `steps`.
-
----
-
-### Max saved checkpoints
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ❌ No |
-| Default | 100 |
-| Range | 1 - 1000 |
-| Fold Group | Save Params |
-
-**Description**: Maximum number of checkpoints to retain, automatically delete oldest checkpoints after exceeding.
-
-**Suggestion**: Set reasonable value according to disk space to avoid space exhaustion.
-
----
-
-### Save interval (minutes)
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ❌ No |
-| Default | 30 |
-| Range | 1 - 1440 |
-| Fold Group | Save Params |
-
-**Description**: Save checkpoints by time interval in minutes.
-
----
-
-### Early stopping patience
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ❌ No |
-| Default | 0 |
-| Range | 0 - 100 |
-| Fold Group | Optional Params |
-
-**Description**: Stop training early if evaluation metrics do not improve for consecutive X evaluations.
-
-**Prerequisites**:
-- Need to enable evaluation strategy (`eval_strategy` is not `no`).
-- Need to provide evaluation data.
-
-**Special Value**:
-- `0` = Disable early stopping.
-
----
-
-### Early stopping threshold
-
-| Attribute | Value |
-|------|-----|
-| Type | Float |
-| Required | ❌ No |
-| Default | 0.005 |
-| Range | 0.001 - 1 |
-| Fold Group | Optional Params |
-
-**Description**: Minimum threshold for evaluation metric improvement, less than this value is considered no improvement.
-
----
-
-## LoRA Configuration Parameters
-
-> 📝 **Note**: LoRA configuration is only visible under SFT training type, hidden in Pre-training mode.
-
-### Use LoRA fine-tuning
-
-| Attribute | Value |
-|------|-----|
-| Type | Boolean |
-| Required | ✅ Yes |
-| Default | true |
-
-**Description**: Whether to enable LoRA (Low-Rank Adaptation) efficient fine-tuning.
-
-**LoRA Advantages**:
-- Significantly reduce trainable parameters.
-- Significantly reduce VRAM requirements.
-- Faster training speed.
-- Easy to save and distribute.
-
-**Suggestion**: Strongly recommended to enable for SFT training.
-
----
-
-### LoRA r parameter
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ✅ Yes |
-| Default | 16 |
-| Range | 1 - 512 |
-
-**Description**: LoRA rank, determines the dimension of low-rank matrices.
-
-**Impact**:
-- Larger r means more learnable parameters and stronger expression capability.
-- Larger r means higher VRAM and computation overhead.
-
-**Tuning Suggestions**:
-
-| r Value | Applicable Scenario |
-|------|----------|
-| 4 - 8 | Simple tasks, limited VRAM |
-| 16 | General tasks, recommended starting point |
-| 32 - 64 | Complex tasks, sufficient VRAM |
-| 128+ | Special needs |
-
----
-
-### LoRA alpha parameter
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ✅ Yes |
-| Default | 16 |
-| Range | 1 - 512 |
-
-**Description**: LoRA scaling factor.
-
-**Scaling Formula**: Actual Scaling = alpha / r
-
-**Common Configurations**:
-- `alpha = r`: Scaling factor is 1 (Recommended).
-- `alpha = 2r`: Scaling factor is 2, enhance LoRA influence.
-
----
-
-### LoRA dropout
-
-| Attribute | Value |
-|------|-----|
-| Type | Float |
-| Required | ❌ No |
-| Default | 0.0 |
-| Range | 0 - 1 |
-| Fold Group | Advanced Params |
-
-**Description**: Dropout ratio of LoRA layers, used for regularization.
-
-**Suggestions**:
-- Can keep 0 when data volume is large.
-- Set to 0.05 - 0.1 when data volume is small or prone to overfitting.
-
----
-
-### LoRA target modules
-
-| Attribute | Value |
-|------|-----|
-| Type | Multi-select Box |
-| Required | ❌ No |
-| Default | ["q_proj", "k_proj", "v_proj","o_proj","gate_proj","up_proj","down_proj"] |
-| Fold Group | Advanced Params |
-
-**Description**: Select model modules to apply LoRA.
-
-**Optional Modules**:
-
-| Module | Description |
-|------|------|
-| `q_proj` | Query Projection Layer|
-| `k_proj` | Key Projection Layer |
-| `v_proj` | Value Projection Layer|
-| `o_proj` | Output Projection Layer |
-| `gate_proj` | Gate Projection Layer |
-| `up_proj` | Up Projection Layer |
-| `down_proj` | Down Projection Layer |
-| `embed_tokens` | Embedding Layer |
-| `lm_head` | Language Model Head |
-
-**Tuning Suggestions**:
-- Basic Config: `q_proj`, `k_proj`, `v_proj`, `o_proj`
-- Full Config: Add `gate_proj`, `up_proj`, `down_proj`
-
----
-
-### Merge LoRA weights after training
-
-| Attribute | Value |
-|------|-----|
-| Type | Boolean |
-| Required | ❌ No |
-| Default | false |
-| Fold Group | Optional Params |
-
-**Description**: Whether to automatically merge LoRA weights into base model after training completion.
-
-**After Merge**:
-- Generate complete model weight files.
-- No longer need to load LoRA adapter.
-- File size is same as original model.
-
-**Not Merge**:
-- Only save LoRA adapter weights (small size).
-- Need to load both base model and LoRA during inference.
-
----
-
-### PEFT config path
-
-| Attribute | Value |
-|------|-----|
-| Type | File Path |
-| Required | ❌ No |
-| Default | - |
-| Fold Group | Optional Params |
-
-**Description**: Specify custom PEFT configuration file path.
-
-**Usage Scenarios**: Use predefined PEFT configuration instead of interface parameters.
-
----
-
-## Optimization Configuration Parameters
-
-### Use QLoRA
-
-| Attribute | Value |
-|------|-----|
-| Type | Boolean |
-| Required | ❌ No |
-| Default | false |
-
-**Description**: Enable 4-bit QLoRA quantization fine-tuning technology. The quantization process is dynamically performed when loading the model to the GPU. The base model weights can be in original precision.
-
-**Requirements**:
-- NVIDIA Ampere and above architecture GPU (RTX 30 series, A100, etc.)
-- Depends on bitsandbytes library installed in the environment, may have compatibility issues
-- Suitable for VRAM-constrained scenarios
-
-**Advantages**:
-- Significantly reduces VRAM usage by about 50% - 75%
-- Allows training large models on GPUs with smaller VRAM
-
----
-
-### Use 8-bit optimizers
-
-| Attribute | Value |
-|------|-----|
-| Type | Boolean |
-| Required | ❌ No |
-| Default | false |
-
-**Description**: Use 8-bit version of optimizers (e.g., 8-bit AdamW) to reduce VRAM usage.
-
-**Requirements**:
-- NVIDIA Ampere and above architecture GPU (RTX 30 series, A100, etc.)
-- Depends on bitsandbytes library installed in the environment, may have compatibility issues
-
-**Advantages**:
-- Reduce VRAM usage of optimizer states by about 75%
-- Suitable for VRAM-constrained training scenarios
-
----
-
-### Use FP16 mixed precision
-
-| Attribute | Value |
-|------|-----|
-| Type | Boolean |
-| Required | ✅ Yes |
-| Default | true |
-
-**Description**: Use FP16 half-precision floating point for mixed precision training.
-
-**Advantages**:
-- Reduce VRAM usage by about 50%.
-- Accelerate training process.
-- Maintain training precision.
-
-**Suggestion**: Recommended to enable for GPU training.
-
----
-
-### Use BF16 mixed precision (NVIDIA GPU)
-
-| Attribute | Value |
-|------|-----|
-| Type | Boolean |
-| Required | ❌ No |
-| Default | false |
-
-**Description**: Use BF16 format for mixed precision training.
-
-**Requirements**:
-- NVIDIA Ampere and above architecture GPU (RTX 30 series, A100, etc.).
-- Choose one between FP16.
-
-**Advantages**:
-- Larger numerical range, more stable training.
-- Suitable for large model training.
-
----
-
-### Use TF32 (NVIDIA GPU)
-
-| Attribute | Value |
-|------|-----|
-| Type | Boolean |
-| Required | ❌ No |
-| Default | false |
-
-**Description**: Use TensorFloat-32 format to accelerate matrix operations.
-
-**Requirements**: NVIDIA Ampere and above architecture GPU.
-
----
-
-### Gradient checkpointing
-
-| Attribute | Value |
-|------|-----|
-| Type | Boolean |
-| Required | ✅ Yes |
-| Default | true |
-
-**Description**: Trade computation time for VRAM space.
-
-**Working Principle**:
-- Do not save intermediate activation values during training.
-- Recompute during backpropagation.
-- Significantly reduce VRAM usage.
-
-**Suggestion**: Strongly recommended to enable when VRAM is limited.
-
----
-
-## Log Configuration Parameters
-
-### Log level
-
-| Attribute | Value |
-|------|-----|
-| Type | Select Box |
-| Required | ✅ Yes |
-| Default | info |
-| Options | debug / info / warning / error |
-
-**Description**: Detail level of training logs.
-
-| Level | Description |
-|------|------|
-| `debug` | Most detailed, includes debug info |
-| `info` | Regular info, recommended |
-| `warning` | Only warnings and errors |
-| `error` | Only error info |
-
----
-
-### Logging steps
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ✅ Yes |
-| Default | 10 |
-| Range | 1 - 1000 |
-
-**Description**: Record training logs every X steps.
-
-**Impact**:
-- Smaller value means more frequent monitor interface updates.
-- Too small value may affect training efficiency.
-
----
-
-## General Configuration Parameters
-
-### Random seed
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Required | ✅ Yes |
-| Default | 42 |
-| Range | 0 - 999999 |
-
-**Description**: Control randomness during training.
-
-**Function**:
-- Same seed can reproduce training results.
-- Convenient for comparative experiments.
-
----
-
-## Next Steps
-
-- [Overview](./overview.md) - Training function overview
-- [Monitor Module Details](./monitor.md) - Real-time monitoring and history review
-- [Evaluate Module Details](./evaluate.md) - Checkpoint evaluation and comparison
-- [Test Module Details](./test.md) - Interactive testing
-- [Package Module Details](./package.md) - GGUF export
+- [Training monitoring](./monitor.md): progress, curves, and logs
+- [Training evaluation](./evaluate.md): compare checkpoints and the base model
+- [Interactive testing](./test.md): inspect actual answers
+- [Model quantization](./package.md): export GGUF

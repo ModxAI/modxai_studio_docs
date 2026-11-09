@@ -1,9 +1,9 @@
 # RAG Knowledge Base Data Processing
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
-This article explains in detail how to use the RAG (Retrieval-Augmented Generation) data processing feature in ModxAI Studio to convert documents into an intelligent knowledge base for AI conversational retrieval.
+Build a knowledge base from your documents for retrieval in AI chat. Prepare your source files and an embedding model before starting.
 
 ---
 
@@ -26,16 +26,14 @@ This article explains in detail how to use the RAG (Retrieval-Augmented Generati
 **This feature requires additional CPU or GPU environment dependencies to be installed in Settings.**
 
 - Open the **Settings** page in ModxAI Studio  
-- In the **Environment Management** tab, select and install the required environment (CPU/GPU)  
+- Under **System**, in Environment Configuration, select and install the required environment (CPU/GPU)
 - After installation is complete, return to the data processing page to use the related features
 
 ---
 
 ## Feature Overview
 
-The RAG knowledge base is a technique that allows AI to "look up references" when answering questions. By converting your documents into vector representations, the AI can retrieve relevant content during a conversation, providing more accurate and professional answers.
-
-Unlike traditional full-text search, a RAG system understands the **semantic meaning** of questions. Even if the way you phrase your query is different from the wording in the documents, it can still find relevant content.
+A knowledge base lets AI retrieve information from your documents when answering. Retrieved material provides context for the model; check its answers before using them.
 
 **Typical use cases:**
 
@@ -52,7 +50,7 @@ Unlike traditional full-text search, a RAG system understands the **semantic mea
 - Text: TXT, Markdown, CSV, JSON, XML  
 - Archives: ZIP (automatically unzipped and internal files processed recursively)
 
-**Structured data input**: Select "JSON" from the file type dropdown to directly import JSON/JSONL data with fixed fields. The conversion step displays field mapping parameters (title field, content field, keyword field, etc.) to map source fields to the standard format, bypassing the unstructured parsing pipeline. See [SFT Data Processing - Structured Data](./sft.md#text-data-text).
+**Structured data input**: Select "JSON" from the file type dropdown to directly import JSON/JSONL data with fixed fields. The conversion step displays field mapping parameters (title field, content field, keyword field, etc.) to map source fields to the standard format, bypassing the unstructured parsing pipeline.
 
 ---
 

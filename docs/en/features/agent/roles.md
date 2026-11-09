@@ -1,9 +1,11 @@
 # Role Configuration
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
 The agent uses a multi-role collaboration architecture, where each role handles different aspects of a task. This topic describes the purpose and configuration of each role.
+
+Open **Runtime Settings** (gear icon) at the top right of the agent page.
 
 ## Table of Contents
 
@@ -122,7 +124,7 @@ The main role supports three model connection methods:
 
 ### Important Constraints
 
-> \u26a0\ufe0f The memory role has the following hard constraints:
+> The memory role has the following hard constraints:
 > - **Can only use local models**, does not support online or LAN.
 > - **Tools are prohibited** (tool rounds fixed to 0).
 > - **Streaming output is not supported**.

@@ -1,358 +1,97 @@
-# Training Test Module Details
+# Training Test Guide
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
-> 📌 **Module Positioning**: Interactively test the actual inference effect of checkpoints and verify the answer quality of the model in real dialogue scenarios.
+Use **Self Improvement → Training → Test** to load a checkpoint, enter questions, and inspect its answers on your actual tasks.
 
-## Table of Contents
-- [Overview](#overview)
-- [Usage Scenarios](#usage-scenarios)
-- [Inference Parameters](#inference-parameters)
-  - [Basic Parameters](#basic-parameters)
-  - [Advanced Parameters](#advanced-parameters)
-- [Test Flow](#test-flow)
-- [Test Suggestions](#test-suggestions)
-- [FAQ](#faq)
-- [Relationship with Other Modules](#relationship-with-other-modules)
-- [Next Steps](#next-steps)
+## Contents
 
----
+- [Before you start](#before-you-start)
+- [Testing workflow](#testing-workflow)
+- [Inference parameters](#inference-parameters)
+- [Testing suggestions](#testing-suggestions)
+- [Common questions](#common-questions)
+- [Related workflow](#related-workflow)
 
-## Overview
+## Before you start
 
-The Test module provides an interactive dialogue interface, allowing users to manually input questions and view the model's actual replies to intuitively verify training effects.
+- Install a [runtime environment](../settings/environment.md) with training support.
+- Have a finished training task and a usable checkpoint. The selector includes completed, stopped, failed, and error tasks, but a task record does not guarantee a loadable checkpoint.
+- Keep the complete model and tokenizer files. Testing an unmerged LoRA checkpoint also requires the original base model directory.
+- Leave sufficient memory or GPU memory to load the model.
 
-### Core Functions
+## Testing workflow
 
-| Function | Description |
-|------|------|
-| Checkpoint Selection | Select training checkpoint to test |
-| Interactive Dialogue | Input questions to get model replies |
-| Parameter Adjustment | Adjust inference parameters to observe effect changes |
-| Multi-turn Dialogue | Support continuous multi-turn dialogue testing |
+1. Open **Self Improvement → Training → Test** and select a training task.
+2. Select a checkpoint. For a LoRA task, check the displayed base model path. If necessary, select a file inside the base model directory to update it. A non-LoRA task uses the selected checkpoint directly.
+3. Open **Inference Parameter Configuration**, adjust generation settings and the optional system prompt, and click **Apply**.
+4. Click **Start** and wait for environment checks and model loading. The page switches to **Interactive Test**, showing logs and an input field.
+5. Enter a question and press Enter or click **Send**. Read the question and answer in the log. Wait for the answer to finish before sending another question.
+6. Click **Quit** when finished. Exit before changing the checkpoint or parameters, then configure and start a new test.
 
----
+**Each input is answered independently. Previous questions and answers are not included as context.** Consecutive answers in the log do not mean the test supports contextual multi-turn conversation. Include any required background in the current question.
 
-## Usage Scenarios
+## Inference parameters
 
-### Typical Workflow
+### Basic parameters
 
-1. **Verification after Evaluation**: After the Evaluation module screens out high-scoring checkpoints, use the Test module to actually experience them.
-2. **Comparative Testing**: Switch different checkpoints to compare answer quality for the same question.
-3. **Boundary Testing**: Test model performance in extreme or edge cases.
-4. **Parameter Tuning**: Adjust inference parameters to find the best generation effect.
+| Parameter | Default | Purpose and limits |
+|-----------|---------|--------------------|
+| Temperature | 0.7 | Adjusts sampling randomness; start with the default and make small changes |
+| Maximum length | 256 | Maximum new tokens in the answer; the interface allows 1–8192. This is not the combined input and output length |
+| Top P | 0.9 | Filters candidate tokens by cumulative probability |
+| Top K | 50 | Restricts candidates to the most likely tokens; `0` disables this limit |
+| Repetition penalty | 1.1 | Discourages repeated tokens; `1` adds no penalty. Avoid `0` |
+| Presence penalty | 1.1 | Shown in the interface but does not affect generation in the current interactive test |
+| Min P | 0 | Filters candidates relative to the most likely token; `0` disables it |
+| Random seed | 42 | Helps repeat tests; `0` leaves it unfixed. The same seed does not guarantee identical output across devices or environments |
 
-### Cooperation with Evaluation Module
+Tokens are the model's units of text, not characters. Increasing maximum length takes more time and may need more memory. The model's context capacity still applies.
 
-```
-Evaluation Module → Find High Score Checkpoints → Test Module Verification → Determine Final Checkpoint
-```
+### Advanced parameters
 
----
+- **Enable thinking chain**: off by default. It works only when supported by the model and its chat template; it does not add this capability to other models.
+- **System prompt**: sets the model's role or answer requirements, up to `4000` characters. For example: “Answer briefly and say when you are unsure.”
 
-## Inference Parameters
+Parameters take effect when the test starts. Exit and restart the test to compare different settings.
 
-### Basic Parameters
+## Testing suggestions
 
-#### Temperature
+- Prepare a fixed question set covering common tasks, unfamiliar phrasing, output formats, and questions beyond the model's knowledge.
+- Keep questions, system prompt, and generation settings consistent when comparing checkpoints. Record which checkpoint produced each result.
+- Change one parameter at a time so you can identify its effect.
+- Check facts, formatting, and omissions yourself. Fluent answers or a higher benchmark score do not establish reliability.
 
-| Attribute | Value |
-|------|-----|
-| Type | Float |
-| Default | 0.7 |
-| Range | 0 - 2 |
+## Common questions
 
-**Description**: Control randomness and creativity of output.
+### No tasks or checkpoints are available
 
-| Temperature Value | Effect |
-|--------|------|
-| 0 - 0.3 | Conservative, high certainty, suitable for factual Q&A |
-| 0.4 - 0.7 | Balanced, suitable for daily conversation |
-| 0.8 - 1.2 | High creativity, suitable for creative writing |
-| > 1.2 | Highly random, may be incoherent |
+Check that training has ended and actually saved a checkpoint. Task records may remain even if checkpoint files were moved, deleted, or left incomplete.
 
----
+### Answers are cut short
 
-#### Max length
+Check whether **Maximum length** is too small and try increasing it. The model may also end an answer on its own. When thinking is enabled, allow room for both thinking and the final answer.
 
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Default | 256 |
-| Range | 1 - 8192 |
+### Answers repeat or go off topic
 
-**Description**: Maximum number of tokens generated by the model.
+Retry the same question with defaults, then adjust temperature or repetition penalty one at a time. Also review the training data and system prompt. Presence penalty does not change the current test's output.
 
-**Setting Suggestions**:
-- Short Answer: 128 - 256
-- Detailed Explanation: 512 - 1024
-- Long Text Generation: 2048+
+### Follow-up questions do not use earlier context
 
----
+This is an independent-question test. Put the required background in the current question instead of sending only a pronoun or a context-dependent follow-up.
 
-#### Top P (Nucleus Sampling)
+### The model fails to load
 
-| Attribute | Value |
-|------|-----|
-| Type | Float |
-| Default | 0.9 |
-| Range | 0 - 1 |
+Check the checkpoint, base model, and tokenizer paths and free memory used by other programs. After a failed test, inspect the retained log and click **Close** to return to configuration before correcting the issue and retrying.
 
-**Description**: Sample from candidate words with cumulative probability reaching P.
+## Related workflow
 
-| Top P Value | Effect |
-|----------|------|
-| 0.1 - 0.5 | Conservative, only select high probability words |
-| 0.7 - 0.9 | Balanced, recommended value |
-| 0.95 - 1.0 | Loose, more diverse |
+First compare the base model and checkpoints in [Evaluate](./evaluate.md), then use Test for your own questions. Once you select a checkpoint, continue to [Quantize](./package.md) to export GGUF.
 
----
+## Related guides
 
-#### Top K
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Default | 50 |
-| Range | 0 - 100 |
-
-**Description**: Sample only from the K highest probability words.
-
-**Usage Suggestions**:
-- Set to 0 means do not use Top K limit.
-- Usually 20-50 is a good choice.
-- Works better when used with Top P.
-
----
-
-#### Repetition penalty
-
-| Attribute | Value |
-|------|-----|
-| Type | Float |
-| Default | 1.1 |
-| Range | 0 - 2 |
-
-**Description**: Suppress model from repeating generated content.
-
-| Value | Effect |
-|----|------|
-| 1.0 | No penalty |
-| 1.1 - 1.2 | Slight suppression, recommended |
-| 1.3 - 1.5 | Obvious suppression |
-| > 1.5 | Strong suppression, may affect fluency |
-
----
-
-#### Presence penalty
-
-| Attribute | Value |
-|------|-----|
-| Type | Float |
-| Default | 1.1 |
-| Range | 0 - 2 |
-
-**Description**: Penalize tokens that have already appeared, encouraging model to use new vocabulary.
-
-**Difference from Repetition Penalty**:
-- Repetition Penalty: Penalize continuous repetition.
-- Presence Penalty: Penalize any word that has appeared.
-
----
-
-#### Min P
-
-| Attribute | Value |
-|------|-----|
-| Type | Float |
-| Default | 0.0 |
-| Range | 0 - 1 |
-
-**Description**: Filter out words with probability lower than threshold.
-
-**Usage Scenarios**:
-- Set to 0 means do not use.
-- Set to 0.05-0.1 can filter low probability noise.
-
----
-
-#### Random seed
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Default | 42 |
-| Range | 0 - 999999 |
-
-**Description**: Fixed random seed can reproduce the same output.
-
-**Usage Scenarios**:
-- Use same seed during comparative testing to ensure fairness.
-- Fix seed during debugging to facilitate problem reproduction.
-
----
-
-### Advanced Parameters
-
-#### Enable thinking
-
-| Attribute | Value |
-|------|-----|
-| Type | Boolean |
-| Default | false |
-
-**Description**: Enable model's "thinking" capability (if model supports).
-
-**Applicable Models**: Models trained with thinking tags, such as QwQ series.
-
----
-
-#### System prompt
-
-| Attribute | Value |
-|------|-----|
-| Type | Text |
-| Default | Empty |
-| Max Length | 1000 characters |
-
-**Description**: Set model role and behavior guidance.
-
-**Example**:
-```
-You are a professional customer service assistant, please answer user questions in a friendly and professional tone.
-```
-
----
-
-## Test Flow
-
-### 1. Select Checkpoint
-
-Select the checkpoint to test from the task's checkpoint list:
-- Can select based on recommendation from Evaluation module.
-- Can select checkpoints with different training steps for comparison.
-
-### 2. Configure Parameters
-
-Click parameter configuration button:
-- Adjust inference parameters.
-- Set system prompt (optional).
-- Configure thinking mode (optional).
-
-### 3. Start Dialogue
-
-In the dialogue box:
-1. Input test question.
-2. Wait for model to generate reply.
-3. View reply content.
-4. Continue to input next question (multi-turn dialogue).
-
-### 4. Analyze Results
-
-Focus on the following aspects:
-- **Answer Accuracy**: Whether the question is answered correctly.
-- **Answer Fluency**: Whether the language is natural and smooth.
-- **Format Standardization**: Whether it meets expected output format.
-- **Knowledge Correctness**: Whether it contains correct knowledge.
-
----
-
-## Test Suggestions
-
-### Test Case Design
-
-| Type | Description | Example |
-|------|------|------|
-| Normal Scenario | Typical questions covered by training data | Standard Q&A pairs |
-| Boundary Scenario | Questions on the edge of training data | Rare vocabulary, complex syntax |
-| Abnormal Scenario | Questions outside training data | Test model's refusal capability |
-| Comparative Scenario | Compare with base model | Verify fine-tuning effect |
-
-### Parameter Tuning Strategy
-
-1. **Start from Default**
-   - Use default parameters to get baseline effect.
-
-2. **Adjust One by One**
-   - Adjust only one parameter at a time.
-   - Observe effect changes.
-
-3. **Record Best Combination**
-   - Find the parameter combination with best effect.
-   - Used for subsequent packaging configuration.
-
-### Multi-Checkpoint Comparison
-
-1. Prepare a set of standard test questions.
-2. Use same parameters and random seed.
-3. Test different checkpoints sequentially.
-4. Record and compare answer quality.
-
----
-
-## FAQ
-
-### Incomplete Answer
-
-**Possible Reasons**:
-- Max length setting too small.
-- Model generated EOS token.
-
-**Solution**:
-- Increase max length parameter.
-- Check end token format in training data.
-
-### Repetitive Answer
-
-**Possible Reasons**:
-- Repetition penalty too low.
-- Temperature too high causing unstable sampling.
-
-**Solution**:
-- Increase repetition penalty (e.g., 1.2-1.3).
-- Appropriately lower temperature.
-
-### Answer Off-Topic
-
-**Possible Reasons**:
-- Training data quality issue.
-- Improper inference parameters.
-
-**Solution**:
-- Lower temperature to get more deterministic answer.
-- Check relevance of training data.
-
-### Checkpoint Load Failed
-
-**Possible Reasons**:
-- Checkpoint file incomplete.
-- Insufficient memory.
-
-**Solution**:
-- Confirm checkpoint directory contains necessary files.
-- Close other programs occupying memory.
-
----
-
-## Relationship with Other Modules
-
-```
-Prepare Module → Monitor Module → Evaluation Module → Test Module → Package Module
-   │              │               │               │             │
- Create Task    Monitor Progress  Quantify Eval   Actual Verify  Export Model
-```
-
-**Positioning of Test Module**:
-- After Evaluation Module: Pick a checkpoint from the evaluation score. Built-in sets include IFEval, GSM8K, MMLU, and HellaSwag. See [Model Evaluation](./evaluate.md). The evaluation screen does not link out to those dataset pages.
-- Before Package Module: Confirm checkpoint quality before packaging.
-
----
-
-## Next Steps
-
-- [Overview](./overview.md) - Training function overview
-- [Prepare Module Details](./prepare.md) - Task creation and parameter configuration
-- [Monitor Module Details](./monitor.md) - Training monitoring
-- [Evaluate Module Details](./evaluate.md) - Checkpoint evaluation
-- [Package Module Details](./package.md) - GGUF export
+- [Prepare](./prepare.md): create training tasks
+- [Monitor](./monitor.md): review training progress
+- [Evaluate](./evaluate.md): run benchmark evaluations
+- [Quantize](./package.md): export the model

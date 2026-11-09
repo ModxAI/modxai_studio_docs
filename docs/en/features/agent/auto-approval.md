@@ -1,7 +1,7 @@
 # Auto Approval & Security
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
 During execution, the agent may need to perform high-risk operations such as executing terminal commands or modifying files. The auto-approval and security mechanism helps balance efficiency and safety.
 
@@ -140,7 +140,7 @@ The system presets common dangerous commands: `rm`, `del`, `format`, `shutdown`,
 
 ### Custom Blacklist
 
-Edit the command blacklist in Advanced Settings \u2192 Security group. Separate multiple commands with commas or newlines.
+Edit the command blacklist in Advanced Settings → Security group. Separate multiple commands with commas or newlines.
 
 > ⚠️ Commands on the blacklist are **always rejected**, regardless of auto-approval or manual confirmation mode.
 
@@ -148,11 +148,11 @@ Edit the command blacklist in Advanced Settings \u2192 Security group. Separate 
 
 ## Security Role
 
-The security role is an optional role component. The security review described above is only performed when it is enabled.
+The optional security role adds model-based risk checks when enabled.
 
 ### Enabling
 
-In the right configuration panel, expand "Role Parameters" \u2192 "Security Role" \u2192 enable and configure the model.
+Open **Runtime Settings** at the top right of the agent page, expand **Role Parameters → Security Role**, then enable and configure the model.
 
 ### Relationship with Basic Security
 

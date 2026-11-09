@@ -1,310 +1,123 @@
-# Training Evaluation Module Details
+# Training Evaluation Guide
 
-> v1.1.10
-> 2026-10
+> v1.1.11
+> 2026-11
 
-> 📌 **Module Positioning**: Automatically evaluate checkpoint quality and help users find the best checkpoint through standardized sample testing.
+Use **Self Improvement → Training → Evaluate** to compare the base model and checkpoints on fixed benchmarks, inspect scores and individual answers, and keep evaluation history.
 
-## Table of Contents
-- [Overview](#overview)
-- [Built-in Benchmarks](#built-in-benchmarks)
-- [Evaluation Samples](#evaluation-samples)
-- [Evaluation Parameters](#evaluation-parameters)
-- [Evaluation Flow](#evaluation-flow)
-- [Evaluation Metrics](#evaluation-metrics)
-- [Usage Suggestions](#usage-suggestions)
-- [Difference from Test Module](#difference-from-test-module)
+## Contents
 
-## Overview
+- [Before you start](#before-you-start)
+- [Evaluation workflow](#evaluation-workflow)
+- [Built-in benchmarks](#built-in-benchmarks)
+- [Evaluation parameters](#evaluation-parameters)
+- [Read the results](#read-the-results)
+- [Evaluation history](#evaluation-history)
+- [Important notes](#important-notes)
+- [Evaluation and interactive testing](#evaluation-and-interactive-testing)
 
-The Evaluation module uses predefined Q&A samples to batch test training checkpoints, automatically calculates similarity scores, and helps users objectively evaluate model training effects.
+## Before you start
 
-### Core Functions
+- Install a [runtime environment](../settings/environment.md) that supports inference with training models, and have a finished training task.
+- Keep the task's base model, tokenizer, and checkpoint files. LoRA checkpoints need their corresponding base model. GGUF files cannot be evaluated here.
+- Allow sufficient memory or GPU memory. Adding models or benchmarks increases the work required.
+- Prepare datasets and scoring components as prompted. Missing resources require an internet connection to download. Once resources are ready, evaluation runs using local models.
 
-| Function | Description |
-|------|------|
-| Batch Evaluation | Automatically evaluate checkpoints using sample datasets |
-| Score Calculation | Calculate similarity between model output and standard answers |
-| Result Comparison | Visual comparison of evaluation results for multiple checkpoints |
-| Best Recommendation | Automatically recommend the checkpoint with the highest score |
-| Built-in Benchmarks | IFEval, GSM8K, MMLU, and HellaSwag |
+The task selector includes completed, stopped, failed, and error tasks. Only available checkpoints can be selected; a task record does not establish that its weights are complete.
 
----
+## Evaluation workflow
 
-## Built-in Benchmarks
+1. Open **Self Improvement → Training → Evaluate** and select a **Training Task**.
+2. Select one or more **Checkpoints**, or click **Select All**. Keep **Include the Base Model** enabled to compare against the original model. You can leave checkpoints empty to evaluate only the base model.
+3. Choose one or more **Benchmarks**. Each selected benchmark shows its question count for the current scale and its resource status.
+4. Open **Evaluation Parameter Configuration**. Set the scale, maximum output tokens, execution device, and optional additional thinking, then click **Apply**.
+5. If the selected scale needs a dataset, click its download icon. IFEval also needs scoring components; select **Prepare Scoring Components** when prompted. Wait for **Ready**. Retry failed downloads, or click a progress icon to cancel a download or verification.
+6. Click **Check and continue**. The app checks resources, model files, the environment, and question lengths. You can cancel while checking. If a check fails, resolve the reported issue and check again.
+7. When **Ready to start** appears, click **Start Evaluation**. Passing checks does not itself start evaluation. Changing the configuration requires another check.
+8. Inspect progress and completed results on the results page. You can leave the page and return through **View progress** or **Evaluation History**.
 
-The evaluation module can run a built-in benchmark set or the custom Q&A samples below. Built-in benchmarks measure general ability. They do not replace samples you write for your own data.
+To stop, return to evaluation configuration and click **Stop**. Wait for the status to become **Stopped**. If stopping fails, retry as prompted; requesting a stop is not the same as completion.
 
-| Benchmark | What it measures |
-|-----------|------------------|
-| **IFEval** | Instruction following: whether the answer obeys the requested format, constraints, and steps |
-| **GSM8K** | Grade-school math word problems |
-| **MMLU** | Multiple-choice questions across subjects |
-| **HellaSwag** | Commonsense sentence completion |
+## Built-in benchmarks
 
-Choose one of these built-in sets in the evaluation module, then choose the checkpoints to compare. The sets come from those public datasets. The evaluation screen does not show links out to the dataset pages. Custom samples still use the similarity scoring described later on this page. Built-in benchmarks use their own standard scores. Do not read those scores as the 0–1 similarity bands below.
+| Benchmark | Measures | Overview score |
+|-----------|----------|----------------|
+| IFEval | Compliance with formatting and instruction constraints | Proportion strictly satisfying all requirements in a question |
+| MMLU-Pro | Multiple-choice professional knowledge and reasoning | Answer accuracy |
+| GSM8K | Grade-school math problems | Final numeric-answer accuracy |
+| HellaSwag | Choosing a natural continuation from candidate endings | Length-normalized candidate-selection accuracy |
 
----
+The current evaluation page uses these built-in benchmarks. It has no custom `prompt/completion` sample-file input. Use [Test](./test.md) for your own questions.
 
-## Evaluation Samples
-
-### Default Sample File
-
-The system ships with a default evaluation sample file:
-
-```
-server/resources/example/train_evaluation/model_evaluation_samples.json
-```
-
-When running the evaluation function for the first time, this file will be copied to the user data directory as the default configuration.
-
-### Sample Format
-
-```json
-{
-  "train": [
-    {
-      "prompt": "Question text",
-      "completion": "Standard answer"
-    }
-  ],
-  "validation": [
-    {
-      "prompt": "Validation question",
-      "completion": "Validation answer"
-    }
-  ]
-}
-```
-
-### Sample Group Description
-
-| Group | Purpose |
-|------|------|
-| `train` | Training set samples, used to evaluate the model's learning effect on training data |
-| `validation` | Validation set samples, used to evaluate the model's generalization ability |
-
-### Custom Samples
-
-Users can modify the sample file to suit their own evaluation needs:
-
-1. **Add Sample**: Add new `prompt`/`completion` objects to the array of the corresponding group.
-2. **Modify Sample**: Edit the question and answer of existing samples.
-3. **Delete Sample**: Remove unwanted sample objects.
-
-**Sample Writing Suggestions**:
-
-| Type | Suggestion |
-|------|------|
-| Question Coverage | Cover main scenarios of training data |
-| Answer Standard | Use expected standard answer format |
-| Quantity Balance | Appropriate balance between train and validation quantities |
-| Difficulty Gradient | Include questions of different difficulties from simple to complex |
-
----
-
-## Evaluation Parameters
-
-### Sampling Control Parameters
-
-#### Sample ratio
-
-| Attribute | Value |
-|------|-----|
-| Type | Float |
-| Default | 0.3 |
-| Range | 0.1 - 1.0 |
-
-**Description**: Proportion randomly drawn from the sample set.
-
-**Usage Scenarios**:
-- When there are many samples, set a lower ratio to speed up evaluation.
-- When comprehensive evaluation is needed, set to 1.0 to use all samples.
-
----
-
-#### Max samples
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Default | 20 |
-| Range | 5 - 100 |
-
-**Description**: Maximum number of samples used in a single evaluation.
-
-**Function**: Limit evaluation time to avoid excessively long evaluation due to too many samples.
-
----
-
-#### Min samples
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Default | 5 |
-| Range | 1 - 50 |
-
-**Description**: Ensure the minimum number of samples used for evaluation.
-
-**Function**: Guarantee minimum sample quantity even if the sampling ratio calculation result is small.
-
----
-
-### Inference Parameters
-
-Model inference parameters during evaluation, same as regular inference parameters:
-
-#### Temperature
-
-| Attribute | Value |
-|------|-----|
-| Type | Float |
-| Default | 0.3 |
-| Range | 0 - 1 |
-
-**Description**: Control output randomness.
-
-**Evaluation Suggestion**: Use lower temperature (0.1-0.3) to obtain more stable and reproducible evaluation results.
-
----
-
-#### Max length
-
-| Attribute | Value |
-|------|-----|
-| Type | Integer |
-| Default | 256 |
-| Range | 32 - 2048 |
-
-**Description**: Maximum number of tokens generated by the model.
-
-**Suggestion**: Set the max generation length from the average sample-answer length. Use 256–512.
-
----
-
-### Advanced Parameters
-
-The following parameters are located in the fold panel:
+## Evaluation parameters
 
 | Parameter | Default | Description |
-|------|--------|------|
-| Top K | 20 | Keep the K highest probability words during sampling |
-| Top P | 0.9 | Cumulative probability threshold for nucleus sampling |
-| Repetition Penalty | 1.1 | Penalty coefficient to suppress repetitive content |
-| Presence Penalty | 1.1 | Penalty coefficient to suppress already appeared tokens |
-| Min P | 0.0 | Minimum probability threshold |
-| Random Seed | 42 | Fixed seed can reproduce evaluation results |
+|-----------|---------|-------------|
+| Evaluation Scale | Quick | Quick, Extended, or Full; check the question count beside each benchmark |
+| Maximum Output Tokens | 2048 | Maximum generated answer length, from 1 to 32768 |
+| Execution Device | Inherit Training Task | Inherit, Auto (CPU/CUDA), CPU, or GPU (CUDA) |
+| Additional Thinking | Off | Applies only when supported by the model and its template |
 
----
+Use **Quick** to check the workflow, **Extended** for more questions, and **Full** for the complete fixed dataset. Smaller samples can vary more and should not be treated as a final judgment of model capability.
 
-## Evaluation Flow
+This page does not offer temperature, Top P, Top K, random seed, or custom sampling-ratio controls. Evaluation settings are separate from interactive test settings.
 
-### 1. Select Checkpoint
+Questions plus the output budget must fit the model's context capacity. If the output budget is too large, lower **Maximum Output Tokens** and check again. If the question itself is too long, choose a model with enough context capacity.
 
-Select the checkpoint to evaluate on the evaluation page:
-- Can select a single checkpoint for evaluation.
-- Can select multiple checkpoints for comparative evaluation.
+## Read the results
 
-### 2. Configure Parameters
+### Score Matrix
 
-Click the parameter configuration button to adjust evaluation parameters:
-- Set sampling ratio and sample number limit.
-- Adjust inference parameters (recommend using low temperature).
-- Confirm evaluation sample file path.
+Rows are models and columns are benchmarks. Scores are percentages:
 
-### 3. Execute Evaluation
+- Click a score to inspect questions, model answers, reference answers or requirements, and judgments.
+- Use **Show Differences** to filter samples that did not meet requirements. Refresh or load more when needed.
+- **Highest for This Benchmark** compares only complete results without execution failures for that benchmark. It is not an overall ranking across benchmarks.
+- When complete comparable results include the base model, the matrix shows the change from it in percentage points.
+- Incomplete cells also show completion counts. An execution failure is different from an incorrect model answer.
 
-1. Click "Start Evaluation" button.
-2. System loads checkpoint and initializes model.
-3. Perform inference sample by sample.
-4. Calculate similarity between model output and standard answer.
-5. Generate evaluation report.
+### Benchmark Trend
 
-### 4. View Results
+Choose a benchmark to compare complete scores across models in this run. Incomplete results and results with execution failures are excluded from the trend.
 
-After evaluation is complete, display:
-- **Overall Score**: Average similarity score of all samples.
-- **Detailed Results**: Question, standard answer, model output, and score for each sample.
-- **Comparison Chart**: Score comparison when evaluating multiple checkpoints.
+### Compare Two Models
 
----
+1. Select the first model, second model, and benchmark.
+2. Click **Compare Two Models** to inspect the same question side by side.
+3. Filter by **Second Model Improved**, **First Model Better**, **Both Correct**, **Both Incorrect**, or **Unavailable**, or enable **Show Differences**.
 
-## Evaluation Metrics
+The comparison uses models from this run. Different wording when both answers are wrong does not establish that one model is better.
 
-### Similarity Calculation
+## Evaluation history
 
-Evaluation uses text similarity algorithms to calculate the match degree between model output and standard answer:
+Open **Evaluation History** to filter runs by training task, status, and date.
 
-| Factor | Weight |
-|------|------|
-| Semantic Similarity | Main metric |
-| Keyword Coverage | Auxiliary metric |
-| Format Match | Reference metric |
+| Action | Purpose |
+|--------|---------|
+| View | Open the run's scores and individual results |
+| Copy Configuration | Return its configuration to the evaluation page, check it, and start a new run |
+| Continue Evaluation | Available for stopped, failed, or interrupted runs; return to configuration and check again, reusing eligible completed results |
+| Recalculate | Return to configuration and evaluate without reusing existing results |
+| Export | Download JSONL containing configuration, summaries, and individual results |
+| Delete | Confirm deletion of a run that is not active; this does not delete training models or checkpoints, or clear all reusable results |
 
-### Score Interpretation
+Normal evaluation may reuse results for the same model, question, and settings. The ready-to-start area reports reusable results and the remaining work. Use **Recalculate** when you want all results generated again.
 
-| Score Range | Description |
-|----------|------|
-| 0.8 - 1.0 | Excellent, model output is highly consistent with standard answer |
-| 0.6 - 0.8 | Good, model basically understands task requirements |
-| 0.4 - 0.6 | Average, model partially understands task |
-| 0.0 - 0.4 | Poor, model output deviates from expectation |
+## Important notes
 
----
+- Only one evaluation can run at a time. View or stop the active run before starting another.
+- Do not directly compare partial scores with complete scores. Completed samples remain accessible after failures or interruptions, and you can continue from history.
+- Benchmark scores describe performance on their datasets. They do not guarantee performance on your business tasks, Chinese-language ability, or factual accuracy.
+- Keep scale and generation settings consistent when comparing checkpoints, then check your own questions.
+- Exports may contain local model paths, questions, and model answers. Review their contents before sharing.
 
-## Usage Suggestions
+## Evaluation and interactive testing
 
-### Evaluation Strategy
+Evaluation provides fixed-dataset scoring and model comparisons. [Test](./test.md) lets you enter your own questions and inspect answers. Use evaluation to shortlist checkpoints, test them on real tasks, and then choose a model for [quantization](./package.md).
 
-1. **Regular Evaluation**
-   - Evaluate every certain number of training steps (e.g., 100-500 steps).
-   - Track changes in model quality with training progress.
+## Related guides
 
-2. **Comparative Evaluation**
-   - Select multiple checkpoints to evaluate simultaneously.
-   - Find the best training node.
-
-3. **Comprehensive Evaluation**
-   - Use all samples (sampling ratio 1.0) when finally selecting a checkpoint.
-   - Obtain more reliable evaluation results.
-
-### Sample Design
-
-1. **Representativeness**
-   - Samples should cover main scenarios of training data.
-   - Include different types of questions.
-
-2. **Standardization**
-   - Unified answer format.
-   - Facilitate objective scoring.
-
-3. **Update and Maintenance**
-   - Adjust samples according to actual needs.
-   - Regularly clean up obsolete samples.
-
----
-
-## Difference from Test Module
-
-| Dimension | Evaluation Module | Test Module |
-|------|----------|----------|
-| Purpose | Quantitatively evaluate checkpoint quality | Interactively verify model effect |
-| Method | Automated batch testing | Manually input questions for testing |
-| Output | Score and evaluation report | Model's real-time reply |
-| Usage Scenario | Screen best checkpoints | Confirm model actual performance |
-
-**Recommended Workflow**:
-1. First use Evaluation Module to find checkpoints with higher scores.
-2. Then use Test Module to actually verify the answer quality of these checkpoints.
-3. Finally determine the checkpoint for packaging.
-
----
-
-## Next Steps
-
-- [Overview](./overview.md) - Training function overview
-- [Prepare Module Details](./prepare.md) - Task creation and parameter configuration
-- [Monitor Module Details](./monitor.md) - Training monitoring
-- [Test Module Details](./test.md) - Interactive testing
-- [Package Module Details](./package.md) - GGUF export
+- [Prepare](./prepare.md): create training tasks
+- [Monitor](./monitor.md): training loss and logs
+- [Test](./test.md): inspect actual answers
+- [Quantize](./package.md): export the model
