@@ -3,76 +3,78 @@
 > v1.1.12
 > 2026-11
 
-Open **Settings → MCP** to check status, reconnect, or edit a service. Read the error on its card or in **Details** before choosing an action.
+Open **Settings → MCP** and click the body of an added service card to view its status, errors, and tools. The card's colored edge indicates status; hover over the card for the status text.
 
-## Manage connections
+## Everyday management
 
-| Action | Effect |
+| Where | Action and result |
 | --- | --- |
-| **Refresh** at the upper right of Quick Add | Refresh connections and tool catalogs for enabled services; disabled services are not started |
-| **Reconnect** on a service card | Reconnect that service, continuing to browser authorization if needed |
-| **Edit** | Change connection details; saved changes affect other conversations using the service |
-| **Stop / Start** switch | Disable or enable the service without deleting its configuration |
-| **Details** | View connection status, tool descriptions, and connection information |
-| **Revoke Authorization** | Remove local authorization and disconnect, keeping configuration and tool selections; does not revoke provider-side access |
-| **Delete** | Remove the configuration and tool catalog; all conversations lose access to this service, while existing messages and files remain |
+| Refresh icon at the top right of Quick Add | Refresh connections and tool catalogs for all enabled services; disabled services do not start |
+| Circular arrow on an added card (**Reconnect**) | Reconnect that service. If browser authorization is missing, open the authorization flow. Turn on a disabled service first |
+| Pencil icon on the card (**Edit**) | Edit connection settings and save to apply |
+| Card switch (**Stop / Start**) | Disable or enable the service without deleting its configuration or existing tool selections |
+| Body of the card | Open details for status, errors, and tools. Scroll the tool list to load more; expand **Connection Info** for connection information |
+| **Authorize / Revoke Authorization** at the bottom of details | Complete browser authorization, or confirm removal of local authorization. This does not revoke access at the provider |
+| **Delete** at the bottom of details | Confirm deletion of the connection and catalog. All conversations lose access to this connection; existing messages and files remain |
 
-The app refreshes enabled services once at startup. It does not refresh on a fixed interval or keep retrying failed connections. Use **Refresh** or **Reconnect** after network recovery or a service change.
+Deleting a saved preset connection makes its Quick Add card available again; it does not remove the preset entry. After adding it again, select tools for the roles again.
 
-If an older preset fails and Details shows **Update and Connect**, that action updates its connection defaults and retries. Check the resulting connection status.
+ModxAI refreshes enabled services once at startup. It does not then refresh catalogs on a fixed interval or continuously retry failed connections. Reconnect manually after network recovery; merely switching pages does not reconnect all services.
 
-## Read the status
+For a failed older local preset, details may offer **Update and Connect**. This updates launch arguments from the preset, adds missing default environment variables, increases the connection timeout if needed, and retries. The card's ordinary **Reconnect** action does not replace those settings.
 
-| Status | Meaning and next step |
+## Understand status
+
+| Status | What to do |
 | --- | --- |
-| Disabled | The service is off; use the switch to start it when needed |
-| Not connected / Connecting | The connection is not complete; wait for the result or check configuration |
-| Connected | A connection is established; check the catalog and role selection next. A business task is not necessarily complete |
-| Authentication required | Supply credentials or authorize again |
-| Connection failed | Read the specific error, correct it, and reconnect |
-| Stopping | Wait until stopping finishes before acting again |
+| Disabled | Turn on the card's switch when you need the service |
+| Not connected / Connecting | Wait for the result; if it does not finish, inspect settings and errors |
+| Connected | Inspect tools and configure the role; this does not mean the business task is complete |
+| Authentication required | Authorize as prompted, or edit the service to supply credentials |
+| Connection failed | Read the specific error in details, correct it, and reconnect |
+| Stopping | Wait for stopping to finish |
 
-If catalog refresh fails, the last complete catalog is kept. **Visible tools do not prove the current connection works.** Resolve connection or catalog errors first. A tool marked as having an unsupported schema or external reference cannot be treated as usable.
+A failed catalog refresh preserves the last complete catalog, so visible tools do not prove that the connection is working. A tool marked with an unsupported schema or external reference cannot be used directly for a task.
 
-## Troubleshooting
+## Common problems
 
 ### Program or working directory not found
 
-On the backend computer, check that the program is installed, its path is correct, and the specified directory exists. Use the program's full path if needed. A path on the current computer may not exist on the backend computer.
+Check that the computer hosting ModxAI has the required program and directory. Try a full path in **Program**. With a LAN backend, a path on the computer displaying the interface is not automatically a valid backend path.
 
-### Connection timed out or failed
+### Connection timeout or failure
 
-Check the local program and arguments, or the remote MCP URL, network, and authentication method. Increase **Connection Timeout** only if the service genuinely needs more time; it will not fix a wrong URL or missing permission.
+For local services, check the program, arguments, and dependencies. For remote services, check the MCP URL, network, and authentication. If the service genuinely needs more time, adjust **Connection Timeout** in the editor's **Advanced Settings**.
 
-### Authentication failed, credentials missing, or access denied
+### Authentication failure, missing credentials, or access denied
 
-Use **Edit** to supply the token or headers, or authorize again in the browser. Confirm that the account can access the target workspace, project, or repository. Organization resources may need administrator approval. See [Quick Add and Authorization](./connect.md).
+Use the card's **Edit** action to supply tokens or headers. For browser-authorized services, complete authorization in details. Also check that the account can access the intended workspace, project, or repository. Organization resources may require administrator approval.
 
 ### Connected, but the agent cannot find a tool
 
-Check these in order:
+1. Click the service card and check that the target tool is listed and not marked unsupported.
+2. In the current conversation's role settings, check **Enable Tools** and the tool selections. Click **Confirm** after changing them.
+3. For a delegated role, also check that the main role allows those tools.
+4. After agent-assisted setup, check whether the result only saved the service or skipped activation. Select the required tools and send a simple task.
 
-1. **Details** has a tool catalog and the tool is supported.
-2. **Enable Tools** is on for the main or delegated role, and the required tool is selected.
-3. You edited the role and configuration used by the current task.
-4. If the agent just registered and activated tools, a subsequent model request has started.
+Do not keep adding the same service to solve a missing tool selection.
 
-Do not repeatedly add the same service to fix a missing role selection.
+When using an external app or bot, also check the high-risk tool restrictions in [External Access](../gateway/overview.md). Selecting a tool for a role does not bypass those restrictions.
 
-### Invalid catalog, catalog limit, or unsupported tool
+### Tool list failed to load or the catalog is invalid
 
-Confirm that the URL points to an MCP service and check its version and transport. Selecting role tools cannot fix an oversized catalog or unsupported tool definition. The provider must supply a supported catalog; refresh after it changes.
+For a loading error inside the tool list, click **Retry** there. If details report a catalog refresh failure, try reconnecting. An oversized catalog or unsupported tool definition requires a compatible catalog from the provider; repeatedly selecting tools will not resolve it.
 
 ### Backend dependencies are incomplete
 
-Repair the ModxAI runtime as prompted. This differs from an external program being missing: the former concerns the app's runtime, while the latter concerns the service's own environment. If process supervision is not ready, try restarting the backend.
+This differs from a missing external program: the former concerns ModxAI's runtime, while the latter concerns the third-party service's environment. Keep the error message and check the app's installation instructions. Do not mix third-party packages into the ModxAI environment to resolve it. If the error persists after a restart, report it with a redacted message.
 
-### An operation timed out and the result is unclear
+### A timed-out action may have succeeded
 
-Read the original tool-call or registration result and check the provider's actual state. Do not repeat creates, sends, updates, or deletions until the outcome is clear. Cancelling a task or stopping a connection does not undo an external action that already occurred.
+Inspect the original call result and verify the provider's actual state. Do not repeat create, send, edit, or delete actions before checking. Cancelling a task, stopping a connection, or removing local authorization does not undo external actions that already happened.
 
 ## Related guides
 
 - [Custom Services](./custom-service.md)
 - [Using MCP in Agents](./agent-tools.md)
-- [Auto-Approval and Safety](../agent/auto-approval.md)
+- [Auto Approval and Safety](../agent/auto-approval.md)

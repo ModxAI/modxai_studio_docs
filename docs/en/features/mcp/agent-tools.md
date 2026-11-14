@@ -3,57 +3,58 @@
 > v1.1.12
 > 2026-11
 
-After connecting an MCP service, select which tools a role may call. You can also let an agent help configure a service, but saving a connection and granting tool access are separate actions.
+After connecting an MCP service, select tools for a role in the current conversation, then send a task. Connections can be shared, but check tool selections for each conversation and role.
 
 ## Select role tools
 
-1. In **Settings → MCP**, confirm that the service is enabled, shows **Connected**, and has a tool catalog.
-2. Return to the agent page and open **Runtime Settings** using the gear icon at the upper right.
-3. Select the main or delegated role, turn on **Enable Tools**, and click **Configure Tools** under **Tool Set**.
-4. Find **MCP Tools**, select the tools needed for the task by service, and confirm the selection.
-5. Send a narrowly scoped task, such as reading information from a specific project. Check the tool result before expanding the task.
+1. In **Settings → MCP**, click the added service card. Check that its details show **Connected** and the tools you need.
+2. Return to the agent conversation and open **Runtime Settings** using the gear icon at the top right. Expand the main or delegated role under **Role Parameters**.
+3. Under **Tool Set**, turn on **Enable Tools** and click **Configure Tools**. If tools are already selected, the button shows **N selected** instead.
+4. Expand **MCP → service name**, select the tools you need, and click **Confirm**. If saving fails, the window keeps your selection; resolve the error and retry. Cancel does not apply the changes.
+5. Send a small, clearly scoped task, such as reading one item from a specific project. Check the actual tool call and returned content before expanding the task.
 
-MCP tools can currently be configured for the main and delegated roles. Do not assume the evaluate, summary, memory, or security roles can use them.
+Only the main and delegated roles can be configured with MCP tools. For delegated calls, both the main and delegated roles must have **Enable Tools** on and select the required MCP tools. Selecting them only for the delegated role is not enough.
 
-With **Auto** enabled, the agent chooses tools within the selected scope. Fixed mode loads the selected tools. Neither mode grants access to every tool just because a service is connected.
+The **Auto** checkbox selects tools as needed within your chosen scope. Uncheck it to use fixed selections. This is separate from auto approval and does not grant access to unselected tools.
 
-## Check task results
+## Check execution results
 
-Tool calls in the task show their status and results. When approval is requested, review the target, action, and data being sent before approving or rejecting it.
+Tool calls show their status and results during a task. When approval is requested, review the action, target, and data to be sent before allowing it.
 
-- A tool appearing in the catalog does not mean your account has access to every target.
-- Check the actual result even after a successful tool call. The model's summary does not replace the provider's state.
-- After a timeout, disconnection, or cancellation, an external write may already have occurred. Check the target before retrying instead of submitting the same action repeatedly.
-- When a service adds tools, review the role's tool selection again. Do not assume the previous selection includes new tools.
+- A connected service does not mean the account can access every project or resource.
+- The model's summary is not a substitute for the actual result. For changes, check the provider's own state when needed.
+- A timeout, disconnection, or cancelled task may not undo an external action. Verify uncertain create, send, edit, or delete results before retrying.
+- Check and select new tools when a service adds them. After deleting and re-adding a service, configure its tool selections again.
 
 ## Let an agent help with setup
 
-Use this when you have trusted setup instructions and want help preparing the connection.
+You can ask the agent to check the environment and fill in settings when you have trusted connection instructions.
 
-1. Turn off **Auto Approval**, then enable **List MCP Servers** and **Register MCP Server** under **MCP Management** for the main role.
-2. Give the agent the service's purpose, official setup instructions, and allowed tool scope. Share only non-sensitive configuration; do not paste tokens, passwords, client secrets, or browser codes into chat.
-3. Review the service name, connection configuration, changes, and tool-access scope in the approval card. Updating an existing service affects other conversations using it.
-4. Enter required credentials in the card's private input fields. If account authorization is needed, approve the request and complete the browser flow. Do not supply credentials through ordinary chat.
-5. Wait for the registration result, then check the service in **Settings → MCP**. Newly authorized tools become available on a subsequent model request, not immediately within the same batch.
+1. Turn off **Auto Approval** for the current conversation so you can review setup actions individually.
+2. Open the main role's tool picker, select **MCP Management** under **Built-in → Execution**, and click **Confirm**. This group queries and registers services; it is not the external service's own tools.
+3. Provide the official connection instructions, intended task, and allowed tool scope. Do not paste tokens, passwords, or client secrets into chat.
+4. When the setup confirmation appears, check the service name, impact on shared settings, and tools allowed for this conversation. Expand details to inspect the command or URL.
+5. Enter any required credentials in the private input fields. If browser authorization is needed, click **Allow** and follow the browser prompts, then wait for the registration result. Do not send credentials through ordinary chat.
+6. After registration succeeds, check whether the connection and tool grant succeeded. If only the service was saved, select tools using the steps above, then send a simple task to verify the setup.
 
-The approval may show one of three scopes:
+The confirmation may indicate:
 
 | Scope | Meaning |
 | --- | --- |
-| Save only | Save the connection without granting tools to this conversation |
-| Named tools | Grant only the listed tools to this conversation's main role |
-| All tools discovered now | Grant the current discovery snapshot, excluding future additions |
+| Save only | Store the connection without adding tools to the current conversation |
+| Named tools | Allow the current conversation's main role to use the listed tools |
+| All tools discovered now | Allow the current conversation's main role to use this discovered set, excluding future additions |
 
-The service configuration is shared, but this grant applies only to the current conversation's main role. It does not also grant access to other conversations or delegated roles.
+Service settings are shared globally, but the setup grant applies only to the current conversation's main role, not other conversations or delegated roles. If tool selections changed during setup, the result may say activation was skipped. Check the current selections and add the required tools manually instead of registering again.
 
-A local service's program and dependencies must be prepared first. If the agent needs to download software, install dependencies, or create files, it should explain those actions and obtain your permission separately. Registration itself does not install dependencies. Keep the third-party environment separate from ModxAI's own runtime.
+If setup requires downloads, dependency installation, or file creation, review the proposed source, location, and action first. Third-party programs should use a separate environment, not ModxAI's own runtime.
 
-### If registration status is unclear
+### Registration result is unclear
 
-If registration times out or its result is unclear, ask the agent to query the **original operation's status** and check existing services in Settings. Do not immediately register again: this can create duplicate connections or overwrite shared configuration.
+Ask the agent to check the result of that registration and inspect existing services in **Settings → MCP**. Do not immediately add it again: this can create duplicate connections or overwrite shared settings.
 
 ## Related guides
 
 - [Role Configuration](../agent/roles.md)
-- [Auto-Approval and Safety](../agent/auto-approval.md)
+- [Auto Approval and Safety](../agent/auto-approval.md)
 - [Management and Troubleshooting](./manage.md)

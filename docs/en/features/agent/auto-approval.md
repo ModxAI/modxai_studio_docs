@@ -45,9 +45,9 @@ When enabled, the system will:
 
 **Commands on the blacklist are always skipped**, even in auto-approval mode.
 
-### MCP setup (v1.1.12)
+### MCP setup
 
-In v1.1.12, agents can help configure MCP services. If setup needs credentials or browser authorization, turn off auto approval and complete those steps manually; auto approval cannot replace them. For a first connection, review the configuration, shared impact, and tool grant before approving. See [Let an agent help with setup](../mcp/agent-tools.md#let-an-agent-help-with-setup).
+Agents can help configure MCP services. If setup needs credentials or browser authorization, turn off auto approval and complete those steps manually; auto approval cannot replace them. For a first connection, review the configuration, shared impact, and tool grant before approving. See [Let an agent help with setup](../mcp/agent-tools.md#let-an-agent-help-with-setup).
 
 ---
 

@@ -3,34 +3,34 @@
 > v1.1.12
 > 2026-11
 
-MCP connects external tools to an agent. An agent can use them to read authorized project information or work with a local program you configure. After connecting a service, choose which tools each role may use.
+MCP connects external tools to agents, such as reading project information, looking up online documentation, or running a local program.
 
 Open **Settings → MCP**.
 
 ## Get started
 
-1. Choose a service under **Quick Add**, or add a **Custom Service** if there is no preset.
-2. Complete browser authorization or enter the connection details required by the service.
-3. Wait for **Connected**, then open **Details** to check the tool catalog.
-4. Return to the agent's **Runtime Settings**, select the MCP tools for the main or delegated role, and send a task.
+1. Search **Quick Add** and click a service card or its **＋** button. If there is no preset, click **Add** under **Custom Service**.
+2. Complete browser authorization, or enter and save the connection settings.
+3. Click the body of the added service card to open its details. Check that it is **Connected** and the tools you need are listed.
+4. Return to the agent's **Runtime Settings**, select tools for the role, and send a task. See [Using MCP in Agents](./agent-tools.md).
 
-**Connected does not mean the agent has permission to use the tools.** Connecting a service, selecting role tools, and approving task actions are separate steps.
+**Connecting a service does not select tools for the agent.** Account authorization determines which external resources are accessible; role selections determine which tools the agent may use; task approval confirms a particular action.
 
-## Choose a guide
+## Choose a connection method
 
-| What you need | Guide |
+| Your situation | Guide |
 | --- | --- |
-| Connect a service shown on the page using your account | [Quick Add and Authorization](./connect.md) |
-| Enter an MCP URL, token, or local program configuration | [Custom Services](./custom-service.md) |
-| Let an agent use connected tools or help with setup | [Using MCP in Agents](./agent-tools.md) |
-| Reconnect, edit, remove authorization, or troubleshoot | [Management and Troubleshooting](./manage.md) |
+| You found the service in Quick Add | [Quick Add and Authorization](./connect.md) |
+| You have an MCP URL, token, or local program instructions | [Custom Services](./custom-service.md) |
+| You want an agent to use tools or help configure a service | [Using MCP in Agents](./agent-tools.md) |
+| You need to edit a connection, remove authorization, or resolve an error | [Management and Troubleshooting](./manage.md) |
 
 ## Before you connect
 
-- Remote services require a network connection. Accounts, permissions, plans, and charges are controlled by the provider. A Quick Add preset does not waive these requirements or grant access to your entire account.
-- MCP calls may send task parameters to an external service. Connect only trusted services and select only the tools needed for the task.
-- Local programs run on the **backend computer**, which may differ from the computer displaying the interface. Testing or enabling a service starts the program; this is not sandboxing or a security review.
-- Browser authorization currently requires the desktop app connected to its local backend.
-- Conversations using the same backend share service configurations. Check whether other conversations still use a service before editing or deleting it.
+- Connect only trusted services. Remote tool calls may send task parameters to the provider. Account permissions, plans, and charges are controlled by that provider.
+- Local programs run on the computer hosting the ModxAI service, referred to here as the **backend computer**. This is usually the computer running ModxAI; with a LAN backend, it may differ from the computer displaying the interface.
+- Testing or starting a local service executes its program. It does not mean the program has been security-reviewed or runs in a sandbox.
+- Browser authorization requires the desktop app connected to its local backend.
+- Conversations connected to the same backend share service settings. Check whether other conversations depend on a service before editing, stopping, or deleting it.
 
-MCP lets agents call external tools. [External Access](../gateway/overview.md) lets external applications call ModxAI. They use different connections and credentials.
+MCP lets an agent call external tools. [External Access](../gateway/overview.md) lets external apps call ModxAI. Their connection methods and credentials are different.

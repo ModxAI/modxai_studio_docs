@@ -241,6 +241,6 @@ Each role can independently select allowed tools. Supports two modes:
 > Note, the tools available during task execution strictly follow the selected range. Neither automatic selection nor tool discovery will call unselected tool groups.
 
 
-### MCP Tools (v1.1.12)
+### MCP Tools
 
-In v1.1.12, you can select external MCP tools for the main and delegated roles. Connect a service in **Settings → MCP**, then select tools under the role’s **Tool Set → Configure Tools**. Connecting does not automatically grant tool access, and does not enable MCP tools for the other roles. See [Using MCP in Agents](../mcp/agent-tools.md).
+MCP tools can be configured for the main and delegated roles. Connect a service in **Settings → MCP**, then select tools under the role’s **Tool Set → Configure Tools**. Delegated calls require both the main role and the delegated role to enable tools and select the required MCP tools. With existing selections, the button reads “N selected”. See [Using MCP in Agents](../mcp/agent-tools.md).
