@@ -19,6 +19,14 @@
 - [Preset Management](./features/agent/presets.md)
 - [Workspace Browser](./features/agent/workspace.md)
 
+### MCP External Tools
+
+- [MCP Overview](./features/mcp/overview.md)
+- [Quick Add and Authorization](./features/mcp/connect.md)
+- [Custom Services](./features/mcp/custom-service.md)
+- [Using MCP in Agents](./features/mcp/agent-tools.md)
+- [Management and Troubleshooting](./features/mcp/manage.md)
+
 ### AI Chat
 
 - [Chat Overview](./features/chat/overview.md)

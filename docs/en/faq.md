@@ -339,6 +339,22 @@ No. Features are immediately available after installation. For TTS async install
 
 ---
 
+## MCP External Tools
+
+### Why can the agent not use a connected MCP service?
+
+Connecting only establishes the service connection. Enable tools for the main or delegated role and select the required MCP tools. Delegated roles are also limited by the main role’s selected tools. Your account needs access to the target resource. See [Select role tools](./features/mcp/agent-tools.md#select-role-tools).
+
+### Does Revoke Authorization remove access at the provider?
+
+No. It removes local authorization and disconnects the service while keeping configuration and tool selections. Remove authorization in the provider’s account settings to revoke that access too. See [Remove authorization](./features/mcp/connect.md#remove-authorization).
+
+### What should I check when an MCP connection fails?
+
+Click the service card and read the error in details first. For a local program, check the executable and directory on the backend computer. For a remote service, check the MCP URL, network, and authentication. A successful connection test does not prove business tool calls will succeed. See [Management and Troubleshooting](./features/mcp/manage.md).
+
+---
+
 ## Other Questions
 
 ### Where is data stored?
