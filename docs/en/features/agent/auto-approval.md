@@ -17,7 +17,7 @@ During execution, the agent may need to perform high-risk operations such as exe
 
 ## Auto Approval
 
-When auto approval is enabled, operations requiring confirmation are automatically approved, eliminating the need for manual intervention.
+Auto approval lets eligible operations proceed without individual confirmation. It does not supply missing credentials or complete account authorization for you.
 
 ### Toggle Control
 
@@ -44,6 +44,10 @@ When enabled, the system will:
 - Automatically resume paused tasks
 
 **Commands on the blacklist are always skipped**, even in auto-approval mode.
+
+### MCP setup (v1.1.12)
+
+The upcoming v1.1.12 release lets agents help configure MCP services. If setup needs credentials or browser authorization, turn off auto approval and complete those steps manually; auto approval cannot replace them. For a first connection, review the configuration, shared impact, and tool grant before approving. See [Let an agent help with setup](../mcp/agent-tools.md#let-an-agent-help-with-setup).
 
 ---
 
