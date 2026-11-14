@@ -3,8 +3,6 @@
 > v1.1.12
 > 2026-11
 
-> This guide covers the upcoming v1.1.12 release.
-
 Configure a connection manually when a provider supplies an MCP URL or local program instructions. Use the MCP endpoint, not the provider's homepage or a general API URL.
 
 ## Add a remote service

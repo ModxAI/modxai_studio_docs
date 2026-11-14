@@ -3,8 +3,6 @@
 > v1.1.12
 > 2026-11
 
-> This guide covers the upcoming v1.1.12 release.
-
 Quick Add provides connection defaults for a service. Services that need account authorization open your browser so you can choose the account and permissions.
 
 ## Prerequisites

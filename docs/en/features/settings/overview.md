@@ -36,7 +36,7 @@ Click **Settings** at the bottom of the main menu, then choose a category:
 | **System** | Environment installation and CUDA inference libraries |
 | **Agent** | Message mode, global instruction file, search ignore file, and user preferences |
 | **Credentials** | Online model connections and credentials |
-| **MCP** | External tool connections and authorization (upcoming v1.1.12) |
+| **MCP** | External tool connections and authorization (v1.1.12) |
 | **Appearance** | Themes and appearance |
 | **Help** | App information, updates, documentation, and feedback |
 
@@ -279,7 +279,7 @@ The Help & Feedback section provides support entry points:
 
 ## MCP External Tools (v1.1.12)
 
-In the upcoming v1.1.12 release, open **Settings → MCP** to use Quick Add or configure a custom connection. After connecting, select the tools an agent role may use. See [MCP External Tools](../mcp/overview.md).
+In v1.1.12, open **Settings → MCP** to use Quick Add or configure a custom connection. After connecting, select the tools an agent role may use. See [MCP External Tools](../mcp/overview.md).
 
 ---
 

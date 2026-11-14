@@ -3,8 +3,6 @@
 > v1.1.12
 > 2026-11
 
-> This guide covers the upcoming v1.1.12 release.
-
 After connecting an MCP service, select which tools a role may call. You can also let an agent help configure a service, but saving a connection and granting tool access are separate actions.
 
 ## Select role tools

@@ -47,7 +47,7 @@ When enabled, the system will:
 
 ### MCP setup (v1.1.12)
 
-The upcoming v1.1.12 release lets agents help configure MCP services. If setup needs credentials or browser authorization, turn off auto approval and complete those steps manually; auto approval cannot replace them. For a first connection, review the configuration, shared impact, and tool grant before approving. See [Let an agent help with setup](../mcp/agent-tools.md#let-an-agent-help-with-setup).
+In v1.1.12, agents can help configure MCP services. If setup needs credentials or browser authorization, turn off auto approval and complete those steps manually; auto approval cannot replace them. For a first connection, review the configuration, shared impact, and tool grant before approving. See [Let an agent help with setup](../mcp/agent-tools.md#let-an-agent-help-with-setup).
 
 ---
 

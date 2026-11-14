@@ -3,8 +3,6 @@
 > v1.1.12
 > 2026-11
 
-> This guide covers the upcoming v1.1.12 release. Follow these steps once that version is available.
-
 MCP connects external tools to an agent. An agent can use them to read authorized project information or work with a local program you configure. After connecting a service, choose which tools each role may use.
 
 Open **Settings → MCP**.

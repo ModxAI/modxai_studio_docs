@@ -341,7 +341,7 @@ No. Features are immediately available after installation. For TTS async install
 
 ## MCP External Tools (v1.1.12)
 
-The following applies to the upcoming v1.1.12 release.
+The following applies to v1.1.12.
 
 ### Why can the agent not use a connected MCP service?
 

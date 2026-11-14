@@ -3,8 +3,6 @@
 > v1.1.12
 > 2026-11
 
-> This guide covers the upcoming v1.1.12 release.
-
 Open **Settings → MCP** to check status, reconnect, or edit a service. Read the error on its card or in **Details** before choosing an action.
 
 ## Manage connections
