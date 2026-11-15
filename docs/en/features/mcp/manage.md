@@ -17,7 +17,7 @@ Open **Settings → MCP** and click the body of an added service card to view it
 | **Authorize / Revoke Authorization** at the bottom of details | Complete browser authorization, or confirm removal of local authorization. This does not revoke access at the provider |
 | **Delete** at the bottom of details | Confirm deletion of the connection and catalog. All conversations lose access to this connection; existing messages and files remain |
 
-Deleting a saved preset connection makes its Quick Add card available again; it does not remove the preset entry. After adding it again, select tools for the roles again.
+If a service is still in the **Quick Add** catalog, you can add it again there after deleting its saved connection. Existing connections for services no longer in the catalog remain under **Custom Service**, but deleting them does not restore a Quick Add entry. Do not delete a connection to troubleshoot authorization or network problems. A newly added connection also requires new role tool selections.
 
 ModxAI refreshes enabled services once at startup. It does not then refresh catalogs on a fixed interval or continuously retry failed connections. Reconnect manually after network recovery; merely switching pages does not reconnect all services.
 
@@ -45,6 +45,12 @@ Check that the computer hosting ModxAI has the required program and directory. T
 ### Connection timeout or failure
 
 For local services, check the program, arguments, and dependencies. For remote services, check the MCP URL, network, and authentication. If the service genuinely needs more time, adjust **Connection Timeout** in the editor's **Advanced Settings**.
+
+### Domain resolves to an unsupported non-public address
+
+If you see “The service domain resolves to an unsupported non-public address. If using a proxy, check its Fake-IP/DNS settings.”, first check the domain URL supplied by the provider. If you use a proxy, review its Fake-IP/DNS configuration, or ask your network administrator to check the DNS results before retrying.
+
+This differs from an account authorization failure. It does not necessarily mean the URL is wrong or prove that a proxy caused the problem. Do not replace the domain with the resolved virtual IP or disable certificate validation to bypass the error. Some known Fake-IP ranges are supported, but not all non-public DNS results are accepted.
 
 ### Authentication failure, missing credentials, or access denied
 
