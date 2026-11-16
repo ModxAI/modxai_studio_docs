@@ -15,6 +15,7 @@ Use Settings to install environments, adjust app options, change the theme, and 
 - [Theme Settings](#theme-settings)
 - [Version Updates](#version-updates)
 - [Help & Feedback](#help--feedback)
+- [MCP External Tools](#mcp-external-tools)
 - [Related Documentation](#related-documentation)
 
 ---
@@ -35,6 +36,7 @@ Click **Settings** at the bottom of the main menu, then choose a category:
 | **System** | Environment installation and CUDA inference libraries |
 | **Agent** | Message mode, global instruction file, search ignore file, and user preferences |
 | **Credentials** | Online model connections and credentials |
+| **MCP** | External tool connections and authorization |
 | **Appearance** | Themes and appearance |
 | **Help** | App information, updates, documentation, and feedback |
 
@@ -272,6 +274,12 @@ The Help & Feedback section provides support entry points:
 | **Terms of Service** | View terms of service |
 | **Privacy Policy** | View privacy policy |
 | **About** | View application information and version number |
+
+---
+
+## MCP External Tools
+
+Open **Settings → MCP** to use Quick Add or configure a custom connection. After connecting, select the tools an agent role may use. See [MCP External Tools](../mcp/overview.md).
 
 ---
 

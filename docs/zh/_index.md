@@ -19,6 +19,14 @@
 - [预设管理](./features/agent/presets.md)
 - [工作区浏览器](./features/agent/workspace.md)
 
+### MCP 外部工具
+
+- [MCP 概览](./features/mcp/overview.md)
+- [快捷添加与授权](./features/mcp/connect.md)
+- [自定义服务](./features/mcp/custom-service.md)
+- [在智能体中使用](./features/mcp/agent-tools.md)
+- [管理与排错](./features/mcp/manage.md)
+
 ### AI 对话
 
 - [对话概览](./features/chat/overview.md)

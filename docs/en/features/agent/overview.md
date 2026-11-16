@@ -319,6 +319,7 @@ For files created or modified by the Agent within the workspace, **Rollback** fu
 | Feature | Description | Documentation |
 |------|------|------|
 | Role Configuration | Independent settings for models, parameters, and tools for each role | [Role Configuration](./roles.md) |
+| MCP External Tools | Connect services and select role tools | [MCP External Tools](../mcp/overview.md) |
 | Advanced Parameters | Fine-grained control over tool timeouts, search limits, security policies, etc. | [Advanced Settings](./advanced-settings.md) |
 | Attachments & KB | Usage methods for files, images, knowledge bases, etc. | [Attachments & KB](./attachments.md) |
 | Voice Input | Microphone recording and transcription to text | [Voice Input](./voice-input.md) |
