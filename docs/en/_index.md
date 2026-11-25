@@ -18,6 +18,8 @@
 - [Instruction Settings](./features/agent/profile-settings.md)
 - [Preset Management](./features/agent/presets.md)
 - [Workspace Browser](./features/agent/workspace.md)
+- [Use Studio Features from an Agent](./features/agent/app-services.md)
+- [Inbox](./features/agent/inbox.md)
 
 ### MCP External Tools
 
@@ -60,6 +62,7 @@
 ### Data Processing
 
 - [Data Processing Overview](./features/dataset/overview.md)
+- [Code Analysis (CODE)](./features/dataset/code.md)
 - [SFT Data Generation](./features/dataset/sft.md)
 - [RAG Knowledge Base](./features/dataset/rag.md)
 - [Audio to Text](./features/dataset/audio2text.md)

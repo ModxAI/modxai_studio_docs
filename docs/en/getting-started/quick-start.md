@@ -1,8 +1,5 @@
 # Quick Start
 
-> v1.1.11
-> 2026-11
-
 Follow these steps to start your first local chat. Installation path examples use Windows notation.
 
 ---
@@ -73,7 +70,7 @@ After completing the basic chat, you can explore more features:
 | **Agent** | Let AI autonomously execute tasks: web search, file operations, terminal commands | [Agent](../features/agent/overview.md) |
 | **Workspace** | Preview files the agent reads or writes, share notes, link earlier tasks | [Workspace Browser](../features/agent/workspace.md) |
 | **Memory** | Review, edit, and export long-term memories | [Memory](../features/memory/overview.md) |
-| **Scheduled Tasks** | Run an agent, organize memory, or refresh a knowledge base on a schedule | [Scheduled Tasks](../features/scheduler/overview.md) |
+| **Scheduled Tasks** | Schedule an agent, memory curation, data processing, training, or prompt and Skill improvements | [Scheduled Tasks](../features/scheduler/overview.md) |
 | **External Access** | Reach the agent from Telegram, Discord, DingTalk, or Feishu, or call the local gateway HTTP API | [External Access](../features/gateway/overview.md) |
 | **RAG Retrieval** | Let AI answer questions based on your knowledge base | [AI Chat](../features/chat/overview.md) |
 | **Image Generation** | Generate images using SD models | [SD Chat](../features/sdchat/overview.md) |

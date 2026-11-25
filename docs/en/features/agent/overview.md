@@ -1,13 +1,10 @@
 # Agent Workbench
 
-> v1.1.11
-> 2026-11
-
 Describe the goal in the agent workbench. The agent splits the steps, calls tools, and shows progress. Tools include web search, file reads, commands, and writing a result.
 
 Hover over the corresponding conversation entry in the main menu to view its conversation list. Selecting a conversation opens it. Use **Runtime Settings** at the top right to adjust the current conversation.
 
-Click the page title to rename the current conversation. The hover list is only for selecting conversations. To rename or delete from the list, pin the submenu and use the pencil or trash button beside the conversation.
+Select the page title to rename the current conversation in place. The hover list only switches conversations. To rename or delete from the list, pin the submenu, then select the conversation title or its trash button.
 
 ## Table of Contents
 
@@ -64,6 +61,8 @@ Voice input requires a microphone and a loaded **STT (Speech-to-Text)** model. L
 4. The agent is ready for use once the model is selected
 
 > When no model is configured for the main role, the **New Conversation** button and **Send** button are disabled, and the interface prompts "Main role has no model configured; cannot create a new session."
+
+You can also switch the main role’s local, LAN, or online model and its reasoning level from the model button beside auto approval in the composer. The header wrench opens the main role’s tools. Check the backend type before sending; online models receive the content needed for the task.
 
 ### Step 2: Create a Session
 
@@ -136,7 +135,7 @@ Click any session in the left session list to switch. The session's message hist
 
 ### Rename Session
 
-Pin the submenu, click the pencil beside a conversation, enter a title, then press `Enter` or click the check mark. You can also click the page title to rename the current conversation.
+Pin the submenu, select the conversation title, enter a title, then press `Enter` or click the check mark. You can also click the page title to rename the current conversation.
 
 ### Delete Session
 
@@ -276,6 +275,10 @@ In long conversations, the agent compresses older messages and retains key infor
 For files created or modified by the Agent within the workspace, **Rollback** functionality is supported to revert to a previous state. Click the **Rollback** button next to the modification node and confirm to restore.
 
 ---
+
+To search within workspace files, provide the keyword and the folder to check. The agent searches within its allowed scope and can return matching files and line numbers. To save reusable analysis for a repository, use [Code Analysis (CODE)](../dataset/code.md).
+
+To start data processing or other Studio tasks from a conversation, see [Use Studio features from an agent](./app-services.md). Open the [Inbox](./inbox.md) for pending approvals and background task updates.
 
 ## Important Notes
 

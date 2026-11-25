@@ -1,8 +1,5 @@
 # Environment Installation Guide
 
-> v1.1.11
-> 2026-11
-
 Install the environment required by a feature in Settings. Check disk space and hardware requirements first; use the troubleshooting steps below if installation fails.
 
 Open **Settings → System**. Environment dependencies and CUDA inference libraries have separate installation sections. Install what your features need.
@@ -192,7 +189,8 @@ In addition to the environment type (CPU/GPU), you also need to select the **ins
 
 | Capability | Contents | Use Case |
 |------------|----------|----------|
-| **Full** | Training + Agent + TTS all dependencies | Users who need all features |
+| **All(Recommend)** | Dependencies for training, agent tools, code analysis, and TTS | Users who need all features |
+| **Code Analysis** | Code parsing resources | Users of the CODE workspace |
 | **Agent** | Core libraries + Playwright browser environment + Bun runtime | Users who only need agent web browsing and web tools |
 | **Voice Synthesis** | Core libraries + misaki G2P + spaCy models | Users who only need TTS speech synthesis |
 
@@ -209,7 +207,7 @@ In addition to the environment type (CPU/GPU), you also need to select the **ins
 | Python | 3.11.9 | Windows embeddable version, completely independent |
 | pip | Latest | Package management tool |
 
-Portable Python will be downloaded and extracted first, with all subsequent dependencies installed to the isolated `packages` directory.
+The app can reuse a compatible runtime or set up the required components when needed. Keep it online during first-time setup or when resources are missing. You do not need to install system Python separately.
 
 ### Core Dependencies
 
@@ -321,7 +319,7 @@ Click the **Install** button to start the installation process:
 1. Confirm installation (confirmation dialog displays selected mirror source)
 2. Display progress bar and real-time installation logs
 3. **Automatically refresh** environment status after installation completion
-4. **No need to restart application** after successful installation, features immediately available
+4. If the app says **Please restart the app to finish switching environments**, quit and reopen it, then refresh the environment status to confirm success. No further restart is needed once the installation shows as successful.
 
 > ⚠️ **Note**: Try to maintain stable network connection during installation to avoid interruption. Unless necessary, do not manually stop installation.
 

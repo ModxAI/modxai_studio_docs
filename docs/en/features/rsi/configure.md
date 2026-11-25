@@ -1,8 +1,5 @@
 # Configure and Start a Run
 
-> v1.1.11
-> 2026-11
-
 Choose models and an improvement goal, then test each version against the same set of tasks.
 
 ## Prerequisites
@@ -59,3 +56,7 @@ If an agent needs approval or input, click **View Conversation**, respond in the
 To end a run, click **Stop** and wait for **Stopped**. You cannot start another RSI run while it is stopping. Stopping does not undo file changes or external actions that already completed.
 
 A started run's configuration is read-only. To change models, goals, tasks, or round limits, use **Continue Improving** or **New Task**. See [History and Troubleshooting](./history.md).
+
+## Reuse a configuration
+
+Use the preset controls at the top of the page to save settings for later runs. After loading a preset, review the improvement target, models, and evaluation tasks before starting. Loading the preset does not start the run.

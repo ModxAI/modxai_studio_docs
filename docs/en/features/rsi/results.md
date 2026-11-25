@@ -1,8 +1,5 @@
 # Compare and Export Results
 
-> v1.1.11
-> 2026-11
-
 Review each round's changes, answers, and evidence, then choose a prompt or Skill to keep. You can use the recommended solution or export another existing round.
 
 ## Review the results
@@ -13,6 +10,8 @@ Review each round's changes, answers, and evidence, then choose a prompt or Skil
 4. Read the answers in **Comparison**, then the **Key Improvements**, **Remaining Issues**, and **Evaluation Evidence** in the **Evaluation Report**.
 5. For multiple tasks, return to **Iterate → Rounds** and inspect each task's answer in each round. For agent tasks, use **View Conversation** to check actual actions and outputs.
 6. Verify important facts, calculations, and file content before choosing a version.
+
+For a Skill, select a round and file in **Compare** or **Export**, then select **View Changes** to see additions and deletions against the original baseline. Select **View Source** for the full file. If you edited the draft, return to source editing and verify it before copying or exporting.
 
 ## Understand scores and recommendations
 

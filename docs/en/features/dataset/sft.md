@@ -1,9 +1,6 @@
-# SFT Data Processing (Text/Code)
+# SFT Text Data Processing
 
-> v1.1.11
-> 2026-11
-
-Convert text, code, or structured files into model training data. Select your files, then configure cleaning, synthesis, and export steps.
+Convert text or structured files into model training data. Select your files, then configure cleaning, synthesis, and export steps.
 
 ---
 
@@ -34,11 +31,10 @@ Convert text, code, or structured files into model training data. Select your fi
 
 ## Feature Introduction
 
-SFT data processing is used to convert raw text or code into structured datasets usable for model fine-tuning training. The system supports two data types: **Text** and **Code**, and provides multiple preset workflow templates to help you quickly complete data preparation.
+SFT data processing is used to convert raw text into structured datasets usable for model fine-tuning training. Choose a workflow template and adjust it as needed. To prepare a dataset from a code repository, use [Code Analysis (CODE)](./code.md).
 
 **Applicable Scenarios**:
 - Domain knowledge fine-tuning dataset construction
-- Code completion and analysis model training
 - Automatic generation of Q&A pair data
 - Pre-training corpus preparation
 
@@ -64,7 +60,7 @@ Suitable for processing various documents, articles, technical materials, and ot
 
 **Structured Data (JSON)**:
 
-For existing JSON/JSONL, open **Self Improvement → Dataset → SFT → Text**, select the structured **JSON** file type, and choose the training format: SFT, Pretrain, or DPO. This route runs only **Convert/Parse → Output** (steps 0 and 10), without text cleaning or AI synthesis.
+For existing JSON/JSONL, open **Self Improvement → Dataset → TRN → Text**, select the structured **JSON** file type, and choose the training format: SFT, Pretrain, or DPO. This route runs only **Convert/Parse → Output** (steps 0 and 10), without text cleaning or AI synthesis.
 
 1. Select input and output directories and the JSON file type.
 2. Select the training format.
@@ -86,37 +82,6 @@ SFT conversations accept only `system`, `user`, and `assistant` roles. They need
 
 DPO preference data can be exported, but the current [Training module](../training/prepare.md) provides only SFT and pretraining, not DPO training.
 
-### Code Data (Code)
-
-Suitable for processing source code files. Currently supports two code types:
-
-#### C/C++ Code (Clang)
-
-Uses Clang compiler frontend for syntax analysis, capable of accurately identifying code structures such as functions, classes, and variables.
-
-**Supported File Formats**: `.c`, `.cpp`, `.cc`, `.h`, `.hpp`
-
-**Dependency Requirements**: Requires system installation of libclang library. The program automatically searches the following locations:
-- Path specified by environment variable `LIBCLANG_PATH`
-- `runtime/packages/clang` directory
-- Python clang package directory
-
-#### Shader Code (Shader)
-
-Supports multiple shader languages, specifically optimized for Unreal Engine formats.
-
-**Supported File Formats**: `.hlsl`, `.glsl`, `.cg`, `.ush`, `.usf`, `.h`
-
-**Parsed Content**:
-- File top comments
-- `#include` directives
-- Macro definitions (`#define`)
-- Struct definitions
-- Function definitions
-- Conditional compilation blocks (`#if/#endif`)
-
----
-
 ## Workflow Templates
 
 To simplify operations, the system presets several common workflow templates. You can choose according to your needs:
@@ -127,13 +92,13 @@ To simplify operations, the system presets several common workflow templates. Yo
 | **AI Quality** | 0→1→2→3→4→5→7→8→9→10 | Need AI to filter low-quality data | Includes quality assessment filtering |
 | **Custom** | Select as needed | Special needs | Manually select steps to execute |
 
-> For unstructured text or code, choose the **Export Format** in AI Synthesis. Pretraining output retains both text samples and tokenized training files. Structured JSON instead uses the page's Training Format selection and the 0→10 workflow.
+> For unstructured text, choose the **Export Format** in AI Synthesis. Pretraining output retains both text samples and tokenized training files. Structured JSON instead uses the page's Training Format selection and the 0→10 workflow.
 
 ---
 
 ## Processing Flow Overview
 
-The following steps apply to unstructured text and code. Structured JSON training data uses only steps 0 and 10:
+The following steps apply to unstructured text. Structured JSON training data uses only steps 0 and 10:
 
 | Step | Name | Description | Required | Configurable |
 | :--- | :--- | :--- | :--- | :--- |
@@ -158,27 +123,11 @@ The following steps apply to unstructured text and code. Structured JSON trainin
 
 ### Step 0: Convert/Parse
 
-**Function**: Read source files and extract content. Text and code are processed differently.
+**Function**: Read source files and extract content.
 
 #### Text Data Processing
 
 Automatically identify file formats and extract plain text content, preserving original paragraph structure.
-
-#### Code Data Processing
-
-Use dedicated parsers to analyze code structure:
-
-- **Clang Parser**: Identify functions, classes, structs, variable declarations, etc.
-- **Shader Parser**: Identify macros, structs, functions, include dependencies, etc.
-
-**Configurable Parameters (Code)**:
-
-| Parameter | Description | Default |
-| :--- | :--- | :--- |
-| **Code Version** | Label code version information (e.g., project version number) | Empty |
-| **Exclude Directories** | Skip specified directories, separated by commas | Empty |
-
----
 
 ### Step 1: Clean
 
@@ -213,11 +162,11 @@ Use dedicated parsers to analyze code structure:
 
 ### Step 2: Split
 
-**Function**: Split long text/code into chunks suitable for processing.
+**Function**: Split long text into chunks suitable for processing.
 
 **Processing Logic**:
 - Split by natural boundaries (titles, paragraphs, functions).
-- Maintain semantic/code integrity.
+- Maintain semantic integrity.
 - Super long chunks will be split again, and associated hash recorded.
 
 **Configurable Parameters**:
@@ -239,12 +188,6 @@ Use dedicated parsers to analyze code structure:
 - Vocabulary richness (TTR indicator)
 - Sentence complexity (average sentence length)
 - Structural degree (number of titles, lists, code blocks)
-
-**Code Data Analysis Dimensions**:
-- Cyclomatic complexity (control flow complexity)
-- Cognitive complexity
-- Nesting depth
-- Token density
 
 **Complexity Grouping**:
 - `high`: High complexity, suitable for generating in-depth analysis content.
@@ -272,7 +215,7 @@ Near-duplicate detection in this step can use an embedding model to improve accu
 
 **Function**: Use AI models to analyze data chunks and generate Q&A pairs or analysis content for training.
 
-Automatically convert raw text/code into structured data such as analysis, Q&A pairs, or even custom-styled structured data through AI capabilities.
+Automatically convert raw text into structured data such as analysis, Q&A pairs, or even custom-styled structured data through AI capabilities.
 
 **Task Types**:
 
@@ -447,11 +390,6 @@ You can customize AI behavior guidance in the **System Prompt** field. If left e
 - Generate high-quality Q&A pairs.
 - Questions should cover different difficulty levels.
 
-**Code Analysis Prompt additionally includes**:
-- Analysis of function/method parameters and return values.
-- Code implementation principle explanation.
-- Potential optimization suggestions.
-
 ---
 
 ## Incremental Processing and Error Repair
@@ -507,7 +445,7 @@ When an AI request fails, the system automatically retries and repairs:
 
 ### Output location
 
-Text output normally uses `output directory/datasets/text_dataset/final`. C/C++ uses `datasets/code_dataset/final`, and Shader uses `datasets/shader_dataset/final`. Existing tasks may retain an earlier layout; follow the locations in progress messages and the output manifest.
+Text output normally uses `output directory/datasets/text_dataset/final`. Existing tasks may retain an earlier layout; follow the locations in progress messages and the output manifest.
 
 ### Raw samples and training files
 
@@ -538,12 +476,6 @@ Raw and tokenized files serve different purposes. Pretraining `data.jsonl` canno
 2. **AI Request Overhead**: Steps 4 and 8 require massive AI requests; processing time depends on data volume and model speed.
 3. **Disk Space**: Intermediate files occupy some disk space; suggest reserving sufficient space.
 
-### Code Processing
-
-1. **Clang Dependency**: Processing C/C++ code requires libclang library support.
-2. **Encoding Issues**: Recommend source code use UTF-8 encoding.
-3. **Exclude Directories**: For large projects, suggest excluding build, vendor, etc., directories.
-
 ### AI Model Selection
 
 1. **Synthesis Step**: Check questions and answers on a small sample before choosing a model.
@@ -569,7 +501,7 @@ A: Try the following methods:
 
 A: Pretraining and SFT use the same data-processing page. The selection depends on the input type:
 - For structured JSON, choose pretraining under **Training Format** on the page, configure the fields, then run conversion and output.
-- For unstructured text and code, set **Export Format** to `pretrain` in the AI synthesis step.
+- For unstructured text, set **Export Format** to `pretrain` in the AI synthesis step.
 
 The exported `data.jsonl` preserves raw samples with a `text` field; `final_dataset.jsonl` contains tokenized training records. For training, select `train/final_dataset.jsonl` from a nonempty training split rather than using the raw text samples directly. See [Output Formats](#output-formats) for file purposes.
 
@@ -587,15 +519,3 @@ A: Suggest batch processing:
 2. Process each subdirectory separately.
 3. Finally merge output files.
 4. Utilize incremental processing function to execute in multiple batches.
-
-### Q: Which engine formats does Shader code support?
-
-A: Mainly supports:
-- Standard HLSL/GLSL
-- Unreal Engine Shaders (.ush/.usf)
-- CG Shaders
-- Compatibility headers (.h)
-
----
-
-*For other questions, please refer to project documentation or ask in the community.*

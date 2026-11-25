@@ -1,8 +1,5 @@
 # Training Monitoring Guide
 
-> v1.1.11
-> 2026-11
-
 Use **Self Improvement → Training → Monitor** to inspect training progress, metric curves, and logs, or review a task that has already ended.
 
 ## Contents
@@ -45,6 +42,8 @@ Progress and estimated time describe the run, not the model's quality. Check the
 
 ## Metric charts
 
+Hover over a curve to read the training step and recorded value. With smoothing enabled you can compare the original and trend values. Drag the zoom slider or scroll to inspect a smaller range.
+
 | Metric | How to read it |
 |--------|----------------|
 | Training loss | Look at the overall trend; a single fluctuation does not establish a failure |
@@ -57,6 +56,7 @@ Progress and estimated time describe the run, not the model's quality. Check the
 If the evaluation-loss chart is empty, check the evaluation file and strategy in the training parameters. This loss is different from the benchmark scores in [Evaluate](./evaluate.md).
 
 ## Chart settings
+
 
 Click the gear beside the task selector to open chart settings:
 

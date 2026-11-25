@@ -3,7 +3,7 @@
 # ModxAI Studio
 <a id="modxai-studio"></a>
 
-ModxAI Studio is a desktop app for running local AI models, chatting, using agents, preparing datasets, and training models. This repository contains the user guide. Page headers identify the version each guide covers.
+ModxAI Studio is a desktop app for running local AI models, chatting, using agents, preparing datasets, and training models. This repository contains the user guide. See the version and platform at the end of the [Introduction](docs/en/getting-started/introduction.md).
 
 ## Start here
 
@@ -19,6 +19,9 @@ Check the download page for available installers. Model, training, and image-gen
 | --- | --- |
 | Chat with a model, ask about images, or use a knowledge base | [AI Chat](docs/en/features/chat/overview.md) |
 | Ask an agent to browse the web, work with files, or run commands | [Agent Workbench](docs/en/features/agent/overview.md) |
+| Use an agent to start or monitor Studio tasks | [Application tasks](docs/en/features/agent/app-services.md) |
+| Find task notices and pending approvals | [Inbox](docs/en/features/agent/inbox.md) |
+| Analyze a code repository and export datasets | [Code Analysis](docs/en/features/dataset/code.md) |
 | Connect external tools for agents | [MCP External Tools](docs/en/features/mcp/overview.md) |
 | Download, import, load, or manage models | [Model Library](docs/en/features/models/overview.md) |
 | Review, edit, or export saved memories | [Memory](docs/en/features/memory/overview.md) |
@@ -58,7 +61,7 @@ ModxAI Studio is built on open-source projects, including [PyTorch](https://gith
 
 # ModxAI Studio（中文）
 
-ModxAI Studio 是一款桌面应用，用于运行本地 AI 模型、对话、执行智能体任务、处理数据和训练模型。本仓库提供用户操作指南，各页开头标明适用版本。
+ModxAI Studio 是一款桌面应用，用于运行本地 AI 模型、对话、执行智能体任务、处理数据和训练模型。本仓库提供用户操作指南。适用版本和平台见[简介](docs/zh/getting-started/introduction.md)末尾。
 
 ## 开始使用
 
@@ -74,6 +77,9 @@ ModxAI Studio 是一款桌面应用，用于运行本地 AI 模型、对话、�
 | --- | --- |
 | 与模型对话、识别图片或基于知识库问答 | [AI 对话](docs/zh/features/chat/overview.md) |
 | 让智能体浏览网页、处理文件或执行命令 | [智能体工作台](docs/zh/features/agent/overview.md) |
+| 用智能体启动或跟踪应用任务 | [应用任务](docs/zh/features/agent/app-services.md) |
+| 查看任务通知和待审批事项 | [消息盒子](docs/zh/features/agent/inbox.md) |
+| 分析代码仓库并导出数据集 | [代码分析](docs/zh/features/dataset/code.md) |
 | 为智能体连接外部工具 | [MCP 外部工具](docs/zh/features/mcp/overview.md) |
 | 下载、导入、加载或管理模型 | [模型库](docs/zh/features/models/overview.md) |
 | 查看、编辑或导出保存的记忆 | [记忆管理](docs/zh/features/memory/overview.md) |

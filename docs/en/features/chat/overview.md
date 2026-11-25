@@ -1,13 +1,10 @@
 # AI Chat
 
-> v1.1.11
-> 2026-11
-
 Chat with a loaded model, or ask a multimodal model about images. You can also connect a knowledge base for text chat.
 
 Hover over the corresponding conversation entry in the main menu to view its conversation list. Selecting a conversation opens it. Use **Runtime Settings** at the top right to adjust the current conversation.
 
-Click the page title to rename the current conversation. The hover list is only for selecting conversations. To rename or delete from the list, pin the submenu and use the pencil or trash button beside the conversation.
+Select the page title to rename the current conversation in place. The hover list only switches conversations. To rename or delete from the list, pin the submenu, then select the conversation title or its trash button.
 
 ## Table of Contents
 
@@ -54,7 +51,7 @@ Open the conversation list from the main menu. Pin the submenu to keep the list 
 - **Session List**: Grouped by time (Today/Yesterday/Within 7 Days/Within 30 Days/Older). Lists longer than 100 sessions still load. You can search by title.
 - **Date groups**: The folded or expanded state of a date group is kept the next time you open the list.
 - **Pin submenu**: The pin control in the window chrome pins the submenu. It does not pin a session.
-- **Session Operations**: Use the pencil and trash buttons in the pinned list to rename or delete. The hover list is only for selecting conversations.
+- **Session Operations**: Select the conversation title to rename it or use the trash button to delete it. The hover list is only for selecting conversations.
 
 ### Right - Chat Area
 
@@ -84,7 +81,7 @@ Click directly on any conversation in the session list on the left.
 ### Rename Chat
 
 1. Pin the submenu to show the conversation list on the left.
-2. Click the pencil button beside the conversation.
+2. Select the conversation title.
 3. Enter the new title and confirm.
 
 ### Delete Chat

@@ -1,8 +1,5 @@
 # Global Settings
 
-> v1.1.11
-> 2026-11
-
 Use Settings to install environments, adjust app options, change the theme, and check for updates.
 
 ## Table of Contents
@@ -82,7 +79,7 @@ The system checks whether the following requirements are met:
 | Check Item | Description |
 |------------|-------------|
 | Platform | Operating system compatibility |
-| Python | Built-in portable Python environment |
+| Python | Managed by the app; no separate installation required |
 | Memory | 16GB or more recommended |
 | Disk | Sufficient installation space required |
 | GPU | Optional; NVIDIA GPU enables GPU acceleration |
@@ -105,7 +102,7 @@ The system checks whether the following requirements are met:
 2. Select mirror source (users in Chinese mainland are recommended to choose Alibaba Cloud or Tencent Cloud)
 3. Click the "Install" button
 4. Wait for installation to complete (progress bar and logs displayed)
-5. After successful installation, related feature modules become available without restarting the application
+5. If prompted to restart to finish switching environments, quit and reopen the app, then refresh the environment status. Use the selected features once installation shows as successful.
 
 ### Feature Availability
 
@@ -248,7 +245,7 @@ The main menu can check for, download, and install an update directly. You do no
 
 > Downloads may be slow or fail for users in mainland China. A network proxy is recommended.
 
-The next launch recovers unfinished work. Scheduled tasks that had not finished have their status restored.
+After restarting, check the run history in Scheduled Tasks to see the status of the previous run.
 
 ---
 
@@ -257,13 +254,6 @@ The next launch recovers unfinished work. Scheduled tasks that had not finished 
 Open **Settings → Help**.
 
 The Help & Feedback section provides support entry points:
-
-### Analytics & Improvement
-
-| Status | Description |
-|--------|-------------|
-| On | Anonymously collect runtime status and error information to help improve the product. No personal content data is uploaded |
-| Off | No data collection; does not affect normal usage |
 
 ### Quick Access
 

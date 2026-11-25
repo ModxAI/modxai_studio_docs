@@ -1,8 +1,5 @@
 # 简介
 
-> v1.1.11
-> 2026-11
-
 ## ModxAI Studio 是什么？
 
 ModxAI Studio 将模型管理、聊天、智能体、内容生成、数据处理和 LoRA 训练放在一个桌面应用中。你可以运行本地模型，也可以在支持的功能中配置在线模型服务。
@@ -20,12 +17,12 @@ ModxAI Studio 将模型管理、聊天、智能体、内容生成、数据处理
 - **[数据处理](../features/dataset/overview.md)**：处理文本、代码等资料，生成训练数据或知识库；也可[转录音频](../features/dataset/audio2text.md)。
 - **[模型训练](../features/training/prepare.md)**：准备数据和模型，运行 LoRA 训练、查看训练过程、测试或评估结果，并按需要导出。
 - **[记忆管理](../features/memory/overview.md)**：整理智能体记忆与收藏，并导出为后续训练或知识库资料。
-- **[定时任务](../features/scheduler/overview.md)**：按计划执行任务，查看运行记录和结果。
+- **[定时任务](../features/scheduler/overview.md)**：按计划执行任务、把上游产物交给下游，或查看运行记录和结果。
 - **[外部访问](../features/gateway/overview.md)**：连接支持的消息频道，或让外部程序通过网关调用智能体。
 
 ## 环境与设备准备
 
-安装包适用的平台以[下载页面](https://www.modxai.net/zh/download)和对应安装包说明为准。不要把某个模型能加载，理解为所有功能都能在同一配置下运行。
+本指南适用于 Windows 桌面版。安装包适用的平台以[下载页面](https://www.modxai.net/zh/download)和对应安装包说明为准。不要把某个模型能加载，理解为所有功能都能在同一配置下运行。
 
 - 本地推理需要为模型文件、上下文和运行过程预留足够内存或显存。
 - 图像、视频和训练任务通常比短文本推理需要更多资源，先用小任务验证配置。
@@ -35,9 +32,15 @@ ModxAI Studio 将模型管理、聊天、智能体、内容生成、数据处理
 
 具体模型和功能的要求见[环境安装](../features/settings/environment.md)与[模型加载](../features/models/overview.md)。
 
+在侧栏展开**模型中心**、**自我改进**或**更多**的子菜单，点击项目旁的图钉可固定入口。固定项目显示在**更多**下方，可拖动调整顺序；要取消固定，回到对应子菜单再次点击图钉。
+
 ## 从哪里开始
 
 - 第一次使用：[快速开始](./quick-start.md)。
 - 希望模型替你执行任务：[智能体概览](../features/agent/overview.md)。
 - 已有任务，希望逐轮改进结果：[RSI 概览](../features/rsi/overview.md)。
 - 需要解决安装或运行问题：[常见问题](../faq.md)。
+
+适用版本：Windows 桌面版 1.2.0。
+
+文档更新：2026-11-25。

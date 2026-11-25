@@ -1,15 +1,12 @@
 # TTS Speech Synthesis
 
-> v1.1.11
-> 2026-11
-
 Turn text into speech with a local TTS model, and choose a voice and speaking speed.
 
 Open the **Agent** submenu and choose **Audio**.
 
 Hover over the corresponding conversation entry in the main menu to view its conversation list. Selecting a conversation opens it. Use **Runtime Settings** at the top right to adjust the current conversation.
 
-Click the page title to rename the current conversation. The hover list is only for selecting conversations. To rename or delete from the list, pin the submenu and use the pencil or trash button beside the conversation.
+Select the page title to rename the current conversation in place. The hover list only switches conversations. To rename or delete from the list, pin the submenu, then select the conversation title or its trash button.
 
 ## Table of Contents
 
@@ -204,7 +201,7 @@ System includes multiple voice presets:
 
 ### Rename Conversation
 1. Pin the submenu to show the conversation list on the left.
-2. Click the pencil button beside the conversation.
+2. Select the conversation title.
 3. Enter new title
 4. Click **Confirm**
 

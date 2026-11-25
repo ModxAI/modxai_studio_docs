@@ -18,6 +18,8 @@
 - [指令设置](./features/agent/profile-settings.md)
 - [预设管理](./features/agent/presets.md)
 - [工作区浏览器](./features/agent/workspace.md)
+- [让智能体操作应用功能](./features/agent/app-services.md)
+- [消息盒子](./features/agent/inbox.md)
 
 ### MCP 外部工具
 
@@ -60,6 +62,7 @@
 ### 数据处理
 
 - [数据处理概览](./features/dataset/overview.md)
+- [代码分析（CODE）](./features/dataset/code.md)
 - [SFT 数据生成](./features/dataset/sft.md)
 - [RAG 知识库](./features/dataset/rag.md)
 - [音频转文本](./features/dataset/audio2text.md)
