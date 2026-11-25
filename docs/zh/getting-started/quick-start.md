@@ -1,8 +1,5 @@
 # 快速开始
 
-> v1.1.11
-> 2026-11
-
 按下面的步骤完成第一次本地对话。安装路径示例使用 Windows 写法。
 
 ---
@@ -73,7 +70,7 @@
 | **智能体** | 让 AI 自主执行任务：网页搜索、文件操作、终端命令 | [智能体](../features/agent/overview.md) |
 | **工作区** | 预览智能体读写的文件、跨会话笔记、关联历史任务 | [工作区浏览器](../features/agent/workspace.md) |
 | **记忆** | 查看、编辑并导出长期记忆 | [记忆管理](../features/memory/overview.md) |
-| **定时任务** | 按计划执行智能体、整理记忆或更新知识库 | [定时任务](../features/scheduler/overview.md) |
+| **定时任务** | 按计划运行智能体、整理记忆、处理数据、训练或改进提示词和 Skill | [定时任务](../features/scheduler/overview.md) |
 | **外部访问** | 从 Telegram、Discord、钉钉或飞书访问智能体，或调用本机网关的 HTTP API | [外部访问](../features/gateway/overview.md) |
 | **RAG 检索** | 让 AI 基于您的知识库回答问题 | [AI 对话](../features/chat/overview.md) |
 | **图像生成** | 使用 SD 模型生成图片 | [SD 聊天](../features/sdchat/overview.md) |

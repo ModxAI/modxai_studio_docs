@@ -1,8 +1,5 @@
 # Data Processing
 
-> v1.1.11
-> 2026-11
-
 Turn documents, code, or audio into training data, knowledge bases, or transcripts. Choose a data type, then configure the processing steps and output directory.
 
 Open the **Self Improvement** submenu and choose **Dataset**.
@@ -23,16 +20,13 @@ Open the **Self Improvement** submenu and choose **Dataset**.
 
 ## Environment Requirements
 
-**This feature requires installing CPU or GPU environment dependencies in the settings.**
-- Go to the **Settings** page of ModxAI Studio
-- Under **System**, in Environment Configuration, select and install the required environment (CPU/GPU)
-- After installation, return to the data processing page to use the related features
+Environment requirements depend on the data type. Basic text processing does not need extra dependencies. For code analysis, knowledge base embeddings, or audio transcription, install the required capability in **Settings → System**. See the environment requirements table below.
 
 ---
 
 ## Feature Overview
 
-Choose a data type, then convert, clean, and export your files. Enable AI synthesis or quality filtering when needed. If SFT or RAG processing stops, resume from a selected step.
+Choose a data type, then convert, clean, and export text or audio. For repositories, use [CODE](./code.md). Enable AI synthesis or quality filtering when needed. If SFT or RAG processing stops, resume from a selected step.
 
 ---
 
@@ -40,21 +34,21 @@ Choose a data type, then convert, clean, and export your files. Enable AI synthe
 
 ### Outer Tabs
 
-Three main categories are arranged vertically on the left side of the page:
+Four categories are arranged vertically on the left side of the page:
 
 | Tab | Description |
 | :--- | :--- |
 | **RAG** | RAG knowledge base data processing, generating vectorized data for retrieval augmentation. |
-| **SFT** | Supervised Fine-Tuning data processing, generating datasets for model training. |
+| **TRN** | Prepare training data from text or structured samples. |
+| **CODE** | [Analyze code and export datasets](./code.md). |
 | **MM** | Multimedia processing, currently supports audio-to-text. |
 
 ### Inner Tabs
 
 Each outer category contains different sub-functions:
 
-**SFT Category**:
+**TRN Category**:
 - **Text**: Process document data (PDF, Word, HTML, etc.).
-- **Code**: Process C/C++, Shader, and other code files.
 - **Progress Monitor**: View current processing progress and logs.
 
 **RAG Category**:
@@ -76,10 +70,6 @@ Used to generate supervised fine-tuning training data, supporting three source d
 **Text Dataset**:
 - Supported formats: PDF, Word (.doc/.docx), PowerPoint (.ppt/.pptx), Excel (.xls/.xlsx), HTML, Text files (.txt/.md/.csv/.json/.xml), ZIP archives.
 - Output format: Standardized JSONL training data.
-
-**Code Dataset**:
-- Supported formats: C/C++ (.c/.cpp/.cc/.h/.hpp), Shader (.hlsl/.glsl/.cg/.ush/.usf).
-- Output format: Structured code training data.
 
 **Structured Dataset** (file type "JSON"):
 - Supported formats: JSON, JSONL
@@ -104,9 +94,9 @@ Transcribe audio files into structured text:
 
 ## Processing Flow
 
-### SFT Text/Code Processing Steps
+### SFT Text Processing Steps
 
-This table applies to unstructured text and code. Structured JSON training data runs only Steps 0 and 10.
+This table applies to unstructured text. Structured JSON training data runs only Steps 0 and 10.
 
 | Step | Name | Description | Required |
 | :--- | :--- | :--- | :--- |
@@ -150,15 +140,17 @@ The system presets multiple workflow templates for quick selection of common ste
 - **AI Quality**: Includes AI synthesis and AI filtering steps, suitable for pursuing high-quality data.
 - **Custom**: Manually select steps to execute.
 
-> For unstructured text and code, set **Export Format** to `pretrain` in Step 4 (AI Synthesis). For structured JSON, use the page's **Training Format** selection.
+> For unstructured text, set **Export Format** to `pretrain` in Step 4 (AI Synthesis). For structured JSON, use the page's **Training Format** selection.
 
 ---
+
+Use the preset controls on the data processing page to save or load settings. Text, knowledge base, and audio transcription have separate presets. After loading a preset, check the input and output paths, model, and steps before running it.
 
 ## Output Directory and Files
 
 ### SFT Dataset Output
 
-Text output normally uses `output directory/datasets/text_dataset/final`. C/C++ uses `datasets/code_dataset/final`, and Shader uses `datasets/shader_dataset/final`. Existing tasks may retain an earlier layout; follow progress messages and the output manifest.
+Text output normally uses `output directory/datasets/text_dataset/final`. Existing tasks may retain an earlier layout; follow progress messages and the output manifest.
 
 Example SFT/pretraining output:
 
@@ -192,7 +184,7 @@ Steps can produce several intermediate files; `opt{N}_dataset.jsonl` is not a un
 
 ### Output Format Selection
 
-Structured JSON uses the page's Training Format selection. Unstructured text and code use export settings in the selected processing steps. SFT, pretraining, and DPO samples can be exported; see [SFT Data Processing](./sft.md) for file purposes and current training support.
+Structured JSON uses the page's Training Format selection. Unstructured text uses export settings in the selected processing steps. SFT, pretraining, and DPO samples can be exported; see [SFT Data Processing](./sft.md) for file purposes and current training support.
 
 ---
 
@@ -233,7 +225,7 @@ Step 11 (Generate Vector) of RAG data processing requires:
 
 ## Resume from Breakpoint
 
-This section applies to SFT and RAG text and code workflows. Audio transcription cannot resume from its interruption point; starting again retranscribes from the beginning and may overwrite existing results with matching names. See [Audio to Text](./audio2text.md).
+This section applies to SFT and RAG text workflows. Audio transcription cannot resume from its interruption point; starting again retranscribes from the beginning and may overwrite existing results with matching names. See [Audio to Text](./audio2text.md).
 
 ### Usage Scenarios
 
@@ -262,7 +254,7 @@ This section applies to SFT and RAG text and code workflows. Audio transcription
 | Feature | Environment Requirement |
 | :--- | :--- |
 | SFT Text Processing | No **Settings** environment needed (Basic steps) |
-| SFT Code Processing | Environment needed in **Settings** (Parsing step depends on libclang) |
+| Code Analysis (CODE) | Install **Code Analysis** in **Settings → System → Environment Management**. |
 | SFT AI Node | Chat model must be imported |
 | RAG AI Node | Chat model must be imported |
 | RAG Vector Generation | Embedding model must be imported, Environment needed in **Settings** + Embedding model |
@@ -289,6 +281,6 @@ A: AI nodes need to call AI models for inference, and processing speed depends o
 
 ## Subsequent Documentation
 
-- [SFT Data Processing](./sft.md) - Detailed guide for SFT text/code data processing.
+- [SFT Data Processing](./sft.md) - Detailed guide for SFT text data processing.
 - [RAG Data Processing](./rag.md) - Detailed guide for RAG knowledge base generation.
 - [Audio to Text](./audio2text.md) - Detailed guide for audio transcription function.

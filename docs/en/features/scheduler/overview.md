@@ -1,216 +1,53 @@
 # Scheduled Tasks
 
-> v1.1.11
-> 2026-11
+Run an agent, curate memories, process data, train a model, or run self-improvement on a schedule. You can also pass the output from one successful task to another.
 
-Scheduled tasks can run an **agent task**, **automatic memory organization**, **memory fine-tuning**, or a **knowledge base update**. A task starts on an interval, at a fixed time, or after an upstream task finishes.
-
-Expand **More** in the main menu and choose **Tasks**.
-
-## Table of Contents
-
-- [Task Types](#task-types)
-- [Scheduling Strategies](#scheduling-strategies)
-- [Creating & Editing Tasks](#creating--editing-tasks)
-- [Task List & Management](#task-list--management)
-- [Run History](#run-history)
-- [Task Execution & Stopping](#task-execution--stopping)
-- [Notes](#notes)
-
----
+In the sidebar, open **More → Tasks**.
 
 ## Task Types
 
-Scheduled tasks support four types:
+| Type | What to prepare |
+| --- | --- |
+| **Agent** | Prepare a main-role model, tools, and task prompt. If using an existing conversation, check its settings first. |
+| **Memory Curation** | Use a local main model. Choose the last 24 hours, selected conversations, or a date range. |
+| **Data Processing** | Prepare the files, models, and environment for the selected data type, such as generating training samples from text or updating a knowledge base. |
+| **Model Training** | Prepare the training environment and a template. Choose training data or bind a training file from an upstream task. This category also includes memory fine-tuning. |
+| **Self-Improvement** | Prepare the prompt or Skill configuration, evaluation tasks, and models. |
 
-| Type | Description | Use Cases |
-|------|-------------|-----------|
-| **Agent Task** | Sends preset prompts to the agent on schedule and executes automatically | Periodic report generation, data scraping, routine inspections |
-| **Automatic Memory Organization** | Organizes memories at a set time or across a range of earlier sessions, without training immediately | Turn recent chats into memories before you decide to fine-tune |
-| **Memory Fine-Tuning** | Automatically exports memories and triggers model fine-tuning | Periodically optimize personal models based on new memories |
-| **Knowledge Base Update** | Automatically vectorizes memory data and updates the RAG knowledge base | Periodic data accumulation |
+## Create and Edit Tasks
 
-### Agent Task
+1. Select **New Task**, enter a name, and choose a type.
+2. Specify the inputs and choose a **Preset** or training template, if needed. Select the gear to open task settings. **This task only** leaves the original preset unchanged. To reuse the settings elsewhere, select **Save as preset** or **Save as template**.
+3. Under **Schedule**, choose the trigger. For dependencies, select an **Upstream Source**. If using a timed rule, check the date, weekdays, and time.
+4. Save, then check whether the task is enabled and when it runs next. To check the output first, run the task once from the list and review its run record.
 
-Automatically triggers the agent to execute specified tasks on a schedule. Configuration options:
+When editing an existing task, recheck its inputs and trigger. Disabling a task prevents future triggers. To end an active run, stop it in its run record.
 
-| Item | Required | Description |
-|------|----------|-------------|
-| User Prompt | ✅ | Task instructions to send to the agent |
-| Target Session | ✅ | **New Session**: Create a new session each execution / **Existing Session**: Send a message to an existing session |
-| Main Model (optional) | ❌ | Temporarily replace the main role model without overwriting the original session configuration |
-| Parameter Preset | ❌ | Apply an agent workbench preset. Auto-approval (YOLO) saved in that preset is included |
+## Scheduling Strategy
 
-- **New Session Mode**: Creates a brand new session each time, avoiding context interference.
-- **Existing Session Mode**: Appends messages to the specified session, suitable for ongoing conversations. Select from the dropdown if chosen.
-
-> **Note**: When an existing session is selected, if the session is currently running an agent task, the new execution will be blocked until the previous task completes.
-
-### Automatic Memory Organization
-
-Organize memories on a schedule instead of fine-tuning or writing a knowledge base immediately. The run can be limited in either of two ways:
-
-- Execute at a specified time
-- Organize only a range of earlier sessions
-
-Results show up in [Memory Management](../memory/overview.md). A later memory fine-tuning or knowledge-base update task can consume them.
-
-### Memory Fine-Tuning
-
-Automatically executes memory fine-tuning on a schedule.
-
-| Item | Required | Description |
-|------|----------|-------------|
-| Base Model | ✅ | HF Standard base model for fine-tuning |
-| Training Template | ❌ | Select a training template preset |
-| Memory Category | ✅ | Data range: All Memories / Agent Memories / Bookmarked Memories |
-| Minimum Sample Count | ✅ | Minimum memory samples required to trigger training (default minimum 10) |
-| Iteration Strategy | ✅ | **Full Rebuild**: Train from scratch each time / **Incremental Iteration**: Continue training from previous results |
-| Output Directory | ✅ | Directory for storing training results |
-
-> **Prerequisites**: No other running agent or training tasks should be in memory.
-
-### Knowledge Base Update
-
-Automatically vectorizes memory data and writes it to a RAG knowledge base on a schedule.
-
-| Item | Required | Description |
-|------|----------|-------------|
-| Embedding Model | ✅ | Embedding model for generating vectors; must be imported in the model library first |
-| Output Directory | ✅ | Knowledge base data output directory |
-| Knowledge Base Name | ❌ | Default `modxai_rag_memory`. A fixed name ensures multiple updates accumulate in the same knowledge base |
-| Vector Normalization | ❌ | Whether to normalize vectors; enabled by default |
-| Target Dimension | ❌ | Target vector dimension; default 1024 |
-| Pooling Strategy | ❌ | Vector pooling method: `mean` / `max` / `cls`; default `mean` |
-| Custom Data Source | ❌ | Besides vectorizing memories, you can point this update at another data source |
-
-> **Prerequisites**: If no embedding model is available, import an Embedding type model in the model library first.
-
----
-
-## Scheduling Strategies
-
-Tasks can use the following triggers:
-
-### Interval Trigger
-
-Repeats execution at a fixed time interval. Configuration:
-
-| Parameter | Description | Options |
-|-----------|-------------|---------|
-| Interval Value | Positive integer | e.g., 30 |
-| Interval Unit | Time unit | Minutes / Hours / Days / Weeks / Months / Years |
-
-Example: "Every 30 minutes" or "Every 1 day." Use the time picker to set the clock time.
-
-### Fixed Time
-
-Executes once at a specified time point. Select the date and time. The execution time must be later than the current time.
+Run tasks at an interval or a specified time. To wait for another scheduled task to produce output, select it as the upstream task. Choose **Upstream Only** when the task should run only from that trigger.
 
 ### Upstream Task
 
-A task can name an upstream task. When that upstream run succeeds, this task starts on its own. Use it for sequences such as "refresh the knowledge base, then run the agent."
+For example, prepare training data first, then train a model:
 
-The global one-at-a-time limit still applies. While the upstream task is running, the downstream task waits.
+1. Save a **Data Processing** task that produces training data.
+2. Create a **Model Training** task. Under **Upstream Source**, choose **Scheduled Task** and select the task you just saved. Select **Upstream Only** and run only on upstream success.
+3. Select **Bind artifact** and map **Training data** to **Training file**. If available, bind matching validation data to **Validation file**. Check the template and data format, then save and enable the two tasks.
+4. After the first task finishes, check the downstream **Run History** for its inputs and results. If a required output is missing, review the upstream run before retrying.
 
----
-
-## Creating & Editing Tasks
-
-### Creating a Task
-
-1. Click the **New Task** button.
-2. Enter a task name (required).
-3. Select the task type from the dropdown.
-4. Configure the trigger; see [Scheduling Strategies](#scheduling-strategies).
-5. Fill in task-specific configuration based on the task type.
-6. Click Confirm to create.
-
-### Editing a Task
-
-Find the target task in the task list and click **Edit**. Modify parameters and save.
-
-- If the scheduling strategy parameters are modified, the system automatically recalculates the next execution time.
-
-### Enable/Disable
-
-Use the toggle switch in the task list to enable or disable a task at any time. Disabled tasks do not trigger automatically but can still be triggered manually.
-
----
-
-## Task List & Management
-
-The task list displays all created scheduled tasks:
-
-| Column | Description |
-|--------|-------------|
-| Name | Task name |
-| Task Type | Agent Task / Automatic Memory Organization / Memory Fine-Tuning / Knowledge Base Update |
-| Trigger Method | "Every X minutes", a fixed time, or an upstream task |
-| Next Execution | Estimated next execution time |
-| Last Status | Status of the most recent execution |
-| Enabled | Toggle switch |
-
-Click on a task row to select it; its run history expands below.
-
----
+To use the output of an already completed run, use **Select Run** for the appropriate source. This is different from waiting for the next upstream trigger. The picker shows outputs that are compatible with the selected target.
 
 ## Run History
 
-After selecting a task, its recent execution records are displayed below.
+Select a task to review run status, triggers, errors, and result files. Select **Open** on an available result, or return to the run from the [Inbox](../agent/inbox.md).
 
-### Run Status
+## Run and Stop Tasks
 
-| Status | Description |
-|--------|-------------|
-| Queued | Task created, waiting for execution |
-| Running | Task is executing |
-| Success | Task completed successfully |
-| Failed | Task execution error |
-| Blocked | Task cannot execute due to resource contention, etc. |
-| Stopped | Manually terminated |
-
-### Trigger Source
-
-| Source | Description |
-|--------|-------------|
-| Scheduled Trigger | Automatically triggered on schedule |
-| Manual Trigger | Triggered via the "Execute Now" button |
-| Retry | System automatic retry |
-| Upstream Finished | Starts automatically after the linked upstream task finishes |
-
-### Operations
-
-- **View Run Details**: Shows status, trigger source, start/end time, and error summary.
-- **Stop Execution**: Manually terminate a running task (only available during execution).
-- **Delete Record**: Delete the run history entry (not available during execution).
-- **Clear Records**: Clear all run history for the task (except currently running entries).
-
----
-
-## Task Execution & Stopping
-
-### Manual Execution
-
-Click the **Execute Now** button on a task row to manually trigger execution, regardless of the scheduling strategy. Results are recorded in the run history.
-
-When an interval task is started early by hand, the next trigger is **the current time plus the interval set on that task**.
-
-### Stop Execution
-
-If a task is running (status "Running" or "Executing"), click **Stop Current Task** to terminate it.
-
-### Concurrency Limitation
-
-> **Note**: Scheduled tasks use a global single-concurrency policy — only one task can execute at a time. If a new task's trigger time arrives while a previous task is still running, the new task will be blocked or skipped.
-
----
+- Run a task once from the list without changing its schedule.
+- Stop the active run from its run record. Future scheduled runs remain enabled. To pause the schedule, disable the task.
+- Scheduled tasks do not start in parallel. If another task is running, check the run history and the next trigger time.
 
 ## Notes
 
-- Memory fine-tuning export uses the export capabilities from "Memory Management"; compatibility rules are the same as manual export.
-- Knowledge base updates use `modxai_rag_memory` as the default collection name; multiple executions will **cumulatively update** the same knowledge base.
-- The scheduler scans for due tasks every 15 seconds.
-- If the ModxAI main service restarts, the scheduler automatically restores the status of incomplete tasks.
-- When a VRAM warning is shown, GPU tasks run one at a time. An idle GPU is not left stopped. When VRAM is critically low, a new GPU task is refused.
-- In "Existing Session" mode for agent tasks, execution will fail if the target session has been deleted.
+Keep the app open and the device running for scheduled execution. Check that models, files, and permissions will still be available. Tasks using online models or external tools need a connection and may incur provider charges. Before enabling unattended runs, review tools and approvals, especially for tasks that modify files, start training, or call an external service.

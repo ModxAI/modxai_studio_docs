@@ -1,8 +1,5 @@
 # Frequently Asked Questions
 
-> v1.1.11
-> 2026-11
-
 This page summarizes common issues and solutions encountered while using ModxAI Studio.
 
 ---
@@ -317,11 +314,12 @@ Common solutions:
 - **With NVIDIA GPU**: Choose GPU environment for significantly faster inference and training.
 - **Without dedicated GPU**: Choose CPU environment; most features will still work.
 
-### What is the difference between Full / Agent / Voice Synthesis installation capabilities?
+### What is the difference between All / Agent / Code Analysis / TTS installation capabilities?
 
 | Capability | Contents | Use Case |
 |------------|----------|----------|
-| Full | Training + Agent + TTS all dependencies | Users who need all features |
+| Full | Dependencies for training, agent tools, code analysis, and TTS | Users who need all features |
+| Code Analysis | Code parsing resources | Users of the CODE workspace |
 | Agent | Core libraries + browser environment | Users who only need agent web and web tools |
 | Voice Synthesis | Core libraries + TTS dependencies | Users who only need speech synthesis |
 
@@ -335,7 +333,7 @@ In "Full" mode, TTS dependencies are downloaded asynchronously. After completion
 
 ### Do I need to restart after environment installation?
 
-No. Features are immediately available after installation. For TTS async installation, based on network conditions, it may take a few minutes before refreshing confirms availability.
+No further restart is needed once installation shows as successful. If the app asks you to restart to finish switching environments, quit and reopen it, then refresh the environment status.
 
 ---
 

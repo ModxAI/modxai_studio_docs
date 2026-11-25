@@ -1,15 +1,12 @@
 # SD Chat - Overview
 
-> v1.1.11
-> 2026-11
-
 Describe what you want to create in SD Chat and use a loaded model to generate images or video. Install the NVIDIA CUDA acceleration libraries before starting. See the [Model Library](../models/overview.md).
 
 Open the **Agent** submenu and choose **Image**.
 
 Hover over the corresponding conversation entry in the main menu to view its conversation list. Selecting a conversation opens it. Use **Runtime Settings** at the top right to adjust the current conversation.
 
-Click the page title to rename the current conversation. The hover list is only for selecting conversations. To rename or delete from the list, pin the submenu and use the pencil or trash button beside the conversation.
+Select the page title to rename the current conversation in place. The hover list only switches conversations. To rename or delete from the list, pin the submenu, then select the conversation title or its trash button.
 
 ## Table of Contents
 
@@ -171,7 +168,7 @@ SD Chat automatically supports the following modes based on loaded model capabil
 
 #### Rename Conversation
 1. Pin the submenu to show the conversation list on the left.
-2. Click the pencil button beside the conversation.
+2. Select the conversation title.
 3. Enter new title (maximum 80 characters)
 4. Click **Confirm**
 
