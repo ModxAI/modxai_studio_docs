@@ -572,7 +572,7 @@ A: Try switching download source.
 ---
 
 After completing this chapter, you can:
-- Go to **Chat** feature, use loaded chat model for conversation.
-- Go to **Knowledge Base** feature, configure embedding and rerank models for RAG retrieval.
-- Go to **Data Processing** feature, use model to generate SFT or RAG datasets.
-- Go to **Settings** page, manage environment and system configuration.
+- Go to the **[Chat](../chat/overview.md)** feature and use a loaded chat model for conversation.
+- Go to the **[Knowledge Base](../dataset/rag.md)** feature to configure embedding and rerank models for RAG retrieval.
+- Go to the **[Data Processing](../dataset/overview.md)** feature to use models to generate SFT or RAG datasets.
+- Go to the **[Settings](../settings/overview.md)** page to manage environments and system configuration.
